@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project>
-	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1444367145" name="Debug_CM4">
+	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740" name="Debug_CM4">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
@@ -11,7 +11,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.1329112664" name="Release_CM4">
+	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804" name="Release_CM4">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
@@ -22,7 +22,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.812400670" name="Debug_CM7">
+	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238" name="Debug_CM7">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
@@ -33,7 +33,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.91991450" name="Release_CM7">
+	<configuration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861" name="Release_CM7">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>

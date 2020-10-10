@@ -22,6 +22,7 @@
 #include "cmsis_os.h"
 #include "crc.h"
 #include "dma.h"
+#include "fatfs.h"
 #include "fdcan.h"
 #include "iwdg.h"
 #include "quadspi.h"
@@ -109,8 +110,9 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_FDCAN1_Init();
-  MX_FDCAN2_Init();
   MX_IWDG2_Init();
+  MX_SPI5_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -139,7 +141,7 @@ int main(void)
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
+  * @note   This function is called  when TIM8 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -150,7 +152,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
+  if (htim->Instance == TIM8) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */

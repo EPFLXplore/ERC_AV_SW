@@ -51,7 +51,6 @@
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
   #include <stdint.h>
   extern uint32_t SystemCoreClock;
-  void xPortSysTickHandler(void);
 #endif
 #define configENABLE_FPU                         0
 #define configENABLE_MPU                         0
@@ -64,7 +63,7 @@
 #define configCPU_CLOCK_HZ                       ( SystemCoreClock )
 #define configTICK_RATE_HZ                       ((TickType_t)1000)
 #define configMAX_PRIORITIES                     ( 56 )
-#define configMINIMAL_STACK_SIZE                 ((uint16_t)128)
+#define configMINIMAL_STACK_SIZE                 ((uint16_t)512)
 #define configTOTAL_HEAP_SIZE                    ((size_t)15360)
 #define configMAX_TASK_NAME_LEN                  ( 16 )
 #define configUSE_TRACE_FACILITY                 1
@@ -88,7 +87,7 @@
 #define configUSE_TIMERS                         1
 #define configTIMER_TASK_PRIORITY                ( 2 )
 #define configTIMER_QUEUE_LENGTH                 10
-#define configTIMER_TASK_STACK_DEPTH             256
+#define configTIMER_TASK_STACK_DEPTH             1024
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
@@ -152,7 +151,7 @@ standard names. */
 
 /* IMPORTANT: This define is commented when used with STM32Cube firmware, when the timebase source is SysTick,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
-/* #define xPortSysTickHandler SysTick_Handler */
+#define xPortSysTickHandler SysTick_Handler
 
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
