@@ -1,579 +1,1158 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
-	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740" moduleId="org.eclipse.cdt.core.settings" name="Debug_CM4">
-				<externalSettings/>
-				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-				</extensions>
-			</storageModule>
-			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="${ProjName}_CM4" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740" name="Debug_CM4" parent="fr.ac6.managedbuild.config.gnu.cross.exe.debug" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
-					<folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740." name="/" resourcePath="">
-						<toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug.957551411" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug">
-							<option id="fr.ac6.managedbuild.option.gnu.cross.prefix.421628817" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1574139692" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.board.72814967" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
-								<listOptionValue builtIn="false" value="ARM Cortex-M4"/>
-								<listOptionValue builtIn="false" value="CM4"/>
-							</option>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.2105570110" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.923243132" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.32251107" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1351559235" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/XploreAvionics}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.1339928269" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
-								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
-								</outputEntries>
-							</builder>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
-								<option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.196167457" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.1169237267" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.1502626073" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.906651020" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM4"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.872781193" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.620342107" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.1888645580" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
-								<option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.917987549" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.1317635593" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.735052049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.2102052146" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM4"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.2087922054" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1498127821" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.15663256" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.2045855569" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.621424578" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
-								<option id="gnu.c.link.option.libs.1037744633" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs"/>
-								<option id="gnu.c.link.option.paths.127764491" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.c.link.option.ldflags.267255101" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.c.link.option.other.185547974" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1242117043" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.267522771" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.1114819283" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
-								<option id="gnu.cpp.link.option.libs.1484173882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
-								<option id="gnu.cpp.link.option.paths.1110595142" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.cpp.link.option.flags.869361044" superClass="gnu.cpp.link.option.flags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.cpp.link.option.other.1131451456" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1089176309" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.443784109" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.553658925" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
-								<option id="gnu.both.asm.option.include.paths.906557031" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-								</option>
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1518813683" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.1754461113" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<sourceEntries>
-						<entry excluding="startup_stm32h745xx_CM7.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/FATFS"/>
-						<entry excluding="Third_Party/LwIP/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/Core/Src"/>
-					</sourceEntries>
-				</configuration>
-			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-		</cconfiguration>
-		<cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804" moduleId="org.eclipse.cdt.core.settings" name="Release_CM4">
-				<externalSettings/>
-				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-				</extensions>
-			</storageModule>
-			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="${ProjName}_CM4" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804" name="Release_CM4" parent="fr.ac6.managedbuild.config.gnu.cross.exe.release" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
-					<folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804." name="/" resourcePath="">
-						<toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release.1704187640" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release">
-							<option id="fr.ac6.managedbuild.option.gnu.cross.prefix.421628817" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1574139692" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.board.72814967" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
-								<listOptionValue builtIn="false" value="ARM Cortex-M4"/>
-								<listOptionValue builtIn="false" value="CM4"/>
-							</option>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.2105570110" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.923243132" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.32251107" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1351559235" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/XploreAvionics}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.1339928269" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
-								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
-								</outputEntries>
-							</builder>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
-								<option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.196167457" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.1169237267" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.1502626073" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.906651020" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM4"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.872781193" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.620342107" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.1888645580" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
-								<option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.917987549" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.1317635593" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.735052049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
-									<listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.symbols.809214285" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM4"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.2087922054" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1498127821" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.15663256" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.2045855569" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.621424578" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
-								<option id="gnu.c.link.option.libs.1037744633" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs"/>
-								<option id="gnu.c.link.option.paths.127764491" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.c.link.option.ldflags.267255101" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.c.link.option.other.185547974" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1242117043" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.267522771" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.1114819283" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
-								<option id="gnu.cpp.link.option.libs.1484173882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
-								<option id="gnu.cpp.link.option.paths.1110595142" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.cpp.link.option.ldflags.1879832926" superClass="gnu.cpp.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.cpp.link.option.other.1131451456" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1089176309" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.443784109" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release.129402162" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release">
-								<option id="gnu.both.asm.option.include.paths.906557031" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-								</option>
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1518813683" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.1754461113" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<sourceEntries>
-						<entry excluding="startup_stm32h745xx_CM7.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/FATFS"/>
-						<entry excluding="Third_Party/LwIP/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/Core/Src"/>
-					</sourceEntries>
-				</configuration>
-			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-		</cconfiguration>
-		<cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238" moduleId="org.eclipse.cdt.core.settings" name="Debug_CM7">
-				<externalSettings/>
-				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-				</extensions>
-			</storageModule>
-			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="${ProjName}_CM7" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238" name="Debug_CM7" parent="fr.ac6.managedbuild.config.gnu.cross.exe.debug" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
-					<folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238." name="/" resourcePath="">
-						<toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug.1117041361" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug">
-							<option id="fr.ac6.managedbuild.option.gnu.cross.prefix.1290772614" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1549304569" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.board.2099467364" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
-								<listOptionValue builtIn="false" value="ARM Cortex-M7"/>
-								<listOptionValue builtIn="false" value="CM7"/>
-							</option>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.471591524" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.858890900" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv5-d16" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.585189398" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1781666129" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/XploreAvionics}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.102338552" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
-								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
-								</outputEntries>
-							</builder>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.156876248" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
-								<option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.933515308" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.1041913734" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.35694008" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1414223240" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM7"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1314057764" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.90788230" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.70645590" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.253271267" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
-								<option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.2009360937" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.2016006767" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.980788465" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.998135563" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM7"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.690114057" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1791251129" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.652099842" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.307180379" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.321168868" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
-								<option id="gnu.c.link.option.libs.42182661" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs"/>
-								<option id="gnu.c.link.option.paths.690098537" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.c.link.option.ldflags.1234081945" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.c.link.option.other.1355177272" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.744210434" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.1236688143" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.2092500378" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
-								<option id="gnu.cpp.link.option.libs.800444794" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
-								<option id="gnu.cpp.link.option.paths.67385056" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.cpp.link.option.flags.1194493759" superClass="gnu.cpp.link.option.flags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.cpp.link.option.other.639550237" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1918080715" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.1760734280" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.86616309" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
-								<option id="gnu.both.asm.option.include.paths.663687364" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-								</option>
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1412386377" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.861963589" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<sourceEntries>
-						<entry excluding="startup_stm32h745xx_CM4.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/LWIP"/>
-						<entry excluding="Third_Party/FatFs/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/Core/Src"/>
-					</sourceEntries>
-				</configuration>
-			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-		</cconfiguration>
-		<cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861" moduleId="org.eclipse.cdt.core.settings" name="Release_CM7">
-				<externalSettings/>
-				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-				</extensions>
-			</storageModule>
-			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="elf" artifactName="${ProjName}_CM7" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861" name="Release_CM7" parent="fr.ac6.managedbuild.config.gnu.cross.exe.release" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
-					<folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861." name="/" resourcePath="">
-						<toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release.1365521206" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release">
-							<option id="fr.ac6.managedbuild.option.gnu.cross.prefix.1290772614" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1549304569" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.board.2099467364" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
-								<listOptionValue builtIn="false" value="ARM Cortex-M7"/>
-								<listOptionValue builtIn="false" value="CM7"/>
-							</option>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.471591524" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.858890900" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv5-d16" valueType="enumerated"/>
-							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.585189398" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
-							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1781666129" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/XploreAvionics}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.102338552" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
-								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
-								</outputEntries>
-							</builder>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.156876248" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
-								<option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.933515308" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.debugging.level.1041913734" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.35694008" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1414223240" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM7"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1314057764" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.90788230" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.70645590" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.253271267" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
-								<option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.2009360937" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.debugging.level.2016006767" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.980788465" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
-									<listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
-									<listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.symbols.586604566" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="CORE_CM7"/>
-									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-									<listOptionValue builtIn="false" value="STM32H745xx"/>
-								</option>
-								<option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.690114057" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" value="-fmessage-length=0" valueType="string"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1791251129" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.652099842" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.307180379" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.321168868" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
-								<option id="gnu.c.link.option.libs.42182661" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs"/>
-								<option id="gnu.c.link.option.paths.690098537" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.c.link.option.ldflags.1234081945" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.c.link.option.other.1355177272" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.744210434" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.1236688143" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
-								<option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.2092500378" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
-								<option id="gnu.cpp.link.option.libs.800444794" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
-								<option id="gnu.cpp.link.option.paths.67385056" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
-								<option id="gnu.cpp.link.option.ldflags.1944473553" superClass="gnu.cpp.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
-								<option id="gnu.cpp.link.option.other.639550237" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false" valueType="stringList"/>
-								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1918080715" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
-									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-								</inputType>
-							</tool>
-							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.1760734280" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
-							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release.481572477" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release">
-								<option id="gnu.both.asm.option.include.paths.663687364" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-								</option>
-								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1412386377" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
-								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.861963589" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<sourceEntries>
-						<entry excluding="startup_stm32h745xx_CM4.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/LWIP"/>
-						<entry excluding="Third_Party/FatFs/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
-						<entry excluding="" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/Core/Src"/>
-					</sourceEntries>
-				</configuration>
-			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-		</cconfiguration>
-	</storageModule>
-	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="XploreAvionics.fr.ac6.managedbuild.target.gnu.cross.exe.1779754269" name="Executable" projectType="fr.ac6.managedbuild.target.gnu.cross.exe"/>
-	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740;fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740.;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675">
-			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration artifactName="${ProjName}_CM4" configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="XploreAvionics"/>
-		</configuration>
-		<configuration artifactName="${ProjName}_CM7" configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="XploreAvionics"/>
-		</configuration>
-	</storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.core.settings">
+        		
+        <cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740">
+            			
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740" moduleId="org.eclipse.cdt.core.settings" name="Debug_CM4">
+                				
+                <externalSettings/>
+                				
+                <extensions>
+                    					
+                    <extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    				
+                </extensions>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="cdtBuildSystem" version="4.0.0">
+                				
+                <configuration artifactExtension="elf" artifactName="${ProjName}_CM4" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740" name="Debug_CM4" optionalBuildProperties="" parent="fr.ac6.managedbuild.config.gnu.cross.exe.debug" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
+                    					
+                    <folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740." name="/" resourcePath="">
+                        						
+                        <toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug.957551411" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug">
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.prefix.421628817" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1574139692" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.board.72814967" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
+                            							
+                            <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
+                                								
+                                <listOptionValue builtIn="false" value="ARM Cortex-M4"/>
+                                								
+                                <listOptionValue builtIn="false" value="CM4"/>
+                                							
+                            </option>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.2105570110" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.fpu.923243132" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.32251107" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
+                            							
+                            <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1351559235" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
+                            							
+                            <builder buildPath="${workspace_loc:/XploreAvionics}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.1339928269" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
+                                								
+                                <outputEntries>
+                                    									
+                                    <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
+                                    								
+                                </outputEntries>
+                                							
+                            </builder>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
+                                								
+                                <option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.196167457" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.c.compiler.option.debugging.level.1169237267" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1502626073" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/STM32H745I_Nucleo"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.906651020" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM4"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.872781193" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.620342107" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.1888645580" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
+                                								
+                                <option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.917987549" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.cpp.compiler.option.debugging.level.1317635593" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.735052049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.2102052146" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM4"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.2087922054" name="Other flags" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1498127821" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.15663256" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.2045855569" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.621424578" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.libs.1037744633" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
+                                								
+                                <option id="gnu.c.link.option.paths.127764491" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
+                                								
+                                <option id="gnu.c.link.option.ldflags.267255101" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.other.185547974" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1242117043" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.267522771" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.1114819283" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.libs.1484173882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
+                                								
+                                <option id="gnu.cpp.link.option.paths.1110595142" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
+                                								
+                                <option id="gnu.cpp.link.option.flags.869361044" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.other.1131451456" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1089176309" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.archiver.443784109" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.553658925" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
+                                								
+                                <option id="gnu.both.asm.option.include.paths.906557031" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1518813683" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.1754461113" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
+                                							
+                            </tool>
+                            						
+                        </toolChain>
+                        					
+                    </folderInfo>
+                    					
+                    <sourceEntries>
+                        						
+                        <entry excluding="startup_stm32h745xx_CM7.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/FATFS"/>
+                        						
+                        <entry excluding="Third_Party/LwIP/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/Core/Src"/>
+                        					
+                    </sourceEntries>
+                    				
+                </configuration>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+            		
+        </cconfiguration>
+        		
+        <cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804">
+            			
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804" moduleId="org.eclipse.cdt.core.settings" name="Release_CM4">
+                				
+                <externalSettings/>
+                				
+                <extensions>
+                    					
+                    <extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    				
+                </extensions>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="cdtBuildSystem" version="4.0.0">
+                				
+                <configuration artifactExtension="elf" artifactName="${ProjName}_CM4" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804" name="Release_CM4" optionalBuildProperties="" parent="fr.ac6.managedbuild.config.gnu.cross.exe.release" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
+                    					
+                    <folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.release.518063804." name="/" resourcePath="">
+                        						
+                        <toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release.1704187640" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release">
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.prefix.421628817" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1574139692" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.board.72814967" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
+                            							
+                            <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
+                                								
+                                <listOptionValue builtIn="false" value="ARM Cortex-M4"/>
+                                								
+                                <listOptionValue builtIn="false" value="CM4"/>
+                                							
+                            </option>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.2105570110" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.fpu.923243132" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv4-sp-d16" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.32251107" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
+                            							
+                            <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1351559235" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
+                            							
+                            <builder buildPath="${workspace_loc:/XploreAvionics}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.1339928269" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
+                                								
+                                <outputEntries>
+                                    									
+                                    <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
+                                    								
+                                </outputEntries>
+                                							
+                            </builder>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
+                                								
+                                <option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.196167457" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.c.compiler.option.debugging.level.1169237267" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1502626073" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/STM32H745I_Nucleo"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.906651020" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM4"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.872781193" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.620342107" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.1888645580" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
+                                								
+                                <option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.917987549" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.cpp.compiler.option.debugging.level.1317635593" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.735052049" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM4/FATFS/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.symbols.809214285" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM4"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.2087922054" name="Other flags" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1498127821" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.15663256" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.2045855569" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.621424578" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.libs.1037744633" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
+                                								
+                                <option id="gnu.c.link.option.paths.127764491" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
+                                								
+                                <option id="gnu.c.link.option.ldflags.267255101" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.other.185547974" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1242117043" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.267522771" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.1114819283" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM4.ld" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.libs.1484173882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
+                                								
+                                <option id="gnu.cpp.link.option.paths.1110595142" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
+                                								
+                                <option id="gnu.cpp.link.option.ldflags.1879832926" superClass="gnu.cpp.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.other.1131451456" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1089176309" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.archiver.443784109" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release.129402162" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release">
+                                								
+                                <option id="gnu.both.asm.option.include.paths.906557031" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1518813683" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.1754461113" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
+                                							
+                            </tool>
+                            						
+                        </toolChain>
+                        					
+                    </folderInfo>
+                    					
+                    <sourceEntries>
+                        						
+                        <entry excluding="startup_stm32h745xx_CM7.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/FATFS"/>
+                        						
+                        <entry excluding="Third_Party/LwIP/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM4/Core/Src"/>
+                        					
+                    </sourceEntries>
+                    				
+                </configuration>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+            		
+        </cconfiguration>
+        		
+        <cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238">
+            			
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238" moduleId="org.eclipse.cdt.core.settings" name="Debug_CM7">
+                				
+                <externalSettings/>
+                				
+                <extensions>
+                    					
+                    <extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    				
+                </extensions>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="cdtBuildSystem" version="4.0.0">
+                				
+                <configuration artifactExtension="elf" artifactName="${ProjName}_CM7" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238" name="Debug_CM7" optionalBuildProperties="" parent="fr.ac6.managedbuild.config.gnu.cross.exe.debug" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
+                    					
+                    <folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.625643238." name="/" resourcePath="">
+                        						
+                        <toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug.1117041361" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.debug">
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.prefix.1290772614" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1549304569" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.board.2099467364" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="XploreAvionics" valueType="string"/>
+                            							
+                            <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
+                                								
+                                <listOptionValue builtIn="false" value="ARM Cortex-M7"/>
+                                								
+                                <listOptionValue builtIn="false" value="CM7"/>
+                                							
+                            </option>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.471591524" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.fpu.858890900" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv5-d16" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.585189398" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
+                            							
+                            <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1781666129" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
+                            							
+                            <builder buildPath="${workspace_loc:/XploreAvionics}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.102338552" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
+                                								
+                                <outputEntries>
+                                    									
+                                    <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
+                                    								
+                                </outputEntries>
+                                							
+                            </builder>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.156876248" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
+                                								
+                                <option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.933515308" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.c.compiler.option.debugging.level.1041913734" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.35694008" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/STM32H745I_Nucleo"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.1414223240" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM7"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1314057764" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.90788230" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.70645590" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.253271267" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
+                                								
+                                <option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.2009360937" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.cpp.compiler.option.debugging.level.2016006767" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.980788465" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.998135563" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM7"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.690114057" name="Other flags" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1791251129" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.652099842" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.307180379" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.321168868" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.libs.42182661" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
+                                								
+                                <option id="gnu.c.link.option.paths.690098537" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
+                                								
+                                <option id="gnu.c.link.option.ldflags.1234081945" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.other.1355177272" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.744210434" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.1236688143" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.2092500378" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.libs.800444794" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
+                                								
+                                <option id="gnu.cpp.link.option.paths.67385056" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
+                                								
+                                <option id="gnu.cpp.link.option.flags.1194493759" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.other.639550237" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1918080715" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.archiver.1760734280" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.86616309" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
+                                								
+                                <option id="gnu.both.asm.option.include.paths.663687364" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1412386377" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.861963589" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
+                                							
+                            </tool>
+                            						
+                        </toolChain>
+                        					
+                    </folderInfo>
+                    					
+                    <sourceEntries>
+                        						
+                        <entry excluding="startup_stm32h745xx_CM4.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/LWIP"/>
+                        						
+                        <entry excluding="Third_Party/FatFs/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/Core/Src"/>
+                        					
+                    </sourceEntries>
+                    				
+                </configuration>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+            		
+        </cconfiguration>
+        		
+        <cconfiguration id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861">
+            			
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861" moduleId="org.eclipse.cdt.core.settings" name="Release_CM7">
+                				
+                <externalSettings/>
+                				
+                <extensions>
+                    					
+                    <extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+                    					
+                    <extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+                    				
+                </extensions>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="cdtBuildSystem" version="4.0.0">
+                				
+                <configuration artifactExtension="elf" artifactName="${ProjName}_CM7" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861" name="Release_CM7" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="fr.ac6.managedbuild.config.gnu.cross.exe.release" postannouncebuildStep="Generating hex and Printing size information:" postbuildStep="arm-none-eabi-objcopy -O ihex &quot;${BuildArtifactFileBaseName}.elf&quot; &quot;${BuildArtifactFileBaseName}.hex&quot; &amp;&amp; arm-none-eabi-size &quot;${BuildArtifactFileName}&quot;">
+                    					
+                    <folderInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.release.2031709861." name="/" resourcePath="">
+                        						
+                        <toolChain id="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release.1365521206" name="Ac6 STM32 MCU GCC" superClass="fr.ac6.managedbuild.toolchain.gnu.cross.exe.release">
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.prefix.1290772614" name="Prefix" superClass="fr.ac6.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.mcu.1549304569" name="Mcu" superClass="fr.ac6.managedbuild.option.gnu.cross.mcu" value="STM32H745ZITx" valueType="string"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.board.2099467364" name="Board" superClass="fr.ac6.managedbuild.option.gnu.cross.board" value="NUCLEO-H745ZI-Q" valueType="string"/>
+                            							
+                            <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="fr.ac6.managedbuild.option.gnu.cross.core.1083960614" name="Core" superClass="fr.ac6.managedbuild.option.gnu.cross.core" valueType="stringList">
+                                								
+                                <listOptionValue builtIn="false" value="ARM Cortex-M7"/>
+                                								
+                                <listOptionValue builtIn="false" value="CM7"/>
+                                							
+                            </option>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.instructionSet.471591524" name="Instruction Set" superClass="fr.ac6.managedbuild.option.gnu.cross.instructionSet" value="fr.ac6.managedbuild.option.gnu.cross.instructionSet.thumbII" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.fpu.858890900" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv5-d16" valueType="enumerated"/>
+                            							
+                            <option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.585189398" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
+                            							
+                            <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.1781666129" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
+                            							
+                            <builder buildPath="${workspace_loc:/XploreAvionics}/Release" id="fr.ac6.managedbuild.builder.gnu.cross.102338552" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="fr.ac6.managedbuild.builder.gnu.cross">
+                                								
+                                <outputEntries>
+                                    									
+                                    <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
+                                    								
+                                </outputEntries>
+                                							
+                            </builder>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.156876248" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
+                                								
+                                <option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.933515308" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.c.compiler.option.debugging.level.1041913734" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.35694008" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/STM32H745I_Nucleo"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.1414223240" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM7"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1314057764" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.90788230" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.70645590" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.253271267" name="MCU G++ Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler">
+                                								
+                                <option defaultValue="gnu.cpp.optimization.level.none" id="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level.2009360937" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.cpp.optimization.level.debug" valueType="enumerated"/>
+                                								
+                                <option id="gnu.cpp.compiler.option.debugging.level.2016006767" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.debugging.level.max" valueType="enumerated"/>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.980788465" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/App"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../CM7/LWIP/Target"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/BSP/Components/lan8742"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/lwip/prot"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/netif"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/net"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/posix/sys"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/src/include/compat/stdc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/LwIP/system/arch"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+                                    								
+                                </option>
+                                								
+                                <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.preprocessor.def.symbols.586604566" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="CORE_CM7"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="STM32H745xx"/>
+                                    								
+                                </option>
+                                								
+                                <option id="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other.690114057" name="Other flags" superClass="fr.ac6.managedbuild.gnu.cpp.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1791251129" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s.652099842" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.s"/>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.307180379" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.321168868" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.libs.42182661" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
+                                								
+                                <option id="gnu.c.link.option.paths.690098537" name="Library search path (-L)" superClass="gnu.c.link.option.paths"/>
+                                								
+                                <option id="gnu.c.link.option.ldflags.1234081945" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.c.link.option.other.1355177272" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.744210434" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.1236688143" name="MCU G++ Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker">
+                                								
+                                <option id="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script.2092500378" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.cpp.linker.script" value="../stm32h745xx_flash_CM7.ld" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.libs.800444794" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
+                                								
+                                <option id="gnu.cpp.link.option.paths.67385056" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
+                                								
+                                <option id="gnu.cpp.link.option.ldflags.1944473553" superClass="gnu.cpp.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
+                                								
+                                <option id="gnu.cpp.link.option.other.639550237" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" useByScannerDiscovery="false"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1918080715" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+                                    									
+                                    <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+                                    									
+                                    <additionalInput kind="additionalinput" paths="$(LIBS)"/>
+                                    								
+                                </inputType>
+                                							
+                            </tool>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.archiver.1760734280" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
+                            							
+                            <tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release.481572477" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.exe.release">
+                                								
+                                <option id="gnu.both.asm.option.include.paths.663687364" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+                                								
+                                <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1412386377" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+                                								
+                                <inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.861963589" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
+                                							
+                            </tool>
+                            						
+                        </toolChain>
+                        					
+                    </folderInfo>
+                    					
+                    <sourceEntries>
+                        						
+                        <entry excluding="startup_stm32h745xx_CM4.s" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/LWIP"/>
+                        						
+                        <entry excluding="Third_Party/FatFs/" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
+                        						
+                        <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="CM7/Core/Src"/>
+                        					
+                    </sourceEntries>
+                    				
+                </configuration>
+                			
+            </storageModule>
+            			
+            <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+            		
+        </cconfiguration>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="cdtBuildSystem" version="4.0.0">
+        		
+        <project id="XploreAvionics.fr.ac6.managedbuild.target.gnu.cross.exe.1779754269" name="Executable" projectType="fr.ac6.managedbuild.target.gnu.cross.exe"/>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="scannerConfiguration">
+        		
+        <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+        		
+        <scannerConfigBuildInfo instanceId="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740;fr.ac6.managedbuild.config.gnu.cross.exe.debug.1707476740.;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.480036532;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.110794675">
+            			
+            <autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+            		
+        </scannerConfigBuildInfo>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+    	
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration artifactName="${ProjName}_CM4" configurationName="Debug">
+            			
+            <resource resourceType="PROJECT" workspacePath="XploreAvionics"/>
+            		
+        </configuration>
+        		
+        <configuration artifactName="${ProjName}_CM7" configurationName="Debug">
+            			
+            <resource resourceType="PROJECT" workspacePath="XploreAvionics"/>
+            		
+        </configuration>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+    
 </cproject>

@@ -155,8 +155,15 @@ Error_Handler();
   MX_IWDG1_Init();
   MX_USART6_UART_Init();
   MX_RTC_Init();
-  /* USER CODE BEGIN 2 */
 
+
+  BSP_LED_Init(LED1);
+  BSP_LED_Init(LED2);
+
+  BSP_LED_On(LED2);
+  BSP_LED_On(LED1);
+
+  /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 
   /* Init scheduler */

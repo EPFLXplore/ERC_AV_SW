@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE targetDefinitions [ 
+	<!ELEMENT targetDefinitions (board)>
+	<!ELEMENT board (name, dbgIF+, dbgDEV, mcuId)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT dbgIF (#PCDATA)>
+	<!ELEMENT dbgDEV (#PCDATA)>
+	<!ELEMENT mcuId (#PCDATA)>
+	<!ATTLIST board id CDATA #REQUIRED>
+]>
+
+<targetDefinitions>
+  <board id="nucleo-h745zi-q">
+    <name>NUCLEO-H745ZI-Q</name>
+    <dbgIF>SWD</dbgIF>
+    <dbgIF>JTAG</dbgIF>
+    <dbgDEV>ST-Link</dbgDEV>
+    <mcuId>stm32h745zitx</mcuId>
+  </board>
+</targetDefinitions>
