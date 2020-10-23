@@ -1,5 +1,5 @@
 Middlewares/Third_Party/LwIP/ipv6cp.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/ppp/ipv6cp.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/ppp/ipv6cp.c \
  ../../Middlewares/Third_Party/LwIP/src/include/netif/ppp/ppp_opts.h \
  ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \

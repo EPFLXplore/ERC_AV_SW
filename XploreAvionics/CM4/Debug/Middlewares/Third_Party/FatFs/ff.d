@@ -1,7 +1,7 @@
 Middlewares/Third_Party/FatFs/ff.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.c \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.h \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/integer.h \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.h \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/integer.h \
  ../FATFS/Target/ffconf.h ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
@@ -53,11 +53,11 @@ Middlewares/Third_Party/FatFs/ff.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/diskio.h
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/diskio.h
 
-/Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.h:
+/Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/ff.h:
 
-/Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/integer.h:
+/Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/integer.h:
 
 ../FATFS/Target/ffconf.h:
 
@@ -163,4 +163,4 @@ Middlewares/Third_Party/FatFs/ff.o: \
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 
-/Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FatFs/src/diskio.h:
+/Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FatFs/src/diskio.h:

@@ -52,8 +52,8 @@ XploreAvionics_CM4.bin \
 all: XploreAvionics_CM4.elf secondary-outputs
 
 # Tool invocations
-XploreAvionics_CM4.elf: $(OBJS) $(USER_OBJS) /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/CM4/STM32H745ZITX_FLASH.ld
-	arm-none-eabi-gcc -o "XploreAvionics_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/CM4/STM32H745ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XploreAvionics_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+XploreAvionics_CM4.elf: $(OBJS) $(USER_OBJS) /Users/arion/git/XploreAvionics/XploreAvionics/CM4/STM32H745ZITX_FLASH.ld
+	arm-none-eabi-gcc -o "XploreAvionics_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/arion/git/XploreAvionics/XploreAvionics/CM4/STM32H745ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XploreAvionics_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,5 +1,5 @@
 Middlewares/Third_Party/LwIP/mppe.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/ppp/mppe.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/ppp/mppe.c \
  ../../Middlewares/Third_Party/LwIP/src/include/netif/ppp/ppp_opts.h \
  ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \

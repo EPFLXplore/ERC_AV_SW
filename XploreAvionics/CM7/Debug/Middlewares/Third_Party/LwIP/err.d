@@ -1,5 +1,5 @@
 Middlewares/Third_Party/LwIP/err.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/LwIP/src/api/err.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/LwIP/src/api/err.c \
  ../../Middlewares/Third_Party/LwIP/src/include/lwip/err.h \
  ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \

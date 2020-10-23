@@ -1,5 +1,5 @@
 Middlewares/Third_Party/FreeRTOS/heap_4.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \

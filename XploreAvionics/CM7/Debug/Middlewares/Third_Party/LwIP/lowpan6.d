@@ -1,5 +1,5 @@
 Middlewares/Third_Party/LwIP/lowpan6.o: \
- /Users/arion/STM32CubeIDE/workspace_1.4.0/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/lowpan6.c \
+ /Users/arion/git/XploreAvionics/XploreAvionics/Middlewares/Third_Party/LwIP/src/netif/lowpan6.c \
  ../../Middlewares/Third_Party/LwIP/src/include/netif/lowpan6.h \
  ../../Middlewares/Third_Party/LwIP/src/include/netif/lowpan6_opts.h \
  ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
