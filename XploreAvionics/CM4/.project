@@ -36,6 +36,11 @@
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Common</locationURI>
 		</link>
 		<link>
+			<name>System</name>
+			<type>2</type>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/System</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c</locationURI>
