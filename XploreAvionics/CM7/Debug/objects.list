@@ -140,5 +140,6 @@
 "Middlewares/Third_Party/LwIP/utils.o"
 "Middlewares/Third_Party/LwIP/vj.o"
 "Middlewares/Third_Party/LwIP/zepif.o"
+"System/Misc/WatchdogThread.o"
 "System/System.o"
 "System/Thread.o"

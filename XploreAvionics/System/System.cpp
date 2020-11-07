@@ -10,10 +10,9 @@
 #include "Misc/WatchdogThread.h"
 
 void initCortexM4() {
-	WatchdogThread* watchdog = (WatchdogThread*) pvPortMalloc(sizeof(WatchdogThread));
-	watchdog->WatchdogThread();
+	new WatchdogThread();
 }
 
 void initCortexM7() {
-
+	new WatchdogThread();
 }

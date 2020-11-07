@@ -10,6 +10,7 @@
 
 #ifdef __cplusplus
 #include "Thread.h"
+#include "Lang/Operators.h"
 
 extern "C" {
 #endif

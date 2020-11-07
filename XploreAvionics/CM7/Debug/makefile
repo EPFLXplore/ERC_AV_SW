@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include System/Misc/subdir.mk
 -include System/subdir.mk
 -include Middlewares/Third_Party/LwIP/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/subdir.mk

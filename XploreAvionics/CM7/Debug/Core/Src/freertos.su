@@ -1,2 +1,1 @@
 freertos.c:73:6:MX_FREERTOS_Init	8	static
-freertos.c:112:6:watchdogTask	16	static
