@@ -26,9 +26,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "iwdg.h"
-
-#include "System.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,10 +48,6 @@
 
 /* USER CODE END Variables */
 /* Definitions for watchdog */
-osThreadId_t watchdogHandle;
-const osThreadAttr_t watchdog_attributes = { .name = "watchdog", .priority =
-		(osPriority_t) osPriorityNormal, .stack_size = 512 * 4 };
-
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 

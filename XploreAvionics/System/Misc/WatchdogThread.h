@@ -8,7 +8,7 @@
 #ifndef MISC_WATCHDOGTHREAD_H_
 #define MISC_WATCHDOGTHREAD_H_
 
-#include "../Thread.h"
+#include "Thread.h"
 
 class WatchdogThread : Thread {
 public:

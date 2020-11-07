@@ -60,5 +60,7 @@
 "Middlewares/Third_Party/FreeRTOS/tasks.o"
 "Middlewares/Third_Party/FreeRTOS/timers.o"
 "System/Misc/WatchdogThread.o"
+"System/Sensors/Barometer.o"
+"System/Sensors/IMU.o"
 "System/System.o"
 "System/Thread.o"

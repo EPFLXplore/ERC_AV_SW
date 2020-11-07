@@ -39,5 +39,6 @@ LWIP/Target \
 Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \
 System/Misc \
+System/Sensors \
 System \
 

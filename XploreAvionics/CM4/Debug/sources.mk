@@ -39,5 +39,6 @@ FATFS/Target \
 Middlewares/Third_Party/FatFs \
 Middlewares/Third_Party/FreeRTOS \
 System/Misc \
+System/Sensors \
 System \
 
