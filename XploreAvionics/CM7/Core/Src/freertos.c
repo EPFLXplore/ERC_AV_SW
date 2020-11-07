@@ -93,7 +93,6 @@ void MX_FREERTOS_Init(void) {
 
 	/* Create the thread(s) */
 	/* creation of watchdog */
-	watchdogHandle = osThreadNew(watchdogTask, NULL, &watchdog_attributes);
 
 	/* USER CODE BEGIN RTOS_THREADS */
 	initCortexM7();
@@ -109,17 +108,7 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_watchdogTask */
-void watchdogTask(void *argument) {
-	/* init code for LWIP */
-	// MX_LWIP_Init();
-	/* USER CODE BEGIN watchdogTask */
-	/* Infinite loop */
-	for (;;) {
-		HAL_IWDG_Refresh(&hiwdg1);
-		osDelay(100);
-	}
-	/* USER CODE END watchdogTask */
-}
+
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

@@ -10,7 +10,9 @@
 #define DEFAULT_STACK_SIZE (512 * 4)
 
 
-static void __task_run(Thread* thread) {
+void __task_run(void* arg) {
+	Thread* thread = (Thread*) arg;
+
 	thread->init();
 
 	while(true) {
@@ -18,15 +20,24 @@ static void __task_run(Thread* thread) {
 	}
 }
 
-Thread::Thread(const char* name) {
-	Thread::Thread(name, (osPriority_t) osPriorityNormal);
+Thread::Thread(const char* name) : Thread(name, (osPriority_t) osPriorityNormal) {
+	;
 }
 
-Thread::Thread(const char* name, osPriority_t priority) {
-	osThreadAttr_t attributes = { .name = name, .priority = priority, .stack_size = DEFAULT_STACK_SIZE };
-	Thread::Thread(attributes);
+Thread::Thread(const char* name, osPriority_t priority) : Thread(name, priority, DEFAULT_STACK_SIZE) {
+	;
 }
 
-Thread::Thread(osThreadAttr_t attributes) {
+Thread::Thread(const char* name, uint32_t stackSize) : Thread(name, (osPriority_t) osPriorityNormal, stackSize) {
+	;
+}
+
+Thread::Thread(const char* name, osPriority_t priority, uint32_t stackSize) {
+	osThreadAttr_t attributes;
+
+	attributes.name = name;
+	attributes.priority = priority;
+	attributes.stack_size = stackSize;
+
 	this->handle = osThreadNew(__task_run, this, &attributes);
 }

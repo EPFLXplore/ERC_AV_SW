@@ -26,7 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "System.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,12 +49,6 @@
 
 /* USER CODE END Variables */
 /* Definitions for watchdog */
-osThreadId_t watchdogHandle;
-const osThreadAttr_t watchdog_attributes = {
-  .name = "watchdog",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
-};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -93,10 +87,9 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of watchdog */
-  watchdogHandle = osThreadNew(watchdogTask, NULL, &watchdog_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+	initCortexM4();
   /* USER CODE END RTOS_THREADS */
 
 }
@@ -108,16 +101,6 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_watchdogTask */
-void watchdogTask(void *argument)
-{
-  /* USER CODE BEGIN watchdogTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END watchdogTask */
-}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

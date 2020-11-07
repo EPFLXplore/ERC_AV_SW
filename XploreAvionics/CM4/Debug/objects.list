@@ -59,3 +59,6 @@
 "Middlewares/Third_Party/FreeRTOS/stream_buffer.o"
 "Middlewares/Third_Party/FreeRTOS/tasks.o"
 "Middlewares/Third_Party/FreeRTOS/timers.o"
+"System/Misc/WatchdogThread.o"
+"System/System.o"
+"System/Thread.o"

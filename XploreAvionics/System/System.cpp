@@ -7,8 +7,11 @@
 
 #include "System.h"
 
-void initCortexM4() {
+#include "Misc/WatchdogThread.h"
 
+void initCortexM4() {
+	WatchdogThread* watchdog = (WatchdogThread*) pvPortMalloc(sizeof(WatchdogThread));
+	watchdog->WatchdogThread();
 }
 
 void initCortexM7() {

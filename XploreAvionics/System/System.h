@@ -9,6 +9,8 @@
 #define SYSTEM_H_
 
 #ifdef __cplusplus
+#include "Thread.h"
+
 extern "C" {
 #endif
 
