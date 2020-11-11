@@ -14,5 +14,9 @@ void IMUThread::init(I2C_HandleTypeDef* hi2c) {
 }
 
 void IMUThread::loop() {
+	this.imuData[0] = bno055_getVectorAccelerometer();
+	this.imuData[1] = bno055_getVectorEuler(); // bno055_getVectorQuaternion();
+	this.imuData[2] = bno055_getVectorGravity();
+	writeToRtosBuffer(this.imuData);
 	osDelay(100);
 }

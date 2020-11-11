@@ -57,6 +57,23 @@ int8_t bno055_getTemp() {
   return t;
 }
 
+void bno055_setup() {
+  bno055_reset();
+
+  uint8_t id = 0;
+  bno055_readData(BNO055_CHIP_ID, &id, 1);
+  if (id != BNO055_ID) {
+	  //Pas réussi :/
+	  /* IMPLEMENT ME */
+  }
+  bno055_setPage(0);
+  bno055_writeData(BNO055_SYS_TRIGGER, 0x0);
+
+  // Select BNO055 config mode
+  bno055_setOperationModeConfig();
+  bno055_delay(10);
+}
+
 void bno055_setup(UART_HandleTypeDef *huart) {
   bno055_reset();
 
