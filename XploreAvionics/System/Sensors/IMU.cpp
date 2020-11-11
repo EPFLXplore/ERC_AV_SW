@@ -7,8 +7,10 @@
 
 #include "IMU.h"
 
-void IMUThread::init() {
-
+void IMUThread::init(I2C_HandleTypeDef* hi2c) {
+	bno055_assignI2C(hi2c);
+	bno055_setup();
+	bno055_setOperationModeNDOF();
 }
 
 void IMUThread::loop() {
