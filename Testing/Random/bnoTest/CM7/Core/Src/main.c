@@ -126,9 +126,6 @@ Error_Handler();
   MX_I2C1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  bno055_assignI2C(&hi2c1);
-  bno055_setup(&huart3);
-  bno055_setOperationModeNDOF();
   uint16_t size;
   char data[256];
   size = sprintf(data,"Roll,Pitch,Yaw\r\n");
@@ -139,8 +136,6 @@ Error_Handler();
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  bno055_vector_t v = bno055_getVectorEuler();
-	  size = sprintf(data,"%.2f,%.2f,%.2f\r\n", v.x, v.y, v.z);
 	  HAL_UART_Transmit(&huart3, data, size, 1000);
 	  //v = bno055_getVectorQuaternion();
 	  //printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);

@@ -244,6 +244,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1042556635;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1042556635.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.765279219;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.842281392">
@@ -252,12 +253,5 @@
 		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1283963772;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1283963772.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1203455395;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1397302200">
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1283963772;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1283963772.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.62038734;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.317435943">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1042556635;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1042556635.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.451800204;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.45776334">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
