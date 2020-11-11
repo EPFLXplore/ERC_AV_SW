@@ -12,9 +12,13 @@
 
 class BarometerThread : Thread {
 public:
-	BarometerThread() : Thread("Barometer") {}
-	void init();
+	BarometerThread() : Thread("Barometer"), bmp280() {}
+	void init(I2C_HandleTypeDef* hi2c, UART_HandleTypeDef* huart);
 	void loop();
+
+
+private:
+	BMP280_HandleTypedef bmp280;
 };
 
 
