@@ -1,19 +1,4 @@
-#ifndef BNO055_STM32_H_
-#define BNO055_STM32_H_
-
-#ifdef __cplusplus
-  extern "C" {
-#endif
-
-#include "stm32h7xx_hal.h"
-
-#ifdef FREERTOS_ENABLED
-#include "FreeRTOS.h"
-#include "task.h"
-#include "cmsis_os.h"
-#endif
-
-#include "bno055.h"
+#include "bno055_stm32.h"
 
 I2C_HandleTypeDef *_bno055_i2c_port;
 
