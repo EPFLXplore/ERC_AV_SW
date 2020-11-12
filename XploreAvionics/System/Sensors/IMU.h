@@ -8,17 +8,18 @@
 #ifndef SENSORS_IMU_H_
 #define SENSORS_IMU_H_
 
-#include "bno055_stm32.h"
 #include "Thread.h"
+#include "i2c.h"
+#include "../Drivers/Sensors/bno055_stm32.h"
 
 class IMUThread : Thread {
 public:
-	IMUThread() : Thread("IMU") {}
-	void init(I2C_HandleTypeDef* hi2c);
+	IMUThread(I2C_HandleTypeDef* hi2c) : Thread("IMU"), hi2c(hi2c) {}
+	void init();
 	void loop();
 private:
-	writeToRtosBuffer(); //IMPLEMENT ME : une fonction qui envoie directement les valeurs par ETHERNET ou qui met les valeurs sur un buffer pour les envoyer par ETHERNET?
-	bno055_vector_t imuData[3];
+	I2C_HandleTypeDef* hi2c;
+	void writeToRtosBuffer(bno055_vector_t imuData[]); //IMPLEMENT ME : une fonction qui met les valeurs sur un buffer pour les envoyer par ETHERNET
 };
 
 #endif /* SENSORS_IMU_H_ */
