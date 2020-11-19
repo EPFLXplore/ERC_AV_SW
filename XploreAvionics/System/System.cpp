@@ -13,7 +13,7 @@
 
 void initCortexM4() {
 	new WatchdogThread();
-	new IMUThread(&hi2c1);
+	new IMUThread();
 	new BarometerThread(&hi2c1);
 }
 
