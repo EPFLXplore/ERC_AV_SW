@@ -6,9 +6,7 @@
  */
 
 #include "System.h"
-
-#include "i2c.h"
-#include "usart.h"
+//#include "usart.h"
 #include "Misc/WatchdogThread.h"
 #include "Sensors/Barometer.h"
 #include "Sensors/IMU.h"

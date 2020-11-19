@@ -9,7 +9,7 @@
 #define SENSORS_IMU_H_
 
 #include "Thread.h"
-#include "i2c.h"
+#include "../Drivers/Sensors/UartPrint.h"
 #include "../Drivers/Sensors/bno055_stm32.h"
 
 class IMUThread : Thread {
@@ -19,6 +19,7 @@ public:
 	void loop();
 private:
 	I2C_HandleTypeDef* hi2c;
+	char[] bnoVectortoString(bno055_vector_t &v);
 	void writeToRtosBuffer(bno055_vector_t imuData[]); //IMPLEMENT ME : une fonction qui met les valeurs sur un buffer pour les envoyer par ETHERNET
 };
 

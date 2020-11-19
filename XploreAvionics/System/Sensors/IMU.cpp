@@ -18,10 +18,19 @@ void IMUThread::loop() {
 	imuData[0] = bno055_getVectorAccelerometer();
 	imuData[1] = bno055_getVectorEuler(); // bno055_getVectorQuaternion();
 	imuData[2] = bno055_getVectorGravity();
+	char data[256]; //Random size, check this
+	int size = sprintf((char *)data, "Acc : ");
+	printToUart(uint8_t* data, int size)
 	writeToRtosBuffer(imuData); //envoyer à un autre thread pour etre envoyé par ethernet
 	osDelay(100);
 }
 
-/*void writeToRtosBuffer(bno055_vector_t imuData[]){
+void IMUThread::writeToRtosBuffer(bno055_vector_t imuData[]){
 
-}*/
+}
+
+char[] IMUThread::bnoVectortoString(bno055_vector_t &v){
+	char[sizeof(v)] data;
+	sprintf((char *)data, "%f %f %f %f", v.x, v.y, v.z, v.w);
+	return data;
+}
