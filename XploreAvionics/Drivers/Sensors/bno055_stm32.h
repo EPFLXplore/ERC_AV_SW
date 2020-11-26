@@ -12,6 +12,7 @@
 #endif
 
 #include "bno055.h"
+#include "stm32h7xx_hal.h"
 
 void bno055_assignI2C(I2C_HandleTypeDef *hi2c_device);
 

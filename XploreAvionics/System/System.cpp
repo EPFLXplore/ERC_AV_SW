@@ -11,10 +11,10 @@
 #include "Sensors/Barometer.h"
 #include "Sensors/IMU.h"
 
-void initCortexM4() {
+void initCortexM4(I2C_HandleTypeDef* hi2c1) {
 	new WatchdogThread();
-	new IMUThread();
-	new BarometerThread(&hi2c1);
+	new IMUThread(hi2c1);
+	new BarometerThread(hi2c1);
 }
 
 void initCortexM7() {

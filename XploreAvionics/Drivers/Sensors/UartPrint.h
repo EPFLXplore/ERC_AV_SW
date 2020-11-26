@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include "stm32h7xx_hal.h"
 
-void printToUart(uint8_t* data, int size);
+void printToUart(UART_HandleTypeDef* huart, uint8_t* data, int size);
 
-#endif /* SENSORS_BAROMETER_H_ */
+#endif

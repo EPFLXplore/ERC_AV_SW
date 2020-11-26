@@ -1,4 +1,5 @@
 #include "bno055.h"
+#include "stm32h7xx_hal.h"
 #include <string.h>
 
 uint16_t accelScale = 100;

@@ -12,6 +12,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "cmsis_os.h"
+#include "stm32h7xx_hal.h"
 
 
 class Thread {

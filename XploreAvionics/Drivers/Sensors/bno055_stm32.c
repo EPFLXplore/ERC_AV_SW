@@ -1,4 +1,8 @@
+#ifndef BNO055_STM32_H_
+#define BNO055_STM32_H_
+
 #include "bno055_stm32.h"
+#include "bno055.h"
 
 I2C_HandleTypeDef *_bno055_i2c_port;
 

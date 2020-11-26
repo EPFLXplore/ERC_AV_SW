@@ -20,17 +20,18 @@ void IMUThread::loop() {
 	imuData[2] = bno055_getVectorGravity();
 	char data[256]; //Random size, check this
 	int size = sprintf((char *)data, "Acc : ");
-	printToUart(uint8_t* data, int size)
+	printToUart(this->huart, (uint8_t*)data, size);
 	writeToRtosBuffer(imuData); //envoyer à un autre thread pour etre envoyé par ethernet
 	osDelay(100);
 }
 
 void IMUThread::writeToRtosBuffer(bno055_vector_t imuData[]){
 
+
 }
 
-char[] IMUThread::bnoVectortoString(bno055_vector_t &v){
-	char[sizeof(v)] data;
-	sprintf((char *)data, "%f %f %f %f", v.x, v.y, v.z, v.w);
-	return data;
+char* IMUThread::bnoVectortoString(bno055_vector_t v){
+	char data[256];
+	sprintf(data, "");
+	return (char*)data;
 }

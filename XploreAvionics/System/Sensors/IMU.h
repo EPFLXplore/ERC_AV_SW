@@ -11,15 +11,17 @@
 #include "Thread.h"
 #include "../Drivers/Sensors/UartPrint.h"
 #include "../Drivers/Sensors/bno055_stm32.h"
+#include "../Drivers/Sensors/bno055.h"
 
 class IMUThread : Thread {
 public:
-	IMUThread(I2C_HandleTypeDef* hi2c) : Thread("IMU"), hi2c(hi2c) {}
+	IMUThread(I2C_HandleTypeDef* hi2c) : Thread("IMU"), hi2c(hi2c), huart(huart) {}
 	void init();
 	void loop();
 private:
 	I2C_HandleTypeDef* hi2c;
-	char[] bnoVectortoString(bno055_vector_t &v);
+	UART_HandleTypeDef* huart;
+	char* bnoVectortoString(bno055_vector_t v);
 	void writeToRtosBuffer(bno055_vector_t imuData[]); //IMPLEMENT ME : une fonction qui met les valeurs sur un buffer pour les envoyer par ETHERNET
 };
 

@@ -29,6 +29,7 @@
 #include "rtc.h"
 #include "spi.h"
 #include "gpio.h"
+#include "i2c.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -113,6 +114,9 @@ int main(void)
   MX_IWDG2_Init();
   MX_SPI5_Init();
   MX_FATFS_Init();
+  MX_I2C1_Init();
+  MX_I2C2_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

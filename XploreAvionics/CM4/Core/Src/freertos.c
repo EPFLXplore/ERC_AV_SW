@@ -23,6 +23,8 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "i2c.h"
+#include "uart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -89,7 +91,7 @@ void MX_FREERTOS_Init(void) {
   /* creation of watchdog */
 
   /* USER CODE BEGIN RTOS_THREADS */
-	initCortexM4(&hi2c1);
+	initCortexM4(&hi2c1, &huart3);
   /* USER CODE END RTOS_THREADS */
 
 }
