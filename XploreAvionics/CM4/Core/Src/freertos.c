@@ -24,7 +24,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "i2c.h"
-#include "uart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
