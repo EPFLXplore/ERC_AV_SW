@@ -1,0 +1,9 @@
+Operators.h:14:8:void* operator new(size_t)	16	static
+Operators.h:18:8:void* operator new [](size_t)	16	static
+Operators.h:22:6:void operator delete(void*)	16	static
+Operators.h:26:6:void operator delete [](void*)	16	static
+WatchdogThread.h:15:2:WatchdogThread::WatchdogThread()	16	static
+Barometer.h:18:2:BarometerThread::BarometerThread(I2C_HandleTypeDef*, UART_HandleTypeDef*)	24	static
+IMU.h:18:2:IMUThread::IMUThread(I2C_HandleTypeDef*, UART_HandleTypeDef*)	24	static
+System.cpp:14:6:void initCortexM4(I2C_HandleTypeDef*, UART_HandleTypeDef*)	16	static
+System.cpp:20:6:void initCortexM7()	8	static

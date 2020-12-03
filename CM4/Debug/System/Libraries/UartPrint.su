@@ -1,0 +1,1 @@
+UartPrint.cpp:3:6:void printToUart(UART_HandleTypeDef*, uint8_t*, int)	24	static

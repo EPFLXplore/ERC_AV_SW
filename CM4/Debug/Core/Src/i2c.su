@@ -1,0 +1,4 @@
+i2c.c:31:6:MX_I2C1_Init	8	static
+i2c.c:65:6:MX_I2C4_Init	8	static
+i2c.c:96:6:HAL_I2C_MspInit	56	static
+i2c.c:150:6:HAL_I2C_MspDeInit	16	static
