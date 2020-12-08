@@ -6,6 +6,8 @@
  */
 
 #include "Barometer.h"
+#include "Libraries/bmp280.h"
+
 
 void BarometerThread::init() {
 	bmp280_init_default_params(&bmp280.params);
@@ -18,6 +20,7 @@ void BarometerThread::init() {
 	  	osDelay(500);
 	 }
 }
+
 void BarometerThread::loop() {
 	float *temperature;
 	float *pressure;

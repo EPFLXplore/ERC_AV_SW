@@ -8,7 +8,7 @@
 #ifndef SENSORS_BAROMETER_H_
 #define SENSORS_BAROMETER_H_
 
-#include "../Thread.hpp"
+#include "../Thread.h"
 #include "../Libraries/bmp280.h"
 #include "../Libraries/UartPrint.h"
 

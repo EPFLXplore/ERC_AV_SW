@@ -1,7 +1,7 @@
 System/Sensors/IMU.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/IMU.cpp \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/IMU.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp \
+ /Users/arion/git/XploreAvionics/System/Sensors/IMU.cpp \
+ /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -54,14 +54,14 @@ System/Sensors/IMU.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\uartprint.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055_stm32.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055.h
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055_stm32.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/IMU.h:
+/Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp:
+/Users/arion/git/XploreAvionics/System/Sensors/../Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -167,10 +167,10 @@ c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\uartprint.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055_stm32.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055_stm32.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bno055.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h:

@@ -1,6 +1,6 @@
 System/Libraries/bno055.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Libraries/bno055.c \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Libraries/bno055.h \
+ /Users/arion/git/XploreAvionics/System/Libraries/bno055.c \
+ /Users/arion/git/XploreAvionics/System/Libraries/bno055.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -43,7 +43,7 @@ System/Libraries/bno055.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Libraries/bno055.h:
+/Users/arion/git/XploreAvionics/System/Libraries/bno055.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 

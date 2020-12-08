@@ -1,7 +1,7 @@
 System/Misc/WatchdogThread.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Misc/WatchdogThread.cpp \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Misc/WatchdogThread.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp \
+ /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.cpp \
+ /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
+ /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -56,9 +56,9 @@ System/Misc/WatchdogThread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Core/Inc/iwdg.h ../Core/Inc/main.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Misc/WatchdogThread.h:
+/Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp:
+/Users/arion/git/XploreAvionics/System/Misc/../Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 

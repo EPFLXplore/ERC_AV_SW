@@ -1,6 +1,5 @@
-System/Thread.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Thread.cpp \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Thread.hpp \
+System/Thread.o: /Users/arion/git/XploreAvionics/System/Thread.cpp \
+ /Users/arion/git/XploreAvionics/System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -54,7 +53,7 @@ System/Thread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Thread.hpp:
+/Users/arion/git/XploreAvionics/System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 

@@ -6,15 +6,19 @@
  */
 
 #include "System.h"
-//#include "usart.h"
+
+
+#include "i2c.h"
+#include "usart.h"
+
 #include "Misc/WatchdogThread.h"
 #include "Sensors/Barometer.h"
 #include "Sensors/IMU.h"
 
-void initCortexM4(I2C_HandleTypeDef* hi2c1, UART_HandleTypeDef* huart1) {
+void initCortexM4() {
 	new WatchdogThread();
-	new IMUThread(hi2c1, huart1);
-	new BarometerThread(hi2c1, huart1);
+	new IMUThread(&hi2c1, &huart3);
+	new BarometerThread(&hi2c1, &huart3);
 }
 
 void initCortexM7() {

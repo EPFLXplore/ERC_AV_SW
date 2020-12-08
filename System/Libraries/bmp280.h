@@ -9,6 +9,10 @@
 #ifndef __BMP280_H__
 #define __BMP280_H__
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "stm32h7xx_hal.h"
@@ -174,5 +178,9 @@ bool bmp280_read_fixed(BMP280_HandleTypedef *dev, int32_t *temperature,
 bool bmp280_read_float(BMP280_HandleTypedef *dev, float *temperature,
                        float *pressure, float *humidity);
 
+
+#ifdef __cplusplus
+  }
+#endif
 
 #endif  // __BMP280_H__

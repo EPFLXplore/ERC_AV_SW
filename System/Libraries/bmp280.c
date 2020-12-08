@@ -28,6 +28,10 @@
 
 #include "bmp280.h"
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
+
 /**
  * BMP280 registers
  */

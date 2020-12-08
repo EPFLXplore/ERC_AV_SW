@@ -27,4 +27,5 @@ private:
 	void task();
 };
 
+
 #endif /* THREAD_H_ */

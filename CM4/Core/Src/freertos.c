@@ -28,7 +28,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../../../System/Thread.hpp"
+#include "System.h"
 
 /* USER CODE END Includes */
 
@@ -92,7 +92,7 @@ void MX_FREERTOS_Init(void) {
   /* creation of watchdog */
 
   /* USER CODE BEGIN RTOS_THREADS */
-	initCortexM4(&hi2c1, &huart3);
+	initCortexM4();
   /* USER CODE END RTOS_THREADS */
 
 }

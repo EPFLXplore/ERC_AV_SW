@@ -39,7 +39,7 @@
 		<link>
 			<name>System</name>
 			<type>2</type>
-			<locationURI>WORKSPACE_LOC/XploreAvionics/System</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/System</locationURI>
 		</link>
 		<link>
 			<name>Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.c</name>

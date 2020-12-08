@@ -1,6 +1,6 @@
 Middlewares/Third_Party/FreeRTOS/cmsis_os2.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ /Users/arion/git/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
+ /Users/arion/git/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../../Drivers/CMSIS/Include/cmsis_compiler.h \
  ../../Drivers/CMSIS/Include/cmsis_gcc.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
@@ -18,7 +18,7 @@ Middlewares/Third_Party/FreeRTOS/cmsis_os2.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+/Users/arion/git/XploreAvionics/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 
 ../../Drivers/CMSIS/Include/cmsis_compiler.h:
 

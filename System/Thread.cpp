@@ -5,7 +5,7 @@
  *      Author: arion
  */
 
-#include "Thread.hpp"
+#include "Thread.h"
 
 #define DEFAULT_STACK_SIZE (512 * 4)
 

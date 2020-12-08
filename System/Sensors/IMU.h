@@ -8,7 +8,7 @@
 #ifndef SENSORS_IMU_H_
 #define SENSORS_IMU_H_
 
-#include "../Thread.hpp"
+#include "../Thread.h"
 #include "../Libraries/UartPrint.h"
 #include "../Libraries/bno055_stm32.h"
 #include "../Libraries/bno055.h"

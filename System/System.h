@@ -9,13 +9,13 @@
 #define SYSTEM_H_
 
 #ifdef __cplusplus
-#include "Thread.hpp"
+#include "Thread.h"
 #include "Lang/Operators.h"
 
 extern "C" {
 #endif
 
-void initCortexM4(I2C_HandleTypeDef* hi2c1);
+void initCortexM4();
 void initCortexM7();
 
 #ifdef __cplusplus

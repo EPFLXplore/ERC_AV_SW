@@ -1,7 +1,7 @@
 System/Sensors/Barometer.o: \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/Barometer.cpp \
- C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/Barometer.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp \
+ /Users/arion/git/XploreAvionics/System/Sensors/Barometer.cpp \
+ /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -54,12 +54,13 @@ System/Sensors/Barometer.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bmp280.h \
- c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\uartprint.h
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bmp280.h \
+ /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h \
+ ../../System/Libraries/bmp280.h
 
-C:/Users/jthom/Co-curricular/Xplore\ Rover1/XploreAvionics/System/Sensors/Barometer.h:
+/Users/arion/git/XploreAvionics/System/Sensors/Barometer.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp:
+/Users/arion/git/XploreAvionics/System/Sensors/../Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -165,6 +166,8 @@ c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\thread.hpp:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\bmp280.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bmp280.h:
 
-c:\users\jthom\co-curricular\xplore\ rover1\xploreavionics\system\libraries\uartprint.h:
+/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h:
+
+../../System/Libraries/bmp280.h:

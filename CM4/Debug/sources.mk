@@ -41,4 +41,6 @@ System/Libraries \
 System/Misc \
 System/Sensors \
 System \
+System/System/Libraries \
+System/System/Sensors \
 
