@@ -23,6 +23,7 @@ public:
 	virtual void init() = 0;
 	virtual void loop() = 0;
 private:
+	osThreadAttr_t attributes;
 	osThreadId_t handle;
 	void task();
 };

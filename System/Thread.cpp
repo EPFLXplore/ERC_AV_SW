@@ -6,8 +6,10 @@
  */
 
 #include "Thread.h"
+#include "iwdg.h"
 
-#define DEFAULT_STACK_SIZE (512 * 4)
+#include "usart.h"
+#define DEFAULT_STACK_SIZE (512)
 
 
 void __task_run(void* arg) {
@@ -33,8 +35,6 @@ Thread::Thread(const char* name, uint32_t stackSize) : Thread(name, (osPriority_
 }
 
 Thread::Thread(const char* name, osPriority_t priority, uint32_t stackSize) {
-	osThreadAttr_t attributes;
-
 	attributes.name = name;
 	attributes.priority = priority;
 	attributes.stack_size = stackSize;

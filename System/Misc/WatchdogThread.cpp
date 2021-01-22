@@ -8,20 +8,22 @@
 
 #include "WatchdogThread.h"
 
+#include <string.h>
 #include "iwdg.h"
 
-#ifdef CORE_CM7
-IWDG_HandleTypeDef* watchdog_handle = &hiwdg1;
-#elif defined CORE_CM4
-IWDG_HandleTypeDef* watchdog_handle = &hiwdg2;
-#endif
-
+#include "usart.h"
 
 void WatchdogThread::init() {
 
 }
 
+uint8_t i = 0;
+
 void WatchdogThread::loop() {
 	HAL_IWDG_Refresh(watchdog_handle);
+	#ifdef CORE_CM7
+	i++;
+	HAL_UART_Transmit(&huart3, &i, 1, 1000);
+#endif
 	osDelay(100);
 }

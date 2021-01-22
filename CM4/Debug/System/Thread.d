@@ -51,7 +51,10 @@ System/Thread.o: /Users/arion/git/XploreAvionics/System/Thread.cpp \
  /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
- /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
+ /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
+ /Users/arion/git/XploreAvionics/CM4/Core/Inc/iwdg.h \
+ /Users/arion/git/XploreAvionics/CM4/Core/Inc/main.h \
+ /Users/arion/git/XploreAvionics/CM4/Core/Inc/usart.h
 
 /Users/arion/git/XploreAvionics/System/Thread.h:
 
@@ -158,3 +161,9 @@ System/Thread.o: /Users/arion/git/XploreAvionics/System/Thread.cpp \
 /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
 
 /Users/arion/git/XploreAvionics/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
+
+/Users/arion/git/XploreAvionics/CM4/Core/Inc/iwdg.h:
+
+/Users/arion/git/XploreAvionics/CM4/Core/Inc/main.h:
+
+/Users/arion/git/XploreAvionics/CM4/Core/Inc/usart.h:

@@ -12,9 +12,11 @@
 
 class WatchdogThread : Thread {
 public:
-	WatchdogThread() : Thread("Watchdog") {}
+	WatchdogThread(IWDG_HandleTypeDef* hiwdg) : Thread("Watchdog"), watchdog_handle(hiwdg) {}
 	void init();
 	void loop();
+private:
+	IWDG_HandleTypeDef* watchdog_handle;
 };
 
 #endif /* MISC_WATCHDOGTHREAD_H_ */

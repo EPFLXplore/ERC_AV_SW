@@ -56,6 +56,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  /Users/arion/git/XploreAvionics/System/Lang/Operators.h \
  /Users/arion/git/XploreAvionics/CM4/Core/Inc/i2c.h \
  /Users/arion/git/XploreAvionics/CM4/Core/Inc/main.h \
+ /Users/arion/git/XploreAvionics/CM4/Core/Inc/iwdg.h \
  /Users/arion/git/XploreAvionics/CM4/Core/Inc/usart.h \
  /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
  /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
@@ -181,6 +182,8 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 /Users/arion/git/XploreAvionics/CM4/Core/Inc/i2c.h:
 
 /Users/arion/git/XploreAvionics/CM4/Core/Inc/main.h:
+
+/Users/arion/git/XploreAvionics/CM4/Core/Inc/iwdg.h:
 
 /Users/arion/git/XploreAvionics/CM4/Core/Inc/usart.h:
 

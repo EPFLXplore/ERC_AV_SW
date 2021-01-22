@@ -14,6 +14,8 @@ void IMUThread::init() {
 }
 
 void IMUThread::loop() {
+	HAL_UART_Transmit(huart, (uint8_t*) "Hello world\n", 12, 50);
+
 	bno055_vector_t imuData[3];
 	imuData[0] = bno055_getVectorAccelerometer();
 	imuData[1] = bno055_getVectorEuler(); // bno055_getVectorQuaternion();

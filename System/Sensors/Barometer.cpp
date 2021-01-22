@@ -6,8 +6,10 @@
  */
 
 #include "Barometer.h"
-#include "Libraries/bmp280.h"
 
+extern "C" {
+#include "Libraries/bmp280.h"
+}
 
 void BarometerThread::init() {
 	bmp280_init_default_params(&bmp280.params);
@@ -22,11 +24,11 @@ void BarometerThread::init() {
 }
 
 void BarometerThread::loop() {
-	float *temperature;
-	float *pressure;
-	float *humidity;
+	float temperature;
+	float pressure;
+	float humidity;
 
-	bmp280_read_float(&bmp280, temperature, pressure, humidity);
+	bmp280_read_float(&bmp280, &temperature, &pressure, &humidity);
 	osDelay(100);
 }
 

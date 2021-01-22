@@ -53,6 +53,11 @@ endif
 
 -include ../makefile.defs
 
+BUILD_ARTIFACT_NAME := XploreAvionics_CM7
+BUILD_ARTIFACT_EXTENSION := elf
+BUILD_ARTIFACT_PREFIX := 
+BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME).$(BUILD_ARTIFACT_EXTENSION)
+
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
 XploreAvionics_CM7.elf \
@@ -68,11 +73,14 @@ XploreAvionics_CM7.bin \
 
 
 # All Target
-all: XploreAvionics_CM7.elf secondary-outputs
+all: main-build
+
+# Main-build Target
+main-build: XploreAvionics_CM7.elf secondary-outputs
 
 # Tool invocations
 XploreAvionics_CM7.elf: $(OBJS) $(USER_OBJS) /Users/arion/git/XploreAvionics/CM7/STM32H745ZITX_FLASH.ld
-	arm-none-eabi-g++ -o "XploreAvionics_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/arion/git/XploreAvionics/CM7/STM32H745ZITX_FLASH.ld" -Wl,-Map="XploreAvionics_CM7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "XploreAvionics_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/arion/git/XploreAvionics/CM7/STM32H745ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XploreAvionics_CM7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -98,7 +106,14 @@ clean:
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
-.PHONY: all clean dependents
+fail-specified-linker-script-missing:
+	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
+	@exit 2
+
+warn-no-linker-script-specified:
+	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
+
+.PHONY: all clean dependents fail-specified-linker-script-missing warn-no-linker-script-specified
 .SECONDARY:
 
 -include ../makefile.targets

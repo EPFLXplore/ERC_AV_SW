@@ -26,7 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "System.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,19 +49,11 @@
 
 /* USER CODE END Variables */
 /* Definitions for watchdog */
-osThreadId_t watchdogHandle;
-const osThreadAttr_t watchdog_attributes = {
-  .name = "watchdog",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 512 * 4
-};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
-
-void watchdogTask(void *argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -94,7 +86,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of watchdog */
-  watchdogHandle = osThreadNew(watchdogTask, NULL, &watchdog_attributes);
+
+  initCortexM7();
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -105,7 +98,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_EVENTS */
 
 }
-
 /* USER CODE BEGIN Header_watchdogTask */
 /**
   * @brief  Function implementing the watchdog thread.
@@ -113,18 +105,6 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_watchdogTask */
-void watchdogTask(void *argument)
-{
-  /* init code for LWIP */
-  MX_LWIP_Init();
-  /* USER CODE BEGIN watchdogTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END watchdogTask */
-}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
