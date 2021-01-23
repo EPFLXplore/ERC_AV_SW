@@ -11,6 +11,7 @@
 
 #include "Terminal.h"
 
+#include "Thread.h"
 
 #include <usart.h>
 #include <stdint.h>
@@ -22,7 +23,7 @@
 
 
 
-class Shell {
+class Shell : public Thread {
 public:
 	Shell(UART_HandleTypeDef* uart, Terminal* terminal);
 	void init();

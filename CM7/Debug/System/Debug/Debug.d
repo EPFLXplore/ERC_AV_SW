@@ -58,7 +58,9 @@ System/Debug/Debug.o: \
  ../Core/Inc/usart.h ../Core/Inc/main.h \
  /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
  /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
- /Users/arion/git/XploreAvionics/System/Debug/Terminal.h
+ /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h \
+ ../../System/Thread.h
 
 /Users/arion/git/XploreAvionics/System/Debug/Debug.h:
 
@@ -179,3 +181,7 @@ System/Debug/Debug.o: \
 /Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+
+../../System/Thread.h:

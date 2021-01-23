@@ -7,29 +7,37 @@
 
 #include "Barometer.h"
 
-extern "C" {
-#include "Libraries/bmp280.h"
-}
+#include "DataStructures.h"
+#include "Debug/Debug.h"
+
+
+static char cbuf[256];
 
 void BarometerThread::init() {
 	bmp280_init_default_params(&bmp280.params);
 	bmp280.addr = BMP280_I2C_ADDRESS_0;
 	bmp280.i2c = hi2c;
+
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
-		char data[256]; //Random size, check this
-	  	int size = sprintf((char *)data, "BMP280 initialization failed\n");
-	  	printToUart(huart, (uint8_t*)data, size);
+		console.printf("BMP280 initialization failed\n");
 	  	osDelay(500);
 	 }
 }
 
 void BarometerThread::loop() {
-	float temperature;
-	float pressure;
-	float humidity;
+	BaroData data;
 
-	bmp280_read_float(&bmp280, &temperature, &pressure, &humidity);
+	bmp280_read_float(&bmp280, &data.temperature, &data.pressure, &data.humidity);
+
+	console.printf("%s\n", data.toString(cbuf));
+
+	writeToRtosBuffer(data);
+
 	osDelay(100);
+}
+
+void BarometerThread::writeToRtosBuffer(BaroData data) {
+
 }
 
 

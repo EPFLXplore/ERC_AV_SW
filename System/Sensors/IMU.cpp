@@ -7,33 +7,49 @@
 
 #include "IMU.h"
 
+#include "Debug/Debug.h"
+
+static char cbuf[256];
+
 void IMUThread::init() {
 	bno055_assignI2C(this->hi2c);
 	bno055_setup();
 	bno055_setOperationModeNDOF();
+
+	while(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
+		osDelay(500);
+		console.printf("BNO055 initialization failed\n");
+
+		bno055_assignI2C(this->hi2c);
+		bno055_setup();
+		bno055_setOperationModeNDOF();
+	}
 }
 
 void IMUThread::loop() {
-	HAL_UART_Transmit(huart, (uint8_t*) "Hello world\n", 12, 50);
+	static IMUData data;
 
-	bno055_vector_t imuData[3];
-	imuData[0] = bno055_getVectorAccelerometer();
-	imuData[1] = bno055_getVectorEuler(); // bno055_getVectorQuaternion();
-	imuData[2] = bno055_getVectorGravity();
-	char data[256]; //Random size, check this
-	int size = sprintf((char *)data, "Acc : ");
-	printToUart(huart, (uint8_t*)data, size);
-	writeToRtosBuffer(imuData); //envoyer à un autre thread pour etre envoyé par ethernet
+	data.accel = bnoVectorToVector(bno055_getVectorAccelerometer());
+	data.gyro = bnoVectorToVector(bno055_getVectorEuler());
+	data.mag = bnoVectorToVector(bno055_getVectorGravity());
+
+	console.printf("%s\n", data.toString(cbuf));
+
+	writeToRtosBuffer(data); //envoyer à un autre thread pour etre envoyé par ethernet
+
 	osDelay(100);
 }
 
-void IMUThread::writeToRtosBuffer(bno055_vector_t imuData[]){
-
+void IMUThread::writeToRtosBuffer(IMUData data) {
 
 }
 
-char* IMUThread::bnoVectortoString(bno055_vector_t v){
-	char data[256];
-	sprintf(data, "%f, %f, %f", v.x, v.y, v.z);
-	return data;
+Vector IMUThread::bnoVectorToVector(bno055_vector_t v) {
+	Vector vector;
+
+	vector.x = v.x;
+	vector.y = v.y;
+	vector.z = v.z;
+
+	return vector;
 }

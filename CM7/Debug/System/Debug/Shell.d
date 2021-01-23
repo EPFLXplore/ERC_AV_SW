@@ -1,7 +1,7 @@
 System/Debug/Shell.o: \
  /Users/arion/git/XploreAvionics/System/Debug/Shell.cpp \
- ../../System/Debug/Shell.h ../../System/Debug/Terminal.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Console.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -44,7 +44,6 @@ System/Debug/Shell.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../../System/Debug/Console.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -55,15 +54,17 @@ System/Debug/Shell.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+ ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ ../Core/Inc/usart.h ../Core/Inc/main.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h \
+ ../../System/Thread.h
 
-../../System/Debug/Shell.h:
+/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
 
-../../System/Debug/Terminal.h:
-
-../Core/Inc/usart.h:
-
-../Core/Inc/main.h:
+/Users/arion/git/XploreAvionics/System/Debug/Console.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 
@@ -149,8 +150,6 @@ System/Debug/Shell.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-../../System/Debug/Console.h:
-
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -172,3 +171,17 @@ System/Debug/Shell.o: \
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/main.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+
+../../System/Thread.h:

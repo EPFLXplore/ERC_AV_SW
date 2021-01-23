@@ -6,15 +6,16 @@
  */
 
 
-#include "Debug/Shell.h"
-#include "Debug/Console.h"
+#include "Debug.h"
 
 
-Shell::Shell(UART_HandleTypeDef* uart, Terminal* terminal) : uart(uart), terminal(terminal) {
+Shell::Shell(UART_HandleTypeDef* uart, Terminal* terminal) : Thread("Shell"), uart(uart), terminal(terminal) {
 	cmd.components[0].component = command_buffer; // Bind command structure to buffer
 }
 
 void Shell::init() {
+	console.printf("\x1b[2J\x1b[H");
+	console.printf("----- EPFL Xplore Avionics Shell -----\n");
 	HAL_UART_Receive_DMA(uart, dma_buffer, CMD_BUFFER_SIZE);
 }
 
@@ -33,7 +34,7 @@ void Shell::receiveByte(char cbuf) {
 		return;
 	}
 
-	if(cbuf != '\n' && command_index < CMD_BUFFER_SIZE) {
+	if(cbuf != '\n' && cbuf != '\r' && command_index < CMD_BUFFER_SIZE) {
 		command_buffer[command_index++] = cbuf;
 
 		if(cbuf == ' ') {
@@ -51,7 +52,7 @@ void Shell::receiveByte(char cbuf) {
 			cmd.num_components++;
 		}
 
-		// Send to terminal
+		terminal->execute(&cmd, &console);
 
 		command_index = 0;
 		cmd.num_components = 0;

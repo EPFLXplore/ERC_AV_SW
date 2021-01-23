@@ -15,12 +15,10 @@
 
 
 
+
 Console::Console(UART_HandleTypeDef* uart) : console_uart(uart) {
 	console_uart = uart;
-
 	console_semaphore = osSemaphoreNew(256, 1, nullptr);
-
-	printf("\x1b[2J\x1b[H");
 }
 
 void Console::lock() {
@@ -32,12 +30,14 @@ void Console::unlock() {
 }
 
 void Console::transmit(uint8_t* buffer, uint32_t length) {
-	__disable_irq();
+	while(HAL_HSEM_IsSemTaken(HARDWARE_SEMAPHORE));
+
+	HAL_HSEM_Take(HARDWARE_SEMAPHORE, 2);
 	HAL_UART_Transmit(console_uart, buffer, length, 0xFFFFFF);
-	__enable_irq();
+	HAL_HSEM_Release(HARDWARE_SEMAPHORE, 2);
 }
 
-int Console::printf(const char *format, ...) {
+void Console::printf(const char *format, ...) {
 	va_list args;
 	va_start(args, format);
 
@@ -46,6 +46,4 @@ int Console::printf(const char *format, ...) {
 	}
 
 	va_end(args);
-
-	return 0;
 }

@@ -19,14 +19,14 @@
 
 
 #define CONSOLE_BUFFER_SIZE 256
-
+#define HARDWARE_SEMAPHORE 2
 
 class Console {
 public:
 	Console(UART_HandleTypeDef* uart);
 	void lock();
 	void unlock();
-	int printf(const char* format, ...);
+	void printf(const char* format, ...);
 
 private:
 	UART_HandleTypeDef* console_uart;

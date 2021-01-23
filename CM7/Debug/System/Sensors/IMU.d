@@ -1,7 +1,7 @@
 System/Sensors/IMU.o: \
  /Users/arion/git/XploreAvionics/System/Sensors/IMU.cpp \
  /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
- /Users/arion/git/XploreAvionics/System/Sensors/../Thread.h \
+ ../../System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -55,14 +55,16 @@ System/Sensors/IMU.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h \
- /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055_stm32.h \
- /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h \
- /Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h
+ /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
+ ../../System/Libraries/bno055_stm32.h ../../System/Libraries/bno055.h \
+ ../../System/Libraries/bno055.h ../../System/Debug/Debug.h \
+ ../../System/Debug/Console.h ../Core/Inc/usart.h ../Core/Inc/main.h \
+ ../../System/Debug/Monitor.h ../../System/Debug/Profiler.h \
+ ../../System/Debug/Terminal.h ../../System/Debug/Shell.h
 
 /Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/../Thread.h:
+../../System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -170,10 +172,26 @@ System/Sensors/IMU.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/UartPrint.h:
+/Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055_stm32.h:
+../../System/Libraries/bno055_stm32.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h:
+../../System/Libraries/bno055.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/../Libraries/bno055.h:
+../../System/Libraries/bno055.h:
+
+../../System/Debug/Debug.h:
+
+../../System/Debug/Console.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/main.h:
+
+../../System/Debug/Monitor.h:
+
+../../System/Debug/Profiler.h:
+
+../../System/Debug/Terminal.h:
+
+../../System/Debug/Shell.h:

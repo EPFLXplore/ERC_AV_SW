@@ -1,7 +1,6 @@
 System/Debug/Terminal.o: \
  /Users/arion/git/XploreAvionics/System/Debug/Terminal.cpp \
  /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
  /Users/arion/git/XploreAvionics/System/Debug/Console.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
@@ -57,12 +56,13 @@ System/Debug/Terminal.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
  /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
- /Users/arion/git/XploreAvionics/System/Debug/Profiler.h
+ /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h \
+ ../../System/Thread.h
 
 /Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Console.h:
 
@@ -176,6 +176,12 @@ System/Debug/Terminal.o: \
 
 ../Core/Inc/main.h:
 
+/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
+
 /Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
+
+/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+
+../../System/Thread.h:

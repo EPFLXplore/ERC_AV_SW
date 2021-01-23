@@ -9,6 +9,8 @@
 #define APPLICATION_HOSTBOARD_INC_DEBUG_TERMINAL_H_
 
 
+#include "Console.h"
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -40,7 +42,7 @@ typedef struct {
 
 class Terminal {
 public:
-	void execute(ShellCommand* cmd, void (*respond)(const char* format, ...));
+	void execute(ShellCommand* cmd, Console* feedback);
 	bool isVerbose();
 private:
 	bool verbose;

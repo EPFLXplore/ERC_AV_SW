@@ -55,7 +55,8 @@ System/Debug/Profiler.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h ../../System/Debug/Monitor.h \
- ../../System/Debug/Profiler.h ../../System/Debug/Terminal.h
+ ../../System/Debug/Profiler.h ../../System/Debug/Terminal.h \
+ ../../System/Debug/Shell.h ../../System/Thread.h
 
 ../../System/Debug/Debug.h:
 
@@ -176,3 +177,7 @@ System/Debug/Profiler.o: \
 ../../System/Debug/Profiler.h:
 
 ../../System/Debug/Terminal.h:
+
+../../System/Debug/Shell.h:
+
+../../System/Thread.h:
