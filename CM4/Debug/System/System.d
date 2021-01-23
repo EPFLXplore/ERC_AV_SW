@@ -54,8 +54,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  /Users/arion/git/XploreAvionics/System/Lang/Operators.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/iwdg.h \
- ../Core/Inc/usart.h \
  /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
  /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
  /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h \
@@ -65,12 +63,15 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
  ../../System/Libraries/bno055_stm32.h ../../System/Libraries/bno055.h \
  ../../System/Libraries/bno055.h \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
  /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
  /Users/arion/git/XploreAvionics/System/Debug/Console.h \
+ ../Core/Inc/usart.h ../Core/Inc/main.h \
  /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
  /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
  /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.h
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h ../Core/Inc/i2c.h \
+ ../Core/Inc/iwdg.h
 
 /Users/arion/git/XploreAvionics/System/System.h:
 
@@ -182,14 +183,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 /Users/arion/git/XploreAvionics/System/Lang/Operators.h:
 
-../Core/Inc/i2c.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/iwdg.h:
-
-../Core/Inc/usart.h:
-
 /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
 
 /Users/arion/git/XploreAvionics/System/Misc/../Thread.h:
@@ -210,9 +203,15 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../System/Libraries/bno055.h:
 
+/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
+
 /Users/arion/git/XploreAvionics/System/Debug/Debug.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Console.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/main.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
 
@@ -221,3 +220,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 /Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
 
 /Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+
+../Core/Inc/i2c.h:
+
+../Core/Inc/iwdg.h:

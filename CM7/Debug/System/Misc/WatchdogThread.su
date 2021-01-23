@@ -1,2 +1,2 @@
-WatchdogThread.cpp:16:6:virtual void WatchdogThread::init()	16	static
-WatchdogThread.cpp:20:6:virtual void WatchdogThread::loop()	16	static
+WatchdogThread.cpp:17:6:virtual void WatchdogThread::init()	16	static
+WatchdogThread.cpp:21:6:virtual void WatchdogThread::loop()	16	static

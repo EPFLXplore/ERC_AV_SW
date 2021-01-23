@@ -55,7 +55,11 @@ System/Misc/WatchdogThread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../Core/Inc/iwdg.h ../Core/Inc/main.h ../Core/Inc/usart.h
+ ../Core/Inc/iwdg.h ../Core/Inc/main.h ../../System/Debug/Debug.h \
+ ../../System/Debug/Console.h ../Core/Inc/usart.h \
+ ../../System/Debug/Monitor.h ../../System/Debug/Profiler.h \
+ ../../System/Debug/Terminal.h ../../System/Debug/Shell.h \
+ ../../System/Thread.h
 
 /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
 
@@ -171,4 +175,18 @@ System/Misc/WatchdogThread.o: \
 
 ../Core/Inc/main.h:
 
+../../System/Debug/Debug.h:
+
+../../System/Debug/Console.h:
+
 ../Core/Inc/usart.h:
+
+../../System/Debug/Monitor.h:
+
+../../System/Debug/Profiler.h:
+
+../../System/Debug/Terminal.h:
+
+../../System/Debug/Shell.h:
+
+../../System/Thread.h:

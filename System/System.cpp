@@ -9,15 +9,18 @@
 
 #include "Lang/Operators.h"
 
+#include "Misc/WatchdogThread.h"
+#include "Sensors/Barometer.h"
+#include "Sensors/IMU.h"
+#include "Telemetry/LWIPThread.h"
+
+#include "Debug/Debug.h"
+
+
 #include "i2c.h"
 #include "iwdg.h"
 #include "usart.h"
 
-#include "Misc/WatchdogThread.h"
-#include "Sensors/Barometer.h"
-#include "Sensors/IMU.h"
-
-#include "Debug/Debug.h"
 
 #ifdef CORE_CM4
 void initCortexM4() {
@@ -31,5 +34,6 @@ void initCortexM4() {
 #ifdef CORE_CM7
 void initCortexM7() {
 	static WatchdogThread watchdog(&hiwdg1);
+	static LWIPThread lwip("localhost", 42666);
 }
 #endif

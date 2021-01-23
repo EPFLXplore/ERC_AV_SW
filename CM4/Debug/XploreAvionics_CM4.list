@@ -23,23 +23,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 00000030  00000000  00000000  00030208  2**0
                   CONTENTS, READONLY
- 10 .debug_info   0005a012  00000000  00000000  00030238  2**0
+ 10 .debug_info   0005a438  00000000  00000000  00030238  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 00009759  00000000  00000000  0008a24a  2**0
+ 11 .debug_abbrev 000097e6  00000000  00000000  0008a670  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00002770  00000000  00000000  000939a8  2**3
+ 12 .debug_aranges 00002770  00000000  00000000  00093e58  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 000023f8  00000000  00000000  00096118  2**3
+ 13 .debug_ranges 000023f8  00000000  00000000  000965c8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_macro  0004ac3f  00000000  00000000  00098510  2**0
+ 14 .debug_macro  0004ad55  00000000  00000000  000989c0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_line   00031ce8  00000000  00000000  000e314f  2**0
+ 15 .debug_line   00031e61  00000000  00000000  000e3715  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_str    001ab55b  00000000  00000000  00114e37  2**0
+ 16 .debug_str    001ab574  00000000  00000000  00115576  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .comment      0000007b  00000000  00000000  002c0392  2**0
+ 17 .comment      0000007b  00000000  00000000  002c0aea  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  0000b6c0  00000000  00000000  002c0410  2**2
+ 18 .debug_frame  0000b6c0  00000000  00000000  002c0b68  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -33650,9 +33650,9 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
  810db54:	100061c8 	.word	0x100061c8
 
 0810db58 <_ZN14WatchdogThread4initEv>:
-#include <string.h>
 #include "iwdg.h"
 
+#include "Debug/Debug.h"
 #include "usart.h"
 
 void WatchdogThread::init() {
@@ -34396,8 +34396,8 @@ class WatchdogThread : Thread {
  810e1b4:	0811198c 	.word	0x0811198c
 
 0810e1b8 <__tcf_0>:
+#include "usart.h"
 
-#include "Debug/Debug.h"
 
 #ifdef CORE_CM4
 void initCortexM4() {

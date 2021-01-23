@@ -1,6 +1,7 @@
-System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
- /Users/arion/git/XploreAvionics/System/System.h \
- /Users/arion/git/XploreAvionics/System/Thread.h \
+System/Telemetry/LWIPThread.o: \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.cpp \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
+ ../../System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -54,29 +55,53 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- /Users/arion/git/XploreAvionics/System/Lang/Operators.h \
- /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
- /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
- /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h \
- ../../System/Thread.h \
- /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
- ../../System/Libraries/bmp280.h \
- /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
- ../../System/Libraries/bno055_stm32.h ../../System/Libraries/bno055.h \
- ../../System/Libraries/bno055.h \
- /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
- /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
- /Users/arion/git/XploreAvionics/System/Debug/Console.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h \
- /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
- /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
- /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.h ../Core/Inc/i2c.h \
- ../Core/Inc/iwdg.h
+ ../../System/Debug/Debug.h ../../System/Debug/Console.h \
+ ../Core/Inc/usart.h ../Core/Inc/main.h ../../System/Debug/Monitor.h \
+ ../../System/Debug/Profiler.h ../../System/Debug/Terminal.h \
+ ../../System/Debug/Shell.h ../LWIP/App/lwip.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h \
+ ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cc.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cpu.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/netif/etharp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/etharp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip4.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ethernet.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ieee.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/etharp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/netif/ethernet.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/timeouts.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
+ ../LWIP/Target/ethernetif.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h
 
-/Users/arion/git/XploreAvionics/System/System.h:
+/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
-/Users/arion/git/XploreAvionics/System/Thread.h:
+../../System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -184,46 +209,100 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-/Users/arion/git/XploreAvionics/System/Lang/Operators.h:
+../../System/Debug/Debug.h:
 
-/Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
-
-/Users/arion/git/XploreAvionics/System/Misc/../Thread.h:
-
-/Users/arion/git/XploreAvionics/System/Sensors/Barometer.h:
-
-../../System/Thread.h:
-
-/Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
-
-../../System/Libraries/bmp280.h:
-
-/Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
-
-../../System/Libraries/bno055_stm32.h:
-
-../../System/Libraries/bno055.h:
-
-../../System/Libraries/bno055.h:
-
-/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Console.h:
+../../System/Debug/Console.h:
 
 ../Core/Inc/usart.h:
 
 ../Core/Inc/main.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
+../../System/Debug/Monitor.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
+../../System/Debug/Profiler.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
+../../System/Debug/Terminal.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+../../System/Debug/Shell.h:
 
-../Core/Inc/i2c.h:
+../LWIP/App/lwip.h:
 
-../Core/Inc/iwdg.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h:
+
+../LWIP/Target/lwipopts.h:
+
+../Core/Inc/main.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h:
+
+../../Middlewares/Third_Party/LWIP/system/arch/cc.h:
+
+../../Middlewares/Third_Party/LWIP/system/arch/cpu.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/netif/etharp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/etharp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip4.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ethernet.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ieee.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/etharp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/netif/ethernet.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/timeouts.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h:
+
+../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h:
+
+../LWIP/Target/ethernetif.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h:

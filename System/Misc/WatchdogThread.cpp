@@ -11,6 +11,7 @@
 #include <string.h>
 #include "iwdg.h"
 
+#include "Debug/Debug.h"
 #include "usart.h"
 
 void WatchdogThread::init() {

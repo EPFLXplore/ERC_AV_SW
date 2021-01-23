@@ -7,11 +7,11 @@ WatchdogThread.h:15:2:WatchdogThread::WatchdogThread(IWDG_HandleTypeDef*)	16	sta
 Barometer.h:19:2:BarometerThread::BarometerThread(I2C_HandleTypeDef*, UART_HandleTypeDef*)	24	static
 IMU.h:20:2:IMUThread::IMUThread(I2C_HandleTypeDef*, UART_HandleTypeDef*)	24	static
 WatchdogThread.h:13:7:WatchdogThread::~WatchdogThread()	16	static
-System.cpp:24:40:void __tcf_0()	8	static
+System.cpp:27:40:void __tcf_0()	8	static
 Shell.h:26:7:Shell::~Shell()	16	static
-System.cpp:25:39:void __tcf_1()	8	static
+System.cpp:28:39:void __tcf_1()	8	static
 IMU.h:18:7:IMUThread::~IMUThread()	16	static
-System.cpp:26:38:void __tcf_2()	8	static
+System.cpp:29:38:void __tcf_2()	8	static
 Barometer.h:17:7:BarometerThread::~BarometerThread()	16	static
-System.cpp:27:50:void __tcf_3()	8	static
-System.cpp:23:6:void initCortexM4()	8	static
+System.cpp:30:50:void __tcf_3()	8	static
+System.cpp:26:6:void initCortexM4()	8	static

@@ -154,3 +154,4 @@
 "System/Sensors/IMU.o"
 "System/System.o"
 "System/Thread.o"
+"System/Telemetry/LWIPThread.o"
