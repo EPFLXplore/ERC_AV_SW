@@ -97,7 +97,8 @@ System/Telemetry/LWIPThread.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
  ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/init.h
 
 /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
@@ -306,3 +307,5 @@ System/Telemetry/LWIPThread.o: \
 ../LWIP/Target/ethernetif.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/init.h:

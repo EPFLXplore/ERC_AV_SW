@@ -14,9 +14,11 @@
 #include "Terminal.h"
 #include "Shell.h"
 
+
 extern Console console;
 extern Monitor monitor;
 extern Profiler profiler;
 extern Terminal terminal;
+
 
 #endif /* DEBUG_DEBUG_H_ */
