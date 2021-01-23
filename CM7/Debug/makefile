@@ -11,6 +11,7 @@ RM := rm -rf
 -include System/Sensors/subdir.mk
 -include System/Misc/subdir.mk
 -include System/Libraries/subdir.mk
+-include System/Debug/subdir.mk
 -include System/subdir.mk
 -include Middlewares/Third_Party/LwIP/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/subdir.mk

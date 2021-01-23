@@ -1,0 +1,5 @@
+Console.cpp:18:1:Console::Console(UART_HandleTypeDef*)	16	static
+Console.cpp:26:6:void Console::lock()	16	static
+Console.cpp:30:6:void Console::unlock()	16	static
+Console.cpp:34:6:void Console::transmit(uint8_t*, uint32_t)	24	static,ignoring_inline_asm
+Console.cpp:40:5:)	28	static

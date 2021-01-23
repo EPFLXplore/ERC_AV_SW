@@ -1,6 +1,6 @@
 Middlewares/Third_Party/LwIP/altcp_tcp.o: \
  /Users/arion/git/XploreAvionics/Middlewares/Third_Party/LwIP/src/core/altcp_tcp.c \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
@@ -44,12 +44,12 @@ Middlewares/Third_Party/LwIP/altcp_tcp.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
- ../../Middlewares/Third_Party/LwIP/system/arch/cc.h \
- ../../Middlewares/Third_Party/LwIP/system/arch/cpu.h
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cc.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cpu.h
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h:
 
 ../LWIP/Target/lwipopts.h:
 
@@ -139,10 +139,10 @@ Middlewares/Third_Party/LwIP/altcp_tcp.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h:
 
-../../Middlewares/Third_Party/LwIP/system/arch/cc.h:
+../../Middlewares/Third_Party/LWIP/system/arch/cc.h:
 
-../../Middlewares/Third_Party/LwIP/system/arch/cpu.h:
+../../Middlewares/Third_Party/LWIP/system/arch/cpu.h:

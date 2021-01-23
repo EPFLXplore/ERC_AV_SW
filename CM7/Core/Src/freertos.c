@@ -55,6 +55,7 @@
 
 /* USER CODE END FunctionPrototypes */
 
+
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -87,10 +88,9 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of watchdog */
 
-  initCortexM7();
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  initCortexM7();
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -98,6 +98,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_EVENTS */
 
 }
+
 /* USER CODE BEGIN Header_watchdogTask */
 /**
   * @brief  Function implementing the watchdog thread.

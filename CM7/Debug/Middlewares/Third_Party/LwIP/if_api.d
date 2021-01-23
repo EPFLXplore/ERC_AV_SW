@@ -1,6 +1,6 @@
 Middlewares/Third_Party/LwIP/if_api.o: \
  /Users/arion/git/XploreAvionics/Middlewares/Third_Party/LwIP/src/api/if_api.c \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
@@ -44,32 +44,32 @@ Middlewares/Third_Party/LwIP/if_api.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
- ../../Middlewares/Third_Party/LwIP/system/arch/cc.h \
- ../../Middlewares/Third_Party/LwIP/system/arch/cpu.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/if_api.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/netif.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/err.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/def.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/ip6_addr.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/def.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/stats.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/mem.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/memp.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_std.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/netifapi.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/sockets_priv.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
- ../../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h \
- ../../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cc.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/cpu.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/errno.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/if_api.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/netifapi.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/sockets_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
+ ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -82,7 +82,7 @@ Middlewares/Third_Party/LwIP/if_api.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h:
 
 ../LWIP/Target/lwipopts.h:
 
@@ -172,57 +172,57 @@ Middlewares/Third_Party/LwIP/if_api.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h:
 
-../../Middlewares/Third_Party/LwIP/system/arch/cc.h:
+../../Middlewares/Third_Party/LWIP/system/arch/cc.h:
 
-../../Middlewares/Third_Party/LwIP/system/arch/cpu.h:
+../../Middlewares/Third_Party/LWIP/system/arch/cpu.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/errno.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/if_api.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/if_api.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/netif.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/err.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/def.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/ip6_addr.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/def.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/stats.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/mem.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/memp.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_std.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/mem_priv.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/netifapi.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/netifapi.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/priv/sockets_priv.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/sockets_priv.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h:
 
-../../Middlewares/Third_Party/LwIP/src/include/lwip/sys.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h:
 
-../../Middlewares/Third_Party/LwIP/system/arch/sys_arch.h:
+../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 

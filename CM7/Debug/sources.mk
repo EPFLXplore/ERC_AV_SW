@@ -38,6 +38,7 @@ LWIP/App \
 LWIP/Target \
 Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \
+System/Debug \
 System/Libraries \
 System/Misc \
 System/Sensors \

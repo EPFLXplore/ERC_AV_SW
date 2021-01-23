@@ -23,8 +23,6 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-#include "i2c.h"
-#include "usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -53,12 +51,12 @@
 /* USER CODE END Variables */
 /* Definitions for watchdog */
 
+
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
-void watchdogTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -95,6 +93,10 @@ void MX_FREERTOS_Init(void) {
 	initCortexM4();
   /* USER CODE END RTOS_THREADS */
 
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
+
 }
 
 /* USER CODE BEGIN Header_watchdogTask */
@@ -104,6 +106,7 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_watchdogTask */
+
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
