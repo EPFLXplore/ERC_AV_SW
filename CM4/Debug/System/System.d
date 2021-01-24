@@ -65,10 +65,11 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h \
  ../../System/Thread.h \
  /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
- ../../System/Libraries/bmp280.h \
+ ../../System/Libraries/BMP280/bmp280.h \
  /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
- ../../System/Libraries/bno055_stm32.h ../../System/Libraries/bno055.h \
- ../../System/Libraries/bno055.h \
+ ../../System/Libraries/BNO055/bno055_stm32.h \
+ ../../System/Libraries/BNO055/bno055.h \
+ ../../System/Libraries/BNO055/bno055.h \
  /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
  /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
  /Users/arion/git/XploreAvionics/System/Debug/Console.h \
@@ -211,15 +212,15 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
 
-../../System/Libraries/bmp280.h:
+../../System/Libraries/BMP280/bmp280.h:
 
 /Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
 
-../../System/Libraries/bno055_stm32.h:
+../../System/Libraries/BNO055/bno055_stm32.h:
 
-../../System/Libraries/bno055.h:
+../../System/Libraries/BNO055/bno055.h:
 
-../../System/Libraries/bno055.h:
+../../System/Libraries/BNO055/bno055.h:
 
 /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 

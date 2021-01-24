@@ -12,8 +12,8 @@
 #include "Thread.h"
 #include "DataStructures.h"
 
-#include "Libraries/bno055_stm32.h"
-#include "Libraries/bno055.h"
+#include "Libraries/BNO055/bno055_stm32.h"
+#include "Libraries/BNO055/bno055.h"
 
 class IMUThread : Thread {
 public:

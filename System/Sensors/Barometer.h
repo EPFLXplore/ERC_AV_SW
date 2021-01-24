@@ -11,7 +11,7 @@
 #include "Thread.h"
 #include "DataStructures.h"
 
-#include "Libraries/bmp280.h"
+#include "Libraries/BMP280/bmp280.h"
 
 
 class BarometerThread : Thread {

@@ -62,7 +62,7 @@ System/Sensors/Barometer.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
- ../../System/Libraries/bmp280.h ../../System/Debug/Debug.h \
+ ../../System/Libraries/BMP280/bmp280.h ../../System/Debug/Debug.h \
  ../../System/Debug/Console.h ../Core/Inc/usart.h ../Core/Inc/main.h \
  ../../System/Debug/Monitor.h ../../System/Debug/Profiler.h \
  ../../System/Debug/Terminal.h ../../System/Debug/Shell.h
@@ -191,7 +191,7 @@ System/Sensors/Barometer.o: \
 
 /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
 
-../../System/Libraries/bmp280.h:
+../../System/Libraries/BMP280/bmp280.h:
 
 ../../System/Debug/Debug.h:
 

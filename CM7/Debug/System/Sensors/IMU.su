@@ -1,6 +1,6 @@
 DataStructures.h:18:8:char* Vector::toString(char*)	24	static
 DataStructures.h:29:8:char* IMUData::toString(char*)	32	static
 IMU.cpp:14:6:virtual void IMUThread::init()	16	static
-IMU.cpp:29:6:virtual void IMUThread::loop()	152	static
-IMU.cpp:43:6:void IMUThread::writeToRtosBuffer(IMUData)	16	static
-IMU.cpp:47:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	88	static
+IMU.cpp:31:6:virtual void IMUThread::loop()	152	static
+IMU.cpp:45:6:void IMUThread::writeToRtosBuffer(IMUData)	16	static
+IMU.cpp:49:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	88	static

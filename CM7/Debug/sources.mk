@@ -38,7 +38,9 @@ LWIP/Target \
 Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \
 System/Debug \
-System/Libraries \
+System/Libraries/BMP280 \
+System/Libraries/BNO055 \
+System/Libraries/RoCo/Src \
 System/Misc \
 System/Sensors \
 System \

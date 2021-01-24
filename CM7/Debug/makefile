@@ -11,7 +11,9 @@ RM := rm -rf
 -include System/Telemetry/subdir.mk
 -include System/Sensors/subdir.mk
 -include System/Misc/subdir.mk
--include System/Libraries/subdir.mk
+-include System/Libraries/RoCo/Src/subdir.mk
+-include System/Libraries/BNO055/subdir.mk
+-include System/Libraries/BMP280/subdir.mk
 -include System/Debug/subdir.mk
 -include System/subdir.mk
 -include Middlewares/Third_Party/LwIP/subdir.mk
