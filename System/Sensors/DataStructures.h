@@ -2,7 +2,7 @@
  * DataStructures.h
  *
  *  Created on: Jan 23, 2021
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef SENSORS_DATASTRUCTURES_H_

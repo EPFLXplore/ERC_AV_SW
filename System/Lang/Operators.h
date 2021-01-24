@@ -2,7 +2,7 @@
  * CPP.h
  *
  *  Created on: 7 Nov 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef LANG_OPERATORS_H_

@@ -2,7 +2,7 @@
  * terminal.h
  *
  *  Created on: 6 Sep 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef APPLICATION_HOSTBOARD_INC_DEBUG_TERMINAL_H_

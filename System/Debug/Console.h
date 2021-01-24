@@ -2,7 +2,7 @@
  * console.h
  *
  *  Created on: 11 Feb 2020
- *      Author: Arion
+ *      Author: AV Team 2020
  */
 
 #ifndef APPLICATION_HOSTBOARD_INC_DEBUG_CONSOLE_H_

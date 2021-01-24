@@ -52,7 +52,7 @@
 "Middlewares/Third_Party/FatFs/ff.o"
 "Middlewares/Third_Party/FatFs/ff_gen_drv.o"
 "Middlewares/Third_Party/FatFs/syscall.o"
-"Middlewares/Third_Party/FreeRTOS/cmsis_os2.o"
+"Middlewares/Third_Party/FreeRTOS/cmsis_os.o"
 "Middlewares/Third_Party/FreeRTOS/croutine.o"
 "Middlewares/Third_Party/FreeRTOS/event_groups.o"
 "Middlewares/Third_Party/FreeRTOS/heap_4.o"

@@ -2,7 +2,7 @@
  * IMU.cpp
  *
  *  Created on: 7 Nov 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #include "IMU.h"
@@ -24,6 +24,8 @@ void IMUThread::init() {
 		bno055_setup();
 		bno055_setOperationModeNDOF();
 	}
+
+	console.printf("BNO055 initialized\n");
 }
 
 void IMUThread::loop() {

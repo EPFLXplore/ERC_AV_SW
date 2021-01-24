@@ -2,7 +2,7 @@
  * profiler.h
  *
  *  Created on: 24 Aug 2020
- *      Author: Arion
+ *      Author: AV Team 2020
  */
 
 #ifndef APPLICATION_HOSTBOARD_INC_DEBUG_PROFILER_H_

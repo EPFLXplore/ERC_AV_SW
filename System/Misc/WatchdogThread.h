@@ -2,7 +2,7 @@
  * WatchdogThread.hpp
  *
  *  Created on: 7 Nov 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef MISC_WATCHDOGTHREAD_H_

@@ -2,7 +2,7 @@
  * IMU.h
  *
  *  Created on: 7 Nov 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef SENSORS_IMU_H_

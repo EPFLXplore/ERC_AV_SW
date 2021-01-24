@@ -52,7 +52,7 @@ Middlewares/Third_Party/LwIP/sys_arch.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
  ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -62,7 +62,13 @@ Middlewares/Third_Party/LwIP/sys_arch.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h \
@@ -176,7 +182,7 @@ Middlewares/Third_Party/LwIP/sys_arch.o: \
 
 ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h:
 
-../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
+../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -196,7 +202,19 @@ Middlewares/Third_Party/LwIP/sys_arch.o: \
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 
-../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h:
 

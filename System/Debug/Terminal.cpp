@@ -2,7 +2,7 @@
  * terminal.c
  *
  *  Created on: 6 Sep 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #include "Terminal.h"

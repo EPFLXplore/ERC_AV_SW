@@ -171,10 +171,9 @@ int32_t  LAN8742_RegisterBusIO(lan8742_Object_t *pObj, lan8742_IOCtx_t *ioctx)
      tickstart =  pObj->IO.GetTick();
      
      /* Wait for 2s to perform initialization */
-     /*while((pObj->IO.GetTick() - tickstart) <= LAN8742_INIT_TO)
+     while((pObj->IO.GetTick() - tickstart) <= LAN8742_INIT_TO)
      {
-     }*/
-
+     }
      pObj->Is_Initialized = 1;
    }
    

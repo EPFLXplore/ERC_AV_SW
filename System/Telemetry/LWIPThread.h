@@ -2,7 +2,7 @@
  * LWIPThread.h
  *
  *  Created on: Jan 23, 2021
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef TELEMETRY_LWIPTHREAD_H_
@@ -21,6 +21,10 @@ public:
 private:
 	const char* ip;
 	const uint16_t port;
+
+	uint32_t local_ip;
+	uint32_t netmask;
+	uint32_t gateway;
 };
 
 

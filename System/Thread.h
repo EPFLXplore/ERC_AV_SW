@@ -2,7 +2,7 @@
  * Thread.hpp
  *
  *  Created on: 23 Oct 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef THREAD_H_
@@ -16,15 +16,14 @@
 class Thread {
 public:
 	Thread(const char* name);
-	Thread(const char* name, osPriority_t priority);
+	Thread(const char* name, osPriority priority);
 	Thread(const char* name, uint32_t stackSize);
-	Thread(const char* name, osPriority_t priority, uint32_t stackSize);
+	Thread(const char* name, osPriority priority, uint32_t stackSize);
 	~Thread() {};
 	virtual void init() = 0;
 	virtual void loop() = 0;
 private:
-	osThreadAttr_t attributes;
-	osThreadId_t handle;
+	osThreadId handle;
 	void task();
 };
 

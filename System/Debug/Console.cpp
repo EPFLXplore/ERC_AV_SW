@@ -2,7 +2,7 @@
  * console.c
  *
  *  Created on: Feb 17, 2020
- *      Author: Arion
+ *      Author: AV Team 2020
  */
 
 #include "Debug/Console.h"
@@ -10,15 +10,15 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stm32h7xx_hal.h>
-#include <cmsis_os2.h>
+#include <cmsis_os.h>
 
 
 
-
+osSemaphoreDef(console_sem);
 
 Console::Console(UART_HandleTypeDef* uart) : console_uart(uart) {
 	console_uart = uart;
-	console_semaphore = osSemaphoreNew(256, 1, nullptr);
+	console_semaphore = osSemaphoreCreate(osSemaphore(console_sem), 3);
 }
 
 void Console::lock() {

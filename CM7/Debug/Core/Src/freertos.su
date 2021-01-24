@@ -1,1 +1,2 @@
-freertos.c:67:6:MX_FREERTOS_Init	8	static
+freertos.c:68:6:vApplicationGetIdleTaskMemory	24	static
+freertos.c:82:6:MX_FREERTOS_Init	8	static

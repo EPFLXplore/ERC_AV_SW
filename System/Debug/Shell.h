@@ -2,7 +2,7 @@
  * shell.h
  *
  *  Created on: 5 Sep 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef APPLICATION_HOSTBOARD_INC_DEBUG_SHELL_H_

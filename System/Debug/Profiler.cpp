@@ -2,7 +2,7 @@
  * profiler.c
  *
  *  Created on: 24 Aug 2020
- *      Author: Arion
+ *      Author: AV Team 2020
  */
 
 #include "Debug/Debug.h"

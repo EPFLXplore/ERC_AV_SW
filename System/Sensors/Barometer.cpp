@@ -2,7 +2,7 @@
  * Barometer.cpp
  *
  *  Created on: 7 Nov 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #include "Barometer.h"
@@ -21,7 +21,9 @@ void BarometerThread::init() {
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
 		console.printf("BMP280 initialization failed\n");
 	  	osDelay(500);
-	 }
+	}
+
+	console.printf("BMP280 initialized\n");
 }
 
 void BarometerThread::loop() {

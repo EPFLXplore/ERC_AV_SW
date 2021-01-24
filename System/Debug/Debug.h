@@ -2,7 +2,7 @@
  * Debug.h
  *
  *  Created on: Jan 23, 2021
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #ifndef DEBUG_DEBUG_H_

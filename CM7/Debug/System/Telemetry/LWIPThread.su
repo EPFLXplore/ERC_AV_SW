@@ -1,4 +1,4 @@
-LWIPThread.cpp:34:1:LWIPThread::LWIPThread(const char*, uint16_t)	24	static
-LWIPThread.cpp:38:6:virtual void LWIPThread::init()	72	static
-LWIPThread.cpp:88:13:void ethernet_link_status_updated(netif*)	16	static
-LWIPThread.cpp:92:6:virtual void LWIPThread::loop()	16	static
+LWIPThread.cpp:18:1:LWIPThread::LWIPThread(const char*, uint16_t)	24	static
+LWIPThread.cpp:22:6:virtual void LWIPThread::init()	72	static
+LWIPThread.cpp:51:6:void onStatusUpdate(netif*)	16	static
+LWIPThread.cpp:63:6:virtual void LWIPThread::loop()	16	static

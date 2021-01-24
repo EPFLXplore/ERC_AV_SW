@@ -2,7 +2,7 @@
  * System.cpp
  *
  *  Created on: 23 Oct 2020
- *      Author: arion
+ *      Author: AV Team 2020
  */
 
 #include "System.h"

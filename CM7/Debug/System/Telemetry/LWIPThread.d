@@ -11,8 +11,14 @@ System/Telemetry/LWIPThread.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -97,8 +103,7 @@ System/Telemetry/LWIPThread.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
  ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/init.h
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h
 
 /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
@@ -122,9 +127,21 @@ System/Telemetry/LWIPThread.o: \
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 
-../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
+../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 
-../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 
@@ -307,5 +324,3 @@ System/Telemetry/LWIPThread.o: \
 ../LWIP/Target/ethernetif.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/init.h:
