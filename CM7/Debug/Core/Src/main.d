@@ -32,11 +32,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
@@ -58,7 +55,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/crc.h ../Core/Inc/main.h ../Core/Inc/dma.h ../Core/Inc/i2c.h \
+ ../Core/Inc/crc.h ../Core/Inc/main.h ../Core/Inc/dma.h \
  ../Core/Inc/iwdg.h ../LWIP/App/lwip.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h \
@@ -89,18 +86,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/etharp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/netif/ethernet.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/timeouts.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h \
  ../../Middlewares/Third_Party/LWIP/system/arch/sys_arch.h \
  ../LWIP/Target/ethernetif.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h \
- ../Core/Inc/quadspi.h ../Core/Inc/rtc.h ../Core/Inc/spi.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h
+ ../Core/Inc/rtc.h ../Core/Inc/usart.h ../Core/Inc/gpio.h
 
 ../Core/Inc/main.h:
 
@@ -170,15 +161,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
 
@@ -227,8 +212,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/main.h:
 
 ../Core/Inc/dma.h:
-
-../Core/Inc/i2c.h:
 
 ../Core/Inc/iwdg.h:
 
@@ -292,16 +275,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h:
 
-../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h:
-
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/timeouts.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/sys.h:
@@ -312,11 +285,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h:
 
-../Core/Inc/quadspi.h:
-
 ../Core/Inc/rtc.h:
-
-../Core/Inc/spi.h:
 
 ../Core/Inc/usart.h:
 

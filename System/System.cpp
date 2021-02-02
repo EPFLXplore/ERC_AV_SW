@@ -17,12 +17,12 @@
 #include "Debug/Debug.h"
 
 
-#include "i2c.h"
 #include "iwdg.h"
 #include "usart.h"
 
 
 #ifdef CORE_CM4
+#include "i2c.h"
 void initCortexM4() {
 	static WatchdogThread watchdog(&hiwdg2);
 	static Shell shell(&huart3, &terminal);

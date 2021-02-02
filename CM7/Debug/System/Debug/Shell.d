@@ -35,11 +35,8 @@ System/Debug/Shell.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
@@ -138,15 +135,9 @@ System/Debug/Shell.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
 

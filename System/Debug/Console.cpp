@@ -37,12 +37,16 @@ void Console::transmit(uint8_t* buffer, uint32_t length) {
 	HAL_HSEM_Release(HARDWARE_SEMAPHORE, 2);
 }
 
+void Console::print(const char* buffer) {
+	transmit((uint8_t*) buffer, strlen(buffer));
+}
+
 void Console::printf(const char *format, ...) {
 	va_list args;
 	va_start(args, format);
 
 	if(vsprintf(buffer, format, args) > 0) {
-		transmit((uint8_t*) buffer, strlen(buffer));
+		print(buffer);
 	}
 
 	va_end(args);

@@ -34,6 +34,7 @@ Core/Src \
 Core/Startup \
 Drivers/BSP/Components \
 Drivers/STM32H7xx_HAL_Driver \
+LWIP/App \
 LWIP/Target \
 Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \

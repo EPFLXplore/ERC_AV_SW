@@ -22,8 +22,13 @@ public:
 	~Thread() {};
 	virtual void init() = 0;
 	virtual void loop() = 0;
+
+protected:
+	void println(const char* format, ...);
+
 private:
 	osThreadId handle;
+	const char* name;
 	void task();
 };
 

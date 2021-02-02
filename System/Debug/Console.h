@@ -26,6 +26,7 @@ public:
 	Console(UART_HandleTypeDef* uart);
 	void lock();
 	void unlock();
+	void print(const char* buffer);
 	void printf(const char* format, ...);
 
 private:

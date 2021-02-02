@@ -30,10 +30,10 @@ void Profiler::start(uint8_t measurement_id) {
 
 		if(profiler->depth >= MAX_PROFILER_DEPTH) {
 			profiler->depth = MAX_PROFILER_DEPTH - 1;
-			console.printf("Attempt from thread %s to exceed the maximum profiler nesting depth!\n", task_name);
+			console.printf("Attempt from thread %s to exceed the maximum profiler nesting depth!\r\n", task_name);
 		}
 	} else {
-		console.printf("Unable to profile thread %s\n", task_name);
+		console.printf("Unable to profile thread %s\r\n", task_name);
 	}
 }
 

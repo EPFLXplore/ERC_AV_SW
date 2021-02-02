@@ -48,12 +48,14 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
+osThreadId watchdogHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
+void watchdogTask(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -102,6 +104,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of watchdog */
+  osThreadDef(watchdog, watchdogTask, osPriorityNormal, 0, 512);
+  watchdogHandle = osThreadCreate(osThread(watchdog), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -117,7 +121,17 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_watchdogTask */
-
+void watchdogTask(void const * argument)
+{
+  /* init code for LWIP */
+  /* USER CODE BEGIN watchdogTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END watchdogTask */
+}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

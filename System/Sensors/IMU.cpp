@@ -18,14 +18,14 @@ void IMUThread::init() {
 
 	while(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
 		osDelay(500);
-		console.printf("BNO055 initialization failed\n");
+		println("BNO055 initialization failed");
 
 		bno055_assignI2C(this->hi2c);
 		bno055_setup();
 		bno055_setOperationModeNDOF();
 	}
 
-	console.printf("BNO055 initialized\n");
+	println("BNO055 initialized");
 }
 
 void IMUThread::loop() {
@@ -35,7 +35,7 @@ void IMUThread::loop() {
 	data.gyro = bnoVectorToVector(bno055_getVectorEuler());
 	data.mag = bnoVectorToVector(bno055_getVectorGravity());
 
-	console.printf("%s\n", data.toString(cbuf));
+	println("%s", data.toString(cbuf));
 
 	writeToRtosBuffer(data); //envoyer à un autre thread pour etre envoyé par ethernet
 

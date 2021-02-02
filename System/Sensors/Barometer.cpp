@@ -19,11 +19,11 @@ void BarometerThread::init() {
 	bmp280.i2c = hi2c;
 
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
-		console.printf("BMP280 initialization failed\n");
+		println("BMP280 initialization failed");
 	  	osDelay(500);
 	}
 
-	console.printf("BMP280 initialized\n");
+	println("BMP280 initialized");
 }
 
 void BarometerThread::loop() {
@@ -31,7 +31,7 @@ void BarometerThread::loop() {
 
 	bmp280_read_float(&bmp280, &data.temperature, &data.pressure, &data.humidity);
 
-	console.printf("%s\n", data.toString(cbuf));
+	println("%s", data.toString(cbuf));
 
 	writeToRtosBuffer(data);
 

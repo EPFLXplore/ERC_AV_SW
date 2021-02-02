@@ -20,7 +20,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
@@ -31,7 +30,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
@@ -64,8 +62,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../../Middlewares/Third_Party/FatFs/src/ff.h \
- ../FATFS/Target/user_diskio.h ../Core/Inc/fdcan.h ../Core/Inc/i2c.h \
- ../Core/Inc/iwdg.h ../Core/Inc/usart.h ../Core/Inc/gpio.h
+ ../FATFS/Target/user_diskio.h ../Core/Inc/i2c.h ../Core/Inc/iwdg.h \
+ ../Core/Inc/spi.h ../Core/Inc/usart.h ../Core/Inc/gpio.h
 
 ../Core/Inc/main.h:
 
@@ -111,8 +109,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h:
@@ -132,8 +128,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 
@@ -205,11 +199,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../FATFS/Target/user_diskio.h:
 
-../Core/Inc/fdcan.h:
-
 ../Core/Inc/i2c.h:
 
 ../Core/Inc/iwdg.h:
+
+../Core/Inc/spi.h:
 
 ../Core/Inc/usart.h:
 

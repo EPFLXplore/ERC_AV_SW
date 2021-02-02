@@ -39,7 +39,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
@@ -50,7 +49,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
@@ -77,8 +75,8 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
  /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
  /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.h ../Core/Inc/i2c.h \
- ../Core/Inc/iwdg.h
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h ../Core/Inc/iwdg.h \
+ ../Core/Inc/i2c.h
 
 /Users/arion/git/XploreAvionics/System/System.h:
 
@@ -160,8 +158,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h:
@@ -181,8 +177,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 
@@ -240,6 +234,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 /Users/arion/git/XploreAvionics/System/Debug/Shell.h:
 
-../Core/Inc/i2c.h:
-
 ../Core/Inc/iwdg.h:
+
+../Core/Inc/i2c.h:

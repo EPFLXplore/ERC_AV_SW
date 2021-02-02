@@ -40,7 +40,6 @@ System/Misc/WatchdogThread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
@@ -51,7 +50,6 @@ System/Misc/WatchdogThread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
@@ -146,8 +144,6 @@ System/Misc/WatchdogThread.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h:
@@ -167,8 +163,6 @@ System/Misc/WatchdogThread.o: \
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 

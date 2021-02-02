@@ -15,7 +15,7 @@ Shell::Shell(UART_HandleTypeDef* uart, Terminal* terminal) : Thread("Shell"), ua
 
 void Shell::init() {
 	console.printf("\x1b[2J\x1b[H");
-	console.printf("----- EPFL Xplore Avionics Shell -----\n");
+	console.printf("----- EPFL Xplore Avionics Shell -----\r\n");
 	HAL_UART_Receive_DMA(uart, dma_buffer, CMD_BUFFER_SIZE);
 }
 

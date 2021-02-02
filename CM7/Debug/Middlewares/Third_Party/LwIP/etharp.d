@@ -35,11 +35,8 @@ Middlewares/Third_Party/LwIP/etharp.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
- ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
@@ -70,11 +67,6 @@ Middlewares/Third_Party/LwIP/etharp.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/etharp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/snmp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/autoip.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/iana.h \
  ../../Middlewares/Third_Party/LWIP/src/include/netif/ethernet.h
@@ -151,15 +143,9 @@ Middlewares/Third_Party/LwIP/etharp.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
 
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
-
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h:
-
-../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
 
@@ -220,16 +206,6 @@ Middlewares/Third_Party/LwIP/etharp.o: \
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/snmp.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/dhcp.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/udp.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/udp.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/autoip.h:
 

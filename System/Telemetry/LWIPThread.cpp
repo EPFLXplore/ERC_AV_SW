@@ -15,24 +15,28 @@
 static struct netif gnetif; // global network interface
 static void onStatusUpdate(struct netif *netif);
 
-LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Client thread"), ip(ip), port(port) {
+LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry"), ip(ip), port(port) {
 
 }
 
 void LWIPThread::init() {
 	osDelay(50); // Time to get the shell loaded by Cortex M4
 
-	console.printf("Initializing LWIP...\n");
+	println("Initializing LWIP...");
 
 	tcpip_init( NULL, NULL );
 
 	/* IP addresses initialization with DHCP (IPv4) */
-	local_ip = 0;
-	netmask = 0;
-	gateway = 0;
+	ip4_addr local_ip;
+	ip4_addr netmask;
+	ip4_addr gateway;
+
+	IP4_ADDR(&local_ip, 192, 168, 0, 10);
+	IP4_ADDR(&netmask, 255, 255, 255, 0);
+	IP4_ADDR(&gateway, 192, 168, 0, 1);
 
 	/* add the network interface (IPv4/IPv6) with RTOS */
-	netif_add(&gnetif, (ip4_addr*) &local_ip, (ip4_addr*) &netmask, (ip4_addr*) &gateway, NULL, &ethernetif_init, &tcpip_input);
+	netif_add(&gnetif, &local_ip, &netmask, &gateway, NULL, &ethernetif_init, &tcpip_input);
 
 	/* Registers the default network interface */
 	netif_set_default(&gnetif);
@@ -43,20 +47,17 @@ void LWIPThread::init() {
 
 	osThreadDef(EthLink, ethernet_link_thread, osPriorityNormal, 0, 1024);
 	osThreadCreate (osThread(EthLink), &gnetif);
-
-	dhcp_start(&gnetif);
-
 }
 
 void onStatusUpdate(struct netif *netif) {
 	if (netif_is_link_up(netif)) {
 		/* When the netif is fully configured this function must be called */
 		netif_set_up(netif);
-		console.printf("Link is up\n");
+		console.printf("[Telemetry] Link is up\r\n");
 	} else {
 		/* When the netif link is down this function must be called */
 		netif_set_down(netif);
-		console.printf("Link is down\n");
+		console.printf("[Telemetry] Link is down\r\n");
 	}
 }
 

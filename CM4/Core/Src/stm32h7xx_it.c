@@ -56,11 +56,11 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern DMA_HandleTypeDef hdma_usart3_rx;
+extern DMA_HandleTypeDef hdma_usart3_tx;
 extern DMA_HandleTypeDef hdma_spi1_rx;
 extern DMA_HandleTypeDef hdma_spi1_tx;
 extern SPI_HandleTypeDef hspi1;
-extern DMA_HandleTypeDef hdma_usart3_rx;
-extern DMA_HandleTypeDef hdma_usart3_tx;
 extern TIM_HandleTypeDef htim8;
 
 /* USER CODE BEGIN EV */

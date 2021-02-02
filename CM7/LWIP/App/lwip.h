@@ -46,6 +46,20 @@
 /* Global Variables ----------------------------------------------------------*/
 extern ETH_HandleTypeDef heth;
 
+/* LWIP init function */
+void MX_LWIP_Init(void);
+
+#if !WITH_RTOS
+/* USER CODE BEGIN 1 */
+/* Function defined in lwip.c to:
+ *   - Read a received packet from the Ethernet buffers
+ *   - Send it to the lwIP stack for handling
+ *   - Handle timeouts if NO_SYS_NO_TIMERS not set
+ */
+void MX_LWIP_Process(void);
+
+/* USER CODE END 1 */
+#endif /* WITH_RTOS */
 
 #ifdef __cplusplus
 }
