@@ -46,7 +46,6 @@ NetworkClientIO::~NetworkClientIO() {
  * This operation is heavy and may fail.
  * Check the returned error code and set breakpoints accordingly if needed.
  */
-#include <iostream>
 int8_t NetworkClientIO::connectClient() {
 	if(connected) {
 		return -1; // Server already connected

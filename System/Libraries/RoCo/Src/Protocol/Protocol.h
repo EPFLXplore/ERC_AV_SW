@@ -15,5 +15,8 @@
 #include "Protocol20W18.h"
 #endif /* PROTOCOL_20W18 */
 
+#ifdef PROTOCOL_21W3
+#include "Protocol21W3.h"
+#endif /* PROTOCOL_20W18 */
 
 #endif /* PROTOCOL_PROTOCOL_H_ */

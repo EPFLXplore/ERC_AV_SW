@@ -39,6 +39,7 @@ LWIP/Target \
 Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \
 System/Debug \
+System/Lang \
 System/Libraries/BMP280 \
 System/Libraries/BNO055 \
 System/Libraries/RoCo/Src \

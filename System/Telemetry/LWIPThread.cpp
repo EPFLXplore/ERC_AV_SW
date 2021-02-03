@@ -7,16 +7,22 @@
 
 #include "LWIPThread.h"
 
+#include "Lang/Operators.h"
 #include "Debug/Debug.h"
 
 #include "lwip.h"
 
 
+static LWIPClientIO* client;
 static struct netif gnetif; // global network interface
 static void onStatusUpdate(struct netif *netif);
 
-LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry"), ip(ip), port(port) {
+LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry") {
+	client = new LWIPClientIO(ip, port);
+}
 
+LWIPThread::~LWIPThread() {
+	delete client;
 }
 
 void LWIPThread::init() {
@@ -46,21 +52,22 @@ void LWIPThread::init() {
 	netif_set_link_callback(&gnetif, onStatusUpdate);
 
 	osThreadDef(EthLink, ethernet_link_thread, osPriorityNormal, 0, 1024);
-	osThreadCreate (osThread(EthLink), &gnetif);
+	osThreadCreate(osThread(EthLink), &gnetif);
 }
 
 void onStatusUpdate(struct netif *netif) {
 	if (netif_is_link_up(netif)) {
 		/* When the netif is fully configured this function must be called */
-		netif_set_up(netif);
 		console.printf("[Telemetry] Link is up\r\n");
+		client->connectClient();
 	} else {
 		/* When the netif link is down this function must be called */
 		netif_set_down(netif);
 		console.printf("[Telemetry] Link is down\r\n");
+		client->disconnectClient();
 	}
 }
 
 void LWIPThread::loop() {
-
+	client->update(); // Handle reception
 }

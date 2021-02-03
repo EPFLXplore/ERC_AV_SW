@@ -1,11 +1,7 @@
 Thread.h:22:2:Thread::~Thread()	16	static
-Operators.h:14:8:void* operator new(size_t)	16	static
-Operators.h:18:8:void* operator new [](size_t)	16	static
-Operators.h:22:6:void operator delete(void*)	16	static
-Operators.h:26:6:void operator delete [](void*)	16	static
 WatchdogThread.h:15:2:WatchdogThread::WatchdogThread(IWDG_HandleTypeDef*)	16	static
+gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 WatchdogThread.h:13:7:WatchdogThread::~WatchdogThread()	16	static
 System.cpp:36:40:void __tcf_0()	8	static
-LWIPThread.h:15:7:LWIPThread::~LWIPThread()	16	static
 System.cpp:37:43:void __tcf_1()	8	static
 System.cpp:35:6:void initCortexM7()	8	static

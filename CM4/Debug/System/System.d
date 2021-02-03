@@ -69,13 +69,24 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../System/Libraries/BNO055/bno055.h \
  ../../System/Libraries/BNO055/bno055.h \
  /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
- /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
- /Users/arion/git/XploreAvionics/System/Debug/Console.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h \
- /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
- /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
- /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.h ../Core/Inc/iwdg.h \
+ ../../System/Libraries/RoCo/RoCo.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
+ ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/BufferedIODriver.h \
+ ../../System/Libraries/RoCo/Src/Build/Build.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkBus.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkServerIO.h \
+ ../../System/Libraries/RoCo/Src/LWIPClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Debug.h ../Core/Inc/iwdg.h \
  ../Core/Inc/i2c.h
 
 /Users/arion/git/XploreAvionics/System/System.h:
@@ -218,21 +229,41 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
+../../System/Libraries/RoCo/RoCo.h:
+
+../../System/Libraries/RoCo/Src/Protocol/Protocol.h:
+
+../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
+
+../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h:
+
+../../System/Libraries/RoCo/Src/IOBus.h:
+
+../../System/Libraries/RoCo/Src/MessageBus.h:
+
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/BufferedIODriver.h:
+
+../../System/Libraries/RoCo/Src/Build/Build.h:
+
+../../System/Libraries/RoCo/Src/MessageBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkBus.h:
+
+../../System/Libraries/RoCo/Src/IOBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkServerIO.h:
+
+../../System/Libraries/RoCo/Src/LWIPClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:
+
 /Users/arion/git/XploreAvionics/System/Debug/Debug.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Console.h:
-
-../Core/Inc/usart.h:
-
-../Core/Inc/main.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
-
-/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
 
 ../Core/Inc/iwdg.h:
 

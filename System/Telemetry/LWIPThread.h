@@ -10,21 +10,17 @@
 
 #include "Thread.h"
 
+#include "Libraries/RoCo/RoCo.h"
+
 #include <stdint.h>
+
 
 class LWIPThread : public Thread {
 public:
 	LWIPThread(const char* ip, const uint16_t port);
+	~LWIPThread();
 	void init();
 	void loop();
-
-private:
-	const char* ip;
-	const uint16_t port;
-
-	uint32_t local_ip;
-	uint32_t netmask;
-	uint32_t gateway;
 };
 
 

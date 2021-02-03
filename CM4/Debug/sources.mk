@@ -38,8 +38,10 @@ FATFS/Target \
 Middlewares/Third_Party/FatFs \
 Middlewares/Third_Party/FreeRTOS \
 System/Debug \
+System/Lang \
 System/Libraries/BMP280 \
 System/Libraries/BNO055 \
+System/Libraries/RoCo/Src \
 System/Misc \
 System/Sensors \
 System \

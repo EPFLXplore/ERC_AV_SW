@@ -1,3 +1,4 @@
+
 /*
  * Protocol20W18.h
  *
@@ -13,7 +14,7 @@
 
 
 struct PingPacket {
-	uint64_t time;
+	std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::nanoseconds> time = std::chrono::high_resolution_clock::now();
 } __attribute__((packed));
 
 

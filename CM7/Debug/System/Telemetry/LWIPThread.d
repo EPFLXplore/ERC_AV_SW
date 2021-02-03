@@ -58,32 +58,44 @@ System/Telemetry/LWIPThread.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../../System/Debug/Debug.h ../../System/Debug/Console.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h ../../System/Debug/Monitor.h \
- ../../System/Debug/Profiler.h ../../System/Debug/Terminal.h \
- ../../System/Debug/Shell.h ../LWIP/App/lwip.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h \
- ../LWIP/Target/lwipopts.h ../Core/Inc/main.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h \
- ../../Middlewares/Third_Party/LWIP/system/arch/cc.h \
- ../../Middlewares/Third_Party/LWIP/system/arch/cpu.h \
+ ../../System/Libraries/RoCo/RoCo.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
+ ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/BufferedIODriver.h \
+ ../../System/Libraries/RoCo/Src/Build/Build.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkBus.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkServerIO.h \
+ ../../System/Libraries/RoCo/Src/LWIPClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h \
+ ../../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa/inet.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h \
+ ../../System/Lang/Operators.h ../../System/Debug/Debug.h \
+ ../LWIP/App/lwip.h \
  ../../Middlewares/Third_Party/LWIP/src/include/netif/etharp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/etharp.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h \
- ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ip4.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/prot/ethernet.h \
@@ -213,37 +225,59 @@ System/Telemetry/LWIPThread.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-../../System/Debug/Debug.h:
+../../System/Libraries/RoCo/RoCo.h:
 
-../../System/Debug/Console.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol.h:
 
-../Core/Inc/usart.h:
+../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
 
-../Core/Inc/main.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h:
 
-../../System/Debug/Monitor.h:
+../../System/Libraries/RoCo/Src/IOBus.h:
 
-../../System/Debug/Profiler.h:
+../../System/Libraries/RoCo/Src/MessageBus.h:
 
-../../System/Debug/Terminal.h:
+../../System/Libraries/RoCo/Src/IODriver.h:
 
-../../System/Debug/Shell.h:
+../../System/Libraries/RoCo/Src/IODriver.h:
 
-../LWIP/App/lwip.h:
+../../System/Libraries/RoCo/Src/BufferedIODriver.h:
 
-../../Middlewares/Third_Party/LWIP/src/include/lwip/opt.h:
+../../System/Libraries/RoCo/Src/Build/Build.h:
 
-../LWIP/Target/lwipopts.h:
+../../System/Libraries/RoCo/Src/MessageBus.h:
 
-../Core/Inc/main.h:
+../../System/Libraries/RoCo/Src/NetworkBus.h:
 
-../../Middlewares/Third_Party/LWIP/src/include/lwip/debug.h:
+../../System/Libraries/RoCo/Src/IOBus.h:
 
-../../Middlewares/Third_Party/LWIP/src/include/lwip/arch.h:
+../../System/Libraries/RoCo/Src/NetworkClientIO.h:
 
-../../Middlewares/Third_Party/LWIP/system/arch/cc.h:
+../../System/Libraries/RoCo/Src/NetworkServerIO.h:
 
-../../Middlewares/Third_Party/LWIP/system/arch/cpu.h:
+../../System/Libraries/RoCo/Src/LWIPClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:
+
+../../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa/inet.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h:
 
@@ -255,27 +289,19 @@ System/Telemetry/LWIPThread.o: \
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h:
 
-../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h:
+../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:
+
+../../System/Lang/Operators.h:
+
+../../System/Debug/Debug.h:
+
+../LWIP/App/lwip.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/netif/etharp.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/etharp.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h:
-
-../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
 
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4.h:
 

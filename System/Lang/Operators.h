@@ -8,23 +8,15 @@
 #ifndef LANG_OPERATORS_H_
 #define LANG_OPERATORS_H_
 
-#include "cmsis_os.h"
-#include <stdint.h>
+#include <cstdint>
+#include <cstddef>
 
-void * operator new(size_t size) {
-    return pvPortMalloc(size);
-}
+void * operator new(size_t size);
 
-void * operator new[](size_t size) {
-    return pvPortMalloc(size);
-}
+void * operator new[](size_t size);
 
-void operator delete(void* ptr) {
-    vPortFree(ptr);
-}
+void operator delete(void* ptr);
 
-void operator delete[](void* ptr) {
-    vPortFree(ptr);
-}
+void operator delete[](void* ptr);
 
 #endif /* LANG_OPERATORS_H_ */
