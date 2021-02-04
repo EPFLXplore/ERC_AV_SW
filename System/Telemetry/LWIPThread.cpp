@@ -30,7 +30,7 @@ void LWIPThread::init() {
 
 	println("Initializing LWIP...");
 
-	tcpip_init( NULL, NULL );
+	tcpip_init(nullptr, nullptr);
 
 	/* IP addresses initialization with DHCP (IPv4) */
 	ip4_addr local_ip;
@@ -70,4 +70,5 @@ void onStatusUpdate(struct netif *netif) {
 
 void LWIPThread::loop() {
 	client->update(); // Handle reception
+
 }

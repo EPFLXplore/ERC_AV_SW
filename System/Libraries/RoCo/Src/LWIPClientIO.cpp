@@ -50,29 +50,8 @@ int8_t LWIPClientIO::connectClient() {
 		return -1; // Server already connected
 	}
 
-	int32_t result;
+	// TODO
 
-	// Creates the socket instance
-	socket_id = socket(AF_INET, SOCK_STREAM, 0);
-
-	if(socket_id < 0) {
-		return -2;
-	}
-
-	if(inet_pton(AF_INET, address_str.c_str(), &address.sin_addr) <= 0) {
-		close(socket_id);
-		return -3;
-	}
-
-	// Binds the client socket to the specified address and port
-	result = connect(socket_id, (struct sockaddr*) &address, sizeof(address));
-
-	if(result < 0) {
-		close(socket_id);
-		return -4;
-	}
-
-	// Finalises the instance's state and adds the socket server to the array of opened sockets
 	this->connected = true;
 
 	console.printf("[RoCo] [Client@%s] Client connected\r\n", ntohs(address.sin_port));
@@ -97,7 +76,7 @@ void LWIPClientIO::disconnectClient() {
  * Closes all used IO resources
  */
 void LWIPClientIO::closeSocket() {
-	close(socket_id);
+	// TODO
 }
 
 /*
@@ -108,31 +87,9 @@ void LWIPClientIO::closeSocket() {
  * Handles closing connections.
  */
 void LWIPClientIO::update() {
-	int32_t result;
-
-	uint8_t buffer[256];
-
 	if(connected) {
-		// New data from client
-		while((result = recv(socket_id, buffer, sizeof(buffer), 0)) >= 0) {
-			if(result != 0) {
-				if(receiver != nullptr) {
-					if(ntohs(address.sin_port) == PORT_A) {
-						receiver(0b10000000, buffer, result); // Sender ID marked as external
-					} else {
-						receiver(0b11000000, buffer, result); // Sender ID marked as internal
-					}
-				}
-			} else {
-				// Connection was closed by server
-				disconnectClient();
-				break;
-				// Do not decrement the num_sockets field since our IDs are not linear
-			}
-		}
+		// TODO
 	}
-
-	disconnectClient();
 }
 
 /*
@@ -148,11 +105,7 @@ void LWIPClientIO::receive(const std::function<void (uint8_t sender_id, uint8_t*
  */
 void LWIPClientIO::transmit(uint8_t* buffer, uint32_t length) {
 	if(connected) {
-		int32_t result;
-
-		while((result = send(socket_id, buffer, length, 0)) > 0) {
-			length -= result;
-		}
+		// TODO
 	}
 }
 #endif /* BUILD_WITH_LWIP_CLIENT_IO */

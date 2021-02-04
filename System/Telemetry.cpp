@@ -8,5 +8,5 @@
 
 #include "Telemetry.h"
 
-static BufferedIODriver driver;
-NetworkBus network(&driver);
+static BufferedIODriver telemetryDriver;
+NetworkBus network(&telemetryDriver);
