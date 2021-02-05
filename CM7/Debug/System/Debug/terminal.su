@@ -1,0 +1,3 @@
+Terminal.h:24:7:bool CommandComponent::matches(const char*)	24	static
+Terminal.cpp:19:6:void Terminal::execute(ShellCommand*, Console*)	32	static
+Terminal.cpp:84:6:bool Terminal::isVerbose()	16	static

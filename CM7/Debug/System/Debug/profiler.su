@@ -1,0 +1,5 @@
+Profiler.cpp:15:6:void Profiler::start(uint8_t)	40	static
+Profiler.cpp:40:13:void _spaces(uint8_t)	16	static
+Profiler.cpp:46:6:void Profiler::end()	56	static
+Profiler.cpp:96:6:void Profiler::enable()	24	static
+Profiler.cpp:104:6:void Profiler::disable()	16	static

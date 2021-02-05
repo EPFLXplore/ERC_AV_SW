@@ -1,0 +1,6 @@
+Thread.cpp:22:6:void __task_run(const void*)	24	static
+Thread.cpp:32:1:Thread::Thread(const char*)	16	static
+Thread.cpp:36:1:Thread::Thread(const char*, osPriority)	24	static
+Thread.cpp:40:1:Thread::Thread(const char*, uint32_t)	24	static
+Thread.cpp:44:1:Thread::Thread(const char*, osPriority, uint32_t)	56	static
+Thread.cpp:50:6:)	28	static
