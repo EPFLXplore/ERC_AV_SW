@@ -7,15 +7,19 @@
 
 #include "LWIPThread.h"
 
+#include "Telemetry.h"
 #include "Lang/Operators.h"
 #include "Debug/Debug.h"
 
 #include "lwip.h"
 
 
-static LWIPClientIO* client;
 static struct netif gnetif; // global network interface
 static void onStatusUpdate(struct netif *netif);
+
+
+static LWIPClientIO* client;
+
 
 LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry") {
 	client = new LWIPClientIO(ip, port);
@@ -58,6 +62,7 @@ void LWIPThread::init() {
 void onStatusUpdate(struct netif *netif) {
 	if (netif_is_link_up(netif)) {
 		/* When the netif is fully configured this function must be called */
+		netif_set_up(netif);
 		console.printf("[Telemetry] Link is up\r\n");
 		client->connectClient();
 	} else {
@@ -70,5 +75,5 @@ void onStatusUpdate(struct netif *netif) {
 
 void LWIPThread::loop() {
 	client->update(); // Handle reception
-
+	telemetryDriver.flush(client); // Handle transmission
 }

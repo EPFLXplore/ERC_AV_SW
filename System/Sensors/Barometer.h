@@ -16,16 +16,13 @@
 
 class BarometerThread : Thread {
 public:
-	BarometerThread(I2C_HandleTypeDef* hi2c, UART_HandleTypeDef* huart) : Thread("Barometer"), bmp280(), hi2c(hi2c), huart(huart)  {}
+	BarometerThread(I2C_HandleTypeDef* hi2c) : Thread("Barometer"), bmp280(), hi2c(hi2c) {}
 	void init();
 	void loop();
 
 private:
 	BMP280_HandleTypedef bmp280;
 	I2C_HandleTypeDef* hi2c;
-	UART_HandleTypeDef* huart;
-
-	void writeToRtosBuffer(BaroData data); //IMPLEMENT ME : une fonction qui met les valeurs sur un buffer pour les envoyer par ETHERNET
 };
 
 

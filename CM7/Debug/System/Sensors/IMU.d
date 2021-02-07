@@ -61,10 +61,41 @@ System/Sensors/IMU.o: \
  /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
  ../../System/Libraries/BNO055/bno055_stm32.h \
  ../../System/Libraries/BNO055/bno055.h \
- ../../System/Libraries/BNO055/bno055.h ../../System/Debug/Debug.h \
- ../../System/Debug/Console.h ../Core/Inc/usart.h ../Core/Inc/main.h \
- ../../System/Debug/Monitor.h ../../System/Debug/Profiler.h \
- ../../System/Debug/Terminal.h ../../System/Debug/Shell.h
+ ../../System/Libraries/BNO055/bno055.h ../../System/Telemetry.h \
+ ../../System/Libraries/RoCo/RoCo.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
+ ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/BufferedIODriver.h \
+ ../../System/Libraries/RoCo/Src/Build/Build.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkBus.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkServerIO.h \
+ ../../System/Libraries/RoCo/Src/LWIPClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h \
+ ../../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa/inet.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
+ ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h
 
 /Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
 
@@ -190,18 +221,72 @@ System/Sensors/IMU.o: \
 
 ../../System/Libraries/BNO055/bno055.h:
 
-../../System/Debug/Debug.h:
+../../System/Telemetry.h:
 
-../../System/Debug/Console.h:
+../../System/Libraries/RoCo/RoCo.h:
 
-../Core/Inc/usart.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol.h:
 
-../Core/Inc/main.h:
+../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
 
-../../System/Debug/Monitor.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h:
 
-../../System/Debug/Profiler.h:
+../../System/Libraries/RoCo/Src/IOBus.h:
 
-../../System/Debug/Terminal.h:
+../../System/Libraries/RoCo/Src/MessageBus.h:
 
-../../System/Debug/Shell.h:
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/BufferedIODriver.h:
+
+../../System/Libraries/RoCo/Src/Build/Build.h:
+
+../../System/Libraries/RoCo/Src/MessageBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkBus.h:
+
+../../System/Libraries/RoCo/Src/IOBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkServerIO.h:
+
+../../System/Libraries/RoCo/Src/LWIPClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:
+
+../../Middlewares/Third_Party/LwIP/src/include/compat/posix/arpa/inet.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/sockets.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/def.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/ip6_addr.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/netif.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/err.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/pbuf.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/stats.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/mem.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/memp.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_std.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h:
+
+../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:

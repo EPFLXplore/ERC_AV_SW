@@ -26,8 +26,8 @@
 void initCortexM4() {
 	static WatchdogThread watchdog(&hiwdg2);
 	static Shell shell(&huart3, &terminal);
-	static IMUThread imu(&hi2c1, &huart3);
-	static BarometerThread barometer(&hi2c1, &huart3);
+	static IMUThread imu(&hi2c1);
+	static BarometerThread barometer(&hi2c1);
 }
 #endif
 

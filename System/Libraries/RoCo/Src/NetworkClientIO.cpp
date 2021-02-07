@@ -19,7 +19,7 @@
 #include <unistd.h>
 
 /*
- * Creates an ExternalIO interface using the given port number.
+ * Creates an IODriver interface using the given port number.
  * This constructor invocation is a light operation.
  */
 NetworkClientIO::NetworkClientIO(std::string address_str, uint16_t port) : address_str(address_str) {
@@ -41,8 +41,8 @@ NetworkClientIO::~NetworkClientIO() {
 
 
 /*
- * Creates a server socket and allow incoming connections
- * through the port specified by the constructor.
+ * Creates a client socket and connects it to a remote server
+ * through the ip address and port specified by the constructor.
  * This operation is heavy and may fail.
  * Check the returned error code and set breakpoints accordingly if needed.
  */
@@ -104,7 +104,6 @@ void NetworkClientIO::closeSocket() {
 /*
  * Reception thread
  *
- * Allows incoming connections and adds the corresponding socket to the array of opened sockets.
  * Processes input from the remote connections and passes it to the reception handler.
  * Handles closing connections.
  */
@@ -148,7 +147,7 @@ void NetworkClientIO::receive(const std::function<void (uint8_t sender_id, uint8
 }
 
 /*
- * Broadcasts data to the array of connected sockets (excluding the server instance)
+ * Transmits the given data to the server
  */
 void NetworkClientIO::transmit(uint8_t* buffer, uint32_t length) {
 	if(connected) {

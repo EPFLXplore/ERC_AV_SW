@@ -19,6 +19,7 @@
 #include <thread>
 
 #include <arpa/inet.h>
+#undef send // The inet API creates a "send" macro that must be undefined because it conflicts with MessageBus::send
 
 class LWIPClientIO : public IODriver {
 public:

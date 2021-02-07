@@ -61,7 +61,7 @@ System/Telemetry/LWIPThread.o: \
  ../../System/Libraries/RoCo/RoCo.h \
  ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
  ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
- ../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h \
  ../../System/Libraries/RoCo/Src/IOBus.h \
  ../../System/Libraries/RoCo/Src/MessageBus.h \
  ../../System/Libraries/RoCo/Src/IODriver.h \
@@ -91,9 +91,9 @@ System/Telemetry/LWIPThread.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/memp_priv.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
- ../../System/Libraries/RoCo/Src/NetworkIO.h \
- ../../System/Lang/Operators.h ../../System/Debug/Debug.h \
- ../LWIP/App/lwip.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h ../../System/Telemetry.h \
+ ../../System/Libraries/RoCo/RoCo.h ../../System/Lang/Operators.h \
+ ../../System/Debug/Debug.h ../LWIP/App/lwip.h \
  ../../Middlewares/Third_Party/LWIP/src/include/netif/etharp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/etharp.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/ip4.h \
@@ -231,7 +231,7 @@ System/Telemetry/LWIPThread.o: \
 
 ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
 
-../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h:
 
 ../../System/Libraries/RoCo/Src/IOBus.h:
 
@@ -292,6 +292,10 @@ System/Telemetry/LWIPThread.o: \
 ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h:
 
 ../../System/Libraries/RoCo/Src/NetworkIO.h:
+
+../../System/Telemetry.h:
+
+../../System/Libraries/RoCo/RoCo.h:
 
 ../../System/Lang/Operators.h:
 

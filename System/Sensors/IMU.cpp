@@ -7,7 +7,8 @@
 
 #include "IMU.h"
 
-#include "Debug/Debug.h"
+#include "Telemetry.h"
+
 
 static char cbuf[256];
 
@@ -15,6 +16,10 @@ void IMUThread::init() {
 	bno055_assignI2C(this->hi2c);
 	bno055_setup();
 	bno055_setOperationModeNDOF();
+
+	BaroData data;
+	println("%s", data.toString(cbuf));
+
 
 	while(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
 		osDelay(500);
@@ -37,14 +42,14 @@ void IMUThread::loop() {
 
 	println("%s", data.toString(cbuf));
 
-	writeToRtosBuffer(data); //envoyer à un autre thread pour etre envoyé par ethernet
+	Avionics_AccelMagPacket packet;
+	data.toArray((float*) &packet);
+
+	network.send(&packet);
 
 	osDelay(100);
 }
 
-void IMUThread::writeToRtosBuffer(IMUData data) {
-
-}
 
 Vector IMUThread::bnoVectorToVector(bno055_vector_t v) {
 	Vector vector;

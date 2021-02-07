@@ -16,7 +16,14 @@ struct Vector {
 	float z;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "[%ld %ld %ld]", (int32_t) (1000 * x), (int32_t) (1000 * y), (int32_t) (1000 * z));
+		sprintf(buffer, "[%f %f %f]", x, y, z);
+		return buffer;
+	}
+
+	float* toArray(float* buffer) {
+		buffer[0] = x;
+		buffer[1] = y;
+		buffer[2] = z;
 		return buffer;
 	}
 };
@@ -28,7 +35,14 @@ struct IMUData {
 
 	char* toString(char* buffer) {
 		static char buf[96];
-		sprintf(buffer, "Accel: %s, Gyro: %s, Mag: %s", accel.toString(buf), gyro.toString(buf + 32), mag.toString(buf + 64));
+		sprintf(buffer, "Acc: %s, Ang: %s, Mag: %s", accel.toString(buf), gyro.toString(buf + 32), mag.toString(buf + 64));
+		return buffer;
+	}
+
+	float* toArray(float* buffer) {
+		accel.toArray(buffer);
+		gyro.toArray(buffer + 3);
+		mag.toArray(buffer + 6);
 		return buffer;
 	}
 };
@@ -40,6 +54,13 @@ struct BaroData {
 
 	char* toString(char* buffer) {
 		sprintf(buffer, "Tmp: %f, Prs: %f, Hum: %f", temperature, pressure, humidity);
+		return buffer;
+	}
+
+	float* toArray(float* buffer) {
+		buffer[0] = temperature;
+		buffer[1] = pressure;
+		buffer[2] = humidity;
 		return buffer;
 	}
 };

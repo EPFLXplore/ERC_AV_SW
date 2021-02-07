@@ -7,6 +7,7 @@
 
 #include "Barometer.h"
 
+#include "Telemetry.h"
 #include "DataStructures.h"
 #include "Debug/Debug.h"
 
@@ -33,15 +34,10 @@ void BarometerThread::loop() {
 
 	println("%s", data.toString(cbuf));
 
-	writeToRtosBuffer(data);
+	Avionics_BaroTempPacket packet;
+	data.toArray((float*) &packet);
+
+	network.send(&packet);
 
 	osDelay(100);
 }
-
-void BarometerThread::writeToRtosBuffer(BaroData data) {
-
-}
-
-
-
-

@@ -18,7 +18,7 @@
 #include <unistd.h>
 
 /*
- * Creates an ExternalIO interface using the given port number.
+ * Creates an IODriver interface using the given port number.
  * This constructor invocation is a light operation.
  */
 LWIPClientIO::LWIPClientIO(std::string address_str, uint16_t port) : address_str(address_str) {
@@ -40,8 +40,8 @@ LWIPClientIO::~LWIPClientIO() {
 
 
 /*
- * Creates a server socket and allow incoming connections
- * through the port specified by the constructor.
+ * Creates a client socket and connects it to a remote server
+ * through the ip address and port specified by the constructor.
  * This operation is heavy and may fail.
  * Check the returned error code and set breakpoints accordingly if needed.
  */
@@ -60,8 +60,8 @@ int8_t LWIPClientIO::connectClient() {
 }
 
 /*
- * Disconnects the ExternalIO instance.
- * In particular, this function resets the ExternalIO to an initial state and closes all used IO resources.
+ * Disconnects the driver instance.
+ * In particular, this function resets the IODriver to an initial state and closes all used IO resources.
  * Make sure the disconnect member function is only called in the reception thread.
  */
 void LWIPClientIO::disconnectClient() {
@@ -80,11 +80,7 @@ void LWIPClientIO::closeSocket() {
 }
 
 /*
- * Reception thread
- *
- * Allows incoming connections and adds the corresponding socket to the array of opened sockets.
- * Processes input from the remote connections and passes it to the reception handler.
- * Handles closing connections.
+ * Processes input from the server and passes it to the reception handler.
  */
 void LWIPClientIO::update() {
 	if(connected) {
@@ -100,7 +96,7 @@ void LWIPClientIO::receive(const std::function<void (uint8_t sender_id, uint8_t*
 }
 
 /*
- * Broadcasts data to the array of connected sockets (excluding the server instance)
+ * Transmits the given data to the server
  * Warning: this function must be thread safe in a multithreaded environment
  */
 void LWIPClientIO::transmit(uint8_t* buffer, uint32_t length) {
@@ -108,4 +104,6 @@ void LWIPClientIO::transmit(uint8_t* buffer, uint32_t length) {
 		// TODO
 	}
 }
+
+
 #endif /* BUILD_WITH_LWIP_CLIENT_IO */
