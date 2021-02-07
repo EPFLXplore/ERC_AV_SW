@@ -17,16 +17,13 @@
 
 class IMUThread : Thread {
 public:
-	IMUThread(I2C_HandleTypeDef* hi2c, UART_HandleTypeDef* huart) : Thread("IMU"), hi2c(hi2c), huart(huart) {}
+	IMUThread(I2C_HandleTypeDef* hi2c) : Thread("IMU"), hi2c(hi2c) {}
 	void init();
 	void loop();
 
 private:
 	I2C_HandleTypeDef* hi2c;
-	UART_HandleTypeDef* huart;
-	char* bnoVectorToString(bno055_vector_t v, char* buffer);
 	Vector bnoVectorToVector(bno055_vector_t v);
-	void writeToRtosBuffer(IMUData data); //IMPLEMENT ME : une fonction qui met les valeurs sur un buffer pour les envoyer par ETHERNET
 };
 
 #endif /* SENSORS_IMU_H_ */

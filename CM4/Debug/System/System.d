@@ -72,7 +72,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../System/Libraries/RoCo/RoCo.h \
  ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
  ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
- ../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h \
  ../../System/Libraries/RoCo/Src/IOBus.h \
  ../../System/Libraries/RoCo/Src/MessageBus.h \
  ../../System/Libraries/RoCo/Src/IODriver.h \
@@ -235,7 +235,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
 
-../../System/Libraries/RoCo/Src/Protocol/Protocol20W18.h:
+../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h:
 
 ../../System/Libraries/RoCo/Src/IOBus.h:
 

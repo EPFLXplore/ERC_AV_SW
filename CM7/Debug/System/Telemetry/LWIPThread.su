@@ -1,7 +1,7 @@
 Thread.h:22:2:Thread::~Thread()	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
-LWIPThread.cpp:20:1:LWIPThread::LWIPThread(const char*, uint16_t)	64	static
-LWIPThread.cpp:24:1:LWIPThread::~LWIPThread()	16	static
-LWIPThread.cpp:28:6:virtual void LWIPThread::init()	80	static
-LWIPThread.cpp:58:6:void onStatusUpdate(netif*)	16	static
-LWIPThread.cpp:71:6:virtual void LWIPThread::loop()	16	static
+LWIPThread.cpp:24:1:LWIPThread::LWIPThread(const char*, uint16_t)	64	static
+LWIPThread.cpp:28:1:LWIPThread::~LWIPThread()	16	static
+LWIPThread.cpp:32:6:virtual void LWIPThread::init()	80	static
+LWIPThread.cpp:62:6:void onStatusUpdate(netif*)	16	static
+LWIPThread.cpp:76:6:virtual void LWIPThread::loop()	16	static

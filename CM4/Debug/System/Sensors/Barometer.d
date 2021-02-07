@@ -59,10 +59,24 @@ System/Sensors/Barometer.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
- ../../System/Libraries/BMP280/bmp280.h ../../System/Debug/Debug.h \
- ../../System/Debug/Console.h ../Core/Inc/usart.h ../Core/Inc/main.h \
- ../../System/Debug/Monitor.h ../../System/Debug/Profiler.h \
- ../../System/Debug/Terminal.h ../../System/Debug/Shell.h
+ ../../System/Libraries/BMP280/bmp280.h ../../System/Telemetry.h \
+ ../../System/Libraries/RoCo/RoCo.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
+ ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
+ ../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/IODriver.h \
+ ../../System/Libraries/RoCo/Src/BufferedIODriver.h \
+ ../../System/Libraries/RoCo/Src/Build/Build.h \
+ ../../System/Libraries/RoCo/Src/MessageBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkBus.h \
+ ../../System/Libraries/RoCo/Src/IOBus.h \
+ ../../System/Libraries/RoCo/Src/NetworkClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkServerIO.h \
+ ../../System/Libraries/RoCo/Src/LWIPClientIO.h \
+ ../../System/Libraries/RoCo/Src/NetworkIO.h ../../System/Debug/Debug.h
 
 /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h:
 
@@ -184,18 +198,40 @@ System/Sensors/Barometer.o: \
 
 ../../System/Libraries/BMP280/bmp280.h:
 
+../../System/Telemetry.h:
+
+../../System/Libraries/RoCo/RoCo.h:
+
+../../System/Libraries/RoCo/Src/Protocol/Protocol.h:
+
+../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h:
+
+../../System/Libraries/RoCo/Src/Protocol/Protocol21W3.h:
+
+../../System/Libraries/RoCo/Src/IOBus.h:
+
+../../System/Libraries/RoCo/Src/MessageBus.h:
+
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/IODriver.h:
+
+../../System/Libraries/RoCo/Src/BufferedIODriver.h:
+
+../../System/Libraries/RoCo/Src/Build/Build.h:
+
+../../System/Libraries/RoCo/Src/MessageBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkBus.h:
+
+../../System/Libraries/RoCo/Src/IOBus.h:
+
+../../System/Libraries/RoCo/Src/NetworkClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkServerIO.h:
+
+../../System/Libraries/RoCo/Src/LWIPClientIO.h:
+
+../../System/Libraries/RoCo/Src/NetworkIO.h:
+
 ../../System/Debug/Debug.h:
-
-../../System/Debug/Console.h:
-
-../Core/Inc/usart.h:
-
-../Core/Inc/main.h:
-
-../../System/Debug/Monitor.h:
-
-../../System/Debug/Profiler.h:
-
-../../System/Debug/Terminal.h:
-
-../../System/Debug/Shell.h:

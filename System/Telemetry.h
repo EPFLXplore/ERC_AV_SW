@@ -11,6 +11,7 @@
 
 #include "Libraries/RoCo/RoCo.h"
 
+extern BufferedIODriver telemetryDriver;
 extern NetworkBus network;
 
 
