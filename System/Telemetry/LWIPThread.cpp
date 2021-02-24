@@ -41,9 +41,9 @@ void LWIPThread::init() {
 	ip4_addr netmask;
 	ip4_addr gateway;
 
-	IP4_ADDR(&local_ip, 192, 168, 0, 10);
-	IP4_ADDR(&netmask, 255, 255, 255, 0);
-	IP4_ADDR(&gateway, 192, 168, 0, 1);
+	IP4_ADDR(&local_ip, 169, 254, 0, 10);
+	IP4_ADDR(&netmask, 255, 255, 0, 0);
+	IP4_ADDR(&gateway, 255, 255, 255, 255);
 
 	/* add the network interface (IPv4/IPv6) with RTOS */
 	netif_add(&gnetif, &local_ip, &netmask, &gateway, NULL, &ethernetif_init, &tcpip_input);

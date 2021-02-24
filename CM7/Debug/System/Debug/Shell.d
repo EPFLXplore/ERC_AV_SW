@@ -1,7 +1,7 @@
 System/Debug/Shell.o: \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.cpp \
- /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
- /Users/arion/git/XploreAvionics/System/Debug/Console.h \
+ C:/Users/leoli/XploreAvionics/System/Debug/Shell.cpp \
+ C:/Users/leoli/XploreAvionics/System/Debug/Debug.h \
+ C:/Users/leoli/XploreAvionics/System/Debug/Console.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -59,15 +59,14 @@ System/Debug/Shell.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h \
- /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
- /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
- /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
- /Users/arion/git/XploreAvionics/System/Debug/Shell.h \
- ../../System/Thread.h
+ C:/Users/leoli/XploreAvionics/System/Debug/Monitor.h \
+ C:/Users/leoli/XploreAvionics/System/Debug/Profiler.h \
+ C:/Users/leoli/XploreAvionics/System/Debug/Terminal.h \
+ C:/Users/leoli/XploreAvionics/System/Debug/Shell.h ../../System/Thread.h
 
-/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Debug.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Console.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Console.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 
@@ -185,12 +184,12 @@ System/Debug/Shell.o: \
 
 ../Core/Inc/main.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Monitor.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Profiler.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Terminal.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Shell.h:
 
 ../../System/Thread.h:

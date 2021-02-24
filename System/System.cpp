@@ -34,6 +34,6 @@ void initCortexM4() {
 #ifdef CORE_CM7
 void initCortexM7() {
 	static WatchdogThread watchdog(&hiwdg1);
-	static LWIPThread lwip("localhost", 42666);
+	static LWIPThread lwip("169.254.227.123", 42666);
 }
 #endif

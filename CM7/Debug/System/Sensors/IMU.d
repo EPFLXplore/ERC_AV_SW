@@ -1,7 +1,6 @@
 System/Sensors/IMU.o: \
- /Users/arion/git/XploreAvionics/System/Sensors/IMU.cpp \
- /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
- ../../System/Thread.h \
+ C:/Users/leoli/XploreAvionics/System/Sensors/IMU.cpp \
+ C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h ../../System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -58,7 +57,7 @@ System/Sensors/IMU.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
+ C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h \
  ../../System/Libraries/BNO055/bno055_stm32.h \
  ../../System/Libraries/BNO055/bno055.h \
  ../../System/Libraries/BNO055/bno055.h ../../System/Telemetry.h \
@@ -97,7 +96,7 @@ System/Sensors/IMU.o: \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
  ../../System/Libraries/RoCo/Src/NetworkIO.h
 
-/Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
+C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h:
 
 ../../System/Thread.h:
 
@@ -213,7 +212,7 @@ System/Sensors/IMU.o: \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
+C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h:
 
 ../../System/Libraries/BNO055/bno055_stm32.h:
 

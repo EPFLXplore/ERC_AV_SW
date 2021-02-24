@@ -1,6 +1,6 @@
-System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
- /Users/arion/git/XploreAvionics/System/System.h \
- /Users/arion/git/XploreAvionics/System/Thread.h \
+System/System.o: C:/Users/leoli/XploreAvionics/System/System.cpp \
+ C:/Users/leoli/XploreAvionics/System/System.h \
+ C:/Users/leoli/XploreAvionics/System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -57,18 +57,18 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- /Users/arion/git/XploreAvionics/System/Lang/Operators.h \
- /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
- /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
- /Users/arion/git/XploreAvionics/System/Sensors/Barometer.h \
+ C:/Users/leoli/XploreAvionics/System/Lang/Operators.h \
+ C:/Users/leoli/XploreAvionics/System/Misc/WatchdogThread.h \
+ c:\users\leoli\xploreavionics\system\thread.h \
+ C:/Users/leoli/XploreAvionics/System/Sensors/Barometer.h \
  ../../System/Thread.h \
- /Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h \
+ C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h \
  ../../System/Libraries/BMP280/bmp280.h \
- /Users/arion/git/XploreAvionics/System/Sensors/IMU.h \
+ C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h \
  ../../System/Libraries/BNO055/bno055_stm32.h \
  ../../System/Libraries/BNO055/bno055.h \
  ../../System/Libraries/BNO055/bno055.h \
- /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
+ C:/Users/leoli/XploreAvionics/System/Telemetry/LWIPThread.h \
  ../../System/Libraries/RoCo/RoCo.h \
  ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
  ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
@@ -103,11 +103,11 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/priv/mem_priv.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
  ../../System/Libraries/RoCo/Src/NetworkIO.h \
- /Users/arion/git/XploreAvionics/System/Debug/Debug.h ../Core/Inc/iwdg.h
+ C:/Users/leoli/XploreAvionics/System/Debug/Debug.h ../Core/Inc/iwdg.h
 
-/Users/arion/git/XploreAvionics/System/System.h:
+C:/Users/leoli/XploreAvionics/System/System.h:
 
-/Users/arion/git/XploreAvionics/System/Thread.h:
+C:/Users/leoli/XploreAvionics/System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -221,21 +221,21 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-/Users/arion/git/XploreAvionics/System/Lang/Operators.h:
+C:/Users/leoli/XploreAvionics/System/Lang/Operators.h:
 
-/Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
+C:/Users/leoli/XploreAvionics/System/Misc/WatchdogThread.h:
 
-/Users/arion/git/XploreAvionics/System/Misc/../Thread.h:
+c:\users\leoli\xploreavionics\system\thread.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/Barometer.h:
+C:/Users/leoli/XploreAvionics/System/Sensors/Barometer.h:
 
 ../../System/Thread.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/DataStructures.h:
+C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h:
 
 ../../System/Libraries/BMP280/bmp280.h:
 
-/Users/arion/git/XploreAvionics/System/Sensors/IMU.h:
+C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h:
 
 ../../System/Libraries/BNO055/bno055_stm32.h:
 
@@ -243,7 +243,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../System/Libraries/BNO055/bno055.h:
 
-/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
+C:/Users/leoli/XploreAvionics/System/Telemetry/LWIPThread.h:
 
 ../../System/Libraries/RoCo/RoCo.h:
 
@@ -313,6 +313,6 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 
 ../../System/Libraries/RoCo/Src/NetworkIO.h:
 
-/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
+C:/Users/leoli/XploreAvionics/System/Debug/Debug.h:
 
 ../Core/Inc/iwdg.h:
