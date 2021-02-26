@@ -122,21 +122,15 @@ void LWIPClientIO::update() {
 						receiver(0b11000000, buffer, result); // Sender ID marked as internal
 					}
 				}
-				char string[300];
-				strcpy(string, (const char*) buffer);
-				strcat(string, "\r\n");
-				console.printf((const char*) string);
+
 			} else {
 				// Connection was closed by server
-				console.printf("hi");
 				console.printf("[RoCo] [Client@%d] Client disconnected by server\r\n", ntohs(address.sin_port));
 				this->connected = false;
 				break;
 				// Do not decrement the num_sockets field since our IDs are not linear
 			}
 		}
-
-		console.printf("hello");
 		disconnectClient();
 	}
 }
