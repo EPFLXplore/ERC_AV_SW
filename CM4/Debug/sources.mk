@@ -41,6 +41,7 @@ System/Debug \
 System/Lang \
 System/Libraries/BMP280 \
 System/Libraries/BNO055 \
+System/Libraries/HX711 \
 System/Libraries/RoCo/Src \
 System/Misc \
 System/Sensors \

@@ -1,6 +1,0 @@
-Console.cpp:19:1:Console::Console(UART_HandleTypeDef*)	16	static
-Console.cpp:24:6:void Console::lock()	16	static
-Console.cpp:28:6:void Console::unlock()	16	static
-Console.cpp:32:6:void Console::transmit(uint8_t*, uint32_t)	24	static
-Console.cpp:40:6:void Console::print(const char*)	16	static
-Console.cpp:44:6:)	28	static

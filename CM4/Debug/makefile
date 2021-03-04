@@ -11,6 +11,7 @@ RM := rm -rf
 -include System/Sensors/subdir.mk
 -include System/Misc/subdir.mk
 -include System/Libraries/RoCo/Src/subdir.mk
+-include System/Libraries/HX711/subdir.mk
 -include System/Libraries/BNO055/subdir.mk
 -include System/Libraries/BMP280/subdir.mk
 -include System/Lang/subdir.mk
@@ -82,8 +83,8 @@ all: main-build
 main-build: XploreAvionics_CM4.elf secondary-outputs
 
 # Tool invocations
-XploreAvionics_CM4.elf: $(OBJS) $(USER_OBJS) C:\Users\leoli\XploreAvionics\CM4\STM32H745ZITX_FLASH.ld
-	arm-none-eabi-g++ -o "XploreAvionics_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\leoli\XploreAvionics\CM4\STM32H745ZITX_FLASH.ld" -Wl,-Map="XploreAvionics_CM4.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+XploreAvionics_CM4.elf: $(OBJS) $(USER_OBJS) C:\Users\jthom\git\XploreAvionics\CM4\STM32H745ZITX_FLASH.ld
+	arm-none-eabi-g++ -o "XploreAvionics_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\jthom\git\XploreAvionics\CM4\STM32H745ZITX_FLASH.ld" -Wl,-Map="XploreAvionics_CM4.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

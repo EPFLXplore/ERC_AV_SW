@@ -1,4 +1,0 @@
-Shell.cpp:12:1:Shell::Shell(UART_HandleTypeDef*, Terminal*)	24	static
-Shell.cpp:16:6:virtual void Shell::init()	16	static
-Shell.cpp:22:6:virtual void Shell::loop()	16	static
-Shell.cpp:32:6:void Shell::receiveByte(char)	24	static

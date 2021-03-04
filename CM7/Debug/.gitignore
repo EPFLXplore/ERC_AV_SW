@@ -4,3 +4,7 @@
 /LWIP/
 /Middlewares/
 /System/
+/makefile
+/objects.list
+/objects.mk
+/sources.mk

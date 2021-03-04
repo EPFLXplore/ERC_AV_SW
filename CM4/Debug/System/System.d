@@ -1,6 +1,6 @@
-System/System.o: C:/Users/leoli/XploreAvionics/System/System.cpp \
- C:/Users/leoli/XploreAvionics/System/System.h \
- C:/Users/leoli/XploreAvionics/System/Thread.h \
+System/System.o: C:/Users/jthom/git/XploreAvionics/System/System.cpp \
+ C:/Users/jthom/git/XploreAvionics/System/System.h \
+ C:/Users/jthom/git/XploreAvionics/System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -57,18 +57,21 @@ System/System.o: C:/Users/leoli/XploreAvionics/System/System.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- C:/Users/leoli/XploreAvionics/System/Lang/Operators.h \
- C:/Users/leoli/XploreAvionics/System/Misc/WatchdogThread.h \
- c:\users\leoli\xploreavionics\system\thread.h \
- C:/Users/leoli/XploreAvionics/System/Sensors/Barometer.h \
+ C:/Users/jthom/git/XploreAvionics/System/Lang/Operators.h \
+ C:/Users/jthom/git/XploreAvionics/System/Misc/WatchdogThread.h \
+ c:\users\jthom\git\xploreavionics\system\thread.h \
+ C:/Users/jthom/git/XploreAvionics/System/Sensors/Barometer.h \
  ../../System/Thread.h \
- C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h \
+ C:/Users/jthom/git/XploreAvionics/System/Sensors/DataStructures.h \
  ../../System/Libraries/BMP280/bmp280.h \
- C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h \
+ C:/Users/jthom/git/XploreAvionics/System/Sensors/IMU.h \
  ../../System/Libraries/BNO055/bno055_stm32.h \
  ../../System/Libraries/BNO055/bno055.h \
  ../../System/Libraries/BNO055/bno055.h \
- C:/Users/leoli/XploreAvionics/System/Telemetry/LWIPThread.h \
+ C:/Users/jthom/git/XploreAvionics/System/Sensors/ADC24.h \
+ ../../System/Libraries/HX711/hx711.h ../Core/Inc/gpio.h \
+ ../Core/Inc/main.h \
+ C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h \
  ../../System/Libraries/RoCo/RoCo.h \
  ../../System/Libraries/RoCo/Src/Protocol/Protocol.h \
  ../../System/Libraries/RoCo/Src/Protocol/../Build/Build.h \
@@ -86,12 +89,12 @@ System/System.o: C:/Users/leoli/XploreAvionics/System/System.cpp \
  ../../System/Libraries/RoCo/Src/NetworkServerIO.h \
  ../../System/Libraries/RoCo/Src/LWIPClientIO.h \
  ../../System/Libraries/RoCo/Src/NetworkIO.h \
- C:/Users/leoli/XploreAvionics/System/Debug/Debug.h ../Core/Inc/iwdg.h \
- ../Core/Inc/i2c.h
+ C:/Users/jthom/git/XploreAvionics/System/Debug/Debug.h \
+ ../Core/Inc/iwdg.h ../Core/Inc/i2c.h
 
-C:/Users/leoli/XploreAvionics/System/System.h:
+C:/Users/jthom/git/XploreAvionics/System/System.h:
 
-C:/Users/leoli/XploreAvionics/System/Thread.h:
+C:/Users/jthom/git/XploreAvionics/System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -205,21 +208,21 @@ C:/Users/leoli/XploreAvionics/System/Thread.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-C:/Users/leoli/XploreAvionics/System/Lang/Operators.h:
+C:/Users/jthom/git/XploreAvionics/System/Lang/Operators.h:
 
-C:/Users/leoli/XploreAvionics/System/Misc/WatchdogThread.h:
+C:/Users/jthom/git/XploreAvionics/System/Misc/WatchdogThread.h:
 
-c:\users\leoli\xploreavionics\system\thread.h:
+c:\users\jthom\git\xploreavionics\system\thread.h:
 
-C:/Users/leoli/XploreAvionics/System/Sensors/Barometer.h:
+C:/Users/jthom/git/XploreAvionics/System/Sensors/Barometer.h:
 
 ../../System/Thread.h:
 
-C:/Users/leoli/XploreAvionics/System/Sensors/DataStructures.h:
+C:/Users/jthom/git/XploreAvionics/System/Sensors/DataStructures.h:
 
 ../../System/Libraries/BMP280/bmp280.h:
 
-C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h:
+C:/Users/jthom/git/XploreAvionics/System/Sensors/IMU.h:
 
 ../../System/Libraries/BNO055/bno055_stm32.h:
 
@@ -227,7 +230,15 @@ C:/Users/leoli/XploreAvionics/System/Sensors/IMU.h:
 
 ../../System/Libraries/BNO055/bno055.h:
 
-C:/Users/leoli/XploreAvionics/System/Telemetry/LWIPThread.h:
+C:/Users/jthom/git/XploreAvionics/System/Sensors/ADC24.h:
+
+../../System/Libraries/HX711/hx711.h:
+
+../Core/Inc/gpio.h:
+
+../Core/Inc/main.h:
+
+C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
 ../../System/Libraries/RoCo/RoCo.h:
 
@@ -263,7 +274,7 @@ C:/Users/leoli/XploreAvionics/System/Telemetry/LWIPThread.h:
 
 ../../System/Libraries/RoCo/Src/NetworkIO.h:
 
-C:/Users/leoli/XploreAvionics/System/Debug/Debug.h:
+C:/Users/jthom/git/XploreAvionics/System/Debug/Debug.h:
 
 ../Core/Inc/iwdg.h:
 

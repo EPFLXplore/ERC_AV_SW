@@ -65,5 +65,18 @@ struct BaroData {
 	}
 };
 
+struct ScienceData {
+	uint32_t mass;
+
+	char* toString(char* buffer) {
+		sprintf(buffer, "Mass(kg): %u", mass);
+		return buffer;
+	}
+
+	uint32_t* toArray(uint32_t* buffer){
+		*buffer = mass;
+		return buffer;
+	}
+};
 
 #endif /* SENSORS_DATASTRUCTURES_H_ */

@@ -1,4 +1,0 @@
-Monitor.cpp:13:6:bool Monitor::enter(uint8_t)	24	static
-Monitor.cpp:30:6:bool Monitor::exit(uint8_t)	16	static
-Monitor.cpp:42:6:void Monitor::enable(uint8_t, uint8_t, uint8_t)	16	static
-Monitor.cpp:47:6:void Monitor::disable(uint8_t)	16	static
