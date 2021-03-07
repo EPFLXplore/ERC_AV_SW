@@ -13,6 +13,8 @@
 
 #include "lwip.h"
 
+#include <new>
+
 
 static struct netif gnetif; // global network interface
 static void onStatusUpdate(struct netif *netif);
@@ -21,7 +23,7 @@ static void onStatusUpdate(struct netif *netif);
 static LWIPClientIO* client;
 
 
-LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry") {
+LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry", 2048) {
 	client = new LWIPClientIO(ip, port);
 }
 
@@ -41,7 +43,7 @@ void LWIPThread::init() {
 	ip4_addr netmask;
 	ip4_addr gateway;
 
-	IP4_ADDR(&local_ip, 169, 254, 0, 10);
+	IP4_ADDR(&local_ip, 192, 168, 1, 10);
 	IP4_ADDR(&netmask, 255, 255, 0, 0);
 	IP4_ADDR(&gateway, 255, 255, 255, 255);
 
@@ -64,7 +66,11 @@ void onStatusUpdate(struct netif *netif) {
 		/* When the netif is fully configured this function must be called */
 		netif_set_up(netif);
 		console.printf("[Telemetry] Link is up\r\n");
-		client->connectClient();
+		int32_t error = client->connectClient();
+
+		if(error != 0) {
+			console.printf("[Telemetry] Cannot connect to server with error code %d\r\n", error);
+		}
 	} else {
 		/* When the netif link is down this function must be called */
 		netif_set_down(netif);

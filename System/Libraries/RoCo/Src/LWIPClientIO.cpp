@@ -131,7 +131,6 @@ void LWIPClientIO::update() {
 				// Do not decrement the num_sockets field since our IDs are not linear
 			}
 		}
-		disconnectClient();
 	}
 }
 
