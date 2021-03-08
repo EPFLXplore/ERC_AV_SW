@@ -15,12 +15,14 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define DEFAULT_STACK_SIZE (512)
+#define DEFAULT_STACK_SIZE (256) // Danger zone: changing the stack size might create very nasty bugs
 
-static char buffer[256];
+static char buffer[128];
 
 void __task_run(const void* arg) {
 	Thread* thread = (Thread*) arg;
+
+	osDelay(100);
 
 	thread->init();
 

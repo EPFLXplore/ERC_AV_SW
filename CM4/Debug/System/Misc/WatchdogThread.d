@@ -1,7 +1,7 @@
 System/Misc/WatchdogThread.o: \
- C:/Users/jthom/git/XploreAvionics/System/Misc/WatchdogThread.cpp \
- C:/Users/jthom/git/XploreAvionics/System/Misc/WatchdogThread.h \
- c:\users\jthom\git\xploreavionics\system\thread.h \
+ /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.cpp \
+ /Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h \
+ /Users/arion/git/XploreAvionics/System/Misc/../Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -64,9 +64,9 @@ System/Misc/WatchdogThread.o: \
  ../../System/Debug/Terminal.h ../../System/Debug/Shell.h \
  ../../System/Thread.h
 
-C:/Users/jthom/git/XploreAvionics/System/Misc/WatchdogThread.h:
+/Users/arion/git/XploreAvionics/System/Misc/WatchdogThread.h:
 
-c:\users\jthom\git\xploreavionics\system\thread.h:
+/Users/arion/git/XploreAvionics/System/Misc/../Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 

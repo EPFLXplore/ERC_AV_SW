@@ -16,7 +16,7 @@
 
 class BarometerThread : Thread {
 public:
-	BarometerThread(I2C_HandleTypeDef* hi2c) : Thread("Barometer"), bmp280(), hi2c(hi2c) {}
+	BarometerThread(I2C_HandleTypeDef* hi2c) : Thread("Barometer", 1024), bmp280(), hi2c(hi2c) {}
 	void init();
 	void loop();
 

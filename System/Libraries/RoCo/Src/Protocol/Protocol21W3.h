@@ -10,7 +10,6 @@
 
 #include <cstdint>
 
-
 // General packets
 struct PingPacket {
 	uint64_t time;
@@ -35,20 +34,14 @@ struct ProgressPacket {
 	uint8_t progress;
 } __attribute__((packed));
 
-struct DataPacket {
-	uint32_t uuid;
-	uint8_t payload[256];
-} __attribute__((packed));
-
 struct ErrorPacket {
 	uint8_t error_id;
 } __attribute__((packed));
 
 // Avionics
 struct Avionics_BaroTempPacket {
-  float temperature;
   float pressure;
-  float humidity;
+  float temperature;
 } __attribute__((packed));
 
 struct Avionics_AccelMagPacket {
@@ -79,6 +72,10 @@ struct Power_SystemPacket {
 // Science
 struct Science_MeasurePacket {
   float mass;
+} __attribute__((packed));
+
+struct DataPacket {
+	uint32_t data;
 } __attribute__((packed));
 
 

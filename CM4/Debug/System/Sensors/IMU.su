@@ -6,4 +6,4 @@ DataStructures.h:55:8:char* BaroData::toString(char*)	48	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 IMU.cpp:15:6:virtual void IMUThread::init()	40	static
 IMU.cpp:36:6:virtual void IMUThread::loop()	160	static
-IMU.cpp:54:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	96	static
+IMU.cpp:54:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	88	static

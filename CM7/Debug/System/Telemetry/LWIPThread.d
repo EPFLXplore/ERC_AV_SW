@@ -1,6 +1,6 @@
 System/Telemetry/LWIPThread.o: \
- C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.cpp \
- C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.cpp \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
  ../../System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -68,6 +68,8 @@ System/Telemetry/LWIPThread.o: \
  ../../System/Libraries/RoCo/Src/IODriver.h \
  ../../System/Libraries/RoCo/Src/BufferedIODriver.h \
  ../../System/Libraries/RoCo/Src/Build/Build.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/message_buffer.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h \
  ../../System/Libraries/RoCo/Src/MessageBus.h \
  ../../System/Libraries/RoCo/Src/NetworkBus.h \
  ../../System/Libraries/RoCo/Src/IOBus.h \
@@ -109,7 +111,7 @@ System/Telemetry/LWIPThread.o: \
  ../LWIP/Target/ethernetif.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h
 
-C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h:
+/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
 ../../System/Thread.h:
 
@@ -244,6 +246,10 @@ C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 ../../System/Libraries/RoCo/Src/BufferedIODriver.h:
 
 ../../System/Libraries/RoCo/Src/Build/Build.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/message_buffer.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h:
 
 ../../System/Libraries/RoCo/Src/MessageBus.h:
 

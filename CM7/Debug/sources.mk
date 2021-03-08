@@ -1,5 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 ELF_SRCS := 
@@ -42,6 +43,7 @@ System/Debug \
 System/Lang \
 System/Libraries/BMP280 \
 System/Libraries/BNO055 \
+System/Libraries/HX711 \
 System/Libraries/RoCo/Src \
 System/Misc \
 System/Sensors \

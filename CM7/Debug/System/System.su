@@ -1,7 +1,10 @@
 Thread.h:22:2:Thread::~Thread()	16	static
 WatchdogThread.h:15:2:WatchdogThread::WatchdogThread(IWDG_HandleTypeDef*)	16	static
+Barometer.h:19:2:BarometerThread::BarometerThread(I2C_HandleTypeDef*)	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 WatchdogThread.h:13:7:WatchdogThread::~WatchdogThread()	16	static
-System.cpp:36:40:void __tcf_0()	8	static
-System.cpp:37:49:void __tcf_1()	8	static
-System.cpp:35:6:void initCortexM7()	8	static
+System.cpp:40:40:void __tcf_0()	8	static
+System.cpp:41:45:void __tcf_1()	8	static
+Barometer.h:17:7:BarometerThread::~BarometerThread()	16	static
+System.cpp:42:41:void __tcf_2()	8	static
+System.cpp:38:6:void initCortexM7()	8	static

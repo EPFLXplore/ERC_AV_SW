@@ -1,5 +1,5 @@
 DataStructures.h:55:8:char* BaroData::toString(char*)	48	static
 DataStructures.h:60:9:float* BaroData::toArray(float*)	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
-Barometer.cpp:17:6:virtual void BarometerThread::init()	16	static
-Barometer.cpp:30:6:virtual void BarometerThread::loop()	48	static
+Barometer.cpp:17:6:virtual void BarometerThread::init()	16	static,ignoring_inline_asm
+Barometer.cpp:33:6:virtual void BarometerThread::loop()	48	static

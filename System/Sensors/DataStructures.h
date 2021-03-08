@@ -58,8 +58,8 @@ struct BaroData {
 	}
 
 	float* toArray(float* buffer) {
-		buffer[0] = temperature;
-		buffer[1] = pressure;
+		buffer[0] = pressure;
+		buffer[1] = temperature;
 		buffer[2] = humidity;
 		return buffer;
 	}

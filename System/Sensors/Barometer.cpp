@@ -12,17 +12,20 @@
 #include "Debug/Debug.h"
 
 
-static char cbuf[256];
+static char cbuf[128];
 
 void BarometerThread::init() {
 	bmp280_init_default_params(&bmp280.params);
 	bmp280.addr = BMP280_I2C_ADDRESS_0;
 	bmp280.i2c = hi2c;
 
+	__disable_irq();
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
+		__enable_irq();
 		println("BMP280 initialization failed");
 	  	osDelay(500);
 	}
+	__enable_irq();
 
 	println("BMP280 initialized");
 }

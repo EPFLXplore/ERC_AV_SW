@@ -1,5 +1,5 @@
-System/Thread.o: C:/Users/jthom/git/XploreAvionics/System/Thread.cpp \
- C:/Users/jthom/git/XploreAvionics/System/Thread.h \
+System/Thread.o: /Users/arion/git/XploreAvionics/System/Thread.cpp \
+ /Users/arion/git/XploreAvionics/System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
@@ -56,16 +56,16 @@ System/Thread.o: C:/Users/jthom/git/XploreAvionics/System/Thread.cpp \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Debug.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Console.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Debug.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Console.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Monitor.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Profiler.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Terminal.h \
- C:/Users/jthom/git/XploreAvionics/System/Debug/Shell.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Monitor.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Profiler.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Terminal.h \
+ /Users/arion/git/XploreAvionics/System/Debug/Shell.h \
  ../../System/Thread.h ../Core/Inc/iwdg.h
 
-C:/Users/jthom/git/XploreAvionics/System/Thread.h:
+/Users/arion/git/XploreAvionics/System/Thread.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 
@@ -179,21 +179,21 @@ C:/Users/jthom/git/XploreAvionics/System/Thread.h:
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Debug.h:
+/Users/arion/git/XploreAvionics/System/Debug/Debug.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Console.h:
+/Users/arion/git/XploreAvionics/System/Debug/Console.h:
 
 ../Core/Inc/usart.h:
 
 ../Core/Inc/main.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Monitor.h:
+/Users/arion/git/XploreAvionics/System/Debug/Monitor.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Profiler.h:
+/Users/arion/git/XploreAvionics/System/Debug/Profiler.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Terminal.h:
+/Users/arion/git/XploreAvionics/System/Debug/Terminal.h:
 
-C:/Users/jthom/git/XploreAvionics/System/Debug/Shell.h:
+/Users/arion/git/XploreAvionics/System/Debug/Shell.h:
 
 ../../System/Thread.h:
 

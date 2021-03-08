@@ -8,5 +8,8 @@
 
 #include "Telemetry.h"
 
-BufferedIODriver telemetryDriver;
+
+static uint8_t storage1[256];
+static uint8_t storage2[256];
+BufferedIODriver telemetryDriver(storage1, storage2, 256);
 NetworkBus network(&telemetryDriver);

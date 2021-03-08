@@ -79,7 +79,7 @@ int8_t LWIPClientIO::connectClient() {
 	console.printf("[RoCo] [Client@%d] Client connected\r\n", ntohs(address.sin_port));
 
 
-	return true;
+	return 0;
 }
 
 /*
@@ -110,10 +110,10 @@ void LWIPClientIO::update() {
 		int32_t result;
 
 		//receive buffer
-		uint8_t buffer[256];
+		static uint8_t buffer[256];
 
 		// New data from client
-		while((result = lwip_recv(socket_id, buffer, sizeof(buffer), 0)) >= 0) {
+		while((result = lwip_recv(socket_id, buffer, sizeof(buffer), 0)) > 0) {
 			if(result != 0) {
 				if(receiver != nullptr) {
 					if(ntohs(address.sin_port) == PORT_A) {
