@@ -19,17 +19,21 @@
 #include <functional>
 
 
+
 class BufferedIODriver : public IODriver {
 public:
-	BufferedIODriver(uint8_t* queueStorage, uint8_t* bufferStorage, size_t length);
+	BufferedIODriver(volatile uint8_t* bufferStorage, volatile uint8_t* bufferControl, size_t length);
 	void receive(const std::function<void (uint8_t sender_id, uint8_t* buffer, uint32_t length)> &receiver);
 	void transmit(uint8_t* buffer, uint32_t length);
 	void flush(IODriver* driver);
+	std::function<void (uint8_t sender_id, uint8_t* buffer, uint32_t length)> getReceiveFunction() { return receiverFunc; }
 private:
-	MessageBufferHandle_t buffer;
-	StaticMessageBuffer_t staticMessageBuffer;
-	uint8_t* bufferStorage;
+	SemaphoreHandle_t semaphore;
+	volatile uint8_t* bufferStorage;
+	volatile uint8_t* bufferControl;
 	size_t bufferLength;
+	uint16_t readIndex;
+	std::function<void (uint8_t sender_id, uint8_t* buffer, uint32_t length)> receiverFunc;
 };
 
 

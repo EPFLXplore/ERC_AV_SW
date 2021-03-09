@@ -178,13 +178,15 @@ bool MessageBus::send(PacketDefinition* def, uint8_t* data) {
  * Provided an external thread calls this method with a buffer to the next incoming message,
  * dispatches the message to the appropriate message handlers.
  */
+#include "Debug/Debug.h"
 void MessageBus::receive(uint8_t sender_id, uint8_t *pointer, uint32_t length) {
 	if(length > 0) {
 		// Safe-cast verification
 		uint8_t packet_id = *pointer++;
 
+
 		PacketDefinition* def = &definitions_by_id[packet_id & 0b00111111];
-		ReconstructionBuffer* indexable_buffer = &reconstruction_buffers[sender_id];
+		ReconstructionBuffer* indexable_buffer = &reconstruction_buffers[sender_id & 0b00111111];
 
 		if(indexable_buffer->index + length > max_packet_size) {
 			indexable_buffer->index = 0; // Corrupted packet

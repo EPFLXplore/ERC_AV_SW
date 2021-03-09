@@ -19,28 +19,27 @@ void BarometerThread::init() {
 	bmp280.addr = BMP280_I2C_ADDRESS_0;
 	bmp280.i2c = hi2c;
 
-	__disable_irq();
+	portENTER_CRITICAL();
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
-		__enable_irq();
+		portEXIT_CRITICAL();
 		println("BMP280 initialization failed");
 	  	osDelay(500);
 	}
-	__enable_irq();
+	portEXIT_CRITICAL();
 
 	println("BMP280 initialized");
 }
 
+static Avionics_BaroTempPacket packet;
+static BaroData data;
 void BarometerThread::loop() {
-	BaroData data;
-
 	bmp280_read_float(&bmp280, &data.temperature, &data.pressure, &data.humidity);
 
 	println("%s", data.toString(cbuf));
 
-	Avionics_BaroTempPacket packet;
 	data.toArray((float*) &packet);
 
 	network.send(&packet);
 
-	osDelay(100);
+	osDelay(200);
 }

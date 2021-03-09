@@ -23,7 +23,7 @@ static void onStatusUpdate(struct netif *netif);
 static LWIPClientIO* client;
 
 
-LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry", 256) { // Please, be very careful with the stack
+LWIPThread::LWIPThread(const char* ip, const uint16_t port) : Thread("Telemetry", 512) { // Please, be very careful with the stack
 	client = new LWIPClientIO(ip, port);
 }
 
@@ -59,6 +59,8 @@ void LWIPThread::init() {
 
 	osThreadDef(EthLink, ethernet_link_thread, osPriorityNormal, 0, 1024);
 	osThreadCreate(osThread(EthLink), &gnetif);
+
+	client->receive(telemetryDriver.getReceiveFunction());
 }
 
 void onStatusUpdate(struct netif *netif) {
@@ -66,21 +68,29 @@ void onStatusUpdate(struct netif *netif) {
 		/* When the netif is fully configured this function must be called */
 		netif_set_up(netif);
 		console.printf("[Telemetry] Link is up\r\n");
-
-		int32_t error = client->connectClient();
-
-		if(error != 0) {
-			console.printf("[Telemetry] Cannot connect to server with error code %d\r\n", error);
-		}
 	} else {
 		/* When the netif link is down this function must be called */
 		netif_set_down(netif);
 		console.printf("[Telemetry] Link is down\r\n");
-		client->disconnectClient();
 	}
 }
 
 void LWIPThread::loop() {
-	//client->update(); // Handle reception
-	telemetryDriver.flush(client); // Handle transmission
+	if(client->isConnected()) {
+		if(netif_is_link_up(&gnetif)) {
+			client->update(); // Handle reception
+
+			telemetryDriver.flush(client); // Handle transmission
+		} else {
+			client->disconnectClient();
+		}
+	} else if(netif_is_link_up(&gnetif)) {
+		int32_t error = client->connectClient();
+
+		if(error != 0) {
+			println("Cannot connect to server with error code %d", error);
+		}
+
+		osDelay(1000);
+	}
 }

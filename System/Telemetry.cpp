@@ -8,8 +8,16 @@
 
 #include "Telemetry.h"
 
+#include "Debug/Debug.h"
 
-static uint8_t storage1[256];
-static uint8_t storage2[256];
-BufferedIODriver telemetryDriver(storage1, storage2, 256);
+static volatile uint8_t* control = (uint8_t*) 0x38001000;
+static volatile uint8_t* storage = (uint8_t*) 0x38001001;
+
+BufferedIODriver telemetryDriver(storage, control, 256); // Point to RAM D3
 NetworkBus network(&telemetryDriver);
+
+
+
+void setupTelemtry() {
+	network.forward<PingPacket>(&network);
+}

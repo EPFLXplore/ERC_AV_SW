@@ -34,6 +34,8 @@ public:
 
 	void update();
 
+	bool isConnected() { return connected; }
+
 private:
 	std::string address_str;
 

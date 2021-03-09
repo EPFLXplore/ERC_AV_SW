@@ -74,6 +74,9 @@ int8_t LWIPClientIO::connectClient() {
 		return -4;
 	}
 
+
+	lwip_fcntl(socket_id, F_SETFL, lwip_fcntl(socket_id, F_GETFL, 0) | O_NONBLOCK);
+
 	this->connected = true;
 
 	console.printf("[RoCo] [Client@%d] Client connected\r\n", ntohs(address.sin_port));
@@ -113,7 +116,7 @@ void LWIPClientIO::update() {
 		static uint8_t buffer[256];
 
 		// New data from client
-		while((result = lwip_recv(socket_id, buffer, sizeof(buffer), 0)) > 0) {
+		if((result = lwip_recv(socket_id, buffer, sizeof(buffer), 0)) >= 0) {
 			if(result != 0) {
 				if(receiver != nullptr) {
 					if(ntohs(address.sin_port) == PORT_A) {
@@ -127,7 +130,6 @@ void LWIPClientIO::update() {
 				// Connection was closed by server
 				console.printf("[RoCo] [Client@%d] Client disconnected by server\r\n", ntohs(address.sin_port));
 				this->connected = false;
-				break;
 				// Do not decrement the num_sockets field since our IDs are not linear
 			}
 		}
@@ -151,6 +153,11 @@ void LWIPClientIO::transmit(uint8_t* buffer, uint32_t length) {
 
 		while((result = lwip_send(socket_id, buffer, length, 0)) > 0) {
 			length -= result;
+		}
+
+		if(length != 0) {
+			console.printf("[RoCo] [Client@%d] Client disconnected by server\r\n", ntohs(address.sin_port));
+			this->connected = false;
 		}
 	}
 }

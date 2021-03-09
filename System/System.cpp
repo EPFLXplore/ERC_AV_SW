@@ -28,17 +28,29 @@ void initCortexM4() {
 	static WatchdogThread watchdog(&hiwdg2);
 	static Shell shell(&huart3, &terminal);
 	static IMUThread imu(&hi2c1);
-	//static BarometerThread barometer(&hi2c1);
+	static BarometerThread barometer(&hi2c1);
 	static ADC24Thread scale(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
 }
 #endif
 
 #ifdef CORE_CM7
 #include "i2c.h"
+#include "Telemetry.h"
 void initCortexM7() {
 	MX_I2C1_Init();
+
 	static WatchdogThread watchdog(&hiwdg1);
 	static LWIPThread lwip("192.168.1.2", 42666);
-	static BarometerThread barometer(&hi2c1);
+	//static BarometerThread barometer(&hi2c1);
+
+	setupTelemtry();
 }
 #endif
+
+extern "C" {
+
+void vApplicationStackOverflowHook() {
+	while(1);
+}
+
+}

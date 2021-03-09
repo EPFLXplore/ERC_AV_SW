@@ -109,7 +109,8 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/inet.h \
  ../../System/Libraries/RoCo/Src/NetworkIO.h \
  /Users/arion/git/XploreAvionics/System/Debug/Debug.h ../Core/Inc/iwdg.h \
- ../Core/Inc/i2c.h
+ ../Core/Inc/i2c.h /Users/arion/git/XploreAvionics/System/Telemetry.h \
+ /Users/arion/git/XploreAvionics/System/Libraries/RoCo/RoCo.h
 
 /Users/arion/git/XploreAvionics/System/System.h:
 
@@ -336,3 +337,7 @@ System/System.o: /Users/arion/git/XploreAvionics/System/System.cpp \
 ../Core/Inc/iwdg.h:
 
 ../Core/Inc/i2c.h:
+
+/Users/arion/git/XploreAvionics/System/Telemetry.h:
+
+/Users/arion/git/XploreAvionics/System/Libraries/RoCo/RoCo.h:

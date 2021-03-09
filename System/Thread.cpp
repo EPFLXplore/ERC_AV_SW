@@ -44,8 +44,8 @@ Thread::Thread(const char* name, uint32_t stackSize) : Thread(name, (osPriority)
 }
 
 Thread::Thread(const char* name, osPriority priority, uint32_t stackSize) {
-	osThreadDef(T, __task_run, priority, 0, stackSize);
-	this->handle = osThreadCreate(osThread(T), this);
+	osThreadDef_t thread = { (char*) name, &__task_run, priority, 0, stackSize};
+	this->handle = osThreadCreate(&thread, this);
 	this->name = name;
 }
 

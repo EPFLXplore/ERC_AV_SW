@@ -15,4 +15,7 @@ extern BufferedIODriver telemetryDriver;
 extern NetworkBus network;
 
 
+void setupTelemtry();
+
+
 #endif /* TELEMETRY_TELEMETRY_H_ */
