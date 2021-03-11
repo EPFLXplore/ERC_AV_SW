@@ -13,6 +13,7 @@
 #include "Sensors/Barometer.h"
 #include "Sensors/IMU.h"
 #include "Sensors/ADC24.h"
+#include "Sensors/ADC16.h"
 #include "Telemetry/LWIPThread.h"
 
 #include "Debug/Debug.h"
@@ -30,6 +31,7 @@ void initCortexM4() {
 	static IMUThread imu(&hi2c1);
 	static BarometerThread barometer(&hi2c1);
 	static ADC24Thread scale(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
+	static ADC16Thread potentiometer(&hi2c1);
 }
 #endif
 

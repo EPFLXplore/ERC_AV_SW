@@ -79,4 +79,18 @@ struct ScienceData {
 	}
 };
 
+struct PotentiometerData {
+	float voltage;
+
+	char* toString(char* buffer) {
+		sprintf(buffer, "Voltage(v): %f", voltage);
+		return buffer;
+	}
+
+	float* toArray(float* buffer){
+		*buffer = voltage;
+		return buffer;
+	}
+};
+
 #endif /* SENSORS_DATASTRUCTURES_H_ */
