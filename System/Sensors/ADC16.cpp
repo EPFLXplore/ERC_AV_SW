@@ -18,7 +18,11 @@ ADC16Thread::ADC16Thread(I2C_HandleTypeDef *hi2c)
 {}
 
 void ADC16Thread::init() {
-	ads.begin();
+	while (!ads.begin()) {
+			println("ADS1113 initialization failed");
+		  	osDelay(500);
+		}
+		println("ADS1113 initialized");
 }
 
 void ADC16Thread::loop() { //Should this send a voltage or radial position?
