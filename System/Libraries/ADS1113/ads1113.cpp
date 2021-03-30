@@ -7,6 +7,8 @@
 
 #include <Libraries/ADS1113/ads1113.h>
 
+#define MAX_VALUE 32768
+
 void ADS1113::ads1113_delay(int time){
 #ifdef FREERTOS_ENABLED
   osDelay(time);
@@ -15,48 +17,40 @@ void ADS1113::ads1113_delay(int time){
 #endif
 }
 
-ADS1113::ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress):
+ADS1113::ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress, float multiplier):
 	_i2cAddress(i2cAddress),
 	_conversionDelay(ADS1113_CONVERSIONDELAY),
 	_bitShift(0),
-	_ads1113_i2c_port(hi2c)
+	_ads1113_i2c_port(hi2c),
+	_multiplier(multiplier / (MAX_VALUE >> _bitShift))
 {}
 
 bool ADS1113::begin(){
-	_ads1113_i2c_port->Init.Timing = 0x00602173;
-	_ads1113_i2c_port->Init.OwnAddress1 = 0;
-	_ads1113_i2c_port->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	_ads1113_i2c_port->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	_ads1113_i2c_port->Init.OwnAddress2 = 0;
-	_ads1113_i2c_port->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	_ads1113_i2c_port->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	_ads1113_i2c_port->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-
-	if (HAL_I2C_Init(_ads1113_i2c_port) != HAL_OK){
-		return false;
+	if (HAL_I2C_Init(_ads1113_i2c_port) == HAL_OK){
+		if(HAL_I2C_IsDeviceReady(_ads1113_i2c_port, (_i2cAddress<<1), 10, 100) == HAL_OK)
+			return true;
 	}
-	return true;
+	return false;
 }
 
 /* Write to register in ADS1113 directly */
 static void writeRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg, uint16_t value) {
 	uint8_t pData[2];
-	pData[0]=value & 0xff;
-	pData[1]=(value >> 8);
-	i2cAddress << 8;
+	pData[0] = (value >> 8);
+	pData[1] = value & 0xff;
 
-	HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(i2c_port, i2cAddress, pData, sizeof(value), 10);
-	if (status == HAL_OK) {
-		return;
-	}
+	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
+	HAL_StatusTypeDef status = HAL_I2C_Mem_Write(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
 }
 
 /* Read from register in ADS1113 directly */
 static uint16_t readRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg) {
-	i2cAddress << 8;
 	uint8_t pData[2];
-	HAL_I2C_Master_Receive(i2c_port, i2cAddress, pData, sizeof(uint16_t), 10);
-	return ((pData[0] << 8) | pData[1]); //CHECK HERE IF THERE ARE ERRORS : inverse pData[0] and pData[1]
+
+	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
+	HAL_StatusTypeDef status = HAL_I2C_Mem_Read(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
+	uint16_t regData = ((pData[0] << 8) | pData[1]);
+	return regData; //CHECK HERE IF THERE ARE ERRORS : inverse pData[0] and pData[1]
 }
 
 uint16_t ADS1113::readADC_SingleEnded(uint16_t sampleRate) {
@@ -103,9 +97,14 @@ int16_t ADS1113::getLastConversionResults() {
 	}
 }
 
+float ADS1113::getMultiplier(){
+	return _multiplier;
+}
+
 ADS1115::ADS1115(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress):
-	ADS1113(hi2c, i2cAddress),
-	_gain(GAIN_TWOTHIRDS) /* +/- 6.144V range (limited to VDD +0.3V max!) */
+	ADS1113(hi2c, i2cAddress, 6.144f),
+	_gain(GAIN_TWOTHIRDS)
+	/* +/- 6.144V range (limited to VDD +0.3V max!) */
 {}
 
 void ADS1115::startComparator_SingleEnded(uint8_t channel, int16_t threshold, uint16_t sampleRate) {
@@ -196,6 +195,29 @@ uint16_t ADS1115::readADC_SingleEnded(uint8_t channel, uint16_t sampleRate) {
 
 void ADS1115::setGain(adsGain_t gain){
 	_gain = gain;
+	_multiplier = 1.0 / (MAX_VALUE >> _bitShift);
+	switch (_gain) {
+		case GAIN_TWOTHIRDS:
+			_multiplier *= 6.144f;
+			break;
+		case GAIN_ONE:
+			_multiplier *= 4.096f;
+			break;
+		case GAIN_TWO:
+			_multiplier *= 2.048f;
+			break;
+		case GAIN_FOUR:
+			_multiplier *= 1.024f;
+			break;
+		case GAIN_EIGHT:
+			_multiplier *= 0.512f;
+			break;
+		case GAIN_SIXTEEN:
+			_multiplier *= 0.256f;
+			break;
+		default:
+			_multiplier *= 0.0f;
+	}
 }
 
 adsGain_t ADS1115::getGain(){

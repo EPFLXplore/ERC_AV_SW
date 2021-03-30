@@ -31146,34 +31146,36 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS111313ads1113_delayEi
                 0x0000000000000000       0x1a System/Libraries/ADS1113/ads1113.o
- .text._ZN7ADS1113C2EP19__I2C_HandleTypeDefh
-                0x0000000000000000       0x34 System/Libraries/ADS1113/ads1113.o
+ .text._ZN7ADS1113C2EP19__I2C_HandleTypeDefhf
+                0x0000000000000000       0x5a System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS11135beginEv
-                0x0000000000000000       0x74 System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000       0x56 System/Libraries/ADS1113/ads1113.o
  .text._ZL13writeRegisterP19__I2C_HandleTypeDeftht
-                0x0000000000000000       0x48 System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000       0x76 System/Libraries/ADS1113/ads1113.o
  .text._ZL12readRegisterP19__I2C_HandleTypeDefth
-                0x0000000000000000       0x3a System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000       0x70 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS111319readADC_SingleEndedEt
                 0x0000000000000000       0x6a System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS111324getLastConversionResultsEv
                 0x0000000000000000       0x62 System/Libraries/ADS1113/ads1113.o
+ .text._ZN7ADS111313getMultiplierEv
+                0x0000000000000000       0x1e System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS1115C2EP19__I2C_HandleTypeDefh
-                0x0000000000000000       0x2a System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000       0x34 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS111527startComparator_SingleEndedEhst
                 0x0000000000000000       0xa8 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS111519readADC_SingleEndedEht
                 0x0000000000000000       0xc8 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS11157setGainE9adsGain_t
-                0x0000000000000000       0x1e System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000      0x128 System/Libraries/ADS1113/ads1113.o
  .text._ZN7ADS11157getGainEv
                 0x0000000000000000       0x18 System/Libraries/ADS1113/ads1113.o
- .debug_info    0x0000000000000000     0x1dbc System/Libraries/ADS1113/ads1113.o
- .debug_abbrev  0x0000000000000000      0x413 System/Libraries/ADS1113/ads1113.o
+ .debug_info    0x0000000000000000     0x1e45 System/Libraries/ADS1113/ads1113.o
+ .debug_abbrev  0x0000000000000000      0x3fe System/Libraries/ADS1113/ads1113.o
  .debug_aranges
-                0x0000000000000000       0x78 System/Libraries/ADS1113/ads1113.o
- .debug_ranges  0x0000000000000000       0x68 System/Libraries/ADS1113/ads1113.o
- .debug_macro   0x0000000000000000      0x44c System/Libraries/ADS1113/ads1113.o
+                0x0000000000000000       0x80 System/Libraries/ADS1113/ads1113.o
+ .debug_ranges  0x0000000000000000       0x70 System/Libraries/ADS1113/ads1113.o
+ .debug_macro   0x0000000000000000      0x452 System/Libraries/ADS1113/ads1113.o
  .debug_macro   0x0000000000000000      0xb56 System/Libraries/ADS1113/ads1113.o
  .debug_macro   0x0000000000000000       0x10 System/Libraries/ADS1113/ads1113.o
  .debug_macro   0x0000000000000000      0x17b System/Libraries/ADS1113/ads1113.o
@@ -31269,10 +31271,10 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xa6 System/Libraries/ADS1113/ads1113.o
  .debug_macro   0x0000000000000000      0x798 System/Libraries/ADS1113/ads1113.o
  .debug_macro   0x0000000000000000      0x142 System/Libraries/ADS1113/ads1113.o
- .debug_line    0x0000000000000000      0xfc0 System/Libraries/ADS1113/ads1113.o
- .debug_str     0x0000000000000000   0x19165d System/Libraries/ADS1113/ads1113.o
+ .debug_line    0x0000000000000000      0xfe4 System/Libraries/ADS1113/ads1113.o
+ .debug_str     0x0000000000000000   0x1916b9 System/Libraries/ADS1113/ads1113.o
  .comment       0x0000000000000000       0x7c System/Libraries/ADS1113/ads1113.o
- .debug_frame   0x0000000000000000      0x1cc System/Libraries/ADS1113/ads1113.o
+ .debug_frame   0x0000000000000000      0x1f4 System/Libraries/ADS1113/ads1113.o
  .ARM.attributes
                 0x0000000000000000       0x37 System/Libraries/ADS1113/ads1113.o
  .group         0x0000000000000000        0xc System/Libraries/BMP280/bmp280.o
@@ -34519,8 +34521,6 @@ Discarded input sections
                 0x0000000000000000       0x30 System/Sensors/ADC16.o
  .text._ZN17PotentiometerData7toArrayEPf
                 0x0000000000000000       0x20 System/Sensors/ADC16.o
- .rodata._ZL10maxVoltage
-                0x0000000000000000        0x4 System/Sensors/ADC16.o
  .rodata._ZStL19piecewise_construct
                 0x0000000000000000        0x1 System/Sensors/ADC16.o
  .text._ZL20__gthread_key_deletei
@@ -34537,13 +34537,13 @@ Discarded input sections
                 0x0000000000000000        0x1 System/Sensors/ADC16.o
  .bss._ZL4cbuf  0x0000000000000000      0x100 System/Sensors/ADC16.o
  .text._ZN11ADC16ThreadC2EP19__I2C_HandleTypeDef
-                0x0000000000000000       0x44 System/Sensors/ADC16.o
+                0x0000000000000000       0x4c System/Sensors/ADC16.o
  .text._ZN11ADC16Thread4initEv
                 0x0000000000000000       0x4c System/Sensors/ADC16.o
  .text._ZN11ADC16Thread4loopEv
-                0x0000000000000000       0x84 System/Sensors/ADC16.o
+                0x0000000000000000       0x98 System/Sensors/ADC16.o
  .text._ZN11ADC16Thread11tareVoltageEv
-                0x0000000000000000       0x34 System/Sensors/ADC16.o
+                0x0000000000000000       0x46 System/Sensors/ADC16.o
  .rodata._ZTV11ADC16Thread
                 0x0000000000000000       0x10 System/Sensors/ADC16.o
  .rodata._ZTI11ADC16Thread
@@ -34554,7 +34554,7 @@ Discarded input sections
                 0x0000000000000000        0x8 System/Sensors/ADC16.o
  .rodata._ZTS6Thread
                 0x0000000000000000        0x8 System/Sensors/ADC16.o
- .debug_info    0x0000000000000000     0x542e System/Sensors/ADC16.o
+ .debug_info    0x0000000000000000     0x5448 System/Sensors/ADC16.o
  .debug_abbrev  0x0000000000000000      0x6f3 System/Sensors/ADC16.o
  .debug_aranges
                 0x0000000000000000       0x50 System/Sensors/ADC16.o
@@ -34747,9 +34747,9 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x20 System/Sensors/ADC16.o
  .debug_macro   0x0000000000000000      0x407 System/Sensors/ADC16.o
  .debug_line    0x0000000000000000     0x1e2a System/Sensors/ADC16.o
- .debug_str     0x0000000000000000   0x1a23d7 System/Sensors/ADC16.o
+ .debug_str     0x0000000000000000   0x1a2404 System/Sensors/ADC16.o
  .comment       0x0000000000000000       0x7c System/Sensors/ADC16.o
- .debug_frame   0x0000000000000000      0x118 System/Sensors/ADC16.o
+ .debug_frame   0x0000000000000000      0x138 System/Sensors/ADC16.o
  .ARM.attributes
                 0x0000000000000000       0x37 System/Sensors/ADC16.o
  .group         0x0000000000000000        0xc System/Sensors/ADC24.o
@@ -36241,8 +36241,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 System/System.o
  .data          0x0000000000000000        0x0 System/System.o
  .bss           0x0000000000000000        0x0 System/System.o
- .rodata._ZL10maxVoltage
-                0x0000000000000000        0x4 System/System.o
  .rodata._ZStL19piecewise_construct
                 0x0000000000000000        0x1 System/System.o
  .text._ZL20__gthread_key_deletei
@@ -42798,7 +42796,7 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000000001f26       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv5/hard/crtn.o
 OUTPUT(XploreAvionics_CM7.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0xa8fac
+.debug_info     0x0000000000000000    0xa8f96
  .debug_info    0x0000000000000000     0x16d1 Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.o
  .debug_info    0x00000000000016d1     0x1076 Core/Src/crc.o
  .debug_info    0x0000000000002747     0x124f Core/Src/dma.o
@@ -42878,10 +42876,10 @@ OUTPUT(XploreAvionics_CM7.elf elf32-littlearm)
  .debug_info    0x000000000008864f     0x459b System/Libraries/RoCo/Src/MessageBus.o
  .debug_info    0x000000000008cbea     0x427b System/Libraries/RoCo/Src/NetworkBus.o
  .debug_info    0x0000000000090e65     0x2187 System/Misc/WatchdogThread.o
- .debug_info    0x0000000000092fec     0x52f7 System/System.o
- .debug_info    0x00000000000982e3     0x56e5 System/Telemetry.o
- .debug_info    0x000000000009d9c8     0x24f1 System/Thread.o
- .debug_info    0x000000000009feb9     0x90f3 System/Telemetry/LWIPThread.o
+ .debug_info    0x0000000000092fec     0x52e1 System/System.o
+ .debug_info    0x00000000000982cd     0x56e5 System/Telemetry.o
+ .debug_info    0x000000000009d9b2     0x24f1 System/Thread.o
+ .debug_info    0x000000000009fea3     0x90f3 System/Telemetry/LWIPThread.o
 
 .debug_abbrev   0x0000000000000000    0x10812
  .debug_abbrev  0x0000000000000000      0x22e Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.o
@@ -43652,7 +43650,7 @@ OUTPUT(XploreAvionics_CM7.elf elf32-littlearm)
  .debug_line    0x0000000000051a9a     0x108d System/Thread.o
  .debug_line    0x0000000000052b27     0x2003 System/Telemetry/LWIPThread.o
 
-.debug_str      0x0000000000000000   0x1cc695
+.debug_str      0x0000000000000000   0x1cc68a
  .debug_str     0x0000000000000000   0x188114 Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.o
                                      0x188739 (size before relaxing)
  .debug_str     0x0000000000188114      0x1d1 Core/Src/crc.o
@@ -43811,13 +43809,13 @@ OUTPUT(XploreAvionics_CM7.elf elf32-littlearm)
                                      0x199a5b (size before relaxing)
  .debug_str     0x00000000001ca730       0xed System/Misc/WatchdogThread.o
                                      0x192625 (size before relaxing)
- .debug_str     0x00000000001ca81d     0x17c3 System/System.o
-                                     0x1a312e (size before relaxing)
- .debug_str     0x00000000001cbfe0       0x9e System/Telemetry.o
+ .debug_str     0x00000000001ca81d     0x17b8 System/System.o
+                                     0x1a3123 (size before relaxing)
+ .debug_str     0x00000000001cbfd5       0x9e System/Telemetry.o
                                      0x1a1c47 (size before relaxing)
- .debug_str     0x00000000001cc07e       0xd2 System/Thread.o
+ .debug_str     0x00000000001cc073       0xd2 System/Thread.o
                                      0x192881 (size before relaxing)
- .debug_str     0x00000000001cc150      0x545 System/Telemetry/LWIPThread.o
+ .debug_str     0x00000000001cc145      0x545 System/Telemetry/LWIPThread.o
                                      0x1a8317 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b

@@ -83,7 +83,7 @@ struct PotentiometerData {
 	float voltage;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Voltage(v): %f", voltage);
+		sprintf(buffer, "Voltage(V): %f", voltage);
 		return buffer;
 	}
 

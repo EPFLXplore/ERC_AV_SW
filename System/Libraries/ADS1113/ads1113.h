@@ -134,13 +134,15 @@ protected:
   uint8_t _conversionDelay; ///< conversion delay
   uint8_t _bitShift;        ///< bit shift amount
   I2C_HandleTypeDef* _ads1113_i2c_port; //i2c port
+  float _multiplier;
+  void ads1113_delay(int time);
 
 public:
-  	ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress = ADS1113_ADDRESS);
+  	ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress = ADS1113_ADDRESS, float multiplier = 2.048f);
     bool begin(void);
     uint16_t readADC_SingleEnded(uint16_t sampleRate=ADS1015_REG_CONFIG_DR_1600SPS);
     int16_t getLastConversionResults();
-    void ads1113_delay(int time);
+    float getMultiplier();
     //int16_t readADC_Differential_0_1(void);
     //int16_t readADC_Differential_2_3(void);
 };

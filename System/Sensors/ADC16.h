@@ -13,8 +13,6 @@
 
 #include "Libraries/ADS1113/ads1113.h"
 
-static const float maxVoltage = 5.5; //maximum input voltage on AIN0
-
 class ADC16Thread : Thread {
 public:
 	ADC16Thread(I2C_HandleTypeDef *hi2c);
