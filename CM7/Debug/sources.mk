@@ -1,6 +1,5 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 ELF_SRCS := 
@@ -41,6 +40,7 @@ Middlewares/Third_Party/FreeRTOS \
 Middlewares/Third_Party/LwIP \
 System/Debug \
 System/Lang \
+System/Libraries/ADS1113 \
 System/Libraries/BMP280 \
 System/Libraries/BNO055 \
 System/Libraries/HX711 \

@@ -19,13 +19,13 @@ void BarometerThread::init() {
 	bmp280.addr = BMP280_I2C_ADDRESS_0;
 	bmp280.i2c = hi2c;
 
-	portENTER_CRITICAL();
+	//portENTER_CRITICAL();
 	while (!bmp280_init(&bmp280, &bmp280.params)) {
-		portEXIT_CRITICAL();
+		//portEXIT_CRITICAL();
 		println("BMP280 initialization failed");
 	  	osDelay(500);
 	}
-	portEXIT_CRITICAL();
+	//portEXIT_CRITICAL();
 
 	println("BMP280 initialized");
 }
