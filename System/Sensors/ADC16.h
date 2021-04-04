@@ -20,7 +20,7 @@ public:
 	void loop();
 	void tareVoltage();
 private:
-	ADS1113 ads;
+	ADS1115 ads;
 	float offset;
 };
 

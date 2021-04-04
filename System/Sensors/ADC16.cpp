@@ -27,7 +27,7 @@ void ADC16Thread::init() {
 
 void ADC16Thread::loop() { //Should this send a voltage or radial position?
 	PotentiometerData data;
-	data.voltage = ads.readADC_SingleEnded()*ads.getMultiplier() - offset; //voltage[uV]
+	data.voltage = ads.readADC_Differential_0_1()*ads.getMultiplier() - offset; //voltage[V]
 
 	println("%s", data.toString(cbuf));
 
@@ -39,6 +39,6 @@ void ADC16Thread::loop() { //Should this send a voltage or radial position?
 }
 
 void ADC16Thread::tareVoltage(){
-	offset = ads.readADC_SingleEnded()*ads.getMultiplier();
+	offset = ads.readADC_Differential_0_1()*ads.getMultiplier();
 }
 
