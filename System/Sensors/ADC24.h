@@ -20,8 +20,11 @@ public:
 	void init();
 	void loop();
 	float convertToMass(int32_t voltage);
+	void calibrateMultiplier(void);
 private:
-	uint16_t nSamples = 15;
+	uint16_t _nSamples;
+	float _multiplier;
+	int32_t _zero;
 };
 
 

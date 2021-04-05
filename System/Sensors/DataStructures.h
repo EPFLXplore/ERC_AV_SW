@@ -66,14 +66,14 @@ struct BaroData {
 };
 
 struct ScienceData {
-	uint32_t mass;
+	float mass;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Mass(kg): %lu", mass);
+		sprintf(buffer, "Mass(kg): %f", mass);
 		return buffer;
 	}
 
-	uint32_t* toArray(uint32_t* buffer){
+	float* toArray(float* buffer){
 		*buffer = mass;
 		return buffer;
 	}

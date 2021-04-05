@@ -23,7 +23,9 @@ ADS1113::ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress, float multiplier):
 	_bitShift(0),
 	_ads1113_i2c_port(hi2c),
 	_multiplier(multiplier / (MAX_VALUE >> _bitShift))
-{}
+{
+	//while(!init());
+}
 
 bool ADS1113::begin(){
 	if (HAL_I2C_Init(_ads1113_i2c_port) == HAL_OK){
@@ -33,6 +35,43 @@ bool ADS1113::begin(){
 	return false;
 }
 
+bool ADS1113::init(){
+	//Deinit the port
+	if (HAL_I2C_DeInit(_ads1113_i2c_port) != HAL_OK){
+		return false;
+	}
+	//Configure I2C port
+	_ads1113_i2c_port->Instance = I2C1;
+	_ads1113_i2c_port->Init.Timing = 0x00401242;
+	_ads1113_i2c_port->Init.OwnAddress1 = 0;
+	_ads1113_i2c_port->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+	_ads1113_i2c_port->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+	_ads1113_i2c_port->Init.OwnAddress2 = 0;
+	_ads1113_i2c_port->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+	_ads1113_i2c_port->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+	_ads1113_i2c_port->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+	if (HAL_I2C_Init(_ads1113_i2c_port) != HAL_OK)
+	{
+		return false;
+	}
+	/** Configure Analogue filter
+	*/
+	if (HAL_I2CEx_ConfigAnalogFilter(_ads1113_i2c_port, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+	{
+		return false;
+	}
+	/** Configure Digital filter
+	*/
+	if (HAL_I2CEx_ConfigDigitalFilter(_ads1113_i2c_port, 0x0F) != HAL_OK)
+	{
+		return false;
+	}
+	/** I2C Enable Fast Mode Plus
+	*/
+	HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
+	return true;
+}
+
 /* Write to register in ADS1113 directly */
 static void writeRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg, uint16_t value) {
 	uint8_t pData[2];
@@ -40,7 +79,7 @@ static void writeRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint
 	pData[1] = value & 0xff;
 
 	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
-	HAL_StatusTypeDef status = HAL_I2C_Mem_Write(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
+	HAL_I2C_Mem_Write(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
 }
 
 /* Read from register in ADS1113 directly */
@@ -48,7 +87,7 @@ static uint16_t readRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, u
 	uint8_t pData[2];
 
 	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
-	HAL_StatusTypeDef status = HAL_I2C_Mem_Read(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
+	HAL_I2C_Mem_Read(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
 	uint16_t regData = ((pData[0] << 8) | pData[1]);
 	return regData; //CHECK HERE IF THERE ARE ERRORS : inverse pData[0] and pData[1]
 }

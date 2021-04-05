@@ -145,6 +145,7 @@ protected:
   I2C_HandleTypeDef* _ads1113_i2c_port; //i2c port
   float _multiplier;
   void ads1113_delay(int time);
+  bool init();
 
 public:
   	ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress = ADS1X15_ADDRESS, float multiplier = 2.048f);
