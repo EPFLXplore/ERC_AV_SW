@@ -6,7 +6,7 @@
 #define HX711_delay(x)    HAL_Delay(x)
 #endif
 
-const uint32_t clockPulse = 50; //ns
+const uint32_t clockPulse = 200; //ns
 
 //Clock pin
 GPIO_TypeDef *_hx711_sck_gpio;
@@ -44,6 +44,7 @@ void  HX711_begin(void)
   HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_RESET);
   HX711_delay(10);
   HX711_valueAve(8);
+  HX711_delay(100);
 }
 //#############################################################################################
 //setup HX711 pins
@@ -56,11 +57,23 @@ void  HX711_init(void)
   gpio.Pin = _hx711_sck_pin;
   HAL_GPIO_Init(_hx711_sck_gpio, &gpio);
   gpio.Mode = GPIO_MODE_INPUT;
-  gpio.Pull = GPIO_NOPULL;
+  gpio.Pull = GPIO_PULLUP;
   gpio.Speed = GPIO_SPEED_FREQ_HIGH;
   gpio.Pin = _hx711_di_pin;
   HAL_GPIO_Init(_hx711_di_gpio, &gpio);
 
+}
+
+bool HX711_checkReadiness() {
+	uint32_t startTime = HAL_GetTick();
+
+	while(!HX711_isReady()) {
+		if(HAL_GetTick() - startTime > 150) {
+			return false;
+		}
+	}
+
+	return true;
 }
 //#############################################################################################
 int32_t HX711_value(void)
@@ -68,10 +81,10 @@ int32_t HX711_value(void)
   uint32_t data = 0;
   uint32_t  startTime = HAL_GetTick();
   while(!HX711_isReady())
-  {
-    if(HAL_GetTick() - startTime > 150)
-      return 0;
-  }
+    {
+      if(HAL_GetTick() - startTime > 150)
+        return 0;
+    }
   for(int8_t i=0; i<24 ; i++)
   {
     HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_SET);
@@ -95,6 +108,7 @@ int32_t HX711_valueAve(uint16_t sample)
   int64_t  ave = 0;
   for(uint16_t i=0 ; i<sample ; i++)
     ave += HX711_value();
+
   return (int32_t)(ave / sample);
 }
 //#############################################################################################

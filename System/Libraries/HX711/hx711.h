@@ -8,6 +8,7 @@
 #include "gpio.h"
 #include "stm32h7xx_hal.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 #define		_HX711_USE_FREERTOS		1
 
@@ -17,6 +18,7 @@ void        HX711_init(void); //configures pins
 int32_t     HX711_value(void); //returns 2s complement of V(mesured)*Gain(of channel)
 int32_t     HX711_valueAve(uint16_t sample); //returns 2s complement of average V(mesured)*Gain(of channel)
 int			HX711_isReady(); //checks that HX711 is ready to return measurement
+bool 		HX711_checkReadiness();
 
 #ifdef __cplusplus
   }

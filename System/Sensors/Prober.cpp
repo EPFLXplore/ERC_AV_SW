@@ -27,7 +27,8 @@ bool ProberThread::probeI2C(uint8_t address) {
 
 bool ProberThread::probeDB() {
 	HX711_set_pins(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
-	return hi2c == &hi2c2 && HX711_isReady();
+	HX711_init();
+	return hi2c == &hi2c2 && HX711_checkReadiness();
 }
 
 void ProberThread::loop() {

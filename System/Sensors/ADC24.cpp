@@ -19,10 +19,12 @@ ADC24Thread::ADC24Thread(ProberThread* parent, GPIO_TypeDef *sck_gpio, uint32_t 
 	HX711_set_pins(sck_gpio, sck_pin, di_gpio, di_pin);
 }
 
+
+
 void ADC24Thread::init() {
 	HX711_begin();
 
-	if(!HX711_isReady()) {
+	if(!HX711_checkReadiness()) {
 		println("HX711 initialization failed");
 		terminate();
 		parent->resetProber();
@@ -37,7 +39,7 @@ void ADC24Thread::init() {
 static ScienceData data;
 static Science_MeasurePacket packet;
 void ADC24Thread::loop() {
-	if(HX711_isReady()) {
+	if(HX711_checkReadiness()) {
 		data.mass = (HX711_valueAve(_nSamples) - _zero)*_multiplier;
 		println("%s", data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
@@ -59,6 +61,9 @@ void ADC24Thread::calibrateMultiplier(void){
 		println("Place 0.5kg on top of scale in order to calibrate");
 		int32_t currentVal = HX711_valueAve(_nSamples);
 		int32_t diff = currentVal - _zero;
+
+		println("%ld", diff);
+
 		if(diff < -threshold){
 			osDelay(200); // Give the weight some time to settle
 			_multiplier = 0.5/(HX711_valueAve(_nSamples) - _zero);
