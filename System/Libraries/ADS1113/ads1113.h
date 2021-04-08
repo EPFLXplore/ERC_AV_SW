@@ -164,7 +164,7 @@ private:
 
 public:
 	ADS1115(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress = ADS1X15_ADDRESS);
-	void startComparator_SingleEnded(uint8_t channel, int16_t threshold, uint16_t sampleRate=RATE_ADS1115_128SPS);
+	bool startComparator_SingleEnded(uint8_t channel, int16_t threshold, uint16_t sampleRate=RATE_ADS1115_128SPS);
 	int16_t readADC_SingleEnded(uint8_t channel=0, uint16_t sampleRate=RATE_ADS1115_128SPS);
 	int16_t readADC_Differential_0_1(uint16_t sampleRate=RATE_ADS1115_128SPS);
 	void setGain(adsGain_t gain);

@@ -12,6 +12,8 @@
 #include "ADC24.h"
 #include "ADC16.h"
 
+#include "i2c.h"
+
 #include "Lang/Operators.h"
 
 void ProberThread::init() {
@@ -24,8 +26,8 @@ bool ProberThread::probeI2C(uint8_t address) {
 }
 
 bool ProberThread::probeDB() {
-	HX711_init();
-	return HX711_isReady();
+	HX711_set_pins(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
+	return hi2c == &hi2c2 && HX711_isReady();
 }
 
 void ProberThread::loop() {
@@ -40,6 +42,10 @@ void ProberThread::loop() {
 	} else if(probeI2C(0x48)) {
 		println("Voltmeter detected");
 		this->instance = new ADC16Thread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+	} else if(probeDB()) {
+		println("Mass sensor detected");
+		this->instance = new ADC24Thread(this, GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
 		vTaskDelay(100 / portTICK_PERIOD_MS);

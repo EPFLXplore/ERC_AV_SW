@@ -69,26 +69,37 @@ bool ADS1113::init(){
 	/** I2C Enable Fast Mode Plus
 	*/
 	HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
+
 	return true;
 }
 
 /* Write to register in ADS1113 directly */
-static void writeRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg, uint16_t value) {
+static bool writeRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg, uint16_t value) {
 	uint8_t pData[2];
 	pData[0] = (value >> 8);
 	pData[1] = value & 0xff;
 
-	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
-	HAL_I2C_Mem_Write(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
+	if(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK) {
+		return false;
+	}
+
+	return HAL_I2C_Mem_Write(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10) == HAL_OK;
 }
 
 /* Read from register in ADS1113 directly */
 static uint16_t readRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, uint8_t reg) {
 	uint8_t pData[2];
 
-	while(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK);
-	HAL_I2C_Mem_Read(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10);
+	if(HAL_I2C_IsDeviceReady(i2c_port, i2cAddress << 1, 10, 10) != HAL_OK) {
+		return false;
+	}
+
+	if(HAL_I2C_Mem_Read(i2c_port, i2cAddress << 1, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10) != HAL_OK) {
+		return false;
+	}
+
 	uint16_t regData = ((pData[0] << 8) | pData[1]);
+
 	return regData; //CHECK HERE IF THERE ARE ERRORS : inverse pData[0] and pData[1]
 }
 
@@ -106,7 +117,9 @@ int16_t ADS1113::readADC_SingleEnded(uint16_t sampleRate) {
   config |= ADS1X15_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config)) {
+	  return false;
+  }
 
   // Wait for the conversion to complete
   ads1113_delay(_conversionDelay);
@@ -135,11 +148,16 @@ int16_t ADS1113::readADC_Differential_0_1(uint16_t sampleRate) {
   config |= ADS1X15_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config)) {
+	  return false;
+  }
 
   // Wait for the conversion to complete
-  while (!conversionComplete())
-    ;
+  for(uint8_t i = 0; i < 100; i++) {
+  	  if(conversionComplete()) {
+  		  break;
+  	  }
+    }
 
   // Read the conversion results
   return getLastConversionResults();
@@ -151,6 +169,8 @@ int16_t ADS1113::getLastConversionResults() {
 
 	// Read the conversion results
 	uint16_t res = readRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONVERT) >> _bitShift;
+	if(res == 0) res++;
+
 	if (_bitShift == 0) {
 		return (int16_t)res;
 	}
@@ -179,7 +199,7 @@ ADS1115::ADS1115(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress):
 	/* +/- 6.144V range (limited to VDD +0.3V max!) */
 {}
 
-void ADS1115::startComparator_SingleEnded(uint8_t channel, int16_t threshold, uint16_t sampleRate) {
+bool ADS1115::startComparator_SingleEnded(uint8_t channel, int16_t threshold, uint16_t sampleRate) {
   // Start with default values
   uint16_t config =
       ADS1X15_REG_CONFIG_CQUE_1CONV |   // Comparator enabled and asserts on 1
@@ -211,10 +231,16 @@ void ADS1115::startComparator_SingleEnded(uint8_t channel, int16_t threshold, ui
 
   // Set the high threshold register
   // Shift 12-bit results left 4 bits for the ADS1X15
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_HITHRESH, threshold << _bitShift);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_HITHRESH, threshold << _bitShift)) {
+	  return false;
+  }
 
   // Write config register to the ADC
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config)) {
+	  return false;
+  }
+
+  return true;
 }
 
 int16_t ADS1115::readADC_SingleEnded(uint8_t channel, uint16_t sampleRate) {
@@ -254,7 +280,9 @@ int16_t ADS1115::readADC_SingleEnded(uint8_t channel, uint16_t sampleRate) {
   config |= ADS1X15_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config)) {
+	  return false;
+  }
 
   // Wait for the conversion to complete
   ads1113_delay(_conversionDelay);
@@ -286,11 +314,16 @@ int16_t ADS1115::readADC_Differential_0_1(uint16_t sampleRate) {
   config |= ADS1X15_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config);
+  if(!writeRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONFIG, config)) {
+	  return false;
+  }
 
   // Wait for the conversion to complete
-  while (!conversionComplete())
-    ;
+  for(uint8_t i = 0; i < 100; i++) {
+	  if(conversionComplete()) {
+		  break;
+	  }
+  }
 
   // Read the conversion results
   return getLastConversionResults();

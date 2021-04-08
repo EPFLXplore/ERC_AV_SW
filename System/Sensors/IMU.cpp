@@ -17,9 +17,11 @@ void IMUThread::init() {
 	bno055_setup();
 	bno055_setOperationModeNDOF();
 
-	while(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
+	if(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
 		println("BNO055 initialization failed");
+		terminate();
 		parent->resetProber();
+		return;
 	}
 
 	println("BNO055 initialized");

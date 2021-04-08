@@ -15,16 +15,18 @@ static char cbuf[256];
 const int32_t threshold = 50000;
 
 ADC24Thread::ADC24Thread(ProberThread* parent, GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin)
-: Thread("ADC24"), parent(parent), nSamples(4), _multiplier(1),  _zero(0) {
+: Thread("ADC24", 1024), parent(parent), _nSamples(4), _multiplier(1),  _zero(0) {
 	HX711_set_pins(sck_gpio, sck_pin, di_gpio, di_pin);
 }
 
 void ADC24Thread::init() {
 	HX711_begin();
 
-	while(!HX711_isReady()) {
+	if(!HX711_isReady()) {
 		println("HX711 initialization failed");
+		terminate();
 		parent->resetProber();
+		return;
 	}
 
 	//Ensure there is no weight on top of scale on startup

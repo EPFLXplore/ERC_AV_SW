@@ -22,10 +22,12 @@ void BarometerThread::init() {
 	bmp280.i2c = parent->getI2C();
 
 	//portENTER_CRITICAL();
-	while (!bmp280_init(&bmp280, &bmp280.params)) {
+	if(!bmp280_init(&bmp280, &bmp280.params)) {
 		//portEXIT_CRITICAL();
 		println("BMP280 initialization failed");
+		terminate();
 		parent->resetProber();
+		return;
 	}
 	//portEXIT_CRITICAL();
 

@@ -18,9 +18,11 @@ ADC16Thread::ADC16Thread(ProberThread* parent)
 {}
 
 void ADC16Thread::init() {
-	while (!ads.begin()) {
+	if(!ads.begin()) {
 		println("ADS1113 initialization failed");
+		terminate();
 		parent->resetProber();
+		return;
 	}
 
 	println("ADS1113 initialized");
@@ -29,9 +31,11 @@ void ADC16Thread::init() {
 static PotentiometerData data;
 static Handling_GripperPacket packet;
 void ADC16Thread::loop() { //Should this send a voltage or radial position?
-	data.voltage = ads.readADC_Differential_0_1()*ads.getMultiplier() - offset; //voltage[V]
 
-	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+	int16_t raw = ads.readADC_Differential_0_1();
+
+	if(raw) {
+		data.voltage = raw*ads.getMultiplier() - offset; //voltage[V]
 		println("%s", data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
