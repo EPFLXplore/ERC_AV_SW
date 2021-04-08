@@ -23,6 +23,7 @@ public:
 private:
 	ProberThread* parent;
 	ADS1113 ads;
+
 	float offset;
 };
 

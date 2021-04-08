@@ -29,7 +29,7 @@ void ADC16Thread::init() {
 static PotentiometerData data;
 static Handling_GripperPacket packet;
 void ADC16Thread::loop() { //Should this send a voltage or radial position?
-	data.voltage = ads.readADC_SingleEnded()*ads.getMultiplier() - offset; //voltage[uV]
+	data.voltage = ads.readADC_Differential_0_1()*ads.getMultiplier() - offset; //voltage[V]
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 		println("%s", data.toString(cbuf));
@@ -44,6 +44,6 @@ void ADC16Thread::loop() { //Should this send a voltage or radial position?
 }
 
 void ADC16Thread::tareVoltage(){
-	offset = ads.readADC_SingleEnded()*ads.getMultiplier();
+	offset = ads.readADC_Differential_0_1()*ads.getMultiplier();
 }
 

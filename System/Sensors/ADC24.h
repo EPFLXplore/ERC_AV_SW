@@ -20,10 +20,13 @@ public:
 	ADC24Thread(ProberThread* parent, GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin);
 	void init();
 	void loop();
-	float convertToMass(int32_t voltage);
+	void calibrateMultiplier(void);
+	void tare(int32_t zero);
 private:
 	ProberThread* parent;
-	uint16_t nSamples = 15;
+	uint16_t _nSamples;
+	float _multiplier;
+	int32_t _zero;
 };
 
 

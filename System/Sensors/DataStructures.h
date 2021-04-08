@@ -66,10 +66,10 @@ struct BaroData {
 };
 
 struct ScienceData {
-	uint32_t mass;
+	float mass;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Mass(kg): %lu", mass);
+		sprintf(buffer, "Mass(kg): %f", mass);
 		return buffer;
 	}
 

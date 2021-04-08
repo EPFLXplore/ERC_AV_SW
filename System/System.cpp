@@ -25,12 +25,10 @@
 void initCortexM4() {
 	static WatchdogThread watchdog(&hiwdg2);
 	static Shell shell(&huart3, &terminal);
-	//static IMUThread imu(&hi2c3);
+
 	static ProberThread prober1(&hi2c1);
 	static ProberThread prober2(&hi2c2);
 	static ProberThread prober3(&hi2c3);
-	//static ADC24Thread scale(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
-	//static ADC16Thread potentiometer(&hi2c1);
 }
 #endif
 
