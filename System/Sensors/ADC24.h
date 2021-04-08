@@ -19,8 +19,8 @@ public:
 	ADC24Thread(GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin);
 	void init();
 	void loop();
-	float convertToMass(int32_t voltage);
 	void calibrateMultiplier(void);
+	void tare(int32_t zero);
 private:
 	uint16_t _nSamples;
 	float _multiplier;

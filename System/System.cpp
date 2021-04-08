@@ -28,10 +28,10 @@
 void initCortexM4() {
 	static WatchdogThread watchdog(&hiwdg2);
 	static Shell shell(&huart3, &terminal);
-	static IMUThread imu(&hi2c1);
-	static BarometerThread barometer(&hi2c1);
+	//static IMUThread imu(&hi2c1);
+	//static BarometerThread barometer(&hi2c1);
 	static ADC24Thread scale(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11); //Same pins as i2c2
-	static ADC16Thread potentiometer(&hi2c1);
+	//static ADC16Thread potentiometer(&hi2c1);
 }
 #endif
 
