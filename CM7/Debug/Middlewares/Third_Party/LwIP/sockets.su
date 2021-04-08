@@ -33,7 +33,7 @@ sockets.c:1752:1:lwip_writev	56	static
 sockets.c:1771:1:lwip_link_select_cb	16	static
 sockets.c:1795:1:lwip_unlink_select_cb	16	static
 sockets.c:1835:1:lwip_selscan	104	static
-sockets.c:1964:1:lwip_select	144	static
+sockets.c:1964:1:lwip_select	136	static
 sockets.c:2193:1:lwip_pollscan	56	static
 sockets.c:2319:1:lwip_poll	72	static
 sockets.c:2438:1:lwip_poll_should_wake	32	static

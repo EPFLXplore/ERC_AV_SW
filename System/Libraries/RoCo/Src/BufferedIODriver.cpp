@@ -64,8 +64,14 @@ void BufferedIODriver::flush(IODriver* driver) {
 		driver->transmit(buffer + readIndex, writeIndex - readIndex);
 	} else if(readIndex > writeIndex) {
 		uint16_t firstSize = bufferLength - readIndex;
-		driver->transmit(buffer + readIndex, firstSize);
-		driver->transmit(buffer, writeIndex);
+		uint16_t totalSize = firstSize + writeIndex;
+		uint8_t* temp = (uint8_t*) pvPortMalloc(totalSize);
+
+		memcpy(temp, buffer + readIndex, firstSize);
+		memcpy(temp + firstSize, buffer, writeIndex);
+		driver->transmit(temp, totalSize);
+
+		vPortFree(temp);
 	}
 
 	readIndex = writeIndex;

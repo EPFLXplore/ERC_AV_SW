@@ -1,5 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 -include ../makefile.init
@@ -60,6 +61,12 @@ endif
 
 -include ../makefile.defs
 
+OPTIONAL_TOOL_DEPS := \
+$(wildcard ../makefile.defs) \
+$(wildcard ../makefile.init) \
+$(wildcard ../makefile.targets) \
+
+
 BUILD_ARTIFACT_NAME := XploreAvionics_CM7
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
@@ -86,22 +93,22 @@ all: main-build
 main-build: XploreAvionics_CM7.elf secondary-outputs
 
 # Tool invocations
-XploreAvionics_CM7.elf: $(OBJS) $(USER_OBJS) C:\Users\jthom\git\XploreAvionics\CM7\STM32H745ZITX_FLASH.ld
-	arm-none-eabi-g++ -o "XploreAvionics_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\jthom\git\XploreAvionics\CM7\STM32H745ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XploreAvionics_CM7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+XploreAvionics_CM7.elf: $(OBJS) $(USER_OBJS) /Users/arion/git/XploreAvionics/CM7/STM32H745ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "XploreAvionics_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/arion/git/XploreAvionics/CM7/STM32H745ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XploreAvionics_CM7.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-default.size.stdout: $(EXECUTABLES)
+default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-size  $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-XploreAvionics_CM7.list: $(EXECUTABLES)
+XploreAvionics_CM7.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "XploreAvionics_CM7.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-XploreAvionics_CM7.bin: $(EXECUTABLES)
+XploreAvionics_CM7.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "XploreAvionics_CM7.bin"
 	@echo 'Finished building: $@'
 	@echo ' '

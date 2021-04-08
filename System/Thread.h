@@ -19,9 +19,12 @@ public:
 	Thread(const char* name, osPriority priority);
 	Thread(const char* name, uint32_t stackSize);
 	Thread(const char* name, osPriority priority, uint32_t stackSize);
-	~Thread() {};
+	virtual ~Thread() {};
 	virtual void init() = 0;
 	virtual void loop() = 0;
+	osThreadId getHandle();
+	bool isRunning() { return running; }
+	void terminate();
 
 protected:
 	void println(const char* format, ...);
@@ -29,6 +32,7 @@ protected:
 private:
 	osThreadId handle;
 	const char* name;
+	bool running = true;
 	void task();
 };
 

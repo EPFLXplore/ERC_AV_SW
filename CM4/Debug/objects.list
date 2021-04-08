@@ -82,6 +82,7 @@
 "System/Sensors/ADC24.o"
 "System/Sensors/Barometer.o"
 "System/Sensors/IMU.o"
+"System/Sensors/Prober.o"
 "System/System.o"
 "System/Telemetry.o"
 "System/Thread.o"

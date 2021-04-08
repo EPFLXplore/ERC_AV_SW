@@ -1,9 +1,13 @@
+Thread.h:22:10:Thread::~Thread()	16	static
+Thread.h:22:10:virtual Thread::~Thread()	16	static
+Prober.h:20:21:I2C_HandleTypeDef* ProberThread::getI2C()	16	static
 DataStructures.h:18:8:char* Vector::toString(char*)	48	static
-DataStructures.h:23:9:float* Vector::toArray(float*)	16	static
+DataStructures.h:23:11:uint8_t* Vector::toArray(uint8_t*)	16	static
 DataStructures.h:36:8:char* IMUData::toString(char*)	32	static
-DataStructures.h:42:9:float* IMUData::toArray(float*)	16	static
-DataStructures.h:55:8:char* BaroData::toString(char*)	48	static
+DataStructures.h:42:11:uint8_t* IMUData::toArray(uint8_t*)	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
-IMU.cpp:15:6:virtual void IMUThread::init()	40	static
-IMU.cpp:36:6:virtual void IMUThread::loop()	160	static
-IMU.cpp:54:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	96	static
+IMU.cpp:15:6:virtual void IMUThread::init()	16	static
+IMU.cpp:30:6:virtual void IMUThread::loop()	120	static,ignoring_inline_asm
+IMU.cpp:48:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	88	static
+IMU.h:19:7:IMUThread::~IMUThread()	16	static
+IMU.h:19:7:virtual IMUThread::~IMUThread()	16	static

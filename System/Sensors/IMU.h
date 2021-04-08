@@ -10,19 +10,20 @@
 
 
 #include "Thread.h"
+#include "Prober.h"
 #include "DataStructures.h"
 
 #include "Libraries/BNO055/bno055_stm32.h"
 #include "Libraries/BNO055/bno055.h"
 
-class IMUThread : Thread {
+class IMUThread : public Thread {
 public:
-	IMUThread(I2C_HandleTypeDef* hi2c) : Thread("IMU"), hi2c(hi2c) {}
+	IMUThread(ProberThread* parent) : Thread("IMU"), parent(parent) {}
 	void init();
 	void loop();
 
 private:
-	I2C_HandleTypeDef* hi2c;
+	ProberThread* parent;
 	Vector bnoVectorToVector(bno055_vector_t v);
 };
 

@@ -13,41 +13,35 @@
 static char cbuf[256];
 
 void IMUThread::init() {
-	bno055_assignI2C(this->hi2c);
+	bno055_assignI2C(parent->getI2C());
 	bno055_setup();
 	bno055_setOperationModeNDOF();
 
-	BaroData data;
-	println("%s", data.toString(cbuf));
-
-
 	while(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
-		osDelay(500);
 		println("BNO055 initialization failed");
-
-		bno055_assignI2C(this->hi2c);
-		bno055_setup();
-		bno055_setOperationModeNDOF();
+		parent->resetProber();
 	}
 
 	println("BNO055 initialized");
 }
 
+static IMUData data;
+static Avionics_AccelMagPacket packet;
 void IMUThread::loop() {
-	static IMUData data;
-
 	data.accel = bnoVectorToVector(bno055_getVectorAccelerometer());
 	data.gyro = bnoVectorToVector(bno055_getVectorEuler());
 	data.mag = bnoVectorToVector(bno055_getVectorGravity());
 
-	println("%s", data.toString(cbuf));
-
-	Avionics_AccelMagPacket packet;
-	data.toArray((float*) &packet);
-
-	network.send(&packet);
-
-	osDelay(100);
+	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+		println("%s", data.toString(cbuf));
+		data.toArray((uint8_t*) &packet);
+		network.send(&packet);
+		portYIELD();
+	} else {
+		println("BNO055 disconnected");
+		terminate();
+		parent->resetProber();
+	}
 }
 
 

@@ -10,16 +10,18 @@
 
 #include "Thread.h"
 #include "DataStructures.h"
+#include "Prober.h"
 
 #include "Libraries/ADS1113/ads1113.h"
 
-class ADC16Thread : Thread {
+class ADC16Thread : public Thread {
 public:
-	ADC16Thread(I2C_HandleTypeDef *hi2c);
+	ADC16Thread(ProberThread* parent);
 	void init();
 	void loop();
 	void tareVoltage();
 private:
+	ProberThread* parent;
 	ADS1113 ads;
 	float offset;
 };

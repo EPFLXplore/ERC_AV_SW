@@ -1,8 +1,10 @@
-Thread.h:22:2:Thread::~Thread()	16	static
+Thread.h:22:10:Thread::~Thread()	16	static
+Thread.h:22:10:virtual Thread::~Thread()	16	static
 WatchdogThread.h:15:2:WatchdogThread::WatchdogThread(IWDG_HandleTypeDef*)	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
+System.cpp:43:40:void __tcf_0()	8	static
+System.cpp:44:45:void __tcf_1()	8	static
+System.cpp:40:6:void initCortexM7()	8	static
+System.cpp:52:6:void vApplicationStackOverflowHook()	4	static
 WatchdogThread.h:13:7:WatchdogThread::~WatchdogThread()	16	static
-System.cpp:44:40:void __tcf_0()	8	static
-System.cpp:45:45:void __tcf_1()	8	static
-System.cpp:41:6:void initCortexM7()	8	static
-System.cpp:54:6:void vApplicationStackOverflowHook()	4	static
+WatchdogThread.h:13:7:virtual WatchdogThread::~WatchdogThread()	16	static

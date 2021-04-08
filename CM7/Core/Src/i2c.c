@@ -53,7 +53,7 @@ void MX_I2C1_Init(void)
   }
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0x0F) != HAL_OK)
   {
     Error_Handler();
   }
@@ -87,7 +87,7 @@ void MX_I2C2_Init(void)
   }
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0x0F) != HAL_OK)
   {
     Error_Handler();
   }
@@ -118,7 +118,7 @@ void MX_I2C3_Init(void)
   }
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0x0F) != HAL_OK)
   {
     Error_Handler();
   }

@@ -26,6 +26,8 @@ void Shell::loop() {
 		receiveByte(dma_buffer[lastDmaStreamIndex]);
 		lastDmaStreamIndex = (lastDmaStreamIndex + 1) % CMD_BUFFER_SIZE;
 	}
+
+	osDelay(10 / portTICK_PERIOD_MS);
 }
 
 

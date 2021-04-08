@@ -30,12 +30,12 @@ void  HX711_init(void)
 {
   GPIO_InitTypeDef  gpio;
   gpio.Mode = GPIO_MODE_OUTPUT_PP;
-  gpio.Pull = GPIO_NOPULL;
+  gpio.Pull = GPIO_PULLUP;
   gpio.Speed = GPIO_SPEED_FREQ_HIGH;
   gpio.Pin = _hx711_sck_pin;
   HAL_GPIO_Init(_hx711_sck_gpio, &gpio);
   gpio.Mode = GPIO_MODE_INPUT;
-  gpio.Pull = GPIO_NOPULL;
+  gpio.Pull = GPIO_PULLUP;
   gpio.Speed = GPIO_SPEED_FREQ_HIGH;
   gpio.Pin = _hx711_di_pin;
   HAL_GPIO_Init(_hx711_di_gpio, &gpio);
@@ -81,6 +81,6 @@ int32_t HX711_valueAve(uint16_t sample)
   return (int32_t)(ave / sample);
 }
 //#############################################################################################
-int HX711_isReady(){
+int HX711_isReady() {
 	return HAL_GPIO_ReadPin(_hx711_di_gpio, _hx711_di_pin) == GPIO_PIN_RESET;
 }

@@ -20,10 +20,10 @@ struct Vector {
 		return buffer;
 	}
 
-	float* toArray(float* buffer) {
-		buffer[0] = x;
-		buffer[1] = y;
-		buffer[2] = z;
+	uint8_t* toArray(uint8_t* buffer) {
+		*(float*)(buffer + 0) = x;
+		*(float*)(buffer + 1*4) = y;
+		*(float*)(buffer + 2*4) = z;
 		return buffer;
 	}
 };
@@ -39,10 +39,10 @@ struct IMUData {
 		return buffer;
 	}
 
-	float* toArray(float* buffer) {
+	uint8_t* toArray(uint8_t* buffer) {
 		accel.toArray(buffer);
-		gyro.toArray(buffer + 3);
-		mag.toArray(buffer + 6);
+		gyro.toArray(buffer + 3*4);
+		mag.toArray(buffer + 6*4);
 		return buffer;
 	}
 };
@@ -57,10 +57,10 @@ struct BaroData {
 		return buffer;
 	}
 
-	float* toArray(float* buffer) {
-		buffer[0] = pressure;
-		buffer[1] = temperature;
-		buffer[2] = humidity;
+	uint8_t* toArray(uint8_t* buffer) {
+		*(float*)(buffer + 0) = pressure;
+		*(float*)(buffer + 1*4) = temperature;
+		*(float*)(buffer + 2*4) = humidity;
 		return buffer;
 	}
 };
@@ -73,8 +73,8 @@ struct ScienceData {
 		return buffer;
 	}
 
-	uint32_t* toArray(uint32_t* buffer){
-		*buffer = mass;
+	uint8_t* toArray(uint8_t* buffer){
+		*(uint32_t*)(buffer) = mass;
 		return buffer;
 	}
 };
@@ -87,8 +87,8 @@ struct PotentiometerData {
 		return buffer;
 	}
 
-	float* toArray(float* buffer){
-		*buffer = voltage;
+	uint8_t* toArray(uint8_t* buffer){
+		*(float*)(buffer) = voltage;
 		return buffer;
 	}
 };

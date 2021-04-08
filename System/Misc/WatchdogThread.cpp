@@ -20,5 +20,5 @@ void WatchdogThread::init() {
 
 void WatchdogThread::loop() {
 	HAL_IWDG_Refresh(watchdog_handle);
-	osDelay(100);
+	osDelay(100 / portTICK_PERIOD_MS);
 }

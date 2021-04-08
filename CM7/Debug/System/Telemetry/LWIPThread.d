@@ -1,6 +1,6 @@
 System/Telemetry/LWIPThread.o: \
- C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.cpp \
- C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.cpp \
+ /Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h \
  ../../System/Thread.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -111,7 +111,7 @@ System/Telemetry/LWIPThread.o: \
  ../LWIP/Target/ethernetif.h \
  ../../Middlewares/Third_Party/LWIP/src/include/lwip/tcpip.h
 
-C:/Users/jthom/git/XploreAvionics/System/Telemetry/LWIPThread.h:
+/Users/arion/git/XploreAvionics/System/Telemetry/LWIPThread.h:
 
 ../../System/Thread.h:
 

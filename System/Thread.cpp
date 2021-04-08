@@ -8,6 +8,7 @@
 #include "Thread.h"
 
 #include "Debug/Debug.h"
+#include "Lang/Operators.h"
 
 #include "iwdg.h"
 #include "usart.h"
@@ -15,7 +16,7 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define DEFAULT_STACK_SIZE (256) // Danger zone: changing the stack size might create very nasty bugs
+#define DEFAULT_STACK_SIZE (512) // Danger zone: changing the stack size might create very nasty bugs
 
 static char buffer[128];
 
@@ -26,8 +27,16 @@ void __task_run(const void* arg) {
 
 	thread->init();
 
-	while(true) {
+	while(thread->isRunning()) {
 		thread->loop();
+	}
+
+	delete thread;
+
+	vTaskDelete(nullptr);
+
+	while(true) {
+		osDelay(1000 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -47,6 +56,14 @@ Thread::Thread(const char* name, osPriority priority, uint32_t stackSize) {
 	osThreadDef_t thread = { (char*) name, &__task_run, priority, 0, stackSize};
 	this->handle = osThreadCreate(&thread, this);
 	this->name = name;
+}
+
+osThreadId Thread::getHandle() {
+	return handle;
+}
+
+void Thread::terminate() {
+	this->running = false;
 }
 
 void Thread::println(const char* format, ...) {

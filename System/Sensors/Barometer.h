@@ -8,21 +8,22 @@
 #ifndef SENSORS_BAROMETER_H_
 #define SENSORS_BAROMETER_H_
 
+#include "Prober.h"
 #include "Thread.h"
-#include "DataStructures.h"
 
+#include "DataStructures.h"
 #include "Libraries/BMP280/bmp280.h"
 
 
-class BarometerThread : Thread {
+class BarometerThread : public Thread {
 public:
-	BarometerThread(I2C_HandleTypeDef* hi2c) : Thread("Barometer"), bmp280(), hi2c(hi2c) {}
+	BarometerThread(ProberThread* parent) : Thread("Barometer", 512), bmp280(), parent(parent) {}
 	void init();
 	void loop();
 
 private:
 	BMP280_HandleTypedef bmp280;
-	I2C_HandleTypeDef* hi2c;
+	ProberThread* parent;
 };
 
 

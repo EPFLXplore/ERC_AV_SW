@@ -1,5 +1,10 @@
+Thread.h:22:10:Thread::~Thread()	16	static
+Thread.h:22:10:virtual Thread::~Thread()	16	static
+Prober.h:20:21:I2C_HandleTypeDef* ProberThread::getI2C()	16	static
 DataStructures.h:55:8:char* BaroData::toString(char*)	48	static
-DataStructures.h:60:9:float* BaroData::toArray(float*)	16	static
+DataStructures.h:60:11:uint8_t* BaroData::toArray(uint8_t*)	16	static
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 Barometer.cpp:17:6:virtual void BarometerThread::init()	16	static
-Barometer.cpp:35:6:virtual void BarometerThread::loop()	24	static
+Barometer.cpp:37:6:virtual void BarometerThread::loop()	24	static,ignoring_inline_asm
+Barometer.h:18:7:BarometerThread::~BarometerThread()	16	static
+Barometer.h:18:7:virtual BarometerThread::~BarometerThread()	16	static
