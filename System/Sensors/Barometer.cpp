@@ -24,26 +24,26 @@ void BarometerThread::init() {
 	//portENTER_CRITICAL();
 	if(!bmp280_init(&bmp280, &bmp280.params)) {
 		//portEXIT_CRITICAL();
-		println("BMP280 initialization failed");
+		println("[%s] BMP280 initialisation failed", portNum);
 		terminate();
 		parent->resetProber();
 		return;
 	}
 	//portEXIT_CRITICAL();
 
-	println("BMP280 initialized");
+	println("[%s] BMP280 initialised", portNum);
 }
 
 static Avionics_BaroTempPacket packet;
 static BaroData data;
 void BarometerThread::loop() {
 	if(bmp280_read_float(&bmp280, &data.temperature, &data.pressure, &data.humidity)) {
-		println("%s", data.toString(cbuf));
+		println("[%s] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("BMP280 disconnected");
+		println("[%s] BMP280 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}

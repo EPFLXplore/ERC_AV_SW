@@ -18,13 +18,13 @@ void IMUThread::init() {
 	bno055_setOperationModeNDOF();
 
 	if(bno055_getSystemError() != BNO055_SYSTEM_ERROR_NO_ERROR) {
-		println("BNO055 initialization failed");
+		println("[%s] BNO055 initialization failed", portNum);
 		terminate();
 		parent->resetProber();
 		return;
 	}
 
-	println("BNO055 initialized");
+	println("[%s] BNO055 initialized", portNum);
 }
 
 static IMUData data;
@@ -35,12 +35,12 @@ void IMUThread::loop() {
 	data.mag = bnoVectorToVector(bno055_getVectorGravity());
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
-		println("%s", data.toString(cbuf));
+		println("[%s] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("BNO055 disconnected");
+		println("[%s] BNO055 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}

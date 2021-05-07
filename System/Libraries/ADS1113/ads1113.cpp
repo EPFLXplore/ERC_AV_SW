@@ -103,7 +103,7 @@ static uint16_t readRegister(I2C_HandleTypeDef* i2c_port, uint16_t i2cAddress, u
 	return regData; //CHECK HERE IF THERE ARE ERRORS : inverse pData[0] and pData[1]
 }
 
-int16_t ADS1113::readADC_SingleEnded(uint16_t sampleRate) {
+bool ADS1113::readADC_SingleEnded(int16_t& raw, uint16_t sampleRate) {
   // Start with default values
   uint16_t config =
       ADS1X15_REG_CONFIG_CQUE_NONE |    // Disable the comparator (default val)
@@ -126,10 +126,11 @@ int16_t ADS1113::readADC_SingleEnded(uint16_t sampleRate) {
 
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1X15
-  return readRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONVERT) >> _bitShift;
+  raw = readRegister(_ads1113_i2c_port, _i2cAddress, ADS1X15_REG_POINTER_CONVERT) >> _bitShift;
+  return true;
 }
 
-int16_t ADS1113::readADC_Differential_0_1(uint16_t sampleRate) {
+bool ADS1113::readADC_Differential_0_1(int16_t& raw, uint16_t sampleRate) {
   // Start with default values
   uint16_t config =
       ADS1X15_REG_CONFIG_CQUE_NONE |    // Disable the comparator (default val)
@@ -160,7 +161,8 @@ int16_t ADS1113::readADC_Differential_0_1(uint16_t sampleRate) {
     }
 
   // Read the conversion results
-  return getLastConversionResults();
+  raw = getLastConversionResults();
+  return true;
 }
 
 int16_t ADS1113::getLastConversionResults() {

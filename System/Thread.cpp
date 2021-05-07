@@ -78,3 +78,5 @@ void Thread::println(const char* format, ...) {
 
 	va_end(args);
 }
+
+

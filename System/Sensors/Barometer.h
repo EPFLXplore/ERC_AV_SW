@@ -17,13 +17,14 @@
 
 class BarometerThread : public Thread {
 public:
-	BarometerThread(ProberThread* parent) : Thread("Barometer", 512), bmp280(), parent(parent) {}
+	BarometerThread(ProberThread* parent) : Thread("Barometer", 512), bmp280(), parent(parent), portNum(parent->getI2CNum()) {}
 	void init();
 	void loop();
 
 private:
 	BMP280_HandleTypedef bmp280;
 	ProberThread* parent;
+	char* portNum;
 };
 
 

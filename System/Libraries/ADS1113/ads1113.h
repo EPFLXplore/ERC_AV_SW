@@ -150,10 +150,10 @@ protected:
 public:
   	ADS1113(I2C_HandleTypeDef *hi2c, uint8_t i2cAddress = ADS1X15_ADDRESS, float multiplier = 2.048f);
     bool begin(void);
-    int16_t readADC_SingleEnded(uint16_t sampleRate=RATE_ADS1115_128SPS);
+    bool readADC_SingleEnded(int16_t& raw, uint16_t sampleRate=RATE_ADS1115_128SPS);
     int16_t getLastConversionResults();
     float getMultiplier();
-    int16_t readADC_Differential_0_1(uint16_t sampleRate=RATE_ADS1115_128SPS);
+    bool readADC_Differential_0_1(int16_t& raw, uint16_t sampleRate=RATE_ADS1115_128SPS);
     bool conversionComplete();
     //int16_t readADC_Differential_2_3(void);
 };

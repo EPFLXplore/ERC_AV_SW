@@ -24,6 +24,7 @@ public:
 	void tare(int32_t zero);
 private:
 	ProberThread* parent;
+	char* portNum;
 	uint16_t _nSamples;
 	float _multiplier;
 	int32_t _zero;

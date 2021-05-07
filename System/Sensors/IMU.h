@@ -18,13 +18,14 @@
 
 class IMUThread : public Thread {
 public:
-	IMUThread(ProberThread* parent) : Thread("IMU"), parent(parent) {}
+	IMUThread(ProberThread* parent) : Thread("IMU"), parent(parent), portNum(parent->getI2CNum()) {}
 	void init();
 	void loop();
 
 private:
 	ProberThread* parent;
 	Vector bnoVectorToVector(bno055_vector_t v);
+	char* portNum;
 };
 
 #endif /* SENSORS_IMU_H_ */

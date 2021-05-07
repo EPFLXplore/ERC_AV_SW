@@ -15,7 +15,7 @@ static char cbuf[256];
 const int32_t threshold = 50000;
 
 ADC24Thread::ADC24Thread(ProberThread* parent, GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin)
-: Thread("ADC24", 1024), parent(parent), _nSamples(4), _multiplier(1),  _zero(0) {
+: Thread("ADC24", 1024), parent(parent), portNum(parent->getI2CNum()), _nSamples(4), _multiplier(1),  _zero(0) {
 	HX711_set_pins(sck_gpio, sck_pin, di_gpio, di_pin);
 }
 
@@ -25,7 +25,7 @@ void ADC24Thread::init() {
 	HX711_begin();
 
 	if(!HX711_checkReadiness()) {
-		println("HX711 initialization failed");
+		println("[%s] HX711 initialisation failed", portNum);
 		terminate();
 		parent->resetProber();
 		return;
@@ -33,7 +33,7 @@ void ADC24Thread::init() {
 
 	//Ensure there is no weight on top of scale on startup
 	calibrateMultiplier();
-	println("HX711 initialized");
+	println("[%s] HX711 initialised", portNum);
 }
 
 static ScienceData data;
@@ -41,12 +41,12 @@ static Science_MeasurePacket packet;
 void ADC24Thread::loop() {
 	if(HX711_checkReadiness()) {
 		data.mass = (HX711_valueAve(_nSamples) - _zero)*_multiplier;
-		println("%s", data.toString(cbuf));
+		println("[%s] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("HX711 disconnected");
+		println("[%s] HX711 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}
@@ -57,16 +57,15 @@ void ADC24Thread::calibrateMultiplier(void){
 	//Put 0.5kg on top of scale
 	osDelay(200);
 	tare(HX711_valueAve(_nSamples*2));
+	float calibrationWeight = 500; //in g
 	while(true){
-		println("Place 0.5kg on top of scale in order to calibrate");
+		println("Place %fg on top of scale in order to calibrate", calibrationWeight);
 		int32_t currentVal = HX711_valueAve(_nSamples);
 		int32_t diff = currentVal - _zero;
 
-		println("%ld", diff);
-
 		if(diff < -threshold){
 			osDelay(200); // Give the weight some time to settle
-			_multiplier = 0.5/(HX711_valueAve(_nSamples) - _zero);
+			_multiplier = calibrationWeight/(HX711_valueAve(_nSamples) - _zero);
 			break;
 		}
 		osDelay(200);
@@ -75,5 +74,5 @@ void ADC24Thread::calibrateMultiplier(void){
 
 void ADC24Thread::tare(int32_t zero){
 	_zero = zero;
-	println("Scale successfully tared");
+	println("[%s] HX711 successfully tared", portNum);
 }

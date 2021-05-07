@@ -69,7 +69,7 @@ struct ScienceData {
 	float mass;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Mass(kg): %f", mass);
+		sprintf(buffer, "Mass(g): %f", mass);
 		return buffer;
 	}
 

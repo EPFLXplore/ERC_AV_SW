@@ -20,9 +20,12 @@ public:
 	void init();
 	void loop();
 	void tareVoltage();
+	void checkPortName(I2C_HandleTypeDef* hi2c);
 private:
 	ProberThread* parent;
 	ADS1113 ads;
+
+	char* portNum;
 
 	float offset;
 };
