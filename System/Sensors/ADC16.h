@@ -25,8 +25,7 @@ private:
 	ProberThread* parent;
 	ADS1113 ads;
 
-	char* portNum;
-
+	uint8_t portNum;
 	float offset;
 };
 

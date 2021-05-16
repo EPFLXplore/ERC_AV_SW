@@ -119,7 +119,7 @@ void LWIPClientIO::update() {
 		if((result = lwip_recv(socket_id, buffer, sizeof(buffer), 0)) >= 0) {
 			if(result != 0) {
 				if(receiver != nullptr) {
-					if(ntohs(address.sin_port) == PORT_A) {
+					if(ntohs(address.sin_port) == PORT_B) {
 						receiver(0b10000000, buffer, result); // Sender ID marked as external
 					} else {
 						receiver(0b11000000, buffer, result); // Sender ID marked as internal

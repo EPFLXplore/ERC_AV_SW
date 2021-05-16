@@ -43,7 +43,7 @@ void LWIPThread::init() {
 	ip4_addr netmask;
 	ip4_addr gateway;
 
-	IP4_ADDR(&local_ip, 192, 168, 1, 3);
+	IP4_ADDR(&local_ip, 192, 168, 1, 2);
 	IP4_ADDR(&netmask, 255, 255, 255, 0);
 	IP4_ADDR(&gateway, 192, 168, 1, 1);
 

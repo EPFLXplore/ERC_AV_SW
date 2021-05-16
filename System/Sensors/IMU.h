@@ -25,7 +25,7 @@ public:
 private:
 	ProberThread* parent;
 	Vector bnoVectorToVector(bno055_vector_t v);
-	char* portNum;
+	uint8_t portNum;
 };
 
 #endif /* SENSORS_IMU_H_ */

@@ -80,15 +80,17 @@ struct ScienceData {
 };
 
 struct PotentiometerData {
+	uint8_t portNum;
 	float voltage;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Voltage(V): %f", voltage);
+		sprintf(buffer, "[i2c%d] Voltage(V): %f", portNum, voltage);
 		return buffer;
 	}
 
 	uint8_t* toArray(uint8_t* buffer){
-		*(float*)(buffer) = voltage;
+		*(uint8_t*)(buffer) = portNum;
+		*(float*)(buffer + 1*4) = voltage;
 		return buffer;
 	}
 };

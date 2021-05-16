@@ -25,7 +25,7 @@ void ADC24Thread::init() {
 	HX711_begin();
 
 	if(!HX711_checkReadiness()) {
-		println("[%s] HX711 initialisation failed", portNum);
+		println("[i2c%d] HX711 initialisation failed", portNum);
 		terminate();
 		parent->resetProber();
 		return;
@@ -33,7 +33,7 @@ void ADC24Thread::init() {
 
 	//Ensure there is no weight on top of scale on startup
 	calibrateMultiplier();
-	println("[%s] HX711 initialised", portNum);
+	println("[i2c%d] HX711 initialised", portNum);
 }
 
 static ScienceData data;
@@ -41,12 +41,12 @@ static Science_MeasurePacket packet;
 void ADC24Thread::loop() {
 	if(HX711_checkReadiness()) {
 		data.mass = (HX711_valueAve(_nSamples) - _zero)*_multiplier;
-		println("[%s] %s", portNum, data.toString(cbuf));
+		println("[i2c%d] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("[%s] HX711 disconnected", portNum);
+		println("[i2c%d] HX711 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}
@@ -59,7 +59,7 @@ void ADC24Thread::calibrateMultiplier(void){
 	tare(HX711_valueAve(_nSamples*2));
 	float calibrationWeight = 500; //in g
 	while(true){
-		println("Place %fg on top of scale in order to calibrate", calibrationWeight);
+		println("[i2c%d] Place %fg on top of scale in order to calibrate", portNum, calibrationWeight);
 		int32_t currentVal = HX711_valueAve(_nSamples);
 		int32_t diff = currentVal - _zero;
 
@@ -74,5 +74,5 @@ void ADC24Thread::calibrateMultiplier(void){
 
 void ADC24Thread::tare(int32_t zero){
 	_zero = zero;
-	println("[%s] HX711 successfully tared", portNum);
+	println("[i2c%d] HX711 successfully tared", portNum);
 }

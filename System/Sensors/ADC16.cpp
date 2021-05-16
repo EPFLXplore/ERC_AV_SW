@@ -19,29 +19,30 @@ ADC16Thread::ADC16Thread(ProberThread* parent)
 
 void ADC16Thread::init() {
 	if(!ads.begin()) {
-		println("[%s] ADS1113 initialisation failed", portNum);
+		println("[i2c%d] ADS1113 initialisation failed", portNum);
 		terminate();
 		parent->resetProber();
 		return;
 	}
 
-	println("[%s] ADS1113 initialised", portNum);
+	println("[i2c%d] ADS1113 initialised", portNum);
 }
 
 static PotentiometerData data;
-static Handling_GripperPacket packet;
+static Avionics_ADCPacket packet;
 void ADC16Thread::loop() { //Should this send a voltage or radial position?
 
 	int16_t raw = 0;
 
 	if(ads.readADC_Differential_0_1(raw)) {
+		data.portNum = portNum;
 		data.voltage = raw*ads.getMultiplier() - offset; //voltage[V]
-		println("[%s] %s", portNum, data.toString(cbuf));
+		println("%s", data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("[%s] ADS1113 disconnected", portNum);
+		println("[i2c%d] ADS1113 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}
@@ -50,12 +51,12 @@ void ADC16Thread::loop() { //Should this send a voltage or radial position?
 void ADC16Thread::tareVoltage(){
 	int16_t raw = 0;
 	if(!ads.readADC_Differential_0_1(raw)){
-		println("[%s] ADS1113 disconnected", portNum);
+		println("[i2c%d] ADS1113 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 		return;
 	}
-	println("[%s] ADS1113 successfully tared", portNum);
+	println("[i2c%d] ADS1113 successfully tared", portNum);
 	offset = raw*ads.getMultiplier();
 }
 

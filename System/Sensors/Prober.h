@@ -20,14 +20,15 @@ public:
 	void loop();
 	void resetProber();
 	I2C_HandleTypeDef* getI2C() { return hi2c; }
-	char* getI2CNum();
+	uint8_t getI2CNum() {return i2cNum; }
 
 private:
 	I2C_HandleTypeDef* hi2c;
 	SemaphoreHandle_t semaphore;
 	Thread* instance;
-	char* i2cNum;
-	char* checkI2CPort(I2C_HandleTypeDef* hi2c);
+	uint8_t i2cNum;
+	uint8_t checkI2CPort(I2C_HandleTypeDef* hi2c);
+	Thread* instantiateHX711();
 	bool probeI2C(uint8_t address);
 	bool probeDB();
 };

@@ -24,7 +24,7 @@ public:
 private:
 	BMP280_HandleTypedef bmp280;
 	ProberThread* parent;
-	char* portNum;
+	uint8_t portNum;
 };
 
 

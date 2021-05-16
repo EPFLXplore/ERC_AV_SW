@@ -22,7 +22,7 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	define<DataPacket>(4);
 	define<Avionics_BaroTempPacket>(5);
 	define<Avionics_AccelMagPacket>(6);
-	define<Handling_GripperPacket>(7);
+	define<Avionics_ADCPacket>(7);
 	define<Power_VoltagePacket>(8);
 	define<Power_CurrentPacket>(9);
 	define<Power_SystemPacket>(10);

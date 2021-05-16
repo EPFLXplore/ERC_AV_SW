@@ -39,7 +39,7 @@ void initCortexM7() {
 	MX_I2C1_Init();
 
 	static WatchdogThread watchdog(&hiwdg1);
-	static LWIPThread lwip("192.168.1.2", 42666);
+	static LWIPThread lwip("192.168.1.1", 42667);
 
 	setupTelemtry();
 }
