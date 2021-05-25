@@ -23,12 +23,13 @@ static char buffer[128];
 void __task_run(const void* arg) {
 	Thread* thread = (Thread*) arg;
 
-	osDelay(100);
+	osDelay(100 / portTICK_PERIOD_MS);
 
 	thread->init();
 
 	while(thread->isRunning()) {
 		thread->loop();
+		osDelay(10 / portTICK_PERIOD_MS);
 	}
 
 	delete thread;

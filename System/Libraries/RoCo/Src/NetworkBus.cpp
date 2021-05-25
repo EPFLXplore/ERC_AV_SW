@@ -15,19 +15,36 @@
 #include "Protocol/Protocol.h"
 
 NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(network_frame)) {
-	define<PingPacket>(0);
-	define<RequestPacket>(1);
-	define<ResponsePacket>(2);
-	define<ProgressPacket>(3);
-	define<DataPacket>(4);
-	define<Avionics_BaroTempPacket>(5);
-	define<Avionics_AccelMagPacket>(6);
-	define<Avionics_ADCPacket>(7);
-	define<Power_VoltagePacket>(8);
-	define<Power_CurrentPacket>(9);
-	define<Power_SystemPacket>(10);
-	define<Science_MeasurePacket>(11);
-	define<ErrorPacket>(63);
+
+	// avionics
+	define<Avionics_BaroTempPacket>(0);
+	define<Avionics_AccelMagPacket>(1);
+	define<Avionics_ADCPacket>(2);
+	define<Science_MassPacket>(3);
+
+
+	// power supply
+	define<Power_SystemPacket>(8);
+	define<Power_VoltagePacket>(9);
+	define<Power_CurrentPacket>(10);
+
+	define<Reset_PowerSupplyPacket>(13);
+	define<Switch_AvionicsPacket>(14);
+	define<Switch_RamanPacket>(15);
+	define<Switch_JetsonPacket>(16);
+	define<Switch_LidarPacket>(17);
+	define<Switch_EthernetPacket>(18);
+
+	// finite state machine
+	define<FsmPacket>(22);
+
+	// general packets
+	define<DataPacket>(58);
+	define<PingPacket>(59);
+	define<ErrorPacket>(60);
+	define<RequestPacket>(61);
+	define<ResponsePacket>(62);
+	define<ProgressPacket>(63);
 }
 
 

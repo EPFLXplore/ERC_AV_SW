@@ -19,6 +19,7 @@
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
 	vTaskDelay(100 / portTICK_PERIOD_MS);
+	this->i2cNum = checkI2CPort(hi2c);
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
@@ -60,10 +61,11 @@ void ProberThread::loop() {
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
 		vTaskDelay(100 / portTICK_PERIOD_MS);
+		println("[i2c%u] Voltmeter detected", getI2CNum());
 	}
 
-	//HAL_I2C_DeInit(hi2c);
-	//HAL_I2C_Init(hi2c);
+	HAL_I2C_DeInit(hi2c);
+	HAL_I2C_Init(hi2c);
 }
 
 void ProberThread::resetProber() {

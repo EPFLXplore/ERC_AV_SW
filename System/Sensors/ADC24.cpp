@@ -37,7 +37,7 @@ void ADC24Thread::init() {
 }
 
 static ScienceData data;
-static Science_MeasurePacket packet;
+static Science_MassPacket packet;
 void ADC24Thread::loop() {
 	if(HX711_checkReadiness()) {
 		data.mass = (HX711_valueAve(_nSamples) - _zero)*_multiplier;

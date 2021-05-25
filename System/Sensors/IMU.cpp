@@ -35,12 +35,12 @@ void IMUThread::loop() {
 	data.mag = bnoVectorToVector(bno055_getVectorGravity());
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
-		println("[%s] %s", portNum, data.toString(cbuf));
+		println("[i2c%u] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-		println("[%s] BNO055 disconnected", portNum);
+		println("[i2c%u] BNO055 disconnected", portNum);
 		terminate();
 		parent->resetProber();
 	}
