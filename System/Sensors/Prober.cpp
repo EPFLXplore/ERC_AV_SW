@@ -61,7 +61,6 @@ void ProberThread::loop() {
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		println("[i2c%u] Voltmeter detected", getI2CNum());
 	}
 
 	HAL_I2C_DeInit(hi2c);

@@ -90,7 +90,7 @@ struct PotentiometerData {
 
 	uint8_t* toArray(uint8_t* buffer){
 		*(uint8_t*)(buffer) = portNum;
-		*(float*)(buffer + 1*4) = voltage;
+		*(float*)(buffer + 1) = voltage;
 		return buffer;
 	}
 };

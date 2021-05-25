@@ -13,8 +13,8 @@
 
 #include "lwip.h"
 
-#include <new>
 
+static volatile uint8_t* serial_number = (uint8_t*) 0x1FF1E800;
 
 static struct netif gnetif; // global network interface
 static void onStatusUpdate(struct netif *netif);
@@ -43,7 +43,11 @@ void LWIPThread::init() {
 	ip4_addr netmask;
 	ip4_addr gateway;
 
-	IP4_ADDR(&local_ip, 192, 168, 1, 2);
+	uint8_t device_id = *serial_number % 256;
+
+	println("Using network device ID %u", device_id);
+
+	IP4_ADDR(&local_ip, 192, 168, 1, device_id);
 	IP4_ADDR(&netmask, 255, 255, 255, 0);
 	IP4_ADDR(&gateway, 192, 168, 1, 1);
 
