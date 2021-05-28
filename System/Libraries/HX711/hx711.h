@@ -22,7 +22,6 @@ struct HX711{
 	uint32_t di_pin;
 };
 
-//void		HX711_set_pins(GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin);
 void  		HX711_begin(struct HX711 hx711); //starts communication between stm32 and HX711
 void        HX711_init(struct HX711 hx711); //configures pins
 int32_t     HX711_value(struct HX711 hx711); //returns 2s complement of V(mesured)*Gain(of channel)

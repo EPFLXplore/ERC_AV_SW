@@ -1,5 +1,5 @@
 #include "hx711.h"
-#if (_USE_FREERTOS == 1)
+#if (_HX711_USE_FREERTOS == 1)
 #include "cmsis_os.h"
 #define HX711_delay(x)    osDelay(x)
 #else
@@ -16,12 +16,7 @@ __STATIC_INLINE void HX711_delay_ns(uint64_t nanoseconds)
   nanoseconds *= (HAL_RCC_GetHCLKFreq() / 1000000);
   while ((DWT->CYCCNT - clk_cycle_start) < nanoseconds/1000);
 }
-/*void  HX711_set_pins(GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *hx711.di_gpio, uint32_t hx711.di_pin){
-	hx711.sck_gpio = sck_gpio;
-	hx711.sck_pin = sck_pin;
-	hx711.di_gpio = hx711.di_gpio;
-	hx711.di_pin = hx711.di_pin;
-}*/
+
 //#############################################################################################
 void  HX711_begin(struct HX711 hx711)
 {
