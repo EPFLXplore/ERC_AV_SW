@@ -26,20 +26,21 @@ bool ProberThread::probeI2C(uint8_t address) {
 	return HAL_I2C_IsDeviceReady(hi2c, address << 1, 3, 100) == HAL_OK;
 }
 
-bool ProberThread::probeDB() { //BIG PROBLEM: the pins are global variables of hx711.c; I don't know c well enough to circumvent this. IDEA: use semaphores to block mass sensor check as we know that we can only have one at any given time. Or somehow encapsulate the pins of hx711.c
+bool ProberThread::probeDB() {
+	struct HX711 hx711;
 	if(i2cNum == 1)
-		return false; //HX711_set_pins(GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7);
+		hx711 = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
 	else if(i2cNum == 2)
-		HX711_set_pins(GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
+		hx711 = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
 	else if(i2cNum == 3)
-		return false; //HX711_set_pins(GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9);
+		hx711 = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
 	else if(i2cNum == 4)
-		return false; //HX711_set_pins(GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15);
+		hx711 = {GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15};
 	else
 		return false;
 
-	HX711_init();
-	return HX711_checkReadiness();
+	HX711_init(hx711);
+	return HX711_checkReadiness(hx711);
 }
 
 void ProberThread::loop() {

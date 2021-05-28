@@ -6,15 +6,8 @@
 #define HX711_delay(x)    HAL_Delay(x)
 #endif
 
+#define	TIMEOUT 150 //cpu ticks
 const uint32_t clockPulse = 200; //ns
-
-//Clock pin
-GPIO_TypeDef *_hx711_sck_gpio;
-uint32_t _hx711_sck_pin;
-
-//SDA pin
-GPIO_TypeDef *_hx711_di_gpio;
-uint32_t _hx711_di_pin;
 
 //#############################################################################################
 __STATIC_INLINE void HX711_delay_ns(uint64_t nanoseconds)
@@ -23,52 +16,53 @@ __STATIC_INLINE void HX711_delay_ns(uint64_t nanoseconds)
   nanoseconds *= (HAL_RCC_GetHCLKFreq() / 1000000);
   while ((DWT->CYCCNT - clk_cycle_start) < nanoseconds/1000);
 }
-void  HX711_set_pins(GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin){
-	_hx711_sck_gpio = sck_gpio;
-	_hx711_sck_pin = sck_pin;
-	_hx711_di_gpio = di_gpio;
-	_hx711_di_pin = di_pin;
-}
+/*void  HX711_set_pins(GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *hx711.di_gpio, uint32_t hx711.di_pin){
+	hx711.sck_gpio = sck_gpio;
+	hx711.sck_pin = sck_pin;
+	hx711.di_gpio = hx711.di_gpio;
+	hx711.di_pin = hx711.di_pin;
+}*/
 //#############################################################################################
-void  HX711_begin(void)
+void  HX711_begin(struct HX711 hx711)
 {
-  HX711_init();
+  HX711_init(hx711);
   //initialise tick register
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
   DWT->CYCCNT = 0;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 
-  //start first reading
-  HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_SET);
+  //start first reahx711.ding
+  HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_SET);
   HX711_delay(10);
-  HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_RESET);
   HX711_delay(10);
-  HX711_valueAve(8);
+  HX711_valueAve(hx711, 8);
   HX711_delay(100);
 }
 //#############################################################################################
 //setup HX711 pins
-void  HX711_init(void)
+void  HX711_init(struct HX711 hx711)
 {
   GPIO_InitTypeDef  gpio;
   gpio.Mode = GPIO_MODE_OUTPUT_PP;
   gpio.Pull = GPIO_NOPULL;
   gpio.Speed = GPIO_SPEED_FREQ_HIGH;
-  gpio.Pin = _hx711_sck_pin;
-  HAL_GPIO_Init(_hx711_sck_gpio, &gpio);
+  gpio.Pin = hx711.sck_pin;
+  HAL_GPIO_Init(hx711.sck_gpio, &gpio);
   gpio.Mode = GPIO_MODE_INPUT;
   gpio.Pull = GPIO_PULLUP;
   gpio.Speed = GPIO_SPEED_FREQ_HIGH;
-  gpio.Pin = _hx711_di_pin;
-  HAL_GPIO_Init(_hx711_di_gpio, &gpio);
+  gpio.Pin = hx711.di_pin;
+  HAL_GPIO_Init(hx711.di_gpio, &gpio);
 
 }
 
-bool HX711_checkReadiness() {
+bool HX711_checkReadiness(struct HX711 hx711)
+{
 	uint32_t startTime = HAL_GetTick();
 
-	while(!HX711_isReady()) {
-		if(HAL_GetTick() - startTime > 150) {
+	while(!HX711_isReady(hx711)) {
+		if(HAL_GetTick() - startTime > TIMEOUT) {
 			return false;
 		}
 	}
@@ -76,42 +70,42 @@ bool HX711_checkReadiness() {
 	return true;
 }
 //#############################################################################################
-int32_t HX711_value(void)
+int32_t HX711_value(struct HX711 hx711)
 {
   uint32_t data = 0;
   uint32_t  startTime = HAL_GetTick();
-  while(!HX711_isReady())
+  while(!HX711_isReady(hx711))
     {
-      if(HAL_GetTick() - startTime > 150)
+      if(HAL_GetTick() - startTime > TIMEOUT)
         return 0;
     }
   for(int8_t i=0; i<24 ; i++)
   {
-    HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_SET);
     HX711_delay_ns(clockPulse);
     data = data << 1;    
-    HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_RESET);
     HX711_delay_ns(clockPulse);
-    if(HAL_GPIO_ReadPin(_hx711_di_gpio, _hx711_di_pin) == GPIO_PIN_SET)
+    if(HAL_GPIO_ReadPin(hx711.di_gpio, hx711.di_pin) == GPIO_PIN_SET)
       data ++;
   }
   data = data ^ 0x800000; 
-  HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_SET);
   HX711_delay_ns(clockPulse);
-  HAL_GPIO_WritePin(_hx711_sck_gpio, _hx711_sck_pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(hx711.sck_gpio, hx711.sck_pin, GPIO_PIN_RESET);
   HX711_delay_ns(clockPulse);
   return data;    
 }
 //#############################################################################################
-int32_t HX711_valueAve(uint16_t sample)
+int32_t HX711_valueAve(struct HX711 hx711, uint16_t sample)
 {
   int64_t  ave = 0;
   for(uint16_t i=0 ; i<sample ; i++)
-    ave += HX711_value();
+    ave += HX711_value(hx711);
 
   return (int32_t)(ave / sample);
 }
 //#############################################################################################
-int HX711_isReady() {
-	return HAL_GPIO_ReadPin(_hx711_di_gpio, _hx711_di_pin) == GPIO_PIN_RESET;
+int HX711_isReady(struct HX711 hx711) {
+	return HAL_GPIO_ReadPin(hx711.di_gpio, hx711.di_pin) == GPIO_PIN_RESET;
 }

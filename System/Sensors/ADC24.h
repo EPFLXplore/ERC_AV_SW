@@ -14,7 +14,6 @@
 
 #include "Libraries/HX711/hx711.h"
 
-
 class ADC24Thread : public Thread {
 public:
 	ADC24Thread(ProberThread* parent, GPIO_TypeDef *sck_gpio, uint32_t sck_pin, GPIO_TypeDef *di_gpio, uint32_t di_pin);
@@ -28,6 +27,7 @@ private:
 	uint16_t _nSamples;
 	float _multiplier;
 	int32_t _zero;
+	struct HX711 _hx711;
 };
 
 
