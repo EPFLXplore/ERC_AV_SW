@@ -1,5 +1,5 @@
 #include "hx711.h"
-#if (_HX711_USE_FREERTOS == 1)
+#if (_USE_FREERTOS == 1)
 #include "cmsis_os.h"
 #define HX711_delay(x)    osDelay(x)
 #else
