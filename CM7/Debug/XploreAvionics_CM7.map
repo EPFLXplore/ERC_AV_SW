@@ -31985,6 +31985,19 @@ Discarded input sections
  .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
  .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
  .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
+ .group         0x0000000000000000        0xc System/Libraries/HX711/hx711.o
  .text          0x0000000000000000        0x0 System/Libraries/HX711/hx711.o
  .data          0x0000000000000000        0x0 System/Libraries/HX711/hx711.o
  .bss           0x0000000000000000        0x0 System/Libraries/HX711/hx711.o
@@ -32009,7 +32022,7 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x50 System/Libraries/HX711/hx711.o
  .debug_ranges  0x0000000000000000       0x40 System/Libraries/HX711/hx711.o
- .debug_macro   0x0000000000000000      0x31f System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000      0x3d2 System/Libraries/HX711/hx711.o
  .debug_macro   0x0000000000000000      0xa72 System/Libraries/HX711/hx711.o
  .debug_macro   0x0000000000000000      0x250 System/Libraries/HX711/hx711.o
  .debug_macro   0x0000000000000000       0x2e System/Libraries/HX711/hx711.o
@@ -32078,8 +32091,21 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xa6 System/Libraries/HX711/hx711.o
  .debug_macro   0x0000000000000000      0x798 System/Libraries/HX711/hx711.o
  .debug_macro   0x0000000000000000       0x22 System/Libraries/HX711/hx711.o
- .debug_line    0x0000000000000000      0xa01 System/Libraries/HX711/hx711.o
- .debug_str     0x0000000000000000   0x188476 System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000      0x10a System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000      0x15a System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0xde System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x1c System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x26 System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000      0x4cc System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0xb5 System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0xaa System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x91 System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x8d System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x9a System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0x19 System/Libraries/HX711/hx711.o
+ .debug_macro   0x0000000000000000       0xf2 System/Libraries/HX711/hx711.o
+ .debug_line    0x0000000000000000      0xb86 System/Libraries/HX711/hx711.o
+ .debug_str     0x0000000000000000   0x18e501 System/Libraries/HX711/hx711.o
  .comment       0x0000000000000000       0x7c System/Libraries/HX711/hx711.o
  .debug_frame   0x0000000000000000      0x128 System/Libraries/HX711/hx711.o
  .ARM.attributes
@@ -35060,11 +35086,11 @@ Discarded input sections
                 0x0000000000000000       0x20 System/Sensors/ADC24.o
  .text._ZN6ThreadD0Ev
                 0x0000000000000000       0x20 System/Sensors/ADC24.o
- .rodata        0x0000000000000000      0x109 System/Sensors/ADC24.o
+ .rodata        0x0000000000000000      0x175 System/Sensors/ADC24.o
  .text._ZN11ScienceData8toStringEPc
                 0x0000000000000000       0x30 System/Sensors/ADC24.o
  .text._ZN11ScienceData7toArrayEPh
-                0x0000000000000000       0x2a System/Sensors/ADC24.o
+                0x0000000000000000       0x20 System/Sensors/ADC24.o
  .text._ZN12ProberThread9getI2CNumEv
                 0x0000000000000000       0x18 System/Sensors/ADC24.o
  .rodata._ZStL19piecewise_construct
@@ -35085,9 +35111,9 @@ Discarded input sections
  .rodata._ZL9threshold
                 0x0000000000000000        0x4 System/Sensors/ADC24.o
  .text._ZN11ADC24ThreadC2EP12ProberThreadP12GPIO_TypeDefmS3_m
-                0x0000000000000000       0x74 System/Sensors/ADC24.o
+                0x0000000000000000       0x7c System/Sensors/ADC24.o
  .text._ZN11ADC24Thread4initEv
-                0x0000000000000000       0x6c System/Sensors/ADC24.o
+                0x0000000000000000       0x68 System/Sensors/ADC24.o
  .bss._ZL4data  0x0000000000000000        0x4 System/Sensors/ADC24.o
  .bss._ZL6packet
                 0x0000000000000000        0x4 System/Sensors/ADC24.o
@@ -35113,8 +35139,8 @@ Discarded input sections
                 0x0000000000000000        0x8 System/Sensors/ADC24.o
  .rodata._ZTS6Thread
                 0x0000000000000000        0x8 System/Sensors/ADC24.o
- .debug_info    0x0000000000000000     0x55d4 System/Sensors/ADC24.o
- .debug_abbrev  0x0000000000000000      0x769 System/Sensors/ADC24.o
+ .debug_info    0x0000000000000000     0x5430 System/Sensors/ADC24.o
+ .debug_abbrev  0x0000000000000000      0x741 System/Sensors/ADC24.o
  .debug_aranges
                 0x0000000000000000       0x80 System/Sensors/ADC24.o
  .debug_ranges  0x0000000000000000       0x70 System/Sensors/ADC24.o
@@ -35305,9 +35331,9 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xf4 System/Sensors/ADC24.o
  .debug_macro   0x0000000000000000      0x407 System/Sensors/ADC24.o
  .debug_line    0x0000000000000000     0x1ecb System/Sensors/ADC24.o
- .debug_str     0x0000000000000000   0x1a1b0d System/Sensors/ADC24.o
+ .debug_str     0x0000000000000000   0x1a1a3b System/Sensors/ADC24.o
  .comment       0x0000000000000000       0x7c System/Sensors/ADC24.o
- .debug_frame   0x0000000000000000      0x204 System/Sensors/ADC24.o
+ .debug_frame   0x0000000000000000      0x200 System/Sensors/ADC24.o
  .ARM.attributes
                 0x0000000000000000       0x37 System/Sensors/ADC24.o
  .group         0x0000000000000000       0x14 System/Sensors/Barometer.o

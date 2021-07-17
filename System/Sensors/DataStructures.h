@@ -74,7 +74,7 @@ struct ScienceData {
 	}
 
 	uint8_t* toArray(uint8_t* buffer){
-		*(uint32_t*)(buffer) = mass;
+		*(float*)(buffer) = mass;
 		return buffer;
 	}
 };
