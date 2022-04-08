@@ -1,0 +1,16 @@
+vl53l1_platform.c:76:5:_I2CWrite	40	static
+vl53l1_platform.c:88:5:_I2CRead	40	static
+vl53l1_platform.c:100:14:VL53L1_WriteMulti	32	static
+vl53l1_platform.c:119:14:VL53L1_ReadMulti	32	static
+vl53l1_platform.c:140:14:VL53L1_WrByte	24	static
+vl53l1_platform.c:157:14:VL53L1_WrWord	24	static
+vl53l1_platform.c:175:14:VL53L1_WrDWord	32	static
+vl53l1_platform.c:193:14:VL53L1_UpdateByte	24	static
+vl53l1_platform.c:207:14:VL53L1_RdByte	32	static
+vl53l1_platform.c:228:14:VL53L1_RdWord	32	static
+vl53l1_platform.c:253:14:VL53L1_RdDWord	32	static
+vl53l1_platform.c:278:14:VL53L1_GetTickCount	24	static
+vl53l1_platform.c:330:14:VL53L1_GetTimerFrequency	16	static
+vl53l1_platform.c:339:14:VL53L1_WaitMs	16	static
+vl53l1_platform.c:345:14:VL53L1_WaitUs	16	static
+vl53l1_platform.c:351:14:VL53L1_WaitValueMaskEx	568	static
