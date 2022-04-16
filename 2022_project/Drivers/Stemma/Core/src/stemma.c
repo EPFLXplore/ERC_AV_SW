@@ -23,10 +23,16 @@ uint8_t stemma_init(moist *dev, I2C_HandleTypeDef *i2cHandle){
 	uint8_t regData[2] = {(uint8_t) SEESAW_STATUS_BASE,(uint8_t) SEESAW_STATUS_HW_ID };
 	uint8_t res = 43;
 
-	HAL_I2C_Master_Transmit(dev->i2cHandle, SEESAW_ADDRESS << 1, &regData, 2, HAL_MAX_DELAY);
-	HAL_Delay(5);
-	HAL_I2C_Master_Receive(dev->i2cHandle, SEESAW_ADDRESS << 1, &res, 1, HAL_MAX_DELAY);
-	HAL_Delay(5);
+	status = HAL_I2C_Master_Transmit(dev->i2cHandle, SEESAW_ADDRESS << 1, &regData, 2, HAL_MAX_DELAY);
+	if (status != HAL_OK){
+		return 255;
+	}
+	HAL_Delay(10);
+	status = HAL_I2C_Master_Receive(dev->i2cHandle, SEESAW_ADDRESS << 1, &res, 1, HAL_MAX_DELAY);
+	if (status != HAL_OK){
+		return 255;
+	}
+	HAL_Delay(10);
 	if((res == SEESAW_HW_ID_CODE_SAMD09)||(res == SEESAW_HW_ID_CODE_TINY8X7)){
 
 		errNum += (status != HAL_OK);
@@ -67,9 +73,9 @@ HAL_StatusTypeDef stemma_ReadMoisture(moist *dev, uint8_t pin){
 
   for (uint8_t retry = 0; retry < 5; retry++) {
 	  HAL_I2C_Master_Transmit(dev->i2cHandle, SEESAW_ADDRESS << 1, &regData, 2, HAL_MAX_DELAY);
-	  HAL_Delay(5);
+	  HAL_Delay(10);
 	  status = HAL_I2C_Master_Receive(dev->i2cHandle, SEESAW_ADDRESS << 1, &buf, 2, 3000 + retry * 1000);
-	  HAL_Delay(5);
+	  HAL_Delay(10);
 	if (status == HAL_OK) {
 	  dev->moisture = ((uint16_t)buf[0] << 8) | buf[1];
 	  break;
