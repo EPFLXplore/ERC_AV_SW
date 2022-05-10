@@ -1,0 +1,8 @@
+stemma.c:12:9:stemma_init	136	static
+stemma.c:45:19:sw_reset	32	static
+stemma.c:53:19:stemma_ReadTemp	40	static
+stemma.c:67:19:stemma_ReadMoisture	40	static
+stemma.c:87:19:stemma_ReadRegister	40	static
+stemma.c:90:19:stemma_ReadRegisters	40	static
+stemma.c:94:19:stemma_WriteRegister	40	static
+stemma.c:98:19:stemma_WriteRegisters	40	static
