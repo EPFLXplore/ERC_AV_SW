@@ -18,12 +18,14 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+
 #include "main.h"
 #include "bno055_stm32.h"
 #include "hx711.h"
 #include "stemma.h"
 #include "U087.h"
 #include "vl53l1_api.h"
+#include "ADS1113.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -117,6 +119,31 @@ static void MX_TIM4_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+static void ADC1115_test(void){
+	ads1113_t i2c;
+	char MSG[100];
+	// Declare the structure where we using GND as address.
+	// Look at the top of the header file for addresses.
+	bool success = ADS1113_init(&i2c, &hi2c4, ADS_ADDR_GND); // Or ADS1015(&i2c, &hi2c1, ADS_ADDR_GND);
+	ADSsetGain(&i2c, GAIN_ONE);
+	int16_t adc_diff;
+	float adc_voltage;
+
+	while(1){
+	   // Get ADC values
+	   adc_diff = ADSreadADC_Differential_0_1(&i2c);
+	   adc_voltage = ADSreadADC_Voltage(&i2c);
+	//
+	   sprintf(MSG, "ADC diff reading \t = %d \t Voltage \t = %.2f \r\n", adc_diff, adc_voltage);
+	//       sprintf(MSG, "ADC diff reading \t = %d \n", adc_diff);
+//	   sprintf(MSG, "ADC diff reading \t = %.2f \r\n", adc_voltage);
+	   HAL_UART_Transmit(&huart2, MSG, strlen((char*) MSG), 100);
+	   HAL_Delay(100);
+   }
+
+}
+
 static void stemma_test(void){
 	char text[100];
 	moist stemma;
@@ -188,6 +215,7 @@ static void hx711_test(void){
 		HAL_UART_Transmit(&huart4, MSG, strlen((char*) MSG), 100);
 		sprintf(MSG, "Offset: = %d\r\n", loadcell.offset);
 		HAL_UART_Transmit(&huart4, MSG, strlen((char*) MSG), 100);
+
 
 	    while (1)
 	    {
@@ -308,14 +336,16 @@ int main(void)
   MX_TIM4_Init();
   char text[100];
 
-/* Uncomment the following functions to test those sensors */
-
+  uint8_t Buffer[25] = {0};
+  uint8_t Space[] = " - ";
+  uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
+  uint8_t EndMSG[] = "Done! \r\n\r\n";
+  uint8_t i = 0, ret;
 //  stemma_test();
 //  bno_test();
 //  VL53l1_test();
-//  hx711_test
-
-
+//  hx711_test();
+  	ADC1115_test();
   while (1)
   {
 
@@ -1288,6 +1318,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.MasterReceiverAutoSusp = SPI_MASTER_RX_AUTOSUSP_DISABLE;
   hspi1.Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_DISABLE;
   hspi1.Init.IOSwap = SPI_IO_SWAP_DISABLE;
+
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();

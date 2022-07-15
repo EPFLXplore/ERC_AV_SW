@@ -66,7 +66,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Platform/Inc/vl53l1_platform_ipp_imports.h \
  C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Platform/Inc/vl53l1_platform_user_data.h \
  C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Core/Inc/vl53l1_def.h \
- C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Core/Inc/vl53l1_preset_setup.h
+ C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Core/Inc/vl53l1_preset_setup.h \
+ C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/ADC1115/Core/Inc/ADS1113.h
 
 ../Core/Inc/main.h:
 
@@ -205,3 +206,5 @@ C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/
 C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Core/Inc/vl53l1_def.h:
 
 C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/VL53L1x/Core/Inc/vl53l1_preset_setup.h:
+
+C:/Users/Yassine\ Bakkali/STM32CubeIDE/workspace_1.7.0/EPFL_XPLORE_AVIONICS_MCU/Drivers/ADC1115/Core/Inc/ADS1113.h:
