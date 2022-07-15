@@ -11,9 +11,12 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/VL53L1x/Platform/Src/subdir.mk
 -include Drivers/VL53L1x/Core/src/subdir.mk
+-include Drivers/U087/Core/Src/subdir.mk
+-include Drivers/Stemma/Core/src/subdir.mk
 -include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Drivers/HX711/Core/Src/subdir.mk
 -include Drivers/BNO055/Core/Src/subdir.mk
+-include Drivers/ADC1115/Core/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include subdir.mk

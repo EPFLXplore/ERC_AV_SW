@@ -90,6 +90,7 @@ void Error_Handler(void);
 #define HX711_DATA_GPIO_Port GPIOC
 #define HX711_DATA_Pin GPIO_PIN_9
 
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
