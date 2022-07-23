@@ -15,10 +15,16 @@
    	Conversion factors
     -----------------------------------------------------------------------*/
 
-#define VOLTAGE_DIVIDER_RES_HIGH  26700
-#define VOLTAGE_DIVIDER_RES_LOW   3300
-#define ADS_VOLTAGE_DIVIDER_RATIO VOLTAGE_DIVIDER_RES_LOW/(VOLTAGE_DIVIDER_RES_LOW + VOLTAGE_DIVIDER_RES_HIGH)
+#define RES_HIGH  11000.f
+#define RES_LOW   12400.f
+#define RES_SERIES 100000.f
+#define ADS_INPUT_VOLTAGE 3.3f
+#define ADS_VOLTAGE_DIVIDER_RATIO (1 + RES_SERIES/RES_HIGH + RES_SERIES/RES_LOW)
+#define ADS_VOLTAGE_DIVIDER_OFFSET (-RES_SERIES/RES_HIGH * ADS_INPUT_VOLTAGE)
 #define ADS_MAX_VALUE (32768)
+
+
+
 
 /*=========================================================================
     I2C ADDRESS/BITS - Connect the following pin to ADDR

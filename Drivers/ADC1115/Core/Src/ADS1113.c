@@ -242,8 +242,10 @@ int16_t ADSreadADC_Differential_0_1(ads1113_t *i2c) {
 
 
 float ADSreadADC_Voltage(ads1113_t *i2c) {
-	float coeff = i2c->full_scale/(ADS_MAX_VALUE*ADS_VOLTAGE_DIVIDER_RATIO);
-	return ADSreadADC_Differential_0_1(i2c) * coeff;
+//	float coeff = i2c->full_scale/(ADS_MAX_VALUE*ADS_VOLTAGE_DIVIDER_RATIO);
+//	return ADSreadADC_Differential_0_1(i2c) * coeff;
+	float coeff = i2c->full_scale*ADS_VOLTAGE_DIVIDER_RATIO/ADS_MAX_VALUE;
+	return ADSreadADC_Differential_0_1(i2c) * coeff - ADS_VOLTAGE_DIVIDER_OFFSET;
 }
 
 /*
