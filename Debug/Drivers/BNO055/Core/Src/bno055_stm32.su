@@ -1,4 +1,4 @@
-bno055_stm32.c:7:6:bno055_assignI2C	16	static
-bno055_stm32.c:11:6:bno055_delay	16	static
-bno055_stm32.c:19:6:bno055_writeData	40	static
-bno055_stm32.c:84:6:bno055_readData	24	static
+../Drivers/BNO055/Core/Src/bno055_stm32.c:7:6:bno055_assignI2C	16	static
+../Drivers/BNO055/Core/Src/bno055_stm32.c:11:6:bno055_delay	16	static
+../Drivers/BNO055/Core/Src/bno055_stm32.c:19:6:bno055_writeData	40	static
+../Drivers/BNO055/Core/Src/bno055_stm32.c:84:6:bno055_readData	24	static

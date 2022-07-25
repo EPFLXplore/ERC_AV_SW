@@ -18,17 +18,16 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-
 #include "main.h"
-#include "bno055_stm32.h"
-#include "hx711.h"
-#include "stemma.h"
-#include "U087.h"
-#include "vl53l1_api.h"
-#include "ADS1113.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "ADS1113.h"
+#include "bno055_stm32.h"
+#include "hx711.h"
+#include "stemma.h"
+#include "vl53l1_platform.h"
 
 /* USER CODE END Includes */
 
@@ -80,6 +79,13 @@ TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim15;
 
+/* Definitions for GetAcc */
+osThreadId_t GetAccHandle;
+const osThreadAttr_t GetAcc_attributes = {
+  .name = "GetAcc",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -113,6 +119,8 @@ static void MX_TIM5_Init(void);
 static void MX_TIM15_Init(void);
 static void MX_DMA_Init(void);
 static void MX_TIM4_Init(void);
+void GetAcceleration(void *argument);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -274,14 +282,6 @@ static void VL53l1_test(void){
   * @brief  The application entry point.
   * @retval int
   */
-
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -334,25 +334,66 @@ int main(void)
   MX_TIM15_Init();
   MX_DMA_Init();
   MX_TIM4_Init();
-  char text[100];
+  /* USER CODE BEGIN 2 */
 
-  uint8_t Buffer[25] = {0};
-  uint8_t Space[] = " - ";
-  uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
-  uint8_t EndMSG[] = "Done! \r\n\r\n";
-  uint8_t i = 0, ret;
-//  stemma_test();
-//  bno_test();
-//  VL53l1_test();
-//  hx711_test();
-  	ADC1115_test();
-  while (1)
-  {
+  /* USER CODE END 2 */
 
-  }
+  /* Init scheduler */
+  osKernelInitialize();
 
-  /* USER CODE END 3 */
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* creation of GetAcc */
+  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+	char text[100];
+
+	uint8_t Buffer[25] = {0};
+	uint8_t Space[] = " - ";
+	uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
+	uint8_t EndMSG[] = "Done! \r\n\r\n";
+	uint8_t i = 0, ret;
+	//  stemma_test();
+	//  bno_test();
+	//  VL53l1_test();
+	//  hx711_test();
+		ADC1115_test();
+	while (1)
+	{
+
+	}
+
 }
+
 
 /**
   * @brief System Clock Configuration
@@ -1318,7 +1359,6 @@ static void MX_SPI1_Init(void)
   hspi1.Init.MasterReceiverAutoSusp = SPI_MASTER_RX_AUTOSUSP_DISABLE;
   hspi1.Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_DISABLE;
   hspi1.Init.IOSwap = SPI_IO_SWAP_DISABLE;
-
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -1690,7 +1730,7 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 
 }
@@ -1797,6 +1837,45 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_GetAcceleration */
+/**
+  * @brief  Function implementing the GetAcc thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_GetAcceleration */
+void GetAcceleration(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END 5 */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

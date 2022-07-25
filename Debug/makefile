@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
 -include ../makefile.init
@@ -9,6 +9,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
 -include Drivers/VL53L1x/Platform/Src/subdir.mk
 -include Drivers/VL53L1x/Core/src/subdir.mk
 -include Drivers/U087/Core/Src/subdir.mk
@@ -19,7 +23,6 @@ RM := rm -rf
 -include Drivers/ADC1115/Core/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
--include subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -51,14 +54,14 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 EXECUTABLES += \
 EPFL_XPLORE_AVIONICS_MCU.elf \
 
+MAP_FILES += \
+EPFL_XPLORE_AVIONICS_MCU.map \
+
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
 EPFL_XPLORE_AVIONICS_MCU.list \
-
-OBJCOPY_BIN += \
-EPFL_XPLORE_AVIONICS_MCU.bin \
 
 
 # All Target
@@ -68,8 +71,8 @@ all: main-build
 main-build: EPFL_XPLORE_AVIONICS_MCU.elf secondary-outputs
 
 # Tool invocations
-EPFL_XPLORE_AVIONICS_MCU.elf: $(OBJS) $(USER_OBJS) C:\Users\Yassine\ Bakkali\STM32CubeIDE\workspace_1.7.0\EPFL_XPLORE_AVIONICS_MCU\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "EPFL_XPLORE_AVIONICS_MCU.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\Yassine Bakkali\STM32CubeIDE\workspace_1.7.0\EPFL_XPLORE_AVIONICS_MCU\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+EPFL_XPLORE_AVIONICS_MCU.elf EPFL_XPLORE_AVIONICS_MCU.map: $(OBJS) $(USER_OBJS) /home/avm/Desktop/EPFL_Xplore/AV_workspace/STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "EPFL_XPLORE_AVIONICS_MCU.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/avm/Desktop/EPFL_Xplore/AV_workspace/STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -83,17 +86,12 @@ EPFL_XPLORE_AVIONICS_MCU.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_T
 	@echo 'Finished building: $@'
 	@echo ' '
 
-EPFL_XPLORE_AVIONICS_MCU.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "EPFL_XPLORE_AVIONICS_MCU.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) $(SIZE_OUTPUT)$(OBJDUMP_LIST)$(EXECUTABLES)$(OBJS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(OBJCOPY_BIN) EPFL_XPLORE_AVIONICS_MCU.elf
+	-$(RM) EPFL_XPLORE_AVIONICS_MCU.elf EPFL_XPLORE_AVIONICS_MCU.list EPFL_XPLORE_AVIONICS_MCU.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
@@ -102,6 +100,6 @@ fail-specified-linker-script-missing:
 warn-no-linker-script-specified:
 	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
 
-.PHONY: all clean dependents fail-specified-linker-script-missing warn-no-linker-script-specified
+.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
 -include ../makefile.targets
