@@ -2,93 +2,93 @@ Drivers/BNO055/Core/Src/bno055_stm32.o: \
  ../Drivers/BNO055/Core/Src/bno055_stm32.c \
  ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/bno055_stm32.h \
  ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/../../../BNO055/Core/Inc/bno055.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
- ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h \
- ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h \
- ../Drivers/CMSIS/Include/core_cm7.h \
- ../Drivers/CMSIS/Include/cmsis_version.h \
- ../Drivers/CMSIS/Include/cmsis_compiler.h \
- ../Drivers/CMSIS/Include/cmsis_gcc.h \
- ../Drivers/CMSIS/Include/mpu_armv7.h \
- ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_adc.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/core_cm7.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_version.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_compiler.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_gcc.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/mpu_armv7.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_adc.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart.h \
+ /home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart_ex.h \
  ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/bno055.h
 ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/bno055_stm32.h:
 ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/../../../BNO055/Core/Inc/bno055.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
-../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:
-../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:
-../Drivers/CMSIS/Include/core_cm7.h:
-../Drivers/CMSIS/Include/cmsis_version.h:
-../Drivers/CMSIS/Include/cmsis_compiler.h:
-../Drivers/CMSIS/Include/cmsis_gcc.h:
-../Drivers/CMSIS/Include/mpu_armv7.h:
-../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_adc.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart.h:
-../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/core_cm7.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_version.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_compiler.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/cmsis_gcc.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include/mpu_armv7.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_adc.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart.h:
+/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart_ex.h:
 ../Drivers/BNO055/Core/Src/../../../BNO055/Core/Inc/bno055.h:

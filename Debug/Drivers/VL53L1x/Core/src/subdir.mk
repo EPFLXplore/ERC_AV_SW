@@ -18,20 +18,6 @@ C_SRCS += \
 ../Drivers/VL53L1x/Core/src/vl53l1_silicon_core.c \
 ../Drivers/VL53L1x/Core/src/vl53l1_wait.c 
 
-OBJS += \
-./Drivers/VL53L1x/Core/src/vl53l1_api.o \
-./Drivers/VL53L1x/Core/src/vl53l1_api_calibration.o \
-./Drivers/VL53L1x/Core/src/vl53l1_api_core.o \
-./Drivers/VL53L1x/Core/src/vl53l1_api_debug.o \
-./Drivers/VL53L1x/Core/src/vl53l1_api_preset_modes.o \
-./Drivers/VL53L1x/Core/src/vl53l1_api_strings.o \
-./Drivers/VL53L1x/Core/src/vl53l1_core.o \
-./Drivers/VL53L1x/Core/src/vl53l1_core_support.o \
-./Drivers/VL53L1x/Core/src/vl53l1_error_strings.o \
-./Drivers/VL53L1x/Core/src/vl53l1_register_funcs.o \
-./Drivers/VL53L1x/Core/src/vl53l1_silicon_core.o \
-./Drivers/VL53L1x/Core/src/vl53l1_wait.o 
-
 C_DEPS += \
 ./Drivers/VL53L1x/Core/src/vl53l1_api.d \
 ./Drivers/VL53L1x/Core/src/vl53l1_api_calibration.d \
@@ -46,10 +32,24 @@ C_DEPS += \
 ./Drivers/VL53L1x/Core/src/vl53l1_silicon_core.d \
 ./Drivers/VL53L1x/Core/src/vl53l1_wait.d 
 
+OBJS += \
+./Drivers/VL53L1x/Core/src/vl53l1_api.o \
+./Drivers/VL53L1x/Core/src/vl53l1_api_calibration.o \
+./Drivers/VL53L1x/Core/src/vl53l1_api_core.o \
+./Drivers/VL53L1x/Core/src/vl53l1_api_debug.o \
+./Drivers/VL53L1x/Core/src/vl53l1_api_preset_modes.o \
+./Drivers/VL53L1x/Core/src/vl53l1_api_strings.o \
+./Drivers/VL53L1x/Core/src/vl53l1_core.o \
+./Drivers/VL53L1x/Core/src/vl53l1_core_support.o \
+./Drivers/VL53L1x/Core/src/vl53l1_error_strings.o \
+./Drivers/VL53L1x/Core/src/vl53l1_register_funcs.o \
+./Drivers/VL53L1x/Core/src/vl53l1_silicon_core.o \
+./Drivers/VL53L1x/Core/src/vl53l1_wait.o 
+
 
 # Each subdirectory must supply rules for building sources it contributes
 Drivers/VL53L1x/Core/src/%.o Drivers/VL53L1x/Core/src/%.su: ../Drivers/VL53L1x/Core/src/%.c Drivers/VL53L1x/Core/src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32H750xx -c -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/CMSIS/Include -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/VL53L1x/Core/Inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/VL53L1x/Platform/Inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/HX711" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/HX711/Core/Inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/BNO055/Core/Inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/Stemma/Core/inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/U087/Core/Inc" -I"/home/avm/Desktop/EPFL_Xplore/AV_workspace/Drivers/ADC1115/Core/Inc" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32H750xx -c -I../Core/Inc -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Middlewares/Third_Party/FreeRTOS/Source/include -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Device/ST/STM32H7xx/Include -I/home/avm/STM32Cube/Repository/STM32Cube_FW_H7_V1.10.0/Drivers/CMSIS/Include -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/ADC1115/Core/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/BNO055/Core/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/HX711/Core/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/Stemma/Core/inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/U087/Core/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/VL53L1x/Core/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/Drivers/VL53L1x/Platform/Inc" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/System/RoCo" -I"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/System/RoCo/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Drivers-2f-VL53L1x-2f-Core-2f-src
 

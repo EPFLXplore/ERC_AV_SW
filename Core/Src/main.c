@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -21,13 +20,14 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 #include "ADS1113.h"
 #include "bno055_stm32.h"
 #include "hx711.h"
 #include "stemma.h"
-#include "vl53l1_platform.h"
+#include "vl53l1_api.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
@@ -128,6 +128,7 @@ void GetAcceleration(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+
 static void ADC1115_test(void){
 	ads1113_t i2c;
 	char MSG[100];
@@ -188,7 +189,7 @@ static void stemma_test(void){
 
 static void bno_test(void){
 	char text[100];
-	bno055_assignI2C(&hi2c1);
+	bno055_assignI2C(&hi2c4);
 	bno055_setup();
 	bno055_setOperationModeNDOF();
 	while (1)
@@ -196,13 +197,13 @@ static void bno_test(void){
 		/* USER CODE END WHILE */
 		bno055_vector_t v = bno055_getVectorEuler();
 		sprintf(text, "Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", v.x, v.y, v.z);
-		HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
+		HAL_UART_Transmit(&huart2, text, strlen((char*)text), 0xFF);
 		v = bno055_getVectorQuaternion();
 		sprintf(text, "W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
-		HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
+		HAL_UART_Transmit(&huart2, text, strlen((char*)text), 0xFF);
 		bno055_calibration_state_t u = bno055_getCalibrationState();
 		sprintf(text, "sys: %.2f accel: %.2f gyro: %.2f mag: %.2f\r\n", u.sys, u.accel, u.gyro, u.mag);
-		HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
+		HAL_UART_Transmit(&huart2, text, strlen((char*)text), 0xFF);
 		HAL_Delay(500);
 		/* USER CODE BEGIN 3 */
 	}
@@ -271,11 +272,6 @@ static void VL53l1_test(void){
 	  }
 }
 
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
-
 /* USER CODE END 0 */
 
 /**
@@ -339,7 +335,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();
+//  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -359,7 +355,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of GetAcc */
-  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
+//  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -370,7 +366,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  osKernelStart();
+//  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -382,18 +378,17 @@ int main(void)
 	uint8_t StartMSG[] = "Starting I2C Scanning: \r\n";
 	uint8_t EndMSG[] = "Done! \r\n\r\n";
 	uint8_t i = 0, ret;
+
 	//  stemma_test();
-	//  bno_test();
+	bno_test();
 	//  VL53l1_test();
 	//  hx711_test();
-		ADC1115_test();
+	//	ADC1115_test();
 	while (1)
 	{
 
 	}
-
 }
-
 
 /**
   * @brief System Clock Configuration
@@ -407,14 +402,17 @@ void SystemClock_Config(void)
   /** Supply configuration update enable
   */
   HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
+
   /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
 
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
+
   /** Macro to configure the PLL clock source
   */
   __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSI);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -435,6 +433,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -498,6 +497,7 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 1 */
 
   /* USER CODE END ADC1_Init 1 */
+
   /** Common config
   */
   hadc1.Instance = ADC1;
@@ -519,6 +519,7 @@ static void MX_ADC1_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure the ADC multi-mode
   */
   multimode.Mode = ADC_MODE_INDEPENDENT;
@@ -526,6 +527,7 @@ static void MX_ADC1_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Regular Channel
   */
   sConfig.Channel = ADC_CHANNEL_4;
@@ -562,6 +564,7 @@ static void MX_ADC2_Init(void)
   /* USER CODE BEGIN ADC2_Init 1 */
 
   /* USER CODE END ADC2_Init 1 */
+
   /** Common config
   */
   hadc2.Instance = ADC2;
@@ -583,6 +586,7 @@ static void MX_ADC2_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Regular Channel
   */
   sConfig.Channel = ADC_CHANNEL_4;
@@ -619,10 +623,10 @@ static void MX_ADC3_Init(void)
   /* USER CODE BEGIN ADC3_Init 1 */
 
   /* USER CODE END ADC3_Init 1 */
+
   /** Common config
   */
   hadc3.Instance = ADC3;
-  hadc3.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
   hadc3.Init.Resolution = ADC_RESOLUTION_16B;
   hadc3.Init.ScanConvMode = ADC_SCAN_DISABLE;
   hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
@@ -640,6 +644,7 @@ static void MX_ADC3_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Regular Channel
   */
   sConfig.Channel = ADC_CHANNEL_10;
@@ -676,6 +681,7 @@ static void MX_DAC1_Init(void)
   /* USER CODE BEGIN DAC1_Init 1 */
 
   /* USER CODE END DAC1_Init 1 */
+
   /** DAC Initialization
   */
   hdac1.Instance = DAC1;
@@ -683,6 +689,7 @@ static void MX_DAC1_Init(void)
   {
     Error_Handler();
   }
+
   /** DAC channel OUT1 config
   */
   sConfig.DAC_SampleAndHold = DAC_SAMPLEANDHOLD_DISABLE;
@@ -694,6 +701,7 @@ static void MX_DAC1_Init(void)
   {
     Error_Handler();
   }
+
   /** DAC channel OUT2 config
   */
   if (HAL_DAC_ConfigChannel(&hdac1, &sConfig, DAC_CHANNEL_2) != HAL_OK)
@@ -727,7 +735,7 @@ static void MX_FDCAN1_Init(void)
   hfdcan1.Init.AutoRetransmission = DISABLE;
   hfdcan1.Init.TransmitPause = DISABLE;
   hfdcan1.Init.ProtocolException = DISABLE;
-  hfdcan1.Init.NominalPrescaler = 1;
+  hfdcan1.Init.NominalPrescaler = 16;
   hfdcan1.Init.NominalSyncJumpWidth = 1;
   hfdcan1.Init.NominalTimeSeg1 = 2;
   hfdcan1.Init.NominalTimeSeg2 = 2;
@@ -780,7 +788,7 @@ static void MX_FDCAN2_Init(void)
   hfdcan2.Init.AutoRetransmission = DISABLE;
   hfdcan2.Init.TransmitPause = DISABLE;
   hfdcan2.Init.ProtocolException = DISABLE;
-  hfdcan2.Init.NominalPrescaler = 1;
+  hfdcan2.Init.NominalPrescaler = 16;
   hfdcan2.Init.NominalSyncJumpWidth = 1;
   hfdcan2.Init.NominalTimeSeg1 = 2;
   hfdcan2.Init.NominalTimeSeg2 = 2;
@@ -840,12 +848,14 @@ static void MX_I2C1_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Analogue filter
   */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
+
   /** Configure Digital filter
   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
@@ -886,12 +896,14 @@ static void MX_I2C2_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Analogue filter
   */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
+
   /** Configure Digital filter
   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
@@ -932,12 +944,14 @@ static void MX_I2C4_Init(void)
   {
     Error_Handler();
   }
+
   /** Configure Analogue filter
   */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c4, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
+
   /** Configure Digital filter
   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 0) != HAL_OK)
@@ -1757,8 +1771,7 @@ static void MX_GPIO_Init(void)
                           |SPI2_CS1_Pin|SPI2_CS2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, GPIO_AUX_4_Pin|GPIO_AUX_3_Pin|GPIO_AUX_2_Pin|GPIO_AUX_1_Pin
-                          |SPI3_CS0_Pin|GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, GPIO_AUX_4_Pin|GPIO_AUX_1_Pin|SPI3_CS0_Pin|GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SPI3_CS1_GPIO_Port, SPI3_CS1_Pin, GPIO_PIN_RESET);
@@ -1780,10 +1793,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPIO_AUX_4_Pin GPIO_AUX_3_Pin GPIO_AUX_2_Pin GPIO_AUX_1_Pin
-                           SPI3_CS0_Pin PD7 */
-  GPIO_InitStruct.Pin = GPIO_AUX_4_Pin|GPIO_AUX_3_Pin|GPIO_AUX_2_Pin|GPIO_AUX_1_Pin
-                          |SPI3_CS0_Pin|GPIO_PIN_7;
+  /*Configure GPIO pins : GPIO_AUX_4_Pin GPIO_AUX_1_Pin SPI3_CS0_Pin PD7 */
+  GPIO_InitStruct.Pin = GPIO_AUX_4_Pin|GPIO_AUX_1_Pin|SPI3_CS0_Pin|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -1908,5 +1919,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

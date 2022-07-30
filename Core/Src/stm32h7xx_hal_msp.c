@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -365,6 +364,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* hfdcan)
   /* USER CODE BEGIN FDCAN1_MspInit 0 */
 
   /* USER CODE END FDCAN1_MspInit 0 */
+
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_FDCAN;
@@ -504,6 +504,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
   /* USER CODE BEGIN I2C1_MspInit 0 */
 
   /* USER CODE END I2C1_MspInit 0 */
+
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
@@ -579,17 +580,17 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
       Error_Handler();
     }
 
-    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
     /**I2C4 GPIO Configuration
-    PB8     ------> I2C4_SCL
-    PB9     ------> I2C4_SDA
+    PD12     ------> I2C4_SCL
+    PD13     ------> I2C4_SDA
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF6_I2C4;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    GPIO_InitStruct.Alternate = GPIO_AF4_I2C4;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
     /* Peripheral clock enable */
     __HAL_RCC_I2C4_CLK_ENABLE();
@@ -657,12 +658,12 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
     __HAL_RCC_I2C4_CLK_DISABLE();
 
     /**I2C4 GPIO Configuration
-    PB8     ------> I2C4_SCL
-    PB9     ------> I2C4_SDA
+    PD12     ------> I2C4_SCL
+    PD13     ------> I2C4_SDA
     */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_8);
+    HAL_GPIO_DeInit(GPIOD, GPIO_PIN_12);
 
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_9);
+    HAL_GPIO_DeInit(GPIOD, GPIO_PIN_13);
 
   /* USER CODE BEGIN I2C4_MspDeInit 1 */
 
@@ -686,6 +687,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   /* USER CODE BEGIN LPUART1_MspInit 0 */
 
   /* USER CODE END LPUART1_MspInit 0 */
+
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LPUART1;
@@ -1134,6 +1136,7 @@ void HAL_QSPI_MspInit(QSPI_HandleTypeDef* hqspi)
   /* USER CODE BEGIN QUADSPI_MspInit 0 */
 
   /* USER CODE END QUADSPI_MspInit 0 */
+
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_QSPI;
@@ -1237,6 +1240,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
   /* USER CODE BEGIN SPI1_MspInit 0 */
 
   /* USER CODE END SPI1_MspInit 0 */
+
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SPI1;
@@ -1650,5 +1654,3 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

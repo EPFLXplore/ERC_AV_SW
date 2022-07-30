@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -74,10 +73,6 @@ void Error_Handler(void);
 #define SPI2_CS2_GPIO_Port GPIOE
 #define GPIO_AUX_4_Pin GPIO_PIN_11
 #define GPIO_AUX_4_GPIO_Port GPIOD
-#define GPIO_AUX_3_Pin GPIO_PIN_12
-#define GPIO_AUX_3_GPIO_Port GPIOD
-#define GPIO_AUX_2_Pin GPIO_PIN_13
-#define GPIO_AUX_2_GPIO_Port GPIOD
 #define GPIO_AUX_1_Pin GPIO_PIN_14
 #define GPIO_AUX_1_GPIO_Port GPIOD
 #define SPI3_CS1_Pin GPIO_PIN_15
@@ -85,12 +80,10 @@ void Error_Handler(void);
 #define SPI3_CS0_Pin GPIO_PIN_4
 #define SPI3_CS0_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
-#define HX711_CLK_GPIO_Port GPIOD
-#define HX711_CLK_Pin GPIO_PIN_2
-#define HX711_DATA_GPIO_Port GPIOC
-#define HX711_DATA_Pin GPIO_PIN_9
-
-
+#define HX711_CLK_GPIO_Port GPIOA
+#define HX711_DATA_GPIO_Port GPIOA
+#define HX711_DATA_Pin 1
+#define HX711_CLK_Pin 2
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
@@ -98,5 +91,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
