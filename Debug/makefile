@@ -9,12 +9,18 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include Middlewares/FreeRTOS/subdir.mk
+-include System/RoCo/Src/subdir.mk
+-include System/Lang/subdir.mk
+-include System/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
 -include Drivers/VL53L1x/Platform/Src/subdir.mk
 -include Drivers/VL53L1x/Core/src/subdir.mk
 -include Drivers/U087/Core/Src/subdir.mk
 -include Drivers/Stemma/Core/src/subdir.mk
--include Drivers/STM32H7xx_HAL_Driver/subdir.mk
+-include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Drivers/HX711/Core/Src/subdir.mk
 -include Drivers/BNO055/Core/Src/subdir.mk
 -include Drivers/ADC1115/Core/Src/subdir.mk
@@ -57,34 +63,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := EPFL_XPLORE_AVIONICS_MCU_ROCOROS
+BUILD_ARTIFACT_NAME := EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS.elf \
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf \
 
 MAP_FILES += \
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS.map \
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS.list \
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: EPFL_XPLORE_AVIONICS_MCU_ROCOROS.elf secondary-outputs
+main-build: EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf secondary-outputs
 
 # Tool invocations
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS.map: $(OBJS) $(USER_OBJS) /home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS/STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) /home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX/STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX/STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -93,14 +99,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "EPFL_XPLORE_AVIONICS_MCU_ROCOROS.list"
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) EPFL_XPLORE_AVIONICS_MCU_ROCOROS.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS.list EPFL_XPLORE_AVIONICS_MCU_ROCOROS.map default.size.stdout
+	-$(RM) EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.list EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

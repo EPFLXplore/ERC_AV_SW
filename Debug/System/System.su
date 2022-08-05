@@ -1,0 +1,3 @@
+../System/System.cpp:13:6:void initCortex()	0	static
+../System/System.cpp:17:8:Vector bnoVectorToVector(bno055_vector_t)	64	static
+../System/System.cpp:30:6:void vApplicationStackOverflowHook()	0	static

@@ -52,6 +52,39 @@ REGISTER(ResponsePacket)
 REGISTER(ProgressPacket)
 #endif /* PROTOCOL_21W3 */
 
+#ifdef PROTOCOL_22W69
+//REGISTER(avionics_ToF)
+REGISTER(avionics_IMU_packet)
+//REGISTER(avionics_massload)
+//REGISTER(avionics_moisture)
+//REGISTER(avionics_potentiometer)
+//REGISTER(sc_caching)
+//REGISTER(sc_caching_success)
+//REGISTER(sc_trap)
+//REGISTER(sc_trap_success)
+//REGISTER(sc_LED)
+//
+//REGISTER(Power_SystemPacket)
+//REGISTER(Power_VoltagePacket)
+//REGISTER(Power_CurrentPacket)
+//
+//REGISTER(Reset_PowerSupplyPacket)
+//REGISTER(Switch_AvionicsPacket)
+//REGISTER(Switch_RamanPacket)
+//REGISTER(Switch_JetsonPacket)
+//REGISTER(Switch_LidarPacket)
+//REGISTER(Switch_EthernetPacket)
+//
+//REGISTER(FsmPacket)
+//
+//REGISTER(DataPacket)
+//REGISTER(PingPacket)
+//REGISTER(ErrorPacket)
+//REGISTER(RequestPacket)
+//REGISTER(ResponsePacket)
+//REGISTER(ProgressPacket)
+#endif /* PROTOCOL_22W69 */
+
 
 
 #endif /* PROTOCOL_PROTOCOLREGISTERS_H_ */

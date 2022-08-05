@@ -1,0 +1,3 @@
+../Core/Src/freertos.cpp:123:6:void GetAcceleration(const void*)	8	static
+../Core/Src/freertos.cpp:69:6:void vApplicationGetIdleTaskMemory(StaticTask_t**, StackType_t**, uint32_t*)	0	static
+../Core/Src/freertos.cpp:83:6:void MX_FREERTOS_Init()	40	static

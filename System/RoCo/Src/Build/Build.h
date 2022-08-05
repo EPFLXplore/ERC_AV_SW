@@ -10,7 +10,7 @@
 
 
 //#define PROTOCOL_20W18
-#define PROTOCOL_21W3
+#define PROTOCOL_22W69
 
 #define BUILD_FOR_TESTING
 

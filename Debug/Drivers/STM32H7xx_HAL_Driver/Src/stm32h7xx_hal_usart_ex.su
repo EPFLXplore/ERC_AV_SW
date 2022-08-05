@@ -1,0 +1,10 @@
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:499:13:USARTEx_SetNbDataToProcess	12	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:109:13:HAL_USARTEx_RxFifoFullCallback	0	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:124:13:HAL_USARTEx_TxFifoEmptyCallback	0	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:174:19:HAL_USARTEx_EnableSlaveMode	0	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:222:19:HAL_USARTEx_DisableSlaveMode	0	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:270:19:HAL_USARTEx_ConfigNSS	8	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:308:19:HAL_USARTEx_EnableFifoMode	16	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:349:19:HAL_USARTEx_DisableFifoMode	0	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:395:19:HAL_USARTEx_SetTxFifoThreshold	16	static
+../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c:444:19:HAL_USARTEx_SetRxFifoThreshold	16	static

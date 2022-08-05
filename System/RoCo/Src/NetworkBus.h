@@ -22,6 +22,7 @@
 class NetworkBus : public IOBus {
 public:
 	NetworkBus(IODriver* driver); // Constructor is inherited
+	virtual ~NetworkBus();
 
 private:
 	uint8_t network_frame[NETWORK_FRAME_SIZE];

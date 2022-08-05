@@ -1,4 +1,4 @@
-../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:31:14:VL53L1_get_range_status_string	24	static
-../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:80:14:VL53L1_get_pal_state_string	24	static
-../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:136:14:VL53L1_get_sequence_steps_info	24	static
-../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:191:14:VL53L1_get_limit_check_info	24	static
+../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:31:14:VL53L1_get_range_status_string	8	static
+../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:80:14:VL53L1_get_pal_state_string	8	static
+../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:136:14:VL53L1_get_sequence_steps_info	8	static
+../Drivers/VL53L1x/Core/src/vl53l1_api_strings.c:191:14:VL53L1_get_limit_check_info	8	static

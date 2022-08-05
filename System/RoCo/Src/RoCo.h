@@ -9,15 +9,13 @@
 #define ROCO_H_
 
 
-#include "Protocol/Protocol.h"
+#include "Protocol.h"
 
-#include "IOBus.h"
-#include "IODriver.h"
+#include "DataStructures.h"
 #include "MessageBus.h"
 #include "NetworkBus.h"
-#include "NetworkClientIO.h"
-#include "NetworkIO.h"
-#include "NetworkServerIO.h"
+#include "STMUARTDriver.h"
+
 
 
 #endif /* ROCO_H_ */

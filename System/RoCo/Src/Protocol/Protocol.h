@@ -10,16 +10,12 @@
 
 #define BUILD_FOR_TESTING
 
-#include "../Build/Build.h"
+#include "Build.h"
 
 
-//#ifdef PROTOCOL_20W18
-//#include "Protocol20W18.h"
-
-#ifdef PROTOCOL_21W3
-#include "Protocol21W3.h"
-
-#endif /* PROTOCOL_21W3 */
+#ifdef PROTOCOL_22W69
+#include "Protocol22W69.h"
+#endif /* PROTOCOL_22W69 */
 
 
 #endif /* PROTOCOL_PROTOCOL_H_ */

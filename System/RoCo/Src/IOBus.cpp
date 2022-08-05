@@ -7,7 +7,6 @@
 
 #include "IOBus.h"
 
-#include <iostream>
 #include <cstring>
 
 IOBus::IOBus(IODriver* driver, uint8_t* buffer, uint32_t length) {
@@ -19,6 +18,8 @@ IOBus::IOBus(IODriver* driver, uint8_t* buffer, uint32_t length) {
 	using namespace std::placeholders;
 	driver->receive(std::bind(&IOBus::receive, this, _1, _2, _3));
 }
+
+IOBus::~IOBus(){}
 
 void IOBus::receive(uint8_t sender_id, uint8_t* buffer, uint32_t length) {
 	while(length > buffer_length) {

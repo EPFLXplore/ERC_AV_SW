@@ -15,6 +15,7 @@
 class IOBus : public MessageBus {
 public:
 	IOBus(IODriver* driver, uint8_t* buffer, uint32_t length);
+	virtual ~IOBus();
 
 private:
 	IODriver* driver;
