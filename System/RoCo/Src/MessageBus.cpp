@@ -15,14 +15,15 @@
 // Template explicit instantiation
 #define REGISTER(P) 												\
 	template bool MessageBus::define<P>(uint8_t);					\
-	template bool MessageBus::handle<P>(void (*)(uint8_t, P*));		\
+	template bool MessageBus::handle<P>(std::function<void(uint8_t, P*)>);		\
 	template bool MessageBus::forward<P>(MessageBus*);				\
 	template bool MessageBus::send<P>(P*);
 
 
-#include "ProtocolRegisters.h"
+#include "Protocol/ProtocolRegisters.h"
 
 #undef REGISTER
+
 
 
 /*
@@ -90,7 +91,7 @@ template<typename T> bool MessageBus::define(uint8_t identifier) {
  *
  * Warning: this method is not thread-safe.
  */
-template<typename T> bool MessageBus::handle(void (*handler)(uint8_t, T*)) {
+template<typename T> bool MessageBus::handle(std::function<void(uint8_t, T*)> handler) {
 	size_t hash = typeid(T).hash_code();
 
 	PacketDefinition* def = retrieve(hash);
@@ -99,10 +100,13 @@ template<typename T> bool MessageBus::handle(void (*handler)(uint8_t, T*)) {
 		uint8_t packetID = def->id;
 
 		if(handlers[packetID] != nullptr) {
-			return false; // A handler is already registered for this packet type
+			handlers[packetID] = [this, packetID, &handler](uint8_t sender, void* packet) {
+				handlers[packetID](sender, (T*) packet);
+				handler(sender, (T*) packet);
+			};
+		} else {
+			handlers[packetID] = [handler](uint8_t sender, void* packet) { handler(sender, (T*) packet); };
 		}
-
-		handlers[packetID] = (void (*)(uint8_t, void*)) handler;
 
 		return true;
 	}
@@ -126,7 +130,7 @@ template<typename T> bool MessageBus::forward(MessageBus* bus) {
 		uint8_t packetID = def->id;
 
 		if(forwarders[packetID] != nullptr) {
-			return false; // A handler is already registered for this packet type
+			return false; // A forwarder is already registered for this packet type
 		}
 
 		forwarders[packetID] = bus;
@@ -151,7 +155,7 @@ template<typename T> bool MessageBus::send(T *message) {
 bool MessageBus::send(PacketDefinition* def, uint8_t* data) {
 	if(def != nullptr) {
 		uint32_t data_bytes_written = 0;
-
+//		append(&def->id, 1);
 		while(data_bytes_written < def->size) {
 			append(&def->id, 1); // Write the packet ID for each transmission frame.
 							     // This is only to facilitate the packet reconstruction and should not increment data_bytes_written.
@@ -161,10 +165,11 @@ bool MessageBus::send(PacketDefinition* def, uint8_t* data) {
 			if(new_bytes == 0) {
 				return false;
 			} else {
-				transmit();
 				data_bytes_written += new_bytes;
 			}
 		}
+
+		transmit();
 
 		return true;
 	}
@@ -178,37 +183,63 @@ bool MessageBus::send(PacketDefinition* def, uint8_t* data) {
  * Provided an external thread calls this method with a buffer to the next incoming message,
  * dispatches the message to the appropriate message handlers.
  */
-//#include "Debug/Debug.h"
 void MessageBus::receive(uint8_t sender_id, uint8_t *pointer, uint32_t length) {
 	if(length > 0) {
-		// Safe-cast verification
-		uint8_t packet_id = *pointer++;
+		ReconstructionBuffer* indexable_buffer = &reconstruction_buffers[sender_id & 0b00111111];
+		uint8_t packet_id = 0xFF;
 
+		if(indexable_buffer->index == 0) {
+			packet_id = *pointer++; // Packet ID is the first element in a frame
+			indexable_buffer->current_packet_id = packet_id;
+			indexable_buffer->index++;
+			length--;
+		} else {
+			packet_id = indexable_buffer->current_packet_id;
+		}
 
 		PacketDefinition* def = &definitions_by_id[packet_id & 0b00111111];
-		ReconstructionBuffer* indexable_buffer = &reconstruction_buffers[sender_id & 0b00111111];
 
-		if(indexable_buffer->index + length > max_packet_size) {
+		if(def->id != packet_id || indexable_buffer->index + length > max_packet_size) {
+			// Invalid packet
 			indexable_buffer->index = 0; // Corrupted packet
+			indexable_buffer->current_packet_id = 0;
+
+
+			//console.printf("Corrupted ID: %d\r\n", packet_id);
+
+			receive(sender_id, pointer, length);
+
 			return;
 		}
 
-		for(uint16_t i = 0; i < length - 1; i++) {
+		for(uint16_t i = 0; i < length; i++) {
 			indexable_buffer->buffer[indexable_buffer->index++] = *pointer++;
 		}
 
-		if(indexable_buffer->index >= def->size) {
-			// Packet is complete. Forward buffer to handler.
+		int16_t excess = indexable_buffer->index - (def->size + 1);
+
+		if(excess >= 0) {
+			// Packet is complete.
+			//console.printf("Correct ID: %d\r\n", packet_id);
 
 			if(handlers[packet_id & 0b00111111] != nullptr) {
-				handlers[packet_id & 0b00111111](sender_id, indexable_buffer->buffer);
+				handlers[packet_id & 0b00111111](sender_id, indexable_buffer->buffer + 1);
 			}
+
 
 			if(forwarders[packet_id & 0b00111111] != nullptr) {
-				forwarders[packet_id & 0b00111111]->send(def, indexable_buffer->buffer);
+				forwarders[packet_id & 0b00111111]->send(def, indexable_buffer->buffer + 1);
 			}
 
-			indexable_buffer->index = 0;
+			if(excess > 0) {
+				for(uint16_t i = 0; i < excess; i++) {
+					indexable_buffer->buffer[i] = indexable_buffer->buffer[i + (def->size + 1)];
+				}
+
+				indexable_buffer->current_packet_id = indexable_buffer->buffer[0];
+			}
+
+			indexable_buffer->index = excess;
 		}
 	}
 }
@@ -221,8 +252,7 @@ PacketDefinition* MessageBus::retrieve(size_t hash) {
 	uint32_t searchStart = searchPoint;
 
 	while(definitions_by_type[searchPoint] != nullptr) {
-		size_t temp = definitions_by_type[searchPoint]->hash;
-		if(temp == hash) {
+		if(definitions_by_type[searchPoint]->hash == hash) {
 			return definitions_by_type[searchPoint];
 		}
 

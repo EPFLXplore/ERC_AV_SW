@@ -14,6 +14,7 @@
 #include "DataStructures.h"
 #include "MessageBus.h"
 #include "NetworkBus.h"
+#include "Prober.h"
 #include "STMUARTDriver.h"
 
 

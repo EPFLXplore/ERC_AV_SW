@@ -38,13 +38,21 @@ extern UART_HandleTypeDef huart4;
 
 extern UART_HandleTypeDef huart8;
 
-extern USART_HandleTypeDef husart1;
+extern UART_HandleTypeDef huart1;
 
 extern UART_HandleTypeDef huart2;
 
-extern USART_HandleTypeDef husart3;
+extern UART_HandleTypeDef huart3;
 
-extern USART_HandleTypeDef husart6;
+extern UART_HandleTypeDef huart6;
+
+extern DMA_HandleTypeDef hdma_usart1_rx;
+
+extern DMA_HandleTypeDef hdma_usart2_rx;
+
+extern DMA_HandleTypeDef hdma_usart3_rx;
+
+extern DMA_HandleTypeDef hdma_usart6_rx;
 
 /* USER CODE BEGIN Private defines */
 
@@ -53,10 +61,10 @@ extern USART_HandleTypeDef husart6;
 void MX_LPUART1_UART_Init(void);
 void MX_UART4_Init(void);
 void MX_UART8_Init(void);
-void MX_USART1_Init(void);
+void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
-void MX_USART3_Init(void);
-void MX_USART6_Init(void);
+void MX_USART3_UART_Init(void);
+void MX_USART6_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 

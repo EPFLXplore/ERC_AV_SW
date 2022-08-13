@@ -24,6 +24,7 @@
 #include "dma.h"
 #include "fdcan.h"
 #include "i2c.h"
+#include "iwdg.h"
 #include "usart.h"
 #include "quadspi.h"
 #include "spi.h"
@@ -33,6 +34,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Protocol22W69.h"
+#include "Telemetry.h"
 #include "RoCo.h"
 /* USER CODE END Includes */
 
@@ -45,10 +47,6 @@
 /* USER CODE BEGIN PD */
 #define ROCO_BUFFER_SIZE 256
 uint8_t buffer[ROCO_BUFFER_SIZE];
-
-IODriver* telemtryDriver = new STMUARTDriver(&huart2); // Point to Huart6
-//NetworkBus* network = new IOBus((IODriver*) telemtryDriver, buffer, ROCO_BUFFER_SIZE);
-NetworkBus* true_network = new NetworkBus(telemtryDriver);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -68,6 +66,7 @@ void PeriphCommonClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 void roco_callback(uint8_t sender_id, avionics_IMU_packet* packet);
+void voltmeter_callback(uint8_t sender_id, avionics_voltmeter_packet* packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -106,14 +105,15 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_I2C4_Init();
-  MX_USART1_Init();
+  MX_USART1_UART_Init();
   MX_USART2_UART_Init();
-  MX_USART3_Init();
+  MX_USART3_UART_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
@@ -121,7 +121,7 @@ int main(void)
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_SPI4_Init();
-  MX_USART6_Init();
+  MX_USART6_UART_Init();
   MX_DAC1_Init();
   MX_LPUART1_UART_Init();
   MX_UART4_Init();
@@ -129,11 +129,12 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
-  MX_DMA_Init();
   MX_TIM4_Init();
+//  MX_IWDG1_Init();
   /* USER CODE BEGIN 2 */
-  true_network->handle(roco_callback);
 
+//    network.handle<avionics_IMU_packet>(&roco_callback);//    osDelay(50);
+//    network.handle<avionics_voltmeter_packet>(&voltmeter_callback);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -180,9 +181,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 4;
@@ -246,9 +248,26 @@ void PeriphCommonClock_Config(void)
 /* USER CODE BEGIN 4 */
 void roco_callback(uint8_t sender_id, avionics_IMU_packet* packet)
 {
-//	char text[100];
-//	sprintf(text, "acc_x: %.2f acc_y: %.2f acc_z: %.2f\r\n", packet->acceleration[0], packet->acceleration[1], packet->acceleration[2]);
-//	HAL_UART_Transmit(&huart2, (const uint8_t*)text, 100,0xFF);
+	char text[100];
+	sprintf(text, "acc_x: %.2f acc_y: %.2f acc_z: %.2f\r\n", packet->acceleration[0], packet->acceleration[1], packet->acceleration[2]);
+
+	int size = strlen(text);
+	uint8_t buf[size];
+
+	strcpy((char*)buf, text);
+	HAL_UART_Transmit(&huart2, buf, strlen((char*)buf),HAL_MAX_DELAY);
+}
+
+void voltmeter_callback(uint8_t sender_id, avionics_voltmeter_packet* packet)
+{
+	char text[100];
+	sprintf(text, "voltage: %.2f \r\n", packet->voltage);
+
+	int size = strlen(text);
+	uint8_t buf[size];
+
+	strcpy((char*)buf, text);
+	HAL_UART_Transmit(&huart2, buf, strlen((char*)buf),HAL_MAX_DELAY);
 }
 /* USER CODE END 4 */
 
@@ -260,18 +279,18 @@ void roco_callback(uint8_t sender_id, avionics_IMU_packet* packet)
   * @param  htim : TIM handle
   * @retval None
   */
-//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-//{
-//  /* USER CODE BEGIN Callback 0 */
-//
-//  /* USER CODE END Callback 0 */
-//  if (htim->Instance == TIM6) {
-//    HAL_IncTick();
-//  }
-//  /* USER CODE BEGIN Callback 1 */
-//
-//  /* USER CODE END Callback 1 */
-//}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

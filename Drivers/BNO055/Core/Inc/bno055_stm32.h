@@ -5,6 +5,8 @@
   extern "C" {
 #endif
 
+#define FREERTOS_ENABLED true
+
 #ifdef FREERTOS_ENABLED
 #include "FreeRTOS.h"
 #include "task.h"

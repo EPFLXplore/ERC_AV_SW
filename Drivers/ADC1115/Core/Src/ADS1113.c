@@ -45,9 +45,9 @@ static bool ADSbegin(ads1113_t *i2c) {
 //		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // This MUST have GPIO PA5 ready to use - ERROR I2C - Wrong address
 	if (HAL_I2C_Init(i2c->hi2c) == HAL_OK){
 		if(HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 100) == HAL_OK)
-			return true;
+			return HAL_OK;
 	}
-	return false;
+	return HAL_ERROR;
 }
 
 // Declare an ADS1115 structure
@@ -245,7 +245,7 @@ float ADSreadADC_Voltage(ads1113_t *i2c) {
 //	float coeff = i2c->full_scale/(ADS_MAX_VALUE*ADS_VOLTAGE_DIVIDER_RATIO);
 //	return ADSreadADC_Differential_0_1(i2c) * coeff;
 	float coeff = i2c->full_scale*ADS_VOLTAGE_DIVIDER_RATIO/ADS_MAX_VALUE;
-	return ADSreadADC_Differential_0_1(i2c) * coeff - ADS_VOLTAGE_DIVIDER_OFFSET;
+	return ADSreadADC_Differential_0_1(i2c) * ADS_COEFF + ADS_OFFSET;
 }
 
 /*

@@ -2,7 +2,8 @@
  * NetworkBus.cpp
  *
  *  Created on: 8 May 2020
- *      Author: Arion
+ *  Updated on : 10 Aug 2022
+ *      Authors: Arion, Yassine
  */
 
 #include "Build/Build.h"
@@ -16,40 +17,43 @@
 
 NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(network_frame)) {
 
-//	// avionics
-//	define<Avionics_BaroTempPacket>(0);
-//	define<Avionics_AccelMagPacket>(1);
-//	define<Avionics_ADCPacket>(2);
-//	define<Science_MassPacket>(3);
-//	define<Science_LedPacket>(4);
-//
-//
-//	// power supply
-//	define<Power_SystemPacket>(8);
-//	define<Power_VoltagePacket>(9);
-//	define<Power_CurrentPacket>(10);
-//
-//	define<Reset_PowerSupplyPacket>(13);
-//	define<Switch_AvionicsPacket>(14);
-//	define<Switch_RamanPacket>(15);
-//	define<Switch_JetsonPacket>(16);
-//	define<Switch_LidarPacket>(17);
-//	define<Switch_EthernetPacket>(18);
-//
-//	// finite state machine
-//	define<FsmPacket>(22);
-//
-//	// general packets
-//	define<DataPacket>(58);
-//	define<PingPacket>(59);
-//	define<ErrorPacket>(60);
-//	define<RequestPacket>(61);
-//	define<ResponsePacket>(62);
-//	define<ProgressPacket>(63);
+	//---------Avionics--------------
+	define<avionics_ToF_packet>(0);
+	define<avionics_IMU_packet>(1);
+	define<avionics_potentiometer_packet>(2);
+	define<avionics_massload_packet>(3);
+	define<avionics_moisture_packet>(4);
+	define<avionics_voltmeter_packet>(5);
+	define<sc_LED_packet>(6);
+	define<sc_trap_packet>(7);
+	define<sc_caching_packet>(8);
+	define<sc_trap_success_packet>(9);
+	define<sc_caching_success_packet>(10);
 
+	//----------Power supply----------
+	define<Power_SystemPacket>(11);
+	define<Power_VoltagePacket>(12);
+	define<Power_CurrentPacket>(13);
+	define<Reset_PowerSupplyPacket>(14);
+	define<Switch_AvionicsPacket>(15);
+	define<Switch_RamanPacket>(16);
+	define<Switch_JetsonPacket>(17);
+	define<Switch_LidarPacket>(18);
+	define<Switch_EthernetPacket>(19);
 
-	// For testing purposes :
-	define<avionics_IMU_packet>(0);
+	//---------------FSM---------------
+	define<FsmPacket>(20);
+
+	//----------General packets--------
+	define<DataPacket>(21);
+	define<PingPacket>(22);
+	define<ErrorPacket>(23);
+	define<RequestPacket>(24);
+	define<ResponsePacket>(25);
+	define<ProgressPacket>(26);
+
+	//-------------Sussy_packets------
+//	define<PollosHermanos_packet>(69);
 }
 
 NetworkBus::~NetworkBus(){};

@@ -2,7 +2,7 @@
  * system.cpp
  *
  *  Created on: Aug 1, 2022
- *      Author: ???
+ *      Author: Gus Fring
  */
 
 
@@ -11,18 +11,12 @@
 
 
 void initCortex() {
-
+//	static WatchdogThread watchdog(&hiwdg1);
+	static ProberThread prober1(&hi2c1);
+	static ProberThread prober2(&hi2c2);
+	static ProberThread prober3(&hi2c4);
 }
 
-Vector bnoVectorToVector(bno055_vector_t v) {
-	Vector vector;
-
-	vector.x = v.x;
-	vector.y = v.y;
-	vector.z = v.z;
-
-	return vector;
-}
 
 
 extern "C" {

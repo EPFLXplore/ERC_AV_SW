@@ -11,12 +11,10 @@
 
 #include "Telemetry.h"
 #include "i2c.h"
+//#include "iwdg.h"
+//#include "WatchdogThread.h"
 
 void initCortex();
-Vector bnoVectorToVector(bno055_vector_t v);
-
-
-
 
 
 #endif /* SYSTEM_H_ */

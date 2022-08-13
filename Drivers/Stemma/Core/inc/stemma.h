@@ -188,16 +188,17 @@ typedef struct {
 	float temp_C;
 
 	float moisture;
-} moist;
 
-uint8_t stemma_init(moist *dev, I2C_HandleTypeDef *i2cHandle);
+} moist_meter;
 
-HAL_StatusTypeDef stemma_ReadTemp(moist *dev);
-HAL_StatusTypeDef stemma_ReadMoisture(moist *dev, uint8_t pin);
+uint8_t stemma_init(moist_meter *dev, I2C_HandleTypeDef *i2cHandle);
 
-HAL_StatusTypeDef stemma_ReadRegister(moist *dev, uint8_t reg, uint8_t *data );
-HAL_StatusTypeDef stemma_ReadRegisters(moist *dev, uint8_t reg, uint8_t *data, uint8_t length);
-HAL_StatusTypeDef stemma_WriteRegister(moist *dev, uint8_t reg, uint8_t *data);
-HAL_StatusTypeDef sw_reset(moist *dev);
+HAL_StatusTypeDef stemma_ReadTemp(moist_meter *dev);
+HAL_StatusTypeDef stemma_ReadMoisture(moist_meter *dev, uint8_t pin);
+
+HAL_StatusTypeDef stemma_ReadRegister(moist_meter *dev, uint8_t reg, uint8_t *data );
+HAL_StatusTypeDef stemma_ReadRegisters(moist_meter *dev, uint8_t reg, uint8_t *data, uint8_t length);
+HAL_StatusTypeDef stemma_WriteRegister(moist_meter *dev, uint8_t reg, uint8_t *data);
+HAL_StatusTypeDef sw_reset(moist_meter *dev);
 
 #endif

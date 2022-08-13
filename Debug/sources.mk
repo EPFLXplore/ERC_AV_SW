@@ -38,7 +38,6 @@ Drivers/BNO055/Core/Src \
 Drivers/HX711/Core/Src \
 Drivers/STM32H7xx_HAL_Driver/Src \
 Drivers/Stemma/Core/src \
-Drivers/U087/Core/Src \
 Drivers/VL53L1x/Core/src \
 Drivers/VL53L1x/Platform/Src \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
@@ -46,6 +45,8 @@ Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
 System/Lang \
+System/Misc \
 System/RoCo/Src \
+System/Sensors \
 System \
 

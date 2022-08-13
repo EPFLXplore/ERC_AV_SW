@@ -1,6 +1,6 @@
-#include "../../../BNO055/Core/Inc/bno055_stm32.h"
+#include "bno055_stm32.h"
 
-#include "../../../BNO055/Core/Inc/bno055.h"
+#include "bno055.h"
 
 I2C_HandleTypeDef *_bno055_i2c_port;
 

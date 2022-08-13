@@ -10,6 +10,7 @@
 
 
 #include "Thread.h"
+#include "Prober.h"
 #include "DataStructures.h"
 
 #include "bno055_stm32.h"

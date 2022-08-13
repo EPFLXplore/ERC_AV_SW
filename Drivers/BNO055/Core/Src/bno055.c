@@ -1,4 +1,4 @@
-#include "../../../BNO055/Core/Inc/bno055.h"
+#include "bno055.h"
 
 #include "stm32h7xx_hal.h"
 #include <string.h>

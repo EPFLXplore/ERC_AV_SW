@@ -9,7 +9,9 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include System/Sensors/subdir.mk
 -include System/RoCo/Src/subdir.mk
+-include System/Misc/subdir.mk
 -include System/Lang/subdir.mk
 -include System/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
@@ -18,7 +20,6 @@ RM := rm -rf
 -include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
 -include Drivers/VL53L1x/Platform/Src/subdir.mk
 -include Drivers/VL53L1x/Core/src/subdir.mk
--include Drivers/U087/Core/Src/subdir.mk
 -include Drivers/Stemma/Core/src/subdir.mk
 -include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Drivers/HX711/Core/Src/subdir.mk
@@ -89,8 +90,8 @@ all: main-build
 main-build: EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf secondary-outputs
 
 # Tool invocations
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) /home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX/STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/avm/STM32CubeIDE/workspace_1.10.1/EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX/STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) H:\My\ Drive\EPFL\EPFL\ Xplore\AV_Soft\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"H:\My Drive\EPFL\EPFL Xplore\AV_Soft\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
