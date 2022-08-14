@@ -67,20 +67,52 @@ struct IMUData {
 	}
 };
 
+struct TOFData {
+	float distance;
+
+	char* toString(char* buffer) {
+		static char buf[32];
+		sprintf(buffer, "Tof(mm): %f", distance);
+		return buffer;
+	}
+
+	uint8_t* toArray(uint8_t* buffer){
+		*(float*)(buffer) = distance;
+		return buffer;
+	}
+};
+
 
 struct ScienceData {
 	float moisture;
 
 	char* toString(char* buffer) {
+		static char buf[32];
 		sprintf(buffer, "Moisture(-): %f", moisture);
 		return buffer;
 	}
 
 	uint8_t* toArray(uint8_t* buffer){
 		*(float*)(buffer) = moisture;
+
 		return buffer;
 	}
 };
+
+struct MassData {
+    float mass;
+    char* toString(char* buffer) {
+        static char buf[32];
+        sprintf(buffer, "Mass: %f", mass);
+        return buffer;
+    }
+
+    uint8_t* toArray(uint8_t* buffer){
+        *(float*)(buffer) = mass;
+        return buffer;
+    }
+};
+
 
 struct VoltmeterData {
 	float voltage;
