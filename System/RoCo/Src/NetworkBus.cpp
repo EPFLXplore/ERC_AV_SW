@@ -20,7 +20,7 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	//---------Avionics--------------
 	define<avionics_ToF_packet>(0);
 	define<avionics_IMU_packet>(1);
-	define<avionics_potentiometer_packet>(2);
+//	define<avionics_potentiometer_packet>(2);
 	define<avionics_massload_packet>(3);
 	define<avionics_moisture_packet>(4);
 	define<avionics_voltmeter_packet>(5);

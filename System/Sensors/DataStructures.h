@@ -16,7 +16,7 @@ struct Vector {
 	float z;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "[%f %f %f]", x, y, z);
+		//sprintf(buffer, "[%f %f %f]", x, y, z);
 		return buffer;
 	}
 
@@ -36,7 +36,7 @@ struct Vector {
 //
 //	char* toString(char* buffer) {
 //		static char buf[96];
-//		sprintf(buffer, "Acc: %s, Ang: %s, Mag: %s", accel.toString(buf), gyro.toString(buf + 32), mag.toString(buf + 64));
+//		//sprintf(buffer, "Acc: %s, Ang: %s, Mag: %s", accel.toString(buf), gyro.toString(buf + 32), mag.toString(buf + 64));
 //		return buffer;
 //	}
 //
@@ -55,7 +55,7 @@ struct IMUData {
 
 	char* toString(char* buffer) {
 		static char buf[32];
-		sprintf(buffer, "Acc: %s, Gyro: %s, Mag: %s", accel.toString(buf), gyro.toString(buf), mag.toString(buf));
+		//sprintf(buffer, "Acc: %s, Gyro: %s, Mag: %s", accel.toString(buf), gyro.toString(buf), mag.toString(buf));
 		return buffer;
 	}
 
@@ -72,7 +72,7 @@ struct TOFData {
 
 	char* toString(char* buffer) {
 		static char buf[32];
-		sprintf(buffer, "Tof(mm): %f", distance);
+		//sprintf(buffer, "Tof(mm): %f", distance);
 		return buffer;
 	}
 
@@ -88,7 +88,7 @@ struct ScienceData {
 
 	char* toString(char* buffer) {
 		static char buf[32];
-		sprintf(buffer, "Moisture(-): %f", moisture);
+		//sprintf(buffer, "Moisture(-): %f", moisture);
 		return buffer;
 	}
 
@@ -103,7 +103,7 @@ struct MassData {
     float mass;
     char* toString(char* buffer) {
         static char buf[32];
-        sprintf(buffer, "Mass: %f", mass);
+        //sprintf(buffer, "Mass: %f", mass);
         return buffer;
     }
 
@@ -118,7 +118,7 @@ struct VoltmeterData {
 	float voltage;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Voltage(V): %f", voltage);
+		//sprintf(buffer, "Voltage(V): %f", voltage);
 		return buffer;
 	}
 
@@ -132,7 +132,7 @@ struct VoltmeterData {
 //	float mass;
 //
 //	char* toString(char* buffer) {
-//		sprintf(buffer, "Mass(g): %f", mass);
+//		//sprintf(buffer, "Mass(g): %f", mass);
 //		return buffer;
 //	}
 //
@@ -147,7 +147,7 @@ struct VoltmeterData {
 //	float voltage;
 //
 //	char* toString(char* buffer) {
-//		sprintf(buffer, "[i2c%d] Voltage(V): %f", portNum, voltage);
+//		//sprintf(buffer, "[i2c%d] Voltage(V): %f", portNum, voltage);
 //		return buffer;
 //	}
 //

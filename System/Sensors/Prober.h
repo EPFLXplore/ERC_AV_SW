@@ -12,6 +12,7 @@
 #include <FreeRTOS.h>
 #include <stdio.h>
 #include <string.h>
+#include "semphr.h"
 
 class ProberThread : Thread {
 public:
@@ -24,7 +25,7 @@ public:
 
 private:
 	I2C_HandleTypeDef* hi2c;
-	SemaphoreHandle_t semaphore;
+	xSemaphoreHandle semaphore;
 	Thread* instance;
 	uint8_t i2cNum;
 	uint8_t checkI2CPort(I2C_HandleTypeDef* hi2c);

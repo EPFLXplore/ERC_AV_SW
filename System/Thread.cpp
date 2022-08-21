@@ -15,11 +15,11 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define DEFAULT_STACK_SIZE (512) // Danger zone: changing the stack size might create very nasty bugs
+#define DEFAULT_STACK_SIZE (1024) // Danger zone: changing the stack size might create very nasty bugs
 
 static char buffer[128];
 
-void __task_run(const void* arg) {
+void __task_run(void* arg) {
 	Thread* thread = (Thread*) arg;
 
 	osDelay(100 / portTICK_PERIOD_MS);
@@ -53,8 +53,14 @@ Thread::Thread(const char* name, uint32_t stackSize) : Thread(name, (osPriority)
 }
 
 Thread::Thread(const char* name, osPriority priority, uint32_t stackSize) {
-	osThreadDef_t thread = { (char*) name, &__task_run, priority, 0, stackSize};
-	this->handle = osThreadCreate(&thread, this);
+//	osThreadDef_t thread = { (char*) name, &__task_run, priority, 0, stackSize};
+	const osThreadAttr_t thread_attributes = {
+	  .name = (char*) name,
+	  .stack_size = stackSize,
+	  .priority = (osPriority_t) priority,
+	};
+	this->handle = (osThreadId) osThreadNew(&__task_run, this, &thread_attributes);
+//	this->handle = osThreadCreate(&thread, this);
 	this->name = name;
 }
 

@@ -50,7 +50,13 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId GetAccHandle;
+/* Definitions for GetAcc */
+osThreadId_t GetAccHandle;
+const osThreadAttr_t GetAcc_attributes = {
+  .name = "GetAcc",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -59,7 +65,7 @@ osThreadId GetAccHandle;
 //static NetworkBus true_network(&telemtryDriver);
 /* USER CODE END FunctionPrototypes */
 
-void GetAcceleration(void const * argument);
+void GetAcceleration(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -90,13 +96,16 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of GetAcc */
-//  osThreadDef(GetAcc, GetAcceleration, osPriorityNormal, 0, 256);
-//  GetAccHandle = osThreadCreate(osThread(GetAcc), NULL);
+  /* creation of GetAcc */
+  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   initCortex();
   /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
 
 }
 
@@ -107,7 +116,7 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_GetAcceleration */
-void GetAcceleration(void const * argument)
+void GetAcceleration(void *argument)
 {
   /* USER CODE BEGIN GetAcceleration */
   /* Infinite loop */
@@ -122,3 +131,4 @@ void GetAcceleration(void const * argument)
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
+

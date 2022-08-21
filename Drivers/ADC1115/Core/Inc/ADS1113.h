@@ -152,6 +152,17 @@ typedef struct {
 } ads1113_t;
 
 bool ADS1113_init(ads1113_t* i2c, I2C_HandleTypeDef* hi2c, uint8_t i2cAddress);
+
+// Write the register
+bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value);
+
+// Read the register
+uint16_t readRegister(ads1113_t *i2c, uint8_t reg);
+
+// Check if we have correct connection.
+bool ADSbegin(ads1113_t *i2c);
+
+
 uint16_t ADSreadADC_SingleEnded(ads1113_t* i2c, uint8_t channel);
 float ADSreadADC_Voltage(ads1113_t *i2c);
 int16_t  ADSreadADC_Differential_0_1(ads1113_t* i2c);

@@ -17,7 +17,7 @@ void ads_delay(int time){
 /*============================================================================*/
 
 // Write the register
-static bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value) {
+bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value) {
 //	uint8_t pData[3] = { reg, (uint8_t) (value >> 8), (uint8_t) (value & 0xFF) };
 //	HAL_I2C_Master_Transmit(i2c->hi2c, i2c->m_i2cAddress, pData, 3, 10);
 	uint8_t pData[2];
@@ -32,7 +32,7 @@ static bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value) {
 }
 
 // Read the register
-static uint16_t readRegister(ads1113_t *i2c, uint8_t reg) {
+uint16_t readRegister(ads1113_t *i2c, uint8_t reg) {
 	HAL_I2C_Master_Transmit(i2c->hi2c, i2c->m_i2cAddress, &reg, 1, 10);
 	uint8_t pData[2] = { 0, 0 };
 	HAL_I2C_Master_Receive(i2c->hi2c, i2c->m_i2cAddress, pData, 2, 10);
@@ -40,7 +40,7 @@ static uint16_t readRegister(ads1113_t *i2c, uint8_t reg) {
 }
 
 // Check if we have correct connection.
-static bool ADSbegin(ads1113_t *i2c) {
+bool ADSbegin(ads1113_t *i2c) {
 //	if (HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 10) != HAL_OK)
 //		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // This MUST have GPIO PA5 ready to use - ERROR I2C - Wrong address
 	if (HAL_I2C_Init(i2c->hi2c) == HAL_OK){

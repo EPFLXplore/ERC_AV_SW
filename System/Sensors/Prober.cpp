@@ -13,8 +13,6 @@
 #include "TOF_thread.h"
 #include "Voltmeter_thread.h"
 #include "HX711_thread.h"
-//#include "ADC24.h"
-//#include "ADC16.h"
 
 #include "i2c.h"
 
@@ -29,7 +27,7 @@ void ProberThread::init() {
 bool ProberThread::probeI2C(uint8_t address) {
 	return HAL_I2C_IsDeviceReady(hi2c, address << 1, 3, 100) == HAL_OK;
 }
-
+//
 bool ProberThread::probeDB() {
 	struct HX711 hx711a;
 	struct HX711 hx711b;
@@ -91,7 +89,7 @@ void ProberThread::loop() {
 void ProberThread::resetProber() {
 	xSemaphoreGive(semaphore);
 }
-
+//
 Thread* ProberThread::instantiateHX711(){
 	switch(getI2CNum()){
 	case 1:

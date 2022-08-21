@@ -22,11 +22,11 @@
 #include "adc.h"
 #include "dac.h"
 #include "dma.h"
-#include "fdcan.h"
+//#include "fdcan.h"
 #include "i2c.h"
 #include "iwdg.h"
 #include "usart.h"
-#include "quadspi.h"
+//#include "quadspi.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
@@ -35,7 +35,7 @@
 /* USER CODE BEGIN Includes */
 #include "Protocol22W69.h"
 #include "Telemetry.h"
-#include "RoCo.h"
+//#include "RoCo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,13 +65,20 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-void roco_callback(uint8_t sender_id, avionics_IMU_packet* packet);
-void voltmeter_callback(uint8_t sender_id, avionics_voltmeter_packet* packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+//void Thread1(void const * argument)
+//{
+//  /* USER CODE BEGIN GetAcceleration */
+//  /* Infinite loop */
+//  for(;;)
+//  {
+//    osDelay(1);
+//  }
+//  /* USER CODE END GetAcceleration */
+//}
 /* USER CODE END 0 */
 
 /**
@@ -106,8 +113,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_FDCAN1_Init();
-  MX_FDCAN2_Init();
+//  MX_FDCAN1_Init();
+//  MX_FDCAN2_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_I2C4_Init();
@@ -117,7 +124,7 @@ int main(void)
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
-  MX_QUADSPI_Init();
+//  MX_QUADSPI_Init();
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_SPI4_Init();
@@ -129,15 +136,17 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
-  MX_TIM4_Init();
-//  MX_IWDG1_Init();
-  /* USER CODE BEGIN 2 */
 
-//    network.handle<avionics_IMU_packet>(&roco_callback);//    osDelay(50);
-//    network.handle<avionics_voltmeter_packet>(&voltmeter_callback);
+  MX_TIM4_Init();
+
+//  UART3_network.forward<avionics_voltmeter_packet>(&UART2_network);
+  MX_IWDG1_Init();
+  /* USER CODE BEGIN 2 */
+//  osStatus cbt = osKernelInitializ e();
   /* USER CODE END 2 */
 
-  /* Call init function for freertos objects (in freertos.c) */
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
@@ -246,29 +255,7 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void roco_callback(uint8_t sender_id, avionics_IMU_packet* packet)
-{
-	char text[100];
-	sprintf(text, "acc_x: %.2f acc_y: %.2f acc_z: %.2f\r\n", packet->acceleration[0], packet->acceleration[1], packet->acceleration[2]);
 
-	int size = strlen(text);
-	uint8_t buf[size];
-
-	strcpy((char*)buf, text);
-	HAL_UART_Transmit(&huart2, buf, strlen((char*)buf),HAL_MAX_DELAY);
-}
-
-void voltmeter_callback(uint8_t sender_id, avionics_voltmeter_packet* packet)
-{
-	char text[100];
-	sprintf(text, "voltage: %.2f \r\n", packet->voltage);
-
-	int size = strlen(text);
-	uint8_t buf[size];
-
-	strcpy((char*)buf, text);
-	HAL_UART_Transmit(&huart2, buf, strlen((char*)buf),HAL_MAX_DELAY);
-}
 /* USER CODE END 4 */
 
 /**

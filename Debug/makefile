@@ -16,7 +16,7 @@ RM := rm -rf
 -include System/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
--include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/subdir.mk
+-include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
 -include Drivers/VL53L1x/Platform/Src/subdir.mk
 -include Drivers/VL53L1x/Core/src/subdir.mk
@@ -25,6 +25,7 @@ RM := rm -rf
 -include Drivers/HX711/Core/Src/subdir.mk
 -include Drivers/BNO055/Core/Src/subdir.mk
 -include Drivers/ADC1115/Core/Src/subdir.mk
+-include Core/ThreadSafe/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
@@ -91,7 +92,7 @@ main-build: EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf secondary-outputs
 
 # Tool invocations
 EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) H:\My\ Drive\EPFL\EPFL\ Xplore\AV_Soft\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"H:\My Drive\EPFL\EPFL Xplore\AV_Soft\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"H:\My Drive\EPFL\EPFL Xplore\AV_Soft\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -Wl,--verbose -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

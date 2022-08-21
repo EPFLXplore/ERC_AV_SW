@@ -12,6 +12,7 @@
 #include "task.h"
 #include "cmsis_os.h"
 #include "stm32h7xx_hal.h"
+#include "semphr.h"
 
 class Thread {
 public:
@@ -34,6 +35,7 @@ private:
 	const char* name;
 	bool running = true;
 	void task();
+	osThreadAttr_t thread_attributes;
 };
 
 

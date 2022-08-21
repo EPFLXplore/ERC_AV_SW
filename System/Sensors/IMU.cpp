@@ -9,6 +9,8 @@
 
 #include "Telemetry.h"
 
+#include "i2c.h"
+
 
 //static char cbuf[256];
 
@@ -30,6 +32,7 @@ void IMUThread::init() {
 static IMUData data;
 static avionics_IMU_packet packet;
 void IMUThread::loop() {
+
 	data.accel = bnoVectorToVector(bno055_getVectorAccelerometer());
 	data.gyro = bnoVectorToVector(bno055_getVectorGyroscope());
 	data.mag = bnoVectorToVector(bno055_getVectorMagnetometer());
@@ -37,7 +40,7 @@ void IMUThread::loop() {
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 //		println("[i2c%d] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
-		network.send(&packet);
+		UART2_network.send(&packet);
 		portYIELD();
 	} else {
 //		println("[i2c%d] BNO055 disconnected", portNum);
