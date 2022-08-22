@@ -6,12 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
+  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -23,12 +24,10 @@
 #include "main.h"
 #include "cmsis_os.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "System.h"
-//#include "i2c.h"
-//#include "usart.h"
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,18 +50,16 @@
 
 /* USER CODE END Variables */
 /* Definitions for GetAcc */
-osThreadId_t GetAccHandle;
-const osThreadAttr_t GetAcc_attributes = {
-  .name = "GetAcc",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
+//osThreadId_t GetAccHandle;
+//const osThreadAttr_t GetAcc_attributes = {
+//  .name = "GetAcc",
+//  .stack_size = 128 * 4,
+//  .priority = (osPriority_t) osPriorityNormal,
+//};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-//static STMUARTDriver telemtryDriver(&huart2); // Point to Huart6
-////NetworkBus* network = new IOBus((IODriver*) telemtryDriver, buffer, ROCO_BUFFER_SIZE);
-//static NetworkBus true_network(&telemtryDriver);
+
 /* USER CODE END FunctionPrototypes */
 
 void GetAcceleration(void *argument);
@@ -97,10 +94,11 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of GetAcc */
-  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
+//  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   initCortex();
+  /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -116,16 +114,16 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_GetAcceleration */
-void GetAcceleration(void *argument)
-{
-  /* USER CODE BEGIN GetAcceleration */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END GetAcceleration */
-}
+//void GetAcceleration(void *argument)
+//{
+//  /* USER CODE BEGIN GetAcceleration */
+//  /* Infinite loop */
+//  for(;;)
+//  {
+//    osDelay(1);
+//  }
+//  /* USER CODE END GetAcceleration */
+//}
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

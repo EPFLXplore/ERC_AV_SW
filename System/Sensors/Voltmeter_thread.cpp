@@ -32,7 +32,7 @@ void VoltmeterThread::loop() {
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 //		println("[i2c%d] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
-		UART3_network.send(&packet);
+		network.send(&packet);
 		portYIELD();
 	} else {
 //		println("[i2c%d] BNO055 disconnected", portNum);

@@ -2,7 +2,7 @@
  * System.h
  *
  *  Created on: Aug 1, 2022
- *      Author: Walter Hartwell White
+ *      Author: ???
  */
 
 #ifndef SYSTEM_H_

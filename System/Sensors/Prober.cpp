@@ -13,6 +13,8 @@
 #include "TOF_thread.h"
 #include "Voltmeter_thread.h"
 #include "HX711_thread.h"
+//#include "ADC24.h"
+//#include "ADC16.h"
 
 #include "i2c.h"
 
@@ -27,38 +29,39 @@ void ProberThread::init() {
 bool ProberThread::probeI2C(uint8_t address) {
 	return HAL_I2C_IsDeviceReady(hi2c, address << 1, 3, 100) == HAL_OK;
 }
-//
+
 bool ProberThread::probeDB() {
-	struct HX711 hx711a;
-	struct HX711 hx711b;
-	if(i2cNum == 1){
-		hx711a = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
-		hx711b = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
-	}
-	else if(i2cNum == 2)
-	{
-		hx711a = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
-		hx711b = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
-	}
-	else if(i2cNum == 3)
-	{
-		hx711a = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-	    hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-	}
-	else if(i2cNum == 4)
-	{
-		hx711a = {GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15};
-		hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-	}
-	else
-		return false;
-	HX711_init(hx711a);
-	HX711_init(hx711b);
-	return HX711_checkReadiness(hx711a) && HX711_checkReadiness(hx711b);
+//	struct HX711 hx711a;
+//	struct HX711 hx711b;
+//	if(i2cNum == 1){
+//		hx711a = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
+//		hx711b = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
+//	}
+//	else if(i2cNum == 2)
+//	{
+//		hx711a = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
+//		hx711b = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
+//	}
+//	else if(i2cNum == 3)
+//	{
+//		hx711a = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
+//	    hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
+//	}
+//	else if(i2cNum == 4)
+//	{
+//		hx711a = {GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15};
+//		hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
+//	}
+//	else
+//		return false;
+//	HX711_init(hx711a);
+//	HX711_init(hx711b);
+//	return HX711_checkReadiness(hx711a) && HX711_checkReadiness(hx711b);
 }
 
 void ProberThread::loop() {
 	if(probeI2C(BNO055_I2C_ADDR)) {
+//	if(true) {
 //		println("[i2c%u] Accelerometer detected", getI2CNum());
 		this->instance = new IMUThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
@@ -89,7 +92,7 @@ void ProberThread::loop() {
 void ProberThread::resetProber() {
 	xSemaphoreGive(semaphore);
 }
-//
+
 Thread* ProberThread::instantiateHX711(){
 	switch(getI2CNum()){
 	case 1:

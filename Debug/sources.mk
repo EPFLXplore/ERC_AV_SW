@@ -33,7 +33,6 @@ CPP_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
-Core/ThreadSafe \
 Drivers/ADC1115/Core/Src \
 Drivers/BNO055/Core/Src \
 Drivers/HX711/Core/Src \
@@ -46,7 +45,6 @@ Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
 System/Lang \
-System/Misc \
 System/RoCo/Src \
 System/Sensors \
 System \

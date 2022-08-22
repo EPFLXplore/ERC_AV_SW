@@ -12,7 +12,6 @@
 #include <FreeRTOS.h>
 #include <stdio.h>
 #include <string.h>
-#include "semphr.h"
 
 class ProberThread : Thread {
 public:

@@ -15,17 +15,9 @@
 
 //----------Avionics----------
 
-// Handling device
-
 struct avionics_ToF_packet {
   float distance;					//[mm]
 } __attribute__((packed));
-
-struct avionics_voltmeter_packet {
-	float voltage;					//[V]
-} __attribute__((packed));
-
-// Navigation
 
 struct avionics_IMU_packet {
   float acceleration[3];			//[m/s^2]
@@ -34,11 +26,9 @@ struct avionics_IMU_packet {
 //  float quaternion[3];
 } __attribute__((packed));
 
-//struct avionics_potentiometer_packet {
-//  float voltage;					//[V]
-//} __attribute__((packed));
-
-// Science
+struct avionics_potentiometer_packet {
+  float voltage;					//[V]
+} __attribute__((packed));
 
 struct avionics_massload_packet {
   float mass;						//[g]
@@ -48,7 +38,9 @@ struct avionics_moisture_packet {
   float moisture;					//[%]
 } __attribute__((packed));
 
-
+struct avionics_voltmeter_packet {
+	float voltage;					//[V]
+} __attribute__((packed));
 
 struct sc_LED_packet {
 	bool on;

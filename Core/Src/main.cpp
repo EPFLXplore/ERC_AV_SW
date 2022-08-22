@@ -6,12 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
+  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -24,7 +25,6 @@
 #include "dma.h"
 //#include "fdcan.h"
 #include "i2c.h"
-#include "iwdg.h"
 #include "usart.h"
 //#include "quadspi.h"
 #include "spi.h"
@@ -33,9 +33,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Protocol22W69.h"
-#include "Telemetry.h"
-//#include "RoCo.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,8 +43,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ROCO_BUFFER_SIZE 256
-uint8_t buffer[ROCO_BUFFER_SIZE];
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,20 +61,24 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//void Thread1(void const * argument)
-//{
-//  /* USER CODE BEGIN GetAcceleration */
-//  /* Infinite loop */
-//  for(;;)
-//  {
-//    osDelay(1);
-//  }
-//  /* USER CODE END GetAcceleration */
-//}
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+
 /* USER CODE END 0 */
 
 /**
@@ -111,8 +111,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
   MX_DMA_Init();
+  MX_GPIO_Init();
+
 //  MX_FDCAN1_Init();
 //  MX_FDCAN2_Init();
   MX_I2C1_Init();
@@ -131,18 +132,14 @@ int main(void)
   MX_USART6_UART_Init();
   MX_DAC1_Init();
   MX_LPUART1_UART_Init();
-  MX_UART4_Init();
-  MX_UART8_Init();
+//  MX_UART4_Init();
+//  MX_UART8_Init();
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
-
   MX_TIM4_Init();
-
-//  UART3_network.forward<avionics_voltmeter_packet>(&UART2_network);
-  MX_IWDG1_Init();
   /* USER CODE BEGIN 2 */
-//  osStatus cbt = osKernelInitializ e();
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -155,8 +152,21 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	while(1)
+	{
+//	  status = stemma_ReadTemp(&stemma);
+////	  if (status == HAL_OK){
+//		  sprintf(text, "Temperature is : %.2f \r\n", stemma.temp_C);
+////	  }
+////	  sprintf(text, "Could not get Temperature \r\n");
+//	  HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
+//	  status = stemma_ReadMoisture(&stemma, 0);
+////	  if (status == HAL_OK){
+//		  sprintf(text, "Moisture is : %.2f \r\n", stemma.moisture);
+////	  }
+////	  sprintf(text, "Could not get Moisture \r\n");
+//	  HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
+//	  HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -190,10 +200,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 4;
