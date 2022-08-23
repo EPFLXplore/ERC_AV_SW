@@ -65,10 +65,12 @@ void ProberThread::loop() {
 //		println("[i2c%u] Accelerometer detected", getI2CNum());
 		this->instance = new IMUThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
-	} else if(probeI2C(ADS_ADDR_GND)) {
-//		println("[i2c%u] Voltmeter detected", getI2CNum());
+	} else if(true) {
+		bool status = probeI2C(ADS_ADDR_GND); // writing this in the else if statement doesn't work for some reason
+		if (status) {
+////		println("[i2c%u] Voltmeter detected", getI2CNum());
 		this->instance = new VoltmeterThread(this);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
+		xSemaphoreTake(semaphore, portMAX_DELAY);}
 	} else if(probeDB()) {
 //		println("[i2c%u] Mass sensor detected", getI2CNum());
 		this->instance = instantiateHX711();
@@ -82,7 +84,7 @@ void ProberThread::loop() {
 		this->instance = new TOFThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
-		vTaskDelay(100 / portTICK_PERIOD_MS);
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
 
 	HAL_I2C_DeInit(hi2c);

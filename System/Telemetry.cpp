@@ -19,7 +19,7 @@ STMUARTDriver UART3_driver(&huart3);
 STMUARTDriver UART6_driver(&huart6);
 //
 NetworkBus UART1_network(&UART1_driver);
-//NetworkBus UART2_network(&UART2_driver);
+NetworkBus UART6_network(&UART6_driver);
 NetworkBus UART3_network(&UART3_driver);
 //NetworkBus network(&UART6_driver);
 NetworkBus network(&UART2_driver);

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -23,7 +22,6 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
-
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -62,7 +60,7 @@
 
 /* USER CODE END FunctionPrototypes */
 
-void GetAcceleration(void *argument);
+//void GetAcceleration(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -95,9 +93,8 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of GetAcc */
 //  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
-
-  /* USER CODE BEGIN RTOS_THREADS */
   initCortex();
+  /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -23,10 +22,8 @@
 #include "adc.h"
 #include "dac.h"
 #include "dma.h"
-//#include "fdcan.h"
 #include "i2c.h"
 #include "usart.h"
-//#include "quadspi.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
@@ -67,18 +64,6 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
-
 /* USER CODE END 0 */
 
 /**
@@ -111,11 +96,7 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_DMA_Init();
   MX_GPIO_Init();
-
-//  MX_FDCAN1_Init();
-//  MX_FDCAN2_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_I2C4_Init();
@@ -125,18 +106,16 @@ int main(void)
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
-//  MX_QUADSPI_Init();
-  MX_SPI1_Init();
   MX_SPI2_Init();
   MX_SPI4_Init();
   MX_USART6_UART_Init();
   MX_DAC1_Init();
   MX_LPUART1_UART_Init();
-//  MX_UART4_Init();
-//  MX_UART8_Init();
-  MX_TIM1_Init();
+  MX_UART4_Init();
+  MX_UART8_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
+  MX_DMA_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
@@ -152,21 +131,8 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	while(1)
-	{
-//	  status = stemma_ReadTemp(&stemma);
-////	  if (status == HAL_OK){
-//		  sprintf(text, "Temperature is : %.2f \r\n", stemma.temp_C);
-////	  }
-////	  sprintf(text, "Could not get Temperature \r\n");
-//	  HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
-//	  status = stemma_ReadMoisture(&stemma, 0);
-////	  if (status == HAL_OK){
-//		  sprintf(text, "Moisture is : %.2f \r\n", stemma.moisture);
-////	  }
-////	  sprintf(text, "Could not get Moisture \r\n");
-//	  HAL_UART_Transmit(&huart4, text, strlen((char*)text), 0xFF);
-//	  HAL_Delay(500);
+  while (1)
+  {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

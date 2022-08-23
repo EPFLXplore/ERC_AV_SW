@@ -21,7 +21,7 @@ extern STMUARTDriver UART3_driver;
 extern STMUARTDriver UART6_driver;
 
 extern NetworkBus UART1_network;
-extern NetworkBus UART2_network;
+extern NetworkBus UART6_network;
 extern NetworkBus UART3_network;
 extern NetworkBus network;
 
