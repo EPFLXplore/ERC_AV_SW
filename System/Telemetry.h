@@ -25,6 +25,10 @@ extern NetworkBus UART6_network;
 extern NetworkBus UART3_network;
 extern NetworkBus network;
 
+void setupTelemetry();
+
+
+
 //#if defined(BUILD_FOR_HANDLING_DEVICE)
 //	extern STMUARTDriver NAV_driver;
 //	extern NetworkBus HD_NAV_network;

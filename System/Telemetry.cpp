@@ -15,14 +15,16 @@
 
 STMUARTDriver UART1_driver(&huart1);
 STMUARTDriver UART2_driver(&huart2);
-STMUARTDriver UART3_driver(&huart3);
-STMUARTDriver UART6_driver(&huart6);
+//STMUARTDriver UART3_driver(&huart3);
+//STMUARTDriver UART6_driver(&huart6);
 //
 NetworkBus UART1_network(&UART1_driver);
-NetworkBus UART6_network(&UART6_driver);
-NetworkBus UART3_network(&UART3_driver);
+//NetworkBus UART6_network(&UART6_driver);
+//NetworkBus UART3_network(&UART3_driver);
 //NetworkBus network(&UART6_driver);
 NetworkBus network(&UART2_driver);
+
+void handle_led(uint8_t sender_id, sc_LED_packet* packet);
 
 //#if defined(BUILD_FOR_HANDLING_DEVICE)
 //	STMUARTDriver drivers(&huart6);
@@ -54,6 +56,14 @@ NetworkBus network(&UART2_driver);
 
 //NetworkBus network(&telemtryDriver);
 
-void setupTelemtry() {
+void setupTelemetry() {
 //	network.forward<PingPacket>(&network);
+	network.forward<sc_LED_packet>(&UART1_network);
+}
+
+void handle_led(uint8_t sender_id, sc_LED_packet* packet) {
+	if (packet->on)
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+	else
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 }

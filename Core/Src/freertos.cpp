@@ -93,7 +93,9 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of GetAcc */
 //  GetAccHandle = osThreadNew(GetAcceleration, NULL, &GetAcc_attributes);
+  setupTelemetry();
   initCortex();
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */

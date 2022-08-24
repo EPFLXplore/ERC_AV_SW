@@ -20,11 +20,9 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "adc.h"
-#include "dac.h"
 #include "dma.h"
 #include "i2c.h"
 #include "usart.h"
-#include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -97,6 +95,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_I2C4_Init();
@@ -106,16 +105,14 @@ int main(void)
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
-  MX_SPI2_Init();
-  MX_SPI4_Init();
   MX_USART6_UART_Init();
-  MX_DAC1_Init();
   MX_LPUART1_UART_Init();
   MX_UART4_Init();
   MX_UART8_Init();
+  MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
-  MX_DMA_Init();
+
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
@@ -169,16 +166,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 9;
-  RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 3;
-  RCC_OscInitStruct.PLL.PLLR = 2;
-  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
-  RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOMEDIUM;
-  RCC_OscInitStruct.PLL.PLLFRACN = 3072;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
