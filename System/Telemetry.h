@@ -15,14 +15,17 @@
 //uint8_t buffer[ROCO_BUFFER_SIZE];
 //
 
-extern STMUARTDriver UART1_driver;
-extern STMUARTDriver UART2_driver;
-extern STMUARTDriver UART3_driver;
-extern STMUARTDriver UART6_driver;
 
-extern NetworkBus UART1_network;
-extern NetworkBus UART6_network;
-extern NetworkBus UART3_network;
+//extern STMUARTDriver UART2_driver;
+//extern STMUARTDriver UART1_driver;
+//extern STMUARTDriver UART3_driver;
+//extern STMUARTDriver UART6_driver;
+
+
+//extern NetworkBus UART6_network;
+
+//extern NetworkBus UART1_network;
+//extern NetworkBus UART3_network;
 extern NetworkBus network;
 
 void setupTelemetry();

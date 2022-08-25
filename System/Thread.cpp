@@ -21,7 +21,7 @@ void __task_run(void* arg) {
 
 	while(thread->isRunning()) {
 		thread->loop();
-		osDelay(10 / portTICK_PERIOD_MS);
+		osDelay(1 / portTICK_PERIOD_MS);
 	}
 
 	delete thread;

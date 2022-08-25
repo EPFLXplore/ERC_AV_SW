@@ -1,0 +1,8 @@
+../Drivers/Stemma/Core/src/stemma.c:45:19:sw_reset	24	static
+../Drivers/Stemma/Core/src/stemma.c:12:9:stemma_init	24	static
+../Drivers/Stemma/Core/src/stemma.c:53:19:stemma_ReadTemp	32	static
+../Drivers/Stemma/Core/src/stemma.c:67:19:stemma_ReadMoisture	48	static
+../Drivers/Stemma/Core/src/stemma.c:87:19:stemma_ReadRegister	24	static
+../Drivers/Stemma/Core/src/stemma.c:90:19:stemma_ReadRegisters	24	static
+../Drivers/Stemma/Core/src/stemma.c:94:19:stemma_WriteRegister	24	static
+../Drivers/Stemma/Core/src/stemma.c:98:19:stemma_WriteRegisters	24	static

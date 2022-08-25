@@ -1,0 +1,8 @@
+../System/Thread.cpp:15:6:void __task_run(void*)	16	static
+../System/Thread.cpp:48:1:Thread::Thread(const char*, osPriority_t, uint32_t)	64	static
+../System/Thread.cpp:40:1:Thread::Thread(const char*, osPriority_t)	8	static
+../System/Thread.cpp:36:1:Thread::Thread(const char*)	8	static
+../System/Thread.cpp:44:1:Thread::Thread(const char*, uint32_t)	8	static
+../System/Thread.cpp:60:12:void* Thread::getHandle()	0	static
+../System/Thread.cpp:64:6:void Thread::terminate()	0	static
+../System/Thread.cpp:68:6:)	12	static

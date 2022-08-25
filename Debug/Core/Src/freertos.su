@@ -1,0 +1,1 @@
+../Core/Src/freertos.cpp:72:6:void MX_FREERTOS_Init()	8	static

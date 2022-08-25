@@ -32,6 +32,7 @@ class STMUARTDriver: public IODriver, public Thread {
         virtual ~STMUARTDriver(); // Destructor
         uint8_t* getBuffer();
         xSemaphoreHandle getSemaphore();
+        UART_HandleTypeDef* getHuart();
         uint8_t getSenderID(UART_HandleTypeDef* huart);
 
         void init();

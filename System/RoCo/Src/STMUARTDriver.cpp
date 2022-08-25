@@ -18,7 +18,6 @@
 
 //#ifdef BUILD_WITH_STMUART
 
-static STMUARTDriver* instance;
 
 /**
  * @brief Construct a new STMUARTDriver::STMUARTDriver object
@@ -26,8 +25,9 @@ static STMUARTDriver* instance;
  * @param huart the UART port to initialize
  */
 
+
+
 STMUARTDriver::STMUARTDriver(UART_HandleTypeDef* huart): Thread("STMUARTDriver", osPriorityHigh), huart(huart), last_dma_index(0) {
-	instance = this;
 
 	this->buffer = (uint8_t*) pvPortMalloc(UART_BUFFER_SIZE);
 
@@ -49,7 +49,6 @@ STMUARTDriver::~STMUARTDriver() {
 }
 
 void STMUARTDriver::init() {
-	instance = this;
 	this->last_dma_index = 0;
 
 	__HAL_UART_SEND_REQ(huart, UART_RXDATA_FLUSH_REQUEST);
@@ -61,12 +60,10 @@ void STMUARTDriver::init() {
 }
 
 void STMUARTDriver::loop() {
-	instance = this;
 	if(xSemaphoreTake(semaphore, portMAX_DELAY)) {
-		uint32_t end_dma_index = UART_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(huart->hdmarx);
+		volatile uint32_t end_dma_index = UART_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(huart->hdmarx);
 
-		uint8_t sender = getSenderID(huart);
-
+		volatile uint8_t sender = getSenderID(huart);
 
 		if(end_dma_index < last_dma_index) { // Finish buffer
 			receiveUART(sender, buffer + last_dma_index, UART_BUFFER_SIZE - last_dma_index);
@@ -81,12 +78,10 @@ void STMUARTDriver::loop() {
 }
 
 void STMUARTDriver::receive(const std::function<void (uint8_t sender_id, uint8_t* buffer, uint32_t length)> &receiver) {
-	instance = this;
     this->receiver_func = receiver;
 }
 
 void STMUARTDriver::transmit(uint8_t* buffer, uint32_t length) {
-	instance = this;
     if(HAL_UART_Transmit(huart, buffer, length, portMAX_DELAY) != HAL_OK){
 //        console.printf("[RoCo] [STMUARTDriverTransmit] Transmission failed for MCU#%" PRIu32 "\r\n", getSenderID(huart));
     }
@@ -99,14 +94,16 @@ void STMUARTDriver::transmit(uint8_t* buffer, uint32_t length) {
  * @return uint8_t* the reference to the buffer
  */
 uint8_t* STMUARTDriver::getBuffer() {
-	instance = this;
 	return this->buffer;
 }
 
 
 xSemaphoreHandle STMUARTDriver::getSemaphore() {
-	instance = this;
 	return this->semaphore;
+}
+
+UART_HandleTypeDef* STMUARTDriver::getHuart() {
+	return this->huart;
 }
 
 /**
@@ -121,15 +118,13 @@ void STMUARTDriver::receiveUART(uint8_t sender_id, uint8_t* buffer, uint32_t len
 }
 
 
-void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart) {
-	while(xSemaphoreTakeFromISR(instance->getSemaphore(), nullptr)); // Clear semaphore
-	instance->init();
-}
 
 
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size) {
-	xSemaphoreGiveFromISR(instance->getSemaphore(), nullptr);
-}
+
+
+//void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size) {
+//	xSemaphoreGiveFromISR(instance->getSemaphore(), nullptr);
+//}
 
 
 
@@ -141,7 +136,6 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size) {
  * @return uint8_t the sender_id
  */
 uint8_t STMUARTDriver::getSenderID(UART_HandleTypeDef* huart) {
-	instance = this;
     for(int i = 0; i < NB_UART_PORTS; ++i){
         if(this->mapper[i] == huart->Instance){
             return i+1;
