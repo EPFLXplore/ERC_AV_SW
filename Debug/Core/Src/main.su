@@ -1,0 +1,5 @@
+../Core/Src/main.cpp:140:6:void SystemClock_Config()	120	static,ignoring_inline_asm
+../Core/Src/main.cpp:195:6:void PeriphCommonClock_Config()	200	static,ignoring_inline_asm
+../Core/Src/main.cpp:71:5:int main()	8	static
+../Core/Src/main.cpp:229:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	8	static
+../Core/Src/main.cpp:246:6:void Error_Handler()	0	static,ignoring_inline_asm

@@ -47,19 +47,19 @@ struct sc_LED_packet {
 } __attribute__((packed));
 
 struct sc_trap_packet {
-	bool on;
+	bool open;
 } __attribute__((packed));
 
 struct sc_caching_packet {
-	bool on;
+	bool open;
 } __attribute__((packed));
 
 struct sc_trap_success_packet {
-	bool on;
+	bool status;
 } __attribute__((packed));
 
 struct sc_caching_success_packet {
-	bool on;
+	bool status;
 } __attribute__((packed));
 
 

@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include System/Sensors/subdir.mk
 -include System/RoCo/Src/subdir.mk
+-include System/Peripherals/subdir.mk
 -include System/Lang/subdir.mk
 -include System/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk

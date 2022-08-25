@@ -7,6 +7,8 @@
 
 
 #include "Telemetry.h"
+#include "Handlers.h"
+#include "tim.h"
 #include <vector>
 
 //
@@ -32,7 +34,7 @@
 	NetworkBus network(&UART1_driver);
 #endif
 
-void handle_led(uint8_t sender_id, sc_LED_packet* packet);
+
 
 //#if defined(BUILD_FOR_HANDLING_DEVICE)
 //	STMUARTDriver drivers(&huart6);
@@ -87,6 +89,12 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart) {
 
 //static STMUARTDriver{&UART2_driver};
 
+void test_handle(uint8_t sender_id, sc_trap_success_packet* packet) {
+	volatile bool test = packet->status;
+	if (test) {
+		osDelay(1);
+	}
+}
 
 void setupTelemetry() {
 #if defined(BUILD_FOR_NAVIGATION)
@@ -95,9 +103,16 @@ void setupTelemetry() {
 	STMUARTDriver_list.push_back(&UART3_driver);
 	STMUARTDriver_list.push_back(&UART6_driver);
 	network.forward<sc_LED_packet>(&UART1_network);
+	network.forward<sc_trap_packet>(&UART1_network);
+	UART1_network.forward<sc_trap_success_packet>(&network);
+	UART1_network.forward<sc_caching_success_packet>(&network);
+	osDelay(100);
+	UART1_network.handle<sc_trap_success_packet>(&test_handle);
 #elif defined(BUILD_FOR_SCIENCE_A)
 	STMUARTDriver_list.push_back(&UART1_driver);
 	network.handle<sc_LED_packet>(&handle_led);
+	network.handle<sc_trap_packet>(&handle_servo_trap);
+	network.handle<sc_caching_packet>(&handle_servo_caching);
 #endif
 //	network.forward<PingPacket>(&network);
 //	network.forward<sc_LED_packet>(&UART1_network);
@@ -113,9 +128,3 @@ void setupTelemetry() {
 
 }
 
-void handle_led(uint8_t sender_id, sc_LED_packet* packet) {
-	if (packet->on)
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	else
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
-}

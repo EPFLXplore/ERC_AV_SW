@@ -30,7 +30,9 @@ extern NetworkBus network;
 
 void setupTelemetry();
 
-
+#if defined(BUILD_FOR_NAVIGATION)
+	extern NetworkBus UART1_network;
+#endif
 
 //#if defined(BUILD_FOR_HANDLING_DEVICE)
 //	extern STMUARTDriver NAV_driver;

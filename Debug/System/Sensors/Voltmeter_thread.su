@@ -1,0 +1,4 @@
+../System/Sensors/Voltmeter_thread.h:18:7:VoltmeterThread::~VoltmeterThread()	0	static
+../System/Sensors/Voltmeter_thread.cpp:13:6:virtual void VoltmeterThread::init()	16	static
+../System/Sensors/Voltmeter_thread.cpp:30:6:virtual void VoltmeterThread::loop()	8	static,ignoring_inline_asm
+../System/Sensors/Voltmeter_thread.h:18:7:virtual VoltmeterThread::~VoltmeterThread()	8	static
