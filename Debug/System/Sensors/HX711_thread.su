@@ -1,7 +1,0 @@
-../System/Sensors/HX711_thread.h:17:7:HX711Thread::~HX711Thread()	0	static
-../System/Sensors/HX711_thread.cpp:27:6:virtual void HX711Thread::init()	16	static
-../System/Sensors/HX711_thread.cpp:52:6:virtual void HX711Thread::loop()	24	static,ignoring_inline_asm
-../System/Sensors/HX711_thread.h:17:7:virtual HX711Thread::~HX711Thread()	8	static
-../System/Sensors/HX711_thread.cpp:19:1:HX711Thread::HX711Thread(ProberThread*, GPIO_TypeDef*, uint32_t, GPIO_TypeDef*, uint32_t, GPIO_TypeDef*, uint32_t, GPIO_TypeDef*, uint32_t)	24	static
-../System/Sensors/HX711_thread.cpp:67:6:void HX711Thread::calibrateMultiplier()	40	static
-../System/Sensors/HX711_thread.cpp:93:6:void HX711Thread::tare(int32_t)	0	static

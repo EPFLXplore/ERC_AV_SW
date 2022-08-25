@@ -22,8 +22,8 @@
 #include "adc.h"
 #include "dma.h"
 #include "i2c.h"
-#include "usart.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -106,13 +106,9 @@ int main(void)
   MX_ADC2_Init();
   MX_ADC3_Init();
   MX_USART6_UART_Init();
-  MX_LPUART1_UART_Init();
-  MX_UART4_Init();
-  MX_UART8_Init();
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM15_Init();
-
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
