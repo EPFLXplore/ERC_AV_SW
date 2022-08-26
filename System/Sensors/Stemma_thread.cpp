@@ -5,8 +5,9 @@
  *      Author: YassineBakkali
  */
 
-#include "Stemma_thread.h"
 #include "Telemetry.h"
+#include "Stemma_thread.h"
+
 
 
 void StemmaThread::init() {

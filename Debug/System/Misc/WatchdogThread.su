@@ -1,4 +1,0 @@
-../System/Misc/WatchdogThread.cpp:19:6:virtual void WatchdogThread::init()	0	static
-../System/Misc/WatchdogThread.h:13:7:WatchdogThread::~WatchdogThread()	0	static
-../System/Misc/WatchdogThread.cpp:23:6:virtual void WatchdogThread::loop()	8	static
-../System/Misc/WatchdogThread.h:13:7:virtual WatchdogThread::~WatchdogThread()	8	static
