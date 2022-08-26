@@ -15,7 +15,7 @@
 
 class ProberThread : Thread {
 public:
-	ProberThread(I2C_HandleTypeDef* hi2c) : Thread("Prober", 1024), hi2c(hi2c), instance(nullptr), i2cNum(0) {}
+	ProberThread(I2C_HandleTypeDef* hi2c) : Thread("Prober", osPriorityBelowNormal), hi2c(hi2c), instance(nullptr), i2cNum(0) {}
 	void init();
 	void loop();
 	void resetProber();

@@ -1,5 +1,0 @@
-../System/System.cpp:15:36:void __tcf_0()	0	static
-../System/System.cpp:16:36:void __tcf_1()	0	static
-../System/System.cpp:17:36:void __tcf_2()	0	static
-../System/System.cpp:13:6:void initCortex()	8	static
-../System/System.cpp:24:6:void vApplicationStackOverflowHook()	0	static

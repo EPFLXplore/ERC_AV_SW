@@ -8,7 +8,7 @@
 #include <stdarg.h>
 #include <string.h>
 
-#define DEFAULT_STACK_SIZE (1024) // Danger zone: changing the stack size might create very nasty bugs
+#define DEFAULT_STACK_SIZE (4096) // Danger zone: changing the stack size might create very nasty bugs
 
 static char buffer[128];
 

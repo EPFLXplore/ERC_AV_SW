@@ -1,5 +1,0 @@
-../System/Sensors/IMU.h:18:7:IMUThread::~IMUThread()	0	static
-../System/Sensors/IMU.cpp:14:6:virtual void IMUThread::init()	8	static
-../System/Sensors/IMU.h:18:7:virtual IMUThread::~IMUThread()	8	static
-../System/Sensors/IMU.cpp:31:6:virtual void IMUThread::loop()	112	static,ignoring_inline_asm
-../System/Sensors/IMU.cpp:49:8:Vector IMUThread::bnoVectorToVector(bno055_vector_t)	64	static

@@ -1,4 +1,0 @@
-../System/Sensors/Stemma_thread.h:17:7:StemmaThread::~StemmaThread()	0	static
-../System/Sensors/Stemma_thread.cpp:12:6:virtual void StemmaThread::init()	8	static
-../System/Sensors/Stemma_thread.cpp:25:6:virtual void StemmaThread::loop()	8	static,ignoring_inline_asm
-../System/Sensors/Stemma_thread.h:17:7:virtual StemmaThread::~StemmaThread()	8	static

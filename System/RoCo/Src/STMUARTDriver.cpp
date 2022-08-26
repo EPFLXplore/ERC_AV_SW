@@ -25,7 +25,21 @@
  * @param huart the UART port to initialize
  */
 
-
+//STMUARTDriver::STMUARTDriver(UART_HandleTypeDef* huart, osPriority priority) : Thread("STMUARTDriver", priority), huart(huart), last_dma_index(0) {
+//	this->buffer = (uint8_t*) pvPortMalloc(UART_BUFFER_SIZE);
+//
+//    if(buffer == nullptr){
+////        console.printf("[RoCo] [STMUARTDriverInit] Unable to allocate DMA buffer for MCU#%" PRIu32 "\r\n", getSenderID(huart));
+//    }
+//
+//    this->semaphore = xSemaphoreCreateCounting(16, 0);
+//
+//    if(semaphore == nullptr) {
+////        console.printf("[RoCo] [STMUARTDriverInit] Unable to allocate semaphore for MCU#%" PRIu32 "\r\n", getSenderID(huart));
+//    }
+//
+////    osDelay(5);
+//}
 
 STMUARTDriver::STMUARTDriver(UART_HandleTypeDef* huart): Thread("STMUARTDriver", osPriorityHigh), huart(huart), last_dma_index(0) {
 

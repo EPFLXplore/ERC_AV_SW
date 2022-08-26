@@ -13,6 +13,7 @@
 #include "TOF_thread.h"
 #include "Voltmeter_thread.h"
 #include "HX711_thread.h"
+#include "main.h"
 //#include "ADC24.h"
 //#include "ADC16.h"
 
@@ -31,56 +32,30 @@ bool ProberThread::probeI2C(uint8_t address) {
 }
 
 bool ProberThread::probeDB() {
-//	struct HX711 hx711a;
-//	struct HX711 hx711b;
-//	if(i2cNum == 1){
-//		hx711a = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
-//		hx711b = {GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7};
-//	}
-//	else if(i2cNum == 2)
-//	{
-//		hx711a = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
-//		hx711b = {GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11};
-//	}
-//	else if(i2cNum == 3)
-//	{
-//		hx711a = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-//	    hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-//	}
-//	else if(i2cNum == 4)
-//	{
-//		hx711a = {GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15};
-//		hx711b = {GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9};
-//	}
-//	else
-//		return false;
-//	HX711_init(hx711a);
-//	HX711_init(hx711b);
-//	return HX711_checkReadiness(hx711a) && HX711_checkReadiness(hx711b);
+	struct HX711 hx711a;
+	struct HX711 hx711b;
+	hx711a = {HX711_CLK1_GPIO_Port, HX711_CLK1_Pin, HX711_DATA1_GPIO_Port, HX711_DATA1_Pin};
+	hx711b = {HX711_CLK2_GPIO_Port, HX711_CLK2_Pin, HX711_DATA2_GPIO_Port, HX711_DATA2_Pin};
+	HX711_init(hx711a);
+	HX711_init(hx711b);
+	return HX711_checkReadiness(hx711a) && HX711_checkReadiness(hx711b);
 }
 
 void ProberThread::loop() {
 	if(probeI2C(BNO055_I2C_ADDR)) {
-//	if(true) {
-//		println("[i2c%u] Accelerometer detected", getI2CNum());
 		this->instance = new IMUThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
-	} else if(true) {
-		bool status = probeI2C(ADS_ADDR_GND); // writing this in the else if statement doesn't work for some reason
-		if (status) {
-////		println("[i2c%u] Voltmeter detected", getI2CNum());
+	} else if (probeI2C(ADS_ADDR_GND)) {
 		this->instance = new VoltmeterThread(this);
-		xSemaphoreTake(semaphore, portMAX_DELAY);}
+		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else if(probeDB()) {
-//		println("[i2c%u] Mass sensor detected", getI2CNum());
 		this->instance = instantiateHX711();
 		xSemaphoreTake(semaphore, portMAX_DELAY);
-//	} else if(probeI2C(SEESAW_ADDRESS)) {
-////		println("[i2c%u] Moist sensor detected", getI2CNum());
-//		this->instance = new StemmaThread(this);
-//		xSemaphoreTake(semaphore, portMAX_DELAY);
+	} else if(probeI2C(SEESAW_ADDRESS)) {
+//		println("[i2c%u] Moist sensor detected", getI2CNum());
+		this->instance = new StemmaThread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else if(probeI2C(0x52)) {
-//		println("[i2c%u] TOF sensor detected", getI2CNum());
 		this->instance = new TOFThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
@@ -96,23 +71,9 @@ void ProberThread::resetProber() {
 }
 
 Thread* ProberThread::instantiateHX711(){
-	switch(getI2CNum()){
-	case 1:
-		return new HX711Thread(this, GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7, GPIOB, GPIO_PIN_6, GPIOB, GPIO_PIN_7);
-		break;
-	case 2:
-		return new HX711Thread(this, GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11, GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_11);
-		break;
-	case 3:
-		return new HX711Thread(this, GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9, GPIOA, GPIO_PIN_8, GPIOC, GPIO_PIN_9);
-		break;
-	case 4:
-		return new HX711Thread(this, GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15, GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15);
-		break;
-	default:
-		return NULL;
+		return new HX711Thread(this, HX711_CLK1_GPIO_Port, HX711_CLK1_Pin, HX711_DATA1_GPIO_Port, HX711_DATA1_Pin,
+				HX711_CLK2_GPIO_Port, HX711_CLK2_Pin, HX711_DATA2_GPIO_Port, HX711_DATA2_Pin);
 	}
-}
 
 uint8_t ProberThread::checkI2CPort(I2C_HandleTypeDef* hi2c){
 	if(hi2c->Instance==I2C1)

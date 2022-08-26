@@ -36,36 +36,6 @@
 
 
 
-//#if defined(BUILD_FOR_HANDLING_DEVICE)
-//	STMUARTDriver drivers(&huart6);
-////	STMUARTDriver driver = new NAV_driver(&huart6);
-//#elif defined(BUILD_FOR_NAVIGATION)
-//	STMUARTDriver drivers[3] =
-//	{
-//	STMUARTDriver(&huart6),
-//	STMUARTDriver(&huart3),
-//	STMUARTDriver(&huart1)
-//	};
-//#elif defined(BUILD_FOR_SC1)
-//	STMUARTDriver drivers[2] =
-//	{
-//	STMUARTDriver(&huart3),
-//	STMUARTDriver(&huart6)
-//	};
-//#elif defined(BUILD_FOR_SC2)
-//	STMUARTDriver drivers[2] =
-//	{
-//	STMUARTDriver(&huart1),
-//	STMUARTDriver(&huart6)
-//	};
-//#endif
-
-//STMUARTDriver driver(&huart6);
-//NetworkBus network(&driver);
-
-
-//NetworkBus network(&telemtryDriver);
-
 static std::vector<STMUARTDriver*> STMUARTDriver_list;
 
 STMUARTDriver* getInstance(UART_HandleTypeDef* huart) {
@@ -87,15 +57,6 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart) {
 }
 
 
-//static STMUARTDriver{&UART2_driver};
-
-void test_handle(uint8_t sender_id, sc_trap_success_packet* packet) {
-	volatile bool test = packet->status;
-	if (test) {
-		osDelay(1);
-	}
-}
-
 void setupTelemetry() {
 #if defined(BUILD_FOR_NAVIGATION)
 	STMUARTDriver_list.push_back(&UART2_driver);
@@ -106,8 +67,7 @@ void setupTelemetry() {
 	network.forward<sc_trap_packet>(&UART1_network);
 	UART1_network.forward<sc_trap_success_packet>(&network);
 	UART1_network.forward<sc_caching_success_packet>(&network);
-	osDelay(100);
-	UART1_network.handle<sc_trap_success_packet>(&test_handle);
+	UART1_network.forward<avionics_voltmeter_packet>(&network);
 #elif defined(BUILD_FOR_SCIENCE_A)
 	STMUARTDriver_list.push_back(&UART1_driver);
 	network.handle<sc_LED_packet>(&handle_led);
