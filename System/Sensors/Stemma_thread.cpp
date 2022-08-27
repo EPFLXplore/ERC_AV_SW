@@ -13,7 +13,7 @@
 void StemmaThread::init() {
 	uint8_t status = HAL_ERROR;
 	status = stemma_init(&stemma, parent->getI2C());
-	if(status != HAL_OK) {
+	if(status != 0) {
 //		println("[%d] BNO055 initialization failed", portNum);
 		terminate();
 		parent->resetProber();
@@ -24,7 +24,6 @@ void StemmaThread::init() {
 static ScienceData data;
 static avionics_moisture_packet packet;
 void StemmaThread::loop() {
-
 	  HAL_StatusTypeDef status = HAL_ERROR;
 	  status = stemma_ReadMoisture(&stemma, 0);
 		if(status == HAL_OK) {

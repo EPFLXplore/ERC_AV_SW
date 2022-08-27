@@ -78,10 +78,10 @@ HAL_StatusTypeDef stemma_ReadMoisture(moist_meter *dev, uint8_t pin){
 	  HAL_Delay(10);
 	if (status == HAL_OK) {
 	  dev->moisture = ((uint16_t)buf[0] << 8) | buf[1];
-	  break;
+	  return status;
 	}
   }
-  return ret;
+  return status;
 }
 
 HAL_StatusTypeDef stemma_ReadRegister(moist_meter *dev, uint8_t reg, uint8_t *data ) {
