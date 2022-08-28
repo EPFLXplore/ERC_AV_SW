@@ -1,0 +1,8 @@
+prefix=/home/xplore/Desktop/AV_Workspace/av_ws/install
+
+Name: av_cs_publisher_node
+Description: Description of av_cs_publisher_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

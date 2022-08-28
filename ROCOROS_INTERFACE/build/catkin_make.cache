@@ -1,0 +1,2 @@
+av_cs_publisher_node:roco_ros_interface
+-DCATKIN_DEVEL_PREFIX=/home/xplore/Desktop/AV_Workspace/av_ws/devel -DCMAKE_INSTALL_PREFIX=/home/xplore/Desktop/AV_Workspace/av_ws/install -G Unix Makefiles
