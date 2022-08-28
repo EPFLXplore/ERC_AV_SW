@@ -28,7 +28,7 @@ void INA219Thread::loop() {
 	  status = INA219_ReadCurrent(&ina219);
 		if(status == HAL_OK) {
 			if (abs(ina219.current) > motor_voltage_threshold_ma)
-				stop_extender(GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5);
+				stop_extender(GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5, get_extender_status());
 			portYIELD();
 		} else {
 			terminate();

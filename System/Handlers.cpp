@@ -15,14 +15,14 @@
 #include "HX711_thread.h"
 
 #define SERVO_CONFIRMATION_DELAY_MS 200
-#define VOLTMETER_MAX_EXTENSION_INTERVAL_MS 5000
+
 
 void handle_led(uint8_t sender_id, sc_LED_packet* packet) {
 	if (packet->on)
 		LED_ON(LED_GPIO_Port, LED_Pin);
 	else
 		LED_OFF(LED_GPIO_Port, LED_Pin);
-//	HAL_Delay(10000);
+	HAL_TIM_Base_Start_IT(&htim1);
 }
 
 void handle_servo_trap(uint8_t sender_id, sc_trap_packet* packet) {
@@ -60,15 +60,18 @@ void handle_servo_caching(uint8_t sender_id, sc_caching_packet* packet) {
 
 void handle_voltmeter_motor(uint8_t sender_id, hd_voltmeter_motor_packet* packet) {
 //	avionics_voltmeter_motor_status_packet motor_status;
-	bool motor_status;
+	HAL_TIM_Base_Start_IT(&htim1);
+//	bool motor_status;
 	if (packet->extended) {
 		extend_voltmeter(GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5);
-		motor_status = true;
+		set_extender_status(true);
+//		motor_status = true;
 	} else {
 		retract_voltmeter(GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5);
-		motor_status = false;
+		set_extender_status(false);
+//		motor_status = false;
 	}
-	osDelay(VOLTMETER_MAX_EXTENSION_INTERVAL_MS);
+//	osDelay(VOLTMETER_MAX_EXTENSION_INTERVAL_MS);
 
 //	osDelay(SERVO_CONFIRMATION_DELAY_MS);
 //	network.send(&motor_status);

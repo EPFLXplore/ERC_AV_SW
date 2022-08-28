@@ -28,7 +28,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Voltmeter_extender.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -234,6 +234,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM6) {
     HAL_IncTick();
+  }
+
+  if (htim->Instance == TIM1) {
+	  static int i = 0;
+	  i++;
+	  if (i == VOLTMETER_MAX_EXTENSION_INTERVAL_MS) {
+		  i = 0;
+		  HAL_TIM_Base_Stop_IT(&htim1);
+		  stop_extender(GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_5, get_extender_status());
+	  }
   }
   /* USER CODE BEGIN Callback 1 */
 
