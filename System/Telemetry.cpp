@@ -97,7 +97,7 @@ void setupTelemetry() {
 	network.handle<sc_trap_packet>(&handle_servo_trap);
 	network.handle<sc_caching_packet>(&handle_servo_caching);
 #elif defined(BUILD_FOR_SCIENCE_B)
-	STMUARTDriver_list.push_back(&UART6_driver);
+	STMUARTDriver_list.push_back(&UART1_driver);
 	//network.handle<sc_hx711_tare_packet(&UART6_driver)>; //IMPORTANT
 	//network.handle<sc_hx711_calibrate_packet(&UART6_driver)>;
 #elif defined(BUILD_FOR_HANDLING_DEVICE)
