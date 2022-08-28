@@ -169,7 +169,7 @@ void handle_moisture(uint8_t sender_id, avionics_moisture_packet* packet, void* 
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 
-void handle_trap(uint8_t sender_id, sc_trap_success_packet* packet, void* ros_publisher)
+void handle_trap(uint8_t sender_id, avionics_trap_success_packet* packet, void* ros_publisher)
 {
   std_msgs::Bool msg;
   //Clear array
@@ -180,7 +180,7 @@ void handle_trap(uint8_t sender_id, sc_trap_success_packet* packet, void* ros_pu
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 
-void handle_caching(uint8_t sender_id, sc_caching_success_packet* packet, void* ros_publisher)
+void handle_caching(uint8_t sender_id, avionics_caching_success_packet* packet, void* ros_publisher)
 {
   std_msgs::Bool msg;
   //Clear array

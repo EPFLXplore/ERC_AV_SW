@@ -75,22 +75,28 @@ void setupTelemetry() {
 	// SCIENCE -> AV
 	network.forward<sc_LED_packet>(&UART1_network);
 	network.forward<sc_trap_packet>(&UART1_network);
-	// network.forward<sc_hx711_tare_packet>(&UART1_network); //IMPORTANT
+	network.forward<sc_mass_calibrate_packet>(&UART6_network); //IMPORTANT
 	// network.forward<sc_hx711_calibrate_packet>(&UART1_network);	 //IMPORTANT
-	// AV -> SCIENCE
-	UART1_network.forward<sc_trap_success_packet>(&network);
-	UART1_network.forward<sc_caching_success_packet>(&network);
-	UART1_network.forward<avionics_voltmeter_packet>(&network);
-	UART1_network.forward<avionics_massload_packet>(&network);
-	UART1_network.forward<avionics_moisture_packet>(&network);
 
-	// HANDLING DEVICE -> AV
-	// network.forward<>(&UART3_network); // tare voltmeter
-	// network.forward<hd_voltmeter_motor>(&UART3_network);
+	// AV -> SCIENCE A
+	UART1_network.forward<avionics_trap_success_packet>(&network);
+	UART1_network.forward<avionics_caching_success_packet>(&network);
+
+	// AV -> SCIENCE B
+	UART6_network.forward<avionics_massload_packet>(&network);
+	UART6_network.forward<avionics_moisture_packet>(&network);
+
 	// AV -> HANDLING DEVICE
+	UART3_network.forward<avionics_voltmeter_motor_status_packet>(&network);
 	UART3_network.forward<avionics_voltmeter_packet>(&network);
+	UART1_network.forward<avionics_voltmeter_tare_success_packet>(&network);
 	UART3_network.forward<avionics_ToF_packet>(&network);
 	// UART3_network.forward<avionics_current_packet>(&network);
+
+	// HANDLING DEVICE -> AV
+	 network.forward<hd_voltmeter_tare_packet>(&UART3_network);
+	 network.forward<hd_voltmeter_motor_packet>(&UART3_network);
+
 #elif defined(BUILD_FOR_SCIENCE_A)
 	STMUARTDriver_list.push_back(&UART1_driver);
 	network.handle<sc_LED_packet>(&handle_led);
@@ -99,11 +105,11 @@ void setupTelemetry() {
 #elif defined(BUILD_FOR_SCIENCE_B)
 	STMUARTDriver_list.push_back(&UART1_driver);
 	//network.handle<sc_hx711_tare_packet(&UART6_driver)>; //IMPORTANT
-	//network.handle<sc_hx711_calibrate_packet(&UART6_driver)>;
+	network.handle<sc_mass_calibrate_packet>(&handle_mass_calibrate);
 #elif defined(BUILD_FOR_HANDLING_DEVICE)
 	STMUARTDriver_list.push_back(&UART1_driver);
-	//network.handle<hd_tare_packet>(&handle_voltmeter_tare);
-	//network.handle<hd_motor_packet>(&handle_voltmeter_motor); //IMPORTANT
+	network.handle<hd_voltmeter_motor_packet>(&handle_voltmeter_motor);
+	network.handle<hd_voltmeter_tare_packet>(&handle_voltmeter_tare);
 	//network.handle<avionics_current_packet>(&handle_current)
 
 #endif

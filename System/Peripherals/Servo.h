@@ -11,6 +11,7 @@
 #include "tim.h"
 
 void open_servo(TIM_HandleTypeDef* timer_handle, uint8_t channel);
+void neutral_servo(TIM_HandleTypeDef* timer_handle, uint8_t channel);
 void close_servo(TIM_HandleTypeDef* timer_handle, uint8_t channel);
 
 

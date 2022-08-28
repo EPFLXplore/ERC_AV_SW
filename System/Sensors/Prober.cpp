@@ -13,6 +13,7 @@
 #include "TOF_thread.h"
 #include "Voltmeter_thread.h"
 #include "HX711_thread.h"
+#include "INA219_thread.h"
 #include "main.h"
 //#include "ADC24.h"
 //#include "ADC16.h"
@@ -57,6 +58,9 @@ void ProberThread::loop() {
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else if(probeI2C(0x52)) {
 		this->instance = new TOFThread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+	} else if(probeI2C(INA219_ADDRESS)) {
+		this->instance = new INA219Thread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {
 		vTaskDelay(1000 / portTICK_PERIOD_MS);

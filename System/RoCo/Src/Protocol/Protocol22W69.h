@@ -22,8 +22,9 @@ struct avionics_ToF_packet {
 struct avionics_IMU_packet {
   float acceleration[3];			//[m/s^2]
   float angular_velocity[3];		//[°/s]
-  float magnetometer[3];			//[°]
-//  float quaternion[3];
+  float orientation[4];
+//  float magnetometer[3];			//[°]
+//  float quaternion[4];
 } __attribute__((packed));
 
 struct avionics_potentiometer_packet {
@@ -47,23 +48,45 @@ struct sc_LED_packet {
 } __attribute__((packed));
 
 struct sc_trap_packet {
-	bool open;
+	uint8_t open;
 } __attribute__((packed));
 
 struct sc_caching_packet {
 	bool open;
 } __attribute__((packed));
 
-struct sc_trap_success_packet {
+struct avionics_trap_success_packet {
+	uint8_t status;
+} __attribute__((packed));
+
+struct avionics_caching_success_packet {
 	bool status;
 } __attribute__((packed));
 
-struct sc_caching_success_packet {
+struct hd_voltmeter_motor_packet {
+	bool extended;
+} __attribute__((packed));
+
+struct avionics_voltmeter_motor_status_packet {
 	bool status;
 } __attribute__((packed));
 
+struct hd_voltmeter_tare_packet {
+	bool tare;
+} __attribute__((packed));
+
+struct avionics_voltmeter_tare_success_packet {
+	bool status;
+} __attribute__((packed));
+
+struct sc_mass_calibrate_packet {
+	bool tare;
+} __attribute__((packed));
 
 
+struct avionics_mass_calibrate_success_packet {
+	bool status;
+} __attribute__((packed));
 
 //----------Power supply----------
 

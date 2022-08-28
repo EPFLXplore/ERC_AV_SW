@@ -17,15 +17,19 @@
 
 class VoltmeterThread : public Thread {
 public:
-	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()) {}
+	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), offset(0) {}
 	void init();
 	void loop();
-
+	void tare();
 private:
 //	moist_meter voltmeter;
 	ads1113_t voltmeter;
 	ProberThread* parent;
 	uint8_t portNum;
+	float offset;
+
 };
+
+extern VoltmeterThread* voltmeterInstance;
 
 #endif /* SENSORS_VOLTMETER_THREAD_H_ */

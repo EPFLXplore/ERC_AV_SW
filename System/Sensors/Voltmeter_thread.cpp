@@ -9,14 +9,16 @@
 
 #include "Telemetry.h"
 
+VoltmeterThread* voltmeterInstance = nullptr;
 
 void VoltmeterThread::init() {
-
+	voltmeterInstance = this;
 	// Declare the structure where we using GND as address.
 	// Look at the top of the header file for addresses.
 	bool success = ADS1113_init(&voltmeter, parent->getI2C(), ADS_ADDR_GND); // Or ADS1015(&i2c, &hi2c1, ADS_ADDR_GND);
 	if(!success) {
 //		println("[%d] BNO055 initialization failed", portNum);
+		voltmeterInstance = nullptr;
 		terminate();
 		parent->resetProber();
 		return;
@@ -28,7 +30,7 @@ void VoltmeterThread::init() {
 static VoltmeterData data;
 static avionics_voltmeter_packet packet;
 void VoltmeterThread::loop() {
-	data.voltage = ADSreadADC_Voltage(&voltmeter);
+	data.voltage = ADSreadADC_Voltage(&voltmeter) + offset;
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 //		println("[i2c%d] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
@@ -36,9 +38,14 @@ void VoltmeterThread::loop() {
 		portYIELD();
 	} else {
 //		println("[i2c%d] BNO055 disconnected", portNum);
+		voltmeterInstance = nullptr;
 		terminate();
 		parent->resetProber();
 	}
+}
+
+void VoltmeterThread::tare() {
+	offset = -ADSreadADC_Voltage(&voltmeter);
 }
 
 //

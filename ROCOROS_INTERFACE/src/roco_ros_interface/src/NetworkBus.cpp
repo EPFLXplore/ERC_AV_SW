@@ -27,8 +27,8 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	define<sc_LED_packet>(6);
 	define<sc_trap_packet>(7);
 	define<sc_caching_packet>(8);
-	define<sc_trap_success_packet>(9);
-	define<sc_caching_success_packet>(10);
+	define<avionics_trap_success_packet>(9);
+	define<avionics_caching_success_packet>(10);
 
 	//----------Power supply----------
 	define<Power_SystemPacket>(11);

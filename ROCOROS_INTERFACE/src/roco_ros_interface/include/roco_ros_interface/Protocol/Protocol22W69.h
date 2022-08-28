@@ -54,11 +54,11 @@ struct sc_caching_packet {
 	bool open;
 } __attribute__((packed));
 
-struct sc_trap_success_packet {
+struct avionics_trap_success_packet {
 	bool status;
 } __attribute__((packed));
 
-struct sc_caching_success_packet {
+struct avionics_caching_success_packet {
 	bool status;
 } __attribute__((packed));
 
