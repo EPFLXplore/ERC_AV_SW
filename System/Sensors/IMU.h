@@ -24,6 +24,7 @@ public:
 private:
 	ProberThread* parent;
 	Vector bnoVectorToVector(bno055_vector_t v);
+	Quaternion bnoQuaternionToQuaternion(bno055_vector_t v);
 	uint8_t portNum;
 };
 

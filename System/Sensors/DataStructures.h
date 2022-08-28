@@ -29,6 +29,26 @@ struct Vector {
 
 };
 
+struct Quaternion {
+	float w;
+	float x;
+	float y;
+	float z;
+	char* toString(char* buffer) {
+		sprintf(buffer, "[%f %f %f %f]", w, x, y, z);
+		return buffer;
+	}
+
+	uint8_t* toArray(uint8_t* buffer) {
+		*(float*)(buffer + 0) = w;
+		*(float*)(buffer + 1*4) = x;
+		*(float*)(buffer + 2*4) = y;
+		*(float*)(buffer + 3*4) = z;
+		return buffer;
+	}
+
+};
+
 //struct IMUData {
 //	Vector accel;
 //	Vector gyro;
@@ -51,18 +71,20 @@ struct Vector {
 struct IMUData {
 	Vector accel;
 	Vector gyro;
-	Vector mag;
+//	Vector mag;
+	Quaternion orientation;
 
 	char* toString(char* buffer) {
 		static char buf[32];
-		sprintf(buffer, "Acc: %s, Gyro: %s, Mag: %s", accel.toString(buf), gyro.toString(buf), mag.toString(buf));
+		sprintf(buffer, "Acc: %s, Gyro: %s, Mag: %s", accel.toString(buf), gyro.toString(buf), orientation.toString(buf));
 		return buffer;
 	}
 
 	uint8_t* toArray(uint8_t* buffer) {
 		accel.toArray(buffer);
 		gyro.toArray(buffer + 3*4);
-		mag.toArray(buffer + 6*4);
+		orientation.toArray(buffer + 6*4);
+//		mag.toArray(buffer + 6*4);
 		return buffer;
 	}
 };

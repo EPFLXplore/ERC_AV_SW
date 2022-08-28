@@ -31,7 +31,8 @@ static avionics_IMU_packet packet;
 void IMUThread::loop() {
 	data.accel = bnoVectorToVector(bno055_getVectorAccelerometer());
 	data.gyro = bnoVectorToVector(bno055_getVectorGyroscope());
-	data.mag = bnoVectorToVector(bno055_getVectorMagnetometer());
+//	data.mag = bnoVectorToVector(bno055_getVectorMagnetometer());
+	data.orientation = bnoQuaternionToQuaternion(bno055_getVectorQuaternion());
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 //		println("[i2c%d] %s", portNum, data.toString(cbuf));
@@ -55,3 +56,15 @@ Vector IMUThread::bnoVectorToVector(bno055_vector_t v) {
 
 	return vector;
 }
+
+Quaternion IMUThread::bnoQuaternionToQuaternion(bno055_vector_t v) {
+	Quaternion vector;
+
+	vector.w = v.w;
+	vector.x = v.x;
+	vector.y = v.y;
+	vector.z = v.z;
+
+	return vector;
+}
+

@@ -33,11 +33,11 @@
 	STMUARTDriver UART1_driver(&huart1);
 	NetworkBus network(&UART1_driver);
 #elif defined(BUILD_FOR_SCIENCE_B)
-	STMUARTDriver UART6_driver(&huart6);
-	NetworkBus network(&UART6_driver);
+	STMUARTDriver UART1_driver(&huart1);
+	NetworkBus network(&UART1_driver);
 #elif defined(BUILD_FOR_HANDLING_DEVICE)
-	STMUARTDriver UART3_driver(&huart3);
-	NetworkBus network(&UART3_driver);
+	STMUARTDriver UART1_driver(&huart1);
+	NetworkBus network(&UART1_driver);
 #endif
 
 
@@ -89,7 +89,7 @@ void setupTelemetry() {
 	// network.forward<hd_voltmeter_motor>(&UART3_network);
 	// AV -> HANDLING DEVICE
 	UART3_network.forward<avionics_voltmeter_packet>(&network);
-	UART3_network.forward<avionics_TOF_packet>(&network);
+	UART3_network.forward<avionics_ToF_packet>(&network);
 	// UART3_network.forward<avionics_current_packet>(&network);
 #elif defined(BUILD_FOR_SCIENCE_A)
 	STMUARTDriver_list.push_back(&UART1_driver);
@@ -101,7 +101,7 @@ void setupTelemetry() {
 	//network.handle<sc_hx711_tare_packet(&UART6_driver)>; //IMPORTANT
 	//network.handle<sc_hx711_calibrate_packet(&UART6_driver)>;
 #elif defined(BUILD_FOR_HANDLING_DEVICE)
-	STUMUARTDriver_list.push_back(&UART3_driver);
+	STMUARTDriver_list.push_back(&UART1_driver);
 	//network.handle<hd_tare_packet>(&handle_voltmeter_tare);
 	//network.handle<hd_motor_packet>(&handle_voltmeter_motor); //IMPORTANT
 	//network.handle<avionics_current_packet>(&handle_current)
