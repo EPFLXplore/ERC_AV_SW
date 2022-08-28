@@ -74,7 +74,7 @@ void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_4;
+  sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   sConfig.SingleDiff = ADC_DIFFERENTIAL_ENDED;
@@ -128,7 +128,7 @@ void MX_ADC2_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_4;
+  sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   sConfig.SingleDiff = ADC_DIFFERENTIAL_ENDED;
@@ -162,19 +162,11 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
       __HAL_RCC_ADC12_CLK_ENABLE();
     }
 
-    __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**ADC1 GPIO Configuration
-    PC4     ------> ADC1_INP4
-    PC5     ------> ADC1_INN4
     PB0     ------> ADC1_INN5
     PB1     ------> ADC1_INP5
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
     GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -196,12 +188,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     }
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**ADC2 GPIO Configuration
     PA2     ------> ADC2_INP14
-    PC4     ------> ADC2_INP4
-    PC5     ------> ADC2_INN4
     PB0     ------> ADC2_INN5
     PB1     ------> ADC2_INP5
     */
@@ -209,11 +198,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
@@ -241,13 +225,9 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     }
 
     /**ADC1 GPIO Configuration
-    PC4     ------> ADC1_INP4
-    PC5     ------> ADC1_INN4
     PB0     ------> ADC1_INN5
     PB1     ------> ADC1_INP5
     */
-    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_4|GPIO_PIN_5);
-
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0|GPIO_PIN_1);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
@@ -267,14 +247,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 
     /**ADC2 GPIO Configuration
     PA2     ------> ADC2_INP14
-    PC4     ------> ADC2_INP4
-    PC5     ------> ADC2_INN4
     PB0     ------> ADC2_INN5
     PB1     ------> ADC2_INP5
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2);
-
-    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_4|GPIO_PIN_5);
 
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0|GPIO_PIN_1);
 

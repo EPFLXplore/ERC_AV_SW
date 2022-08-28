@@ -23,6 +23,13 @@
 #include "main.h"
 #include "cmsis_os.h"
 
+#include "adc.h"
+#include "dma.h"
+#include "i2c.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "System.h"
@@ -117,10 +124,18 @@ void MX_FREERTOS_Init(void) {
 //{
 //  /* USER CODE BEGIN GetAcceleration */
 //  /* Infinite loop */
-//  for(;;)
-//  {
-//    osDelay(1);
-//  }
+////	uint32_t DAC_OUT[4] = {0,3723};
+////	uint8_t i = 0;
+////	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+////	while (1)
+////	{
+////		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+////		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+////		HAL_Delay(2000);
+////		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+////		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+////		HAL_Delay(2000);
+////	}
 //  /* USER CODE END GetAcceleration */
 //}
 

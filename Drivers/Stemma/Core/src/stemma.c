@@ -1,4 +1,3 @@
-
 #include "stemma.h"
 #include "stdio.h"
 #include "stdint.h"
@@ -6,9 +5,7 @@
 #include "main.h"
 
 
-/*=========================================================================
-    I2C ADDRESS/BITS
-    -----------------------------------------------------------------------*/
+
 uint8_t stemma_init(moist_meter *dev, I2C_HandleTypeDef *i2cHandle){
 
 	dev->i2cHandle = i2cHandle;
