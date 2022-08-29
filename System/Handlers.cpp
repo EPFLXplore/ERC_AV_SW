@@ -22,11 +22,24 @@ void handle_led(uint8_t sender_id, sc_LED_packet* packet) {
 		LED_ON(LED_GPIO_Port, LED_Pin);
 	else
 		LED_OFF(LED_GPIO_Port, LED_Pin);
-	HAL_TIM_Base_Start_IT(&htim1);
+	//HAL_TIM_Base_Start_IT(&htim1);
 }
 
 void handle_servo_trap(uint8_t sender_id, sc_trap_packet* packet) {
-	avionics_trap_success_packet servo_status;
+	avionics_trap_success_packet  servo_status;
+	if (packet->open) {
+		open_servo(&htim2, 2);
+		servo_status.status = true;
+	} else {
+		close_servo(&htim2, 2);
+		servo_status.status = false;
+	}
+	osDelay(SERVO_CONFIRMATION_DELAY_MS);
+	network.send(&servo_status);
+}
+
+void handle_servo_caching(uint8_t sender_id, sc_caching_packet* packet) {
+	avionics_caching_success_packet servo_status;
 	switch (packet->open){
 	case 0 :
 		close_servo(&htim2, 1);
@@ -40,19 +53,6 @@ void handle_servo_trap(uint8_t sender_id, sc_trap_packet* packet) {
 		open_servo(&htim2, 1);
 		servo_status.status = 2;
 		break;
-	}
-	osDelay(SERVO_CONFIRMATION_DELAY_MS);
-	network.send(&servo_status);
-}
-
-void handle_servo_caching(uint8_t sender_id, sc_caching_packet* packet) {
-	avionics_caching_success_packet servo_status;
-	if (packet->open) {
-		open_servo(&htim2, 2);
-		servo_status.status = true;
-	} else {
-		close_servo(&htim2, 2);
-		servo_status.status = false;
 	}
 	osDelay(SERVO_CONFIRMATION_DELAY_MS);
 	network.send(&servo_status);

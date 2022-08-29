@@ -48,19 +48,19 @@ struct sc_LED_packet {
 } __attribute__((packed));
 
 struct sc_trap_packet {
-	uint8_t open;
-} __attribute__((packed));
-
-struct sc_caching_packet {
 	bool open;
 } __attribute__((packed));
 
+struct sc_caching_packet {
+	uint8_t open;
+} __attribute__((packed));
+
 struct avionics_trap_success_packet {
-	uint8_t status;
+	bool status;
 } __attribute__((packed));
 
 struct avionics_caching_success_packet {
-	bool status;
+	uint8_t status;
 } __attribute__((packed));
 
 struct hd_voltmeter_motor_packet {
