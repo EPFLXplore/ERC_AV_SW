@@ -15,7 +15,7 @@ void TOFThread::init() {
 	  Dev->I2cHandle = parent->getI2C();
 	  Dev->I2cDevAddr = 0x52; // Not entirely sure, please run I2C address scanner
 	  status = VL53L1_WaitDeviceBooted( Dev );
-	  VL53L1_DataInit( Dev );
+	  status = VL53L1_DataInit( Dev );
 	  if(status != VL53L1_ERROR_NONE) {
 	  //		println("[%d] BNO055 initialization failed", portNum);
 	  		terminate();

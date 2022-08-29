@@ -52,10 +52,9 @@ void ProberThread::loop() {
 		this->instance = instantiateHX711();
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else if(probeI2C(SEESAW_ADDRESS)) {
-//		println("[i2c%u] Moist sensor detected", getI2CNum());
 		this->instance = new StemmaThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
-	} else if(probeI2C(0x52)) {
+	} else if(probeI2C(0x29)) {
 		this->instance = new TOFThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else {

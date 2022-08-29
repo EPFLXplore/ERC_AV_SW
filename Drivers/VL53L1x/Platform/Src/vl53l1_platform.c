@@ -338,13 +338,13 @@ VL53L1_Error VL53L1_GetTimerFrequency(int32_t *ptimer_freq_hz)
 
 VL53L1_Error VL53L1_WaitMs(VL53L1_Dev_t *pdev, int32_t wait_ms){
 	(void)pdev;
-	HAL_Delay(wait_ms);
+	osDelay(wait_ms);
     return VL53L1_ERROR_NONE;
 }
 
 VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t wait_us){
 	(void)pdev;
-	HAL_Delay(wait_us/1000);
+	osDelay(wait_us/1000);
     return VL53L1_ERROR_NONE;
 }
 
