@@ -1,4 +1,4 @@
-/* DESCRIPTIONhow
+/* DESCRIPTION
 
 This file contains all the handle functions for the different packets received
 from RoCo.
@@ -91,7 +91,7 @@ void switch_LED_callback(const boost::shared_ptr<std_msgs::Bool const> msg, Netw
   sender->send<sc_LED_packet>(&packet);
 }
 
-void switch_trap_callback(const boost::shared_ptr<std_msgs::Bool const> msg, NetworkBus* sender)
+void switch_trap_callback(const boost::shared_ptr<std_msgs::UInt32 const> msg, NetworkBus* sender)
 {
   sc_trap_packet packet;
   packet.open = msg->data;
@@ -106,23 +106,50 @@ void switch_caching_callback(const boost::shared_ptr<std_msgs::Bool const> msg, 
   sender->send<sc_caching_packet>(&packet);
 }
 
+void hd_voltmeter_motor_callback(const boost::shared_ptr<std_msgs::Bool const> msg, NetworkBus* sender)
+{
+  hd_voltmeter_motor_packet packet;
+  packet.extended = msg->data;
+  sender->send<hd_voltmeter_motor_packet>(&packet);
+}
+
+void hd_voltmeter_tare_callback(const boost::shared_ptr<std_msgs::Bool const> msg, NetworkBus* sender)
+{
+  hd_voltmeter_tare_packet packet;
+  packet.tare = msg->data;
+  std::cout << "GOING THROUGH THE TARE CALLBACK" << std::endl;
+  sender->send<hd_voltmeter_tare_packet>(&packet);
+}
+
 
 //----------handlers----------
 
 // receive data from RoCo and send to ROS
 
-// void handle_IMU(uint8_t sender_id, avionics_IMU_packet* packet, void* ros_publisher)
-// {
-//   sensor_msgs::Imu.msg msg;
-//   //Clear array
-// 	msg.data.clear();
+void handle_IMU(uint8_t sender_id, avionics_IMU_packet* packet, void* ros_publisher)
+{
+  sensor_msgs::Imu msg;
+  //Clear array
+	// msg.data.clear();
+  msg.angular_velocity.x = packet->angular_velocity[0];
+  msg.angular_velocity.y = packet->angular_velocity[1];
+  msg.angular_velocity.z = packet->angular_velocity[2];
 
-//   msg.data.push_back(packet->acceleration);
-//   msg.data.push_back(packet->angular_velocity);
-//   msg.data.push_back(packet->magnetometer);
+  msg.linear_acceleration.x = packet->acceleration[0];
+  msg.linear_acceleration.y = packet->acceleration[1];
+  msg.linear_acceleration.z = packet->acceleration[2];
 
-//   ((ros::Publisher *)ros_publisher)->publish(msg);
-// }
+  msg.orientation.w = packet->orientation[0];
+  msg.orientation.x = packet->orientation[1];
+  msg.orientation.y = packet->orientation[2];
+  msg.orientation.z = packet->orientation[3];
+
+  // msg.data.push_back(packet->acceleration);
+  // msg.data.push_back(packet->angular_velocity);
+  // msg.data.push_back(packet->magnetometer);
+
+  ((ros::Publisher *)ros_publisher)->publish(msg);
+}
 
 void handle_TOF(uint8_t sender_id, avionics_ToF_packet* packet, void* ros_publisher)
 {
@@ -147,7 +174,7 @@ void handle_voltmeter(uint8_t sender_id, avionics_voltmeter_packet* packet, void
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 
-void handle_mass(uint8_t sender_id, avionics_massload_packet* packet, void* ros_publisher)
+void handle_massload(uint8_t sender_id, avionics_massload_packet* packet, void* ros_publisher)
 {
   std_msgs::Float32 msg;
   //Clear array
@@ -222,3 +249,14 @@ void handle_currents(uint8_t sender_id, Power_CurrentPacket* packet, void* ros_p
 
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
+
+// void handle_voltmeter_tare(uint8_t sender_id, hd_voltmeter_tare_packet* packet, void* ros_publisher)
+// {
+//   std_msgs::Bool msg;
+//   //Clear array
+// 	msg.data = 0;
+
+//   msg.data = packet->tare;
+
+//   ((ros::Publisher *)ros_publisher)->publish(msg);
+// }
