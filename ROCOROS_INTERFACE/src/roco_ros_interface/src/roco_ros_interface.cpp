@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "sensor_msgs/Imu.h"
 
 #include <cstring>
 #include <fcntl.h>
@@ -28,7 +29,7 @@ void testCallback(const std_msgs::Float32& msg);
 
 int main(int argc, char **argv)
 {
-  UDevDriver* driver = new UDevDriver("/dev/ttyUSB0");
+  UDevDriver* driver = new UDevDriver("/dev/ttyS3");
 
 
   struct termios tty;
@@ -75,7 +76,8 @@ int main(int argc, char **argv)
    */
   ros::NodeHandle n;
 
-  ros::Rate loop_rate(1);
+  // ros::Rate loop_rate(1000);
+   ros::Rate loop_rate(1);
   ros::Rate wait(1);
 
   /**
@@ -98,22 +100,31 @@ int main(int argc, char **argv)
 
 
   // bus->handle<avionics_voltmeter_packet>(&handle_voltmeter);
-  ros::Publisher led_pub = n.advertise<std_msgs::Bool>("avionics_led", 1000);
-  ros::Publisher trap_pub = n.advertise<std_msgs::Bool>("avionics_trap", 1000);
+  ros::Publisher led_pub = n.advertise<std_msgs::Bool>("sc_led", 1000);
+  ros::Publisher trap_pub = n.advertise<std_msgs::UInt32>("sc_trap", 1000);
   ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
-  // ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
-  // ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
-  // ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
+  ros::Publisher imu_pub = n.advertise<sensor_msgs::Imu>("avionics_imu", 1000);
+  ros::Publisher tof_pub = n.advertise<std_msgs::Float32>("avionics_tof", 1000);
+  ros::Publisher massload_pub = n.advertise<std_msgs::Float32>("avionics_massload", 1000);
+  ros::Publisher moisture_pub = n.advertise<std_msgs::Float32>("avionics_moisture", 1000);
   // ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
 
-  ros::Subscriber led_sub = n.subscribe<std_msgs::Bool>("avionics_led", 1000, boost::bind(switch_LED_callback, _1, bus));
-  ros::Subscriber trap_sub = n.subscribe<std_msgs::Bool>("avionics_trap", 1000,  boost::bind(switch_trap_callback, _1, bus));
-  ros::Subscriber caching_sub = n.subscribe<std_msgs::Bool>("avionics_caching", 1000, boost::bind(switch_caching_callback, _1, bus));
+  ros::Subscriber led_sub = n.subscribe<std_msgs::Bool>("sc_led", 1000, boost::bind(switch_LED_callback, _1, bus));
+  ros::Subscriber trap_sub = n.subscribe<std_msgs::UInt32>("sc_trap", 1000,  boost::bind(switch_trap_callback, _1, bus));
+  ros::Subscriber caching_sub = n.subscribe<std_msgs::Bool>("sc_caching", 1000, boost::bind(switch_caching_callback, _1, bus));
+  ros::Subscriber voltmeter_motor_sub = n.subscribe<std_msgs::Bool>("hd_voltmeter_motor", 1000, boost::bind(hd_voltmeter_motor_callback, _1, bus));
+  ros::Subscriber voltmeter_tare_sub = n.subscribe<std_msgs::Bool>("hd_voltmeter_tare", 1000, boost::bind(hd_voltmeter_tare_callback, _1, bus));
 
   // ros::Subscriber voltage_sub = n.subscribe("avionics_voltage", 1000, testCallback);
   // bus->handle<avionics_voltmeter_packet>(&handle_voltmeter, (void*)&voltage_pub);
   bus->handle<avionics_voltmeter_packet>(&handle_voltmeter, (void*)&voltage_pub);
+  bus->handle<avionics_IMU_packet>(&handle_IMU, (void*)&imu_pub);
+  bus->handle<avionics_ToF_packet>(&handle_TOF, (void*)&tof_pub);
+  bus->handle<avionics_massload_packet>(&handle_massload, (void*)&massload_pub);
+  bus->handle<avionics_moisture_packet>(&handle_moisture, (void*)&moisture_pub);
   std_msgs::Bool msg;
+  std_msgs::UInt32 msg_trap;
+  msg_trap.data = 0;
   msg.data = false;
   
   /**
@@ -125,26 +136,27 @@ int main(int argc, char **argv)
   {
 
      msg.data = !msg.data;
+     msg_trap.data = ((msg_trap.data + 1) % 3);
      ROS_INFO("LED state : [%d]", msg.data);
      led_pub.publish(msg);
-    //  std::cout << "MAIN LOOP LED SENT" << std::endl;
-     trap_pub.publish(msg);
-    //  std::cout << "MAIN LOOP TRAP SENT" << std::endl;
-    // loop to try to (re)connect to server if disconnected
-    // if(!(client->is_connected()))
-    // {
-    //   int result = client->connectClient();
-    //   if(result < 0) {
-  	//     std::cout << "Power Supply connection failed with error code " << result << std::endl;
-  	//     std::cout << std::strerror(errno) << std::endl;
-    //   }
-    // }
+    // //  std::cout << "MAIN LOOP LED SENT" << std::endl;
+     trap_pub.publish(msg_trap);
+    // //  std::cout << "MAIN LOOP TRAP SENT" << std::endl;
+    // // loop to try to (re)connect to server if disconnected
+    // // if(!(client->is_connected()))
+    // // {
+    // //   int result = client->connectClient();
+    // //   if(result < 0) {
+  	// //     std::cout << "Power Supply connection failed with error code " << result << std::endl;
+  	// //     std::cout << std::strerror(errno) << std::endl;
+    // //   }
+    // // }
 
-    // used to handle ros communication events, i.e. callback to function
-    // ros::spinOnce();
+    // // used to handle ros communication events, i.e. callback to function
+    // // ros::spinOnce();
 
-    // enforces the frequency at which this while loop runs (here at 1H z, see above)
-    // loop_rate.sleep();
+    // // enforces the frequency at which this while loop runs (here at 1H z, see above)
+    // // loop_rate.sleep();
     ros::spinOnce();
     loop_rate.sleep();
   }
