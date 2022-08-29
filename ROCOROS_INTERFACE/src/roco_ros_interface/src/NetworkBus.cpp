@@ -15,9 +15,10 @@
 #include "NetworkBus.h"
 #include "Protocol/Protocol.h"
 
+
 NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(network_frame)) {
 
-	//---------Avionics--------------
+//---------Avionics--------------
 	define<avionics_ToF_packet>(0);
 	define<avionics_IMU_packet>(1);
 	define<avionics_potentiometer_packet>(2);
@@ -51,6 +52,16 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	define<RequestPacket>(24);
 	define<ResponsePacket>(25);
 	define<ProgressPacket>(26);
+
+
+
+	define<hd_voltmeter_motor_packet>(27);
+	define<avionics_voltmeter_motor_status_packet>(28);
+	define<hd_voltmeter_tare_packet>(29);
+	define<avionics_voltmeter_tare_success_packet>(30);
+
+	define<sc_mass_calibrate_packet>(31);
+	define<avionics_mass_calibrate_success_packet>(32);
 
 	//-------------Sussy_packets------
 //	define<PollosHermanos_packet>(69);
