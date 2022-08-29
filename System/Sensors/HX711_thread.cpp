@@ -13,8 +13,9 @@
 
 #define TIMEOUT 30*1000  //ms
 
-static char cbuf[256];
 const int32_t threshold = 50000;
+
+HX711Thread* hx711Instance = nullptr;
 
 HX711Thread::HX711Thread(ProberThread* parent, GPIO_TypeDef *sck_gpioa, uint32_t sck_pina, GPIO_TypeDef *di_gpioa, uint32_t di_pina,
                GPIO_TypeDef *sck_gpiob, uint32_t sck_pinb, GPIO_TypeDef *di_gpiob, uint32_t di_pinb)
@@ -42,6 +43,8 @@ void HX711Thread::init() {
         parent->resetProber();
         return;
     }
+
+	hx711Instance = this;
 	//Ensure there is no weight on top of scale on startup
 	//calibrateMultiplier(); //In order to manually calibrate the scale, empirical values are taken as default values already
 //	println("[i2c%d] HX711 initialised", portNum);
@@ -49,6 +52,7 @@ void HX711Thread::init() {
 
 static MassData data;
 static avionics_massload_packet packet;
+static avionics_mass_calibrate_success_packet calibrate_success_packet;
 void HX711Thread::loop() {
 	if(HX711_checkReadiness(_hx711a) && HX711_checkReadiness(_hx711b)) { //check sensor is still responding
 		data.mass = ((HX711_valueAve(_hx711a, _nSamples) + HX711_valueAve(_hx711b, _nSamples))/2 - _zero)*_multiplier;
@@ -58,6 +62,7 @@ void HX711Thread::loop() {
 		portYIELD();
 	} else {
 //		println("[i2c%d] HX711 disconnected", portNum);
+		hx711Instance = nullptr;
 		terminate();
 		parent->resetProber();
 	}
@@ -66,9 +71,10 @@ void HX711Thread::loop() {
 //calibrate the voltage->mass multiplier
 void HX711Thread::calibrateMultiplier(void){
 	//Get zero offset
-	osDelay(200);
-	tare(HX711_valueAve(_hx711a, _nSamples*2));
-	tare(HX711_valueAve(_hx711b, _nSamples*2));
+//	osDelay(200);
+//	tare(HX711_valueAve(_hx711a, _nSamples*2));
+//	tare(HX711_valueAve(_hx711b, _nSamples*2));
+	tare();
 	float calibrationWeight = 500; //in g
 //	println("[i2c%d] Place %fg on top of scale in order to calibrate", portNum, calibrationWeight);
 	//start timer; will timeout after (TIMEOUT)ms, defined above^
@@ -81,16 +87,27 @@ void HX711Thread::calibrateMultiplier(void){
 			osDelay(200); // Give the weight some time to settle
 			_multiplier = 2*calibrationWeight/(HX711_valueAve(_hx711a, _nSamples)+(HX711_valueAve(_hx711b, _nSamples)) - _zero);
 //			println("[i2c%d] HX711 successfully calibrated: {zero=%ld}, {coeff=%f}", portNum, _zero, _multiplier);
+			calibrate_success_packet.status = true;
+			network.send(&calibrate_success_packet);
 			return;
 		}
 		osDelay(200);
 	}
 //	println("[i2c%d] Timeout(%u): HX711 unable to be calibrated", portNum, TIMEOUT/1000);
+	hx711Instance = nullptr;
+	calibrate_success_packet.status = false;
+	network.send(&calibrate_success_packet);
 	terminate();
 	parent->resetProber();
 }
 
-void HX711Thread::tare(int32_t zero){
-	_zero = zero;
+//void HX711Thread::tare(int32_t zero){
+//	_zero = zero;
+////	println("[i2c%d] HX711 successfully tared", portNum);
+//}
+
+void HX711Thread::tare(void){
+
+	_zero = (HX711_valueAve(_hx711a, _nSamples*2) + HX711_valueAve(_hx711b, _nSamples*2))/2;
 //	println("[i2c%d] HX711 successfully tared", portNum);
 }

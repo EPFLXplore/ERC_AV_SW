@@ -21,7 +21,8 @@ public:
 	void init();
 	void loop();
 	void calibrateMultiplier(void);
-	void tare(int32_t zero);
+//	void tare(int32_t zero);
+	void tare(void);
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -32,5 +33,6 @@ private:
 	struct HX711 _hx711b;
 };
 
+extern HX711Thread* hx711Instance;
 
 #endif /* SENSORS_HX711_H_ */

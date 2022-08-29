@@ -27,8 +27,8 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	define<sc_LED_packet>(6);
 	define<sc_trap_packet>(7);
 	define<sc_caching_packet>(8);
-	define<sc_trap_success_packet>(9);
-	define<sc_caching_success_packet>(10);
+	define<avionics_trap_success_packet>(9);
+	define<avionics_caching_success_packet>(10);
 
 	//----------Power supply----------
 	define<Power_SystemPacket>(11);
@@ -52,6 +52,14 @@ NetworkBus::NetworkBus(IODriver* driver) : IOBus(driver, network_frame, sizeof(n
 	define<ResponsePacket>(25);
 	define<ProgressPacket>(26);
 
+
+	define<hd_voltmeter_motor_packet>(27);
+	define<avionics_voltmeter_motor_status_packet>(28);
+	define<hd_voltmeter_tare_packet>(29);
+	define<avionics_voltmeter_tare_success_packet>(30);
+
+	define<sc_mass_calibrate_packet>(31);
+	define<avionics_mass_calibrate_success_packet>(32);
 	//-------------Sussy_packets------
 //	define<PollosHermanos_packet>(69);
 }
