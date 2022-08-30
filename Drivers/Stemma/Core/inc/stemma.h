@@ -158,6 +158,14 @@ enum {
 #define PWM_2_PIN 6 ///< default PWM output pin
 #define PWM_3_PIN 7 ///< default PWM output pin
 
+#define MIN_MOISTURE 300.f ///< for Absolute Humidity, minimal expected value
+#define MAX_MOISTURE 1200.f ///< for Absolute Humidity, maximal expected value
+#define MIN_RH 20.f ///<20%, minimal expected value RH (%)
+#define MAX_RH 90.f ///<80%, maximal expected value RH (%)
+#define FACTOR_MOISTURE (MAX_RH-MIN_RH)/((MAX_MOISTURE-MIN_MOISTURE)*100)
+///< creates a Relative Humidity factor to have a linear RH scale (from 0.20 to 0.80)
+
+
 #ifndef INPUT_PULLDOWN
 #define INPUT_PULLDOWN                                                         \
   0x03 ///< for compatibility with platforms that do not already define

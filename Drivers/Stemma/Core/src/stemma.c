@@ -75,11 +75,20 @@ HAL_StatusTypeDef stemma_ReadMoisture(moist_meter *dev, uint8_t pin){
 	  HAL_Delay(10);
 	if (status == HAL_OK) {
 	  dev->moisture = ((uint16_t)buf[0] << 8) | buf[1];
+
+	  if (dev->moisture < MIN_MOISTURE) {
+		  dev->moisture = MIN_MOISTURE;
+	  } else if (dev->moisture > MAX_MOISTURE) {
+	  	  dev->moisture = MAX_MOISTURE;
+	  }
+	  dev->moisture = dev->moisture*FACTOR_MOISTURE;
+
 	  return status;
 	}
   }
   return status;
 }
+
 
 HAL_StatusTypeDef stemma_ReadRegister(moist_meter *dev, uint8_t reg, uint8_t *data ) {
 	return HAL_I2C_Mem_Read( dev->i2cHandle, SEESAW_ADDRESS, reg, I2C_MEMADD_SIZE_8BIT, data, 1, HAL_MAX_DELAY );
