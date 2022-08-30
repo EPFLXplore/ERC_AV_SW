@@ -47,7 +47,7 @@ struct sc_LED_packet {
 } __attribute__((packed));
 
 struct sc_trap_packet {
-	uint8_t open;
+	bool open;
 } __attribute__((packed));
 
 struct sc_caching_packet {
@@ -55,7 +55,7 @@ struct sc_caching_packet {
 } __attribute__((packed));
 
 struct avionics_trap_success_packet {
-	uint8_t status;
+	bool status;
 } __attribute__((packed));
 
 struct avionics_caching_success_packet {

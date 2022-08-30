@@ -7,9 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/xplore/Desktop/AV_Workspace/av_ws/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/xplore/Desktop/AV_Workspace/av_ws/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/xplore/Desktop/AV_Workspace/av_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PWD='/home/xplore/Desktop/AV_Workspace/av_ws/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/xplore/Desktop/AV_Workspace/av_ws/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/xplore/Desktop/AV_Workspace/av_ws/src:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/xplore/AV_workspace/ROCOROS_INTERFACE/devel:$CMAKE_PREFIX_PATH"
+export PWD='/home/xplore/AV_workspace/ROCOROS_INTERFACE/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/xplore/AV_workspace/ROCOROS_INTERFACE/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/xplore/AV_workspace/ROCOROS_INTERFACE/src:$ROS_PACKAGE_PATH"

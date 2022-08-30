@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/roco_ros_interface_node.dir/src/roco_ros_interface.cpp.o"
-  "roco_ros_interface_node.pdb"
+  "CMakeFiles/roco_ros_interface_node.dir/src/roco_ros_interface.cpp.o.d"
   "roco_ros_interface_node"
+  "roco_ros_interface_node.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

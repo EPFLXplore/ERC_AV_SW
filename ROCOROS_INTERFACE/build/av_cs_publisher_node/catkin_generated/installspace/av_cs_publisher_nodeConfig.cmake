@@ -67,14 +67,14 @@ set(av_cs_publisher_node_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(av_cs_publisher_node_SOURCE_PREFIX /home/xplore/Desktop/AV_Workspace/av_ws/src/av_cs_publisher_node)
-  set(av_cs_publisher_node_DEVEL_PREFIX /home/xplore/Desktop/AV_Workspace/av_ws/devel)
+  set(av_cs_publisher_node_SOURCE_PREFIX /home/xplore/AV_workspace/ROCOROS_INTERFACE/src/av_cs_publisher_node)
+  set(av_cs_publisher_node_DEVEL_PREFIX /home/xplore/AV_workspace/ROCOROS_INTERFACE/devel)
   set(av_cs_publisher_node_INSTALL_PREFIX "")
   set(av_cs_publisher_node_PREFIX ${av_cs_publisher_node_DEVEL_PREFIX})
 else()
   set(av_cs_publisher_node_SOURCE_PREFIX "")
   set(av_cs_publisher_node_DEVEL_PREFIX "")
-  set(av_cs_publisher_node_INSTALL_PREFIX /home/xplore/Desktop/AV_Workspace/av_ws/install)
+  set(av_cs_publisher_node_INSTALL_PREFIX /home/xplore/AV_workspace/ROCOROS_INTERFACE/install)
   set(av_cs_publisher_node_PREFIX ${av_cs_publisher_node_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/xplore/Desktop/AV_Workspace/av_ws/install/lib;/opt/ros/melodic/lib)
+    foreach(path /home/xplore/AV_workspace/ROCOROS_INTERFACE/install/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -1,4 +1,4 @@
-prefix=/home/xplore/Desktop/AV_Workspace/av_ws/install
+prefix=/home/xplore/AV_workspace/ROCOROS_INTERFACE/install
 
 Name: av_cs_publisher_node
 Description: Description of av_cs_publisher_node

@@ -1,8 +1,8 @@
-# Install script for directory: /home/xplore/Desktop/AV_Workspace/av_ws/src/av_cs_publisher_node
+# Install script for directory: /home/xplore/AV_workspace/ROCOROS_INTERFACE/src/av_cs_publisher_node
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/xplore/Desktop/AV_Workspace/av_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xplore/AV_workspace/ROCOROS_INTERFACE/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,18 +37,23 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xplore/Desktop/AV_Workspace/av_ws/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_node.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xplore/AV_workspace/ROCOROS_INTERFACE/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_node.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/av_cs_publisher_node/cmake" TYPE FILE FILES
-    "/home/xplore/Desktop/AV_Workspace/av_ws/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_nodeConfig.cmake"
-    "/home/xplore/Desktop/AV_Workspace/av_ws/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_nodeConfig-version.cmake"
+    "/home/xplore/AV_workspace/ROCOROS_INTERFACE/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_nodeConfig.cmake"
+    "/home/xplore/AV_workspace/ROCOROS_INTERFACE/build/av_cs_publisher_node/catkin_generated/installspace/av_cs_publisher_nodeConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/av_cs_publisher_node" TYPE FILE FILES "/home/xplore/Desktop/AV_Workspace/av_ws/src/av_cs_publisher_node/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/av_cs_publisher_node" TYPE FILE FILES "/home/xplore/AV_workspace/ROCOROS_INTERFACE/src/av_cs_publisher_node/package.xml")
 endif()
 

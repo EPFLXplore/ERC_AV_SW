@@ -14,7 +14,9 @@ handlers.
 #include "std_msgs/UInt32MultiArray.h"
 #include "std_msgs/Float32.h"
 #include "std_msgs/UInt32.h"
+#include "std_msgs/Int32.h"
 #include "std_msgs/Bool.h"
+// #include "sensor_msgs/RelativeHumidity.h"
 
 #include <sstream>
 #include <string>
@@ -91,11 +93,11 @@ void switch_LED_callback(const boost::shared_ptr<std_msgs::Bool const> msg, Netw
   sender->send<sc_LED_packet>(&packet);
 }
 
-void switch_trap_callback(const boost::shared_ptr<std_msgs::UInt32 const> msg, NetworkBus* sender)
+void switch_trap_callback(const boost::shared_ptr<std_msgs::Bool const> msg, NetworkBus* sender)
 {
   sc_trap_packet packet;
   packet.open = msg->data;
-    std::cout << "TRAP SENT" << std::endl;
+    std::cout << "TRAP SENT!" << std::endl;
   sender->send<sc_trap_packet>(&packet);
 }
 
@@ -103,6 +105,7 @@ void switch_caching_callback(const boost::shared_ptr<std_msgs::Bool const> msg, 
 {
   sc_caching_packet packet;
   packet.open = msg->data;
+  std::cout << "CACHING SENT" << std::endl;
   sender->send<sc_caching_packet>(&packet);
 }
 
@@ -176,7 +179,7 @@ void handle_voltmeter(uint8_t sender_id, avionics_voltmeter_packet* packet, void
 
 void handle_massload(uint8_t sender_id, avionics_massload_packet* packet, void* ros_publisher)
 {
-  std_msgs::Float32 msg;
+  std_msgs::Int32 msg;
   //Clear array
 	msg.data = 0;
 
@@ -203,7 +206,7 @@ void handle_trap(uint8_t sender_id, avionics_trap_success_packet* packet, void* 
 	msg.data = 0;
 
   msg.data = packet->status;
-
+  ROS_INFO("Trap success");
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 
@@ -214,7 +217,7 @@ void handle_caching(uint8_t sender_id, avionics_caching_success_packet* packet, 
 	msg.data = 0;
 
   msg.data = packet->status;
-
+  ROS_INFO("caching success");
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 

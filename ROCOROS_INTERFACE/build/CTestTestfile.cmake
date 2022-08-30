@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/xplore/Desktop/AV_Workspace/av_ws/src
-# Build directory: /home/xplore/Desktop/AV_Workspace/av_ws/build
+# Source directory: /home/xplore/AV_workspace/ROCOROS_INTERFACE/src
+# Build directory: /home/xplore/AV_workspace/ROCOROS_INTERFACE/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
