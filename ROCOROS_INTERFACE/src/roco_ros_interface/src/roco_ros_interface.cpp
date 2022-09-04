@@ -29,7 +29,7 @@ void testCallback(const std_msgs::Float32& msg);
 
 int main(int argc, char **argv)
 {
-  UDevDriver* driver = new UDevDriver("/dev/ttyUSB0");
+  UDevDriver* driver = new UDevDriver("/dev/ttyUSB1");
 
 
   struct termios tty;
