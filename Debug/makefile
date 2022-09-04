@@ -91,8 +91,8 @@ all: main-build
 main-build: EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf secondary-outputs
 
 # Tool invocations
-EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) C:\Users\41786\Documents\AV_workspace\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\41786\Documents\AV_workspace\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map: $(OBJS) $(USER_OBJS) C:\Users\Bryan\ Kheirallah\Desktop\aa\AV_workspace\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\Bryan Kheirallah\Desktop\aa\AV_workspace\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EPFL_XPLORE_AVIONICS_MCU_ROCOROS_REMIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

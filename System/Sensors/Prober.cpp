@@ -35,11 +35,11 @@ bool ProberThread::probeI2C(uint8_t address) {
 bool ProberThread::probeDB() {
 	struct HX711 hx711a;
 	struct HX711 hx711b;
-	hx711a = {HX711_CLK1_GPIO_Port, HX711_CLK1_Pin, HX711_DATA1_GPIO_Port, HX711_DATA1_Pin};
+//	hx711a = {HX711_CLK1_GPIO_Port, HX711_CLK1_Pin, HX711_DATA1_GPIO_Port, HX711_DATA1_Pin};
 	hx711b = {HX711_CLK2_GPIO_Port, HX711_CLK2_Pin, HX711_DATA2_GPIO_Port, HX711_DATA2_Pin};
-	HX711_init(hx711a);
+//	HX711_init(hx711a);
 	HX711_init(hx711b);
-	return HX711_checkReadiness(hx711a) && HX711_checkReadiness(hx711b);
+	return HX711_checkReadiness(hx711b);
 }
 
 void ProberThread::loop() {
@@ -49,7 +49,7 @@ void ProberThread::loop() {
 	} else if (probeI2C(ADS_ADDR_GND)) {
 		this->instance = new VoltmeterThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
-	} else if(probeDB()) {
+	} else if(probeDB() && hi2c == &hi2c1) {
 		this->instance = instantiateHX711();
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	} else if(probeI2C(SEESAW_ADDRESS)) {

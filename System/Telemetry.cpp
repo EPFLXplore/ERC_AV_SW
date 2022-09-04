@@ -75,6 +75,7 @@ void setupTelemetry() {
 	// SCIENCE -> AV
 	network.forward<sc_LED_packet>(&UART1_network);
 	network.forward<sc_trap_packet>(&UART1_network);
+	network.forward<sc_caching_packet>(&UART1_network);
 	network.forward<sc_mass_calibrate_packet>(&UART6_network); //IMPORTANT
 	// network.forward<sc_hx711_calibrate_packet>(&UART1_network);	 //IMPORTANT
 

@@ -19,7 +19,7 @@ HX711Thread* hx711Instance = nullptr;
 
 HX711Thread::HX711Thread(ProberThread* parent, GPIO_TypeDef *sck_gpioa, uint32_t sck_pina, GPIO_TypeDef *di_gpioa, uint32_t di_pina,
                GPIO_TypeDef *sck_gpiob, uint32_t sck_pinb, GPIO_TypeDef *di_gpiob, uint32_t di_pinb)
-: Thread("HX711", 1024), parent(parent), portNum(parent->getI2CNum()), _nSamples(4), _zero(8032150), _multiplier(0.00048667), _hx711a({sck_gpioa, sck_pina, di_gpioa, di_pina}),
+: Thread("HX711", 1024), parent(parent), portNum(parent->getI2CNum()), _nSamples(4), _zero(8032150/2), _multiplier(1/20.f), _hx711a({sck_gpioa, sck_pina, di_gpioa, di_pina}),
   _hx711b({sck_gpiob, sck_pinb, di_gpiob, di_pinb})
 { }
 
@@ -30,12 +30,12 @@ void HX711Thread::init() {
 	HX711_begin(_hx711b);
 
 
-	if(!HX711_checkReadiness(_hx711a)) {
-//		println("[i2c%d] HX711 initialisation failed", portNum);
-		terminate();
-		parent->resetProber();
-		return;
-	}
+//	if(!HX711_checkReadiness(_hx711a)) {
+////		println("[i2c%d] HX711 initialisation failed", portNum);
+//		terminate();
+//		parent->resetProber();
+//		return;
+//	}
 
 	if(!HX711_checkReadiness(_hx711b)) {
 //      println("[i2c%d] HX711 initialisation failed", portNum);
@@ -54,14 +54,17 @@ static MassData data;
 static avionics_massload_packet packet;
 static avionics_mass_calibrate_success_packet calibrate_success_packet;
 void HX711Thread::loop() {
-	if(HX711_checkReadiness(_hx711a) && HX711_checkReadiness(_hx711b)) { //check sensor is still responding
-		data.mass = ((HX711_valueAve(_hx711a, _nSamples) + HX711_valueAve(_hx711b, _nSamples))/2 - _zero)*_multiplier;
+	//if(HX711_checkReadiness(_hx711a) && HX711_checkReadiness(_hx711b)) { //check sensor is still responding
+	if(HX711_checkReadiness(_hx711b)) { //check sensor is still responding
+		volatile float hxa = HX711_valueAve(_hx711a, _nSamples);
+		volatile float hxb = HX711_valueAve(_hx711b, _nSamples);
+		volatile float mass = ((HX711_valueAve(_hx711a, _nSamples) + HX711_valueAve(_hx711b, _nSamples))/2 - _zero)*_multiplier;
+		data.mass = mass;
 //		println("[i2c%d] %s", portNum, data.toString(cbuf));
 		data.toArray((uint8_t*) &packet);
 		network.send(&packet);
 		portYIELD();
 	} else {
-//		println("[i2c%d] HX711 disconnected", portNum);
 		hx711Instance = nullptr;
 		terminate();
 		parent->resetProber();

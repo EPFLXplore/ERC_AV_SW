@@ -25,10 +25,11 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "Voltmeter_extender.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Voltmeter_extender.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
