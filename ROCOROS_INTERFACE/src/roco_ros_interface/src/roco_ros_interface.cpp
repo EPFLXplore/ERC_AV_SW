@@ -77,7 +77,7 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   // ros::Rate loop_rate(1000);
-   ros::Rate loop_rate(1000);
+  ros::Rate loop_rate(1000);
   ros::Rate wait(1);
 
   /**
@@ -92,16 +92,12 @@ int main(int argc, char **argv)
    *
    * The second parameter to the subscribe() function is the size of the message
    * queue.  If messages are arriving faster than they are being processed, this
-   * is the number+ of messages that will be buffered up before beginning to throw
+   * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  // ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
 
-
-
-  // bus->handle<avionics_voltmeter_packet>(&handle_voltmeter);
-  // ros::Publisher led_pub = n.advertise<std_msgs::Bool>("sc_led", 1000);
-
+  // Implementation of ros publishers. Those mainly concern data from sensors. It also includes success messages
+  // for science tasks.
   ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
   ros::Publisher imu_pub = n.advertise<sensor_msgs::Imu>("avionics_imu", 1000);
   ros::Publisher tof_pub = n.advertise<std_msgs::Float32>("avionics_tof", 1000);
@@ -109,16 +105,17 @@ int main(int argc, char **argv)
   ros::Publisher moisture_pub = n.advertise<std_msgs::Float32>("avionics_moisture", 1000);
   ros::Publisher caching_pub = n.advertise<std_msgs::Bool>("avionics_caching_success", 1000);
   ros::Publisher trap_pub = n.advertise<std_msgs::Bool>("avionics_trap_success", 1000);
-  // ros::Publisher voltage_pub = n.advertise<std_msgs::Float32>("avionics_voltage", 1000);
 
+  // Implementation of ros subscribers. Whenever something is published in the following topics. A function will 
+  // be called and transform the ros message into a roco packet which will be sent to its corresponding target.
   ros::Subscriber led_sub = n.subscribe<std_msgs::Bool>("sc_led", 1000, boost::bind(switch_LED_callback, _1, bus));
   ros::Subscriber trap_sub = n.subscribe<std_msgs::Bool>("sc_trap", 1000,  boost::bind(switch_trap_callback, _1, bus));
   ros::Subscriber caching_sub = n.subscribe<std_msgs::Bool>("sc_caching", 1000, boost::bind(switch_caching_callback, _1, bus));
   ros::Subscriber voltmeter_motor_sub = n.subscribe<std_msgs::Bool>("hd_voltmeter_motor", 1000, boost::bind(hd_voltmeter_motor_callback, _1, bus));
   ros::Subscriber voltmeter_tare_sub = n.subscribe<std_msgs::Bool>("hd_voltmeter_tare", 1000, boost::bind(hd_voltmeter_tare_callback, _1, bus));
 
-  // ros::Subscriber voltage_sub = n.subscribe("avionics_voltage", 1000, testCallback);
-  // bus->handle<avionics_voltmeter_packet>(&handle_voltmeter, (void*)&voltage_pub);
+  // Implementation of handlers for functions to be called whenever a specific packet arrives on the bus.
+  // Those handles will unpack the incoming message and publish on their respective topics in ROS.
   bus->handle<avionics_voltmeter_packet>(&handle_voltmeter, (void*)&voltage_pub);
   bus->handle<avionics_IMU_packet>(&handle_IMU, (void*)&imu_pub);
   bus->handle<avionics_ToF_packet>(&handle_TOF, (void*)&tof_pub);
@@ -126,10 +123,6 @@ int main(int argc, char **argv)
   bus->handle<avionics_moisture_packet>(&handle_moisture, (void*)&moisture_pub);
   bus->handle<avionics_caching_success_packet>(&handle_caching, (void*)&caching_pub);
   bus->handle<avionics_trap_success_packet>(&handle_trap, (void*)&trap_pub);
-  std_msgs::Bool msg;
-  std_msgs::UInt32 msg_trap;
-  msg_trap.data = 0;
-  msg.data = false;
   
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all
@@ -138,29 +131,6 @@ int main(int argc, char **argv)
    */
   while (ros::ok())
   {
-
-    //  msg.data = !msg.data;
-    //  msg_trap.data = ((msg_trap.data + 1) % 3);
-    //  ROS_INFO("LED state : [%d]", msg.data);
-    //  led_pub.publish(msg);
-    // // //  std::cout << "MAIN LOOP LED SENT" << std::endl;
-    //  trap_pub.publish(msg_trap);
-    // //  std::cout << "MAIN LOOP TRAP SENT" << std::endl;
-    // // loop to try to (re)connect to server if disconnected
-    // // if(!(client->is_connected()))
-    // // {
-    // //   int result = client->connectClient();
-    // //   if(result < 0) {
-  	// //     std::cout << "Power Supply connection failed with error code " << result << std::endl;
-  	// //     std::cout << std::strerror(errno) << std::endl;
-    // //   }
-    // // }
-
-    // // used to handle ros communication events, i.e. callback to function
-    // // ros::spinOnce();
-
-    // // enforces the frequency at which this while loop runs (here at 1H z, see above)
-    // // loop_rate.sleep();
     ros::spinOnce();
     loop_rate.sleep();
   }

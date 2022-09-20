@@ -16,13 +16,9 @@ handlers.
 #include "std_msgs/UInt32.h"
 #include "std_msgs/Int32.h"
 #include "std_msgs/Bool.h"
-// #include "sensor_msgs/RelativeHumidity.h"
 
 #include <sstream>
 #include <string>
-
-// #include "../RoCo/Build/Build.h"
-
 #include <cstdint>
 #include <iomanip>
 #include <iostream>
@@ -253,13 +249,3 @@ void handle_currents(uint8_t sender_id, Power_CurrentPacket* packet, void* ros_p
   ((ros::Publisher *)ros_publisher)->publish(msg);
 }
 
-// void handle_voltmeter_tare(uint8_t sender_id, hd_voltmeter_tare_packet* packet, void* ros_publisher)
-// {
-//   std_msgs::Bool msg;
-//   //Clear array
-// 	msg.data = 0;
-
-//   msg.data = packet->tare;
-
-//   ((ros::Publisher *)ros_publisher)->publish(msg);
-// }
