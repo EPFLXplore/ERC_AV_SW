@@ -1,0 +1,20 @@
+/*
+ * Handlers.h
+ *
+ *  Created on: Aug 25, 2022
+ *      Author: Vincent
+ */
+
+#ifndef HANDLERS_H_
+#define HANDLERS_H_
+
+#include "RoCo.h"
+
+void handle_led(uint8_t sender_id, sc_LED_packet* packet);
+void handle_servo_trap(uint8_t sender_id, sc_trap_packet* packet);
+void handle_servo_caching(uint8_t sender_id, sc_caching_packet* packet);
+void handle_voltmeter_motor(uint8_t sender_id, hd_voltmeter_motor_packet* packet);
+void handle_voltmeter_tare(uint8_t sender_id, hd_voltmeter_tare_packet* packet);
+void handle_mass_calibrate(uint8_t sender_id, sc_mass_calibrate_packet* packet);
+
+#endif /* HANDLERS_H_ */
