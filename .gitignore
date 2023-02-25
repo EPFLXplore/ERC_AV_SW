@@ -1,4 +1,6 @@
-*.d
-*.o
-/Debug/
-ROCOROS_INTERFACE/build/roco_ros_interface/roco_ros_interface_node
+# Eclipse
+.metadata
+.settings
+[Rr]elease
+[Dd]ebug
+.launch
