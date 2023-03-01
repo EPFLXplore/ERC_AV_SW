@@ -63,7 +63,6 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t Rx_data[100] = {0};
 
 uint16_t counter = 0;
 //extern "C" { // C++ cannot override printf, must compile in C
@@ -73,12 +72,12 @@ int __io_putchar(int ch) {
 }
 //}
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  SCB_InvalidateDCache_by_Addr((uint32_t*)(((uint32_t)Rx_data) & ~(uint32_t)0x1F), 100+32);
-  HAL_UART_Receive_DMA(&huart3, Rx_data, 100);
-  HAL_UART_Transmit(&huart1, Rx_data, sizeof(Rx_data), 100);
-}
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//  SCB_InvalidateDCache_by_Addr((uint32_t*)(((uint32_t)Rx_data) & ~(uint32_t)0x1F), 100+32);
+//  HAL_UART_Receive_DMA(&huart3, Rx_data, 100);
+//  HAL_UART_Transmit(&huart1, Rx_data, sizeof(Rx_data), 100);
+//}
 
 /* USER CODE END 0 */
 
@@ -94,12 +93,6 @@ int main(void)
 
   /* MPU Configuration--------------------------------------------------------*/
   MPU_Config();
-
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -136,16 +129,7 @@ int main(void)
   MX_UART5_Init();
   MX_UART8_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t MSG[100] = {0};
-  uint8_t MSG_PWR[45] = {'\0'};
-  HAL_TIM_PWM_Start (&htim8, TIM_CHANNEL_1);
-//  TIM8->CCR1 = 1;
-  int32_t CH1_DC = 1000;
 
-
-  HAL_UART_Receive_DMA(&huart3, Rx_data, 100);
-
-//  cpp_main();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -163,35 +147,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  counter++;
-	  HAL_Delay(1000);
-//	  HAL_UART_Receive (&huart3, Rx_data, 100, 1000);
-//	  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-//	  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-	  printf("Hello world! %d \n", counter);
-//	  printf("\n\nCore=%d, %d MHz\n", SystemCoreClock, SystemCoreClock / 1000000);
-	  sprintf((char*)MSG, "Hello world from UART! Tracing counter = %d\r\n", counter);
-//	  HAL_UART_Transmit(&huart1, MSG, sizeof(MSG), 100);
-//	  HAL_UART_Transmit(&huart5, MSG, sizeof(MSG), 100);
-//	  HAL_UART_Transmit(&huart3, MSG, sizeof(MSG), 100);
-//	  HAL_UART_Transmit(&huart4, MSG, sizeof(MSG), 100);
-//	  HAL_UART_Transmit(&huart8, MSG, sizeof(MSG), 100);
-//	  if (HAL_GPIO_ReadPin(STATUS_5V_GPIO_Port, STATUS_5V_Pin)) {
-//		  sprintf((char*)MSG_PWR, "Power from external source detected %d \n", counter);
-//		  HAL_UART_Transmit(&huart1, MSG_PWR, sizeof(MSG_PWR), 100);
-//	  }
-//	  while(CH1_DC < 2000)
-//	  {
-//		  TIM8->CCR1 = CH1_DC;
-//		  CH1_DC += 10;
-//		  HAL_Delay(2);
-//	  }
-//	  while(CH1_DC > 1000)
-//	  {
-//		  TIM8->CCR1 = CH1_DC;
-//		  CH1_DC -= 10;
-//		  HAL_Delay(2);
-//	  }
   }
   /* USER CODE END 3 */
 }

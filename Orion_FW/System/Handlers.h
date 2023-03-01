@@ -10,4 +10,6 @@
 
 #include "RoCo.h"
 
+void handle_dummyCallback(uint8_t sender_id, DummySystem_DummyPacket* packet);
+
 #endif /* HANDLERS_H_ */

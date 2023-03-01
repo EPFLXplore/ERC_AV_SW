@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include "cpp_freertos.h"
+#include "cpp_freertos.h"
 #include "System.h"
 /* USER CODE END Includes */
 

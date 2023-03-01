@@ -3,5 +3,6 @@
 #include "System.h"
 void cpp_freertos_init(void)
 {
+	setupTelemetry();
 	initCortex();
 }
