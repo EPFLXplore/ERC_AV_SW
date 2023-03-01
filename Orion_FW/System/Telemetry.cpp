@@ -25,28 +25,6 @@ NetworkBus UART3_network(&UART3_driver);
 NetworkBus UART5_network(&UART5_driver);
 //NetworkBus UART8_network(&UART8_driver);
 
-//static std::vector<STMUARTDriver*> STMUARTDriver_list;
-//
-//STMUARTDriver* getInstance(UART_HandleTypeDef* huart) {
-//	for (auto & driver : STMUARTDriver_list) {
-//		if (driver->getHuart() == huart)
-//			return driver;
-//	}
-//}
-//
-//void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef* huart, uint16_t Size) {
-//	STMUARTDriver* driver = getInstance(huart);
-//	xSemaphoreGiveFromISR(driver->getSemaphore(), nullptr);
-//}
-//
-//void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart) {
-//	STMUARTDriver* driver = getInstance(huart);
-//	while(xSemaphoreTakeFromISR(driver->getSemaphore(), nullptr)); // Clear semaphore
-//	driver->init();
-//}
-
-
-
 void setupTelemetry() {
 //	UART3_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
 //	UART4_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
