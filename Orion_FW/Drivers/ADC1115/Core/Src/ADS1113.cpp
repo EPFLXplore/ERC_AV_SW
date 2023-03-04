@@ -1,11 +1,8 @@
-#include "ADS1113.h"
+#include <ADS1113.hpp>
 #include "FreeRTOS.h"
 #include "task.h"
-#include "main.h"
-//#include ""
-//#include "cmsis_os.h"
-//#include "FreeRTOS.h"
-//#include "task.h"
+//#include "Build/Build.h"
+
 /*============================================================================*/
 /* Redefine local functions													  */
 /*============================================================================*/
@@ -23,107 +20,93 @@ void ads_delay(int time){
 /*============================================================================*/
 
 // Write the register
-bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value) {
-//	uint8_t pData[3] = { reg, (uint8_t) (value >> 8), (uint8_t) (value & 0xFF) };
-//	HAL_I2C_Master_Transmit(i2c->hi2c, i2c->m_i2cAddress, pData, 3, 10);
-	HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 100);
+bool ADS1113::writeRegister(uint8_t reg, uint16_t value) {
+	HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(hi2c, m_i2cAddress, 10, 100);
 	uint8_t pData[2];
 	pData[0] = (value >> 8);
 	pData[1] = value & 0xff;
-	status = HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 100);
+	status = HAL_I2C_IsDeviceReady(hi2c, m_i2cAddress, 10, 100);
 	if(status != HAL_OK) {
 		return false;
 	}
 
-	return HAL_I2C_Mem_Write(i2c->hi2c, i2c->m_i2cAddress, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10) == HAL_OK;
+	return HAL_I2C_Mem_Write(hi2c, m_i2cAddress, reg, I2C_MEMADD_SIZE_8BIT, pData, 2, 10) == HAL_OK;
 }
 
 // Read the register
-uint16_t readRegister(ads1113_t *i2c, uint8_t reg) {
-	HAL_I2C_Master_Transmit(i2c->hi2c, i2c->m_i2cAddress, &reg, 1, 10);
+uint16_t ADS1113::readRegister(uint8_t reg) {
+	HAL_I2C_Master_Transmit(hi2c, m_i2cAddress, &reg, 1, 10);
 	uint8_t pData[2] = { 0, 0 };
-	HAL_StatusTypeDef status = HAL_I2C_Master_Receive(i2c->hi2c, i2c->m_i2cAddress, pData, 2, 10);
-	return ((pData[0] << 8) | pData[1]);
+	HAL_StatusTypeDef status = HAL_I2C_Master_Receive(hi2c, m_i2cAddress, pData, 2, 10);
+	if (status == HAL_OK) {
+		return ((pData[0] << 8) | pData[1]);
+	} else {
+		printf("[ADS1113] Cannot read register.")
+		return 0;
+	}
 }
 
 // Check if we have correct connection.
-bool ADSbegin(ads1113_t *i2c) {
-//	if (HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 10) != HAL_OK)
-//		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // This MUST have GPIO PA5 ready to use - ERROR I2C - Wrong address
-	if (HAL_I2C_Init(i2c->hi2c) == HAL_OK){
-		HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(i2c->hi2c, i2c->m_i2cAddress, 10, 100);
+bool ADS1113::ADSbegin() {
+	if (HAL_I2C_Init(hi2c) == HAL_OK){
+		HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(hi2c, m_i2cAddress, 10, 100);
 		if(status == HAL_OK)
 			return HAL_OK;
 	}
 	return HAL_ERROR;
 }
 
-// Declare an ADS1115 structure
-bool ADS1113_init(ads1113_t *i2c, I2C_HandleTypeDef *hi2c, uint8_t i2cAddress) {
-//	i2c->hi2c = hi2c;
-//	i2c->m_i2cAddress = i2cAddress << 1; //  It's Important to shift the address << 1
-//	i2c->m_conversionDelay = ADS1115_CONVERSIONDELAY;
-//	i2c->m_bitShift = 0;
-//	i2c->m_gain = GAIN_ONE; // +/- 4.096V: In our case VDD is 3.3V, so we must not exceed 3.6 V.
-//	i2c->full_scale = 4.096f;
-//	ADSbegin(i2c);
 
-	i2c->hi2c = hi2c;
-	i2c->m_i2cAddress = i2cAddress << 1; //  It's Important to shift the address << 1
-	i2c->m_conversionDelay = ADS1115_CONVERSIONDELAY;
-	i2c->m_bitShift = 0;
-	i2c->m_gain = GAIN_ONE; // +/- 4.096V: In our case VDD is 3.3V, so we must not exceed 3.6 V.
-	i2c->full_scale = 4.096f;
+ADS1113::ADS1113(I2C_HandleTypeDef* hi2c, uint8_t i2cAddress) {
+	hi2c = hi2c;
+	m_i2cAddresss = i2cAddress << 1; //  It's Important to shift the address << 1
+	m_conversionDelay = ADS1115_CONVERSIONDELAY;
+	m_bitShift = 0;
+	m_gain = GAIN_ONE;
+	full_scale = 4.096f;
+}
 
+bool ADS1113_init() {
 	//Deinit the port
-	if (HAL_I2C_DeInit(i2c->hi2c) != HAL_OK){
+	if (HAL_I2C_DeInit(hi2c) != HAL_OK){
 		return false;
 	}
-	//Configure I2C port
-	#if defined(TEST_HAT_1)
-		i2c->hi2c->Instance = I2C1;
-	#elif defined(TEST_HAT_2)
-		i2c->hi2c->Instance = I2C2;
-	#elif defined(TEST_HAT_3)
-		i2c->hi2c->Instance = I2C3;
-	#endif
 
-	i2c->hi2c->Init.Timing = 0x00401242;
-	i2c->hi2c->Init.OwnAddress1 = 0;
-	i2c->hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	i2c->hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	i2c->hi2c->Init.OwnAddress2 = 0;
-	i2c->hi2c->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	i2c->hi2c->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	i2c->hi2c->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	if (HAL_I2C_Init(i2c->hi2c) != HAL_OK)
+	hi2c->Init.Timing = 0x00401242;
+	hi2c->Init.OwnAddress1 = 0;
+	hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+	hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+	hi2c->Init.OwnAddress2 = 0;
+	hi2c->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+	hi2c->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+	hi2c->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+	if (HAL_I2C_Init(hi2c) != HAL_OK)
 	{
 		return false;
 	}
 	/** Configure Analogue filter
 	*/
-	if (HAL_I2CEx_ConfigAnalogFilter(i2c->hi2c, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+	if (HAL_I2CEx_ConfigAnalogFilter(hi2c, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
 	{
 		return false;
 	}
 	/** Configure Digital filter
 	*/
-	if (HAL_I2CEx_ConfigDigitalFilter(i2c->hi2c, 0x0F) != HAL_OK)
+	if (HAL_I2CEx_ConfigDigitalFilter(hi2c, 0x0F) != HAL_OK)
 	{
 		return false;
 	}
 	/** I2C Enable Fast Mode Plus
 	*/
-	#if defined(TEST_HAT_1)
+	if (hi2c->Instance = I2C1)
 		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
-	#elif defined(TEST_HAT_2)
+	else if (hi2c->Instance = I2C2)
 		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C2);
-	#elif defined(TEST_HAT_3)
+	else if (hi2c->Instance = I2C3)
 		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C3);
-	#endif
 
 
-	if (ADSbegin(i2c) != HAL_OK)
+	if (ADSbegin() != HAL_OK)
 	{
 		return false;
 	}
@@ -146,37 +129,37 @@ bool ADS1113_init(ads1113_t *i2c, I2C_HandleTypeDef *hi2c, uint8_t i2cAddress) {
  // ADSsetGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
  // ADSsetGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
  */
-void ADSsetGain(ads1113_t *i2c, adsGain_t gain) {
+void ADS1113::ADSsetGain(adsGain_t gain) {
 	i2c->m_gain = gain;
 	switch(gain) {
 	case GAIN_TWOTHIRDS:
-		i2c->full_scale = 6.6144;
+		full_scale = 6.6144;
 		break;
 	case GAIN_ONE:
-		i2c->full_scale = 4.096;
+		full_scale = 4.096;
 		break;
 	case GAIN_TWO:
-		i2c->full_scale = 2.048;
+		full_scale = 2.048;
 		break;
 	case GAIN_FOUR:
-		i2c->full_scale = 1.024;
+		full_scale = 1.024;
 		break;
 	case GAIN_EIGHT:
-		i2c->full_scale = 0.512;
+		full_scale = 0.512;
 		break;
 	case GAIN_SIXTEEN:
-		i2c->full_scale = 0.256;
+		full_scale = 0.256;
 		break;
 	}
 }
 
 // Get the gain
-adsGain_t ADSgetGain(ads1113_t *i2c) {
-	return i2c->m_gain;
+adsGain_t ADS1113::ADSgetGain() {
+	return m_gain;
 }
 
 // Gets a single-ended ADC reading from the specified channel
-uint16_t ADSreadADC_SingleEnded(ads1113_t *i2c, uint8_t channel) {
+uint16_t ADS1113::ADSreadADC_SingleEnded(uint8_t channel) {
 	if (channel > 3) {
 		return 0;
 	}
@@ -191,7 +174,7 @@ uint16_t ADSreadADC_SingleEnded(ads1113_t *i2c, uint8_t channel) {
 			ADS1015_REG_CONFIG_MODE_SINGLE;   	// Single-shot mode (default)
 
 	// Set PGA/voltage range
-	config |= i2c->m_gain;
+	config |= m_gain;
 
 	// Set single-ended input channel
 	switch (channel) {
@@ -207,15 +190,14 @@ uint16_t ADSreadADC_SingleEnded(ads1113_t *i2c, uint8_t channel) {
 	config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
 	// Write config register to the ADC
-	writeRegister(i2c, ADS1015_REG_POINTER_CONFIG, config);
+	writeRegister(ADS1015_REG_POINTER_CONFIG, config);
 
 	// Wait for the conversion to complete
-	ads_delay(i2c->m_conversionDelay);
-//	osDelay(8);
+	ads_delay(m_conversionDelay);
 
 	// Read the conversion results
 	// Shift 12-bit results right 4 bits for the ADS1015
-	return readRegister(i2c, ADS1015_REG_POINTER_CONVERT) >> i2c->m_bitShift;
+	return readRegister(ADS1015_REG_POINTER_CONVERT) >> m_bitShift;
 }
 
 /*
@@ -223,7 +205,7 @@ uint16_t ADSreadADC_SingleEnded(ads1113_t *i2c, uint8_t channel) {
  * difference between the P (AIN0) and N (AIN1) input.  Generates
  * a signed value since the difference can be either positive or negative.
  */
-int16_t ADSreadADC_Differential_0_1(ads1113_t *i2c) {
+int16_t ADS1113::ADSreadADC_Differential_0_1() {
 	// Start with default values
 	uint16_t config =
 	ADS1015_REG_CONFIG_CQUE_NONE 	|   // Disable the comparator (default val)
@@ -234,7 +216,7 @@ int16_t ADSreadADC_Differential_0_1(ads1113_t *i2c) {
 	ADS1015_REG_CONFIG_MODE_SINGLE;   	// Single-shot mode (default)
 
 	// Set PGA/voltage range
-	config |= i2c->m_gain;
+	config |= m_gain;
 
 	// Set channels
 	config |= ADS1015_REG_CONFIG_MUX_DIFF_0_1; // AIN0 = P, AIN1 = N
@@ -243,15 +225,14 @@ int16_t ADSreadADC_Differential_0_1(ads1113_t *i2c) {
 	config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
 	// Write config register to the ADC
-	bool success = writeRegister(i2c, ADS1015_REG_POINTER_CONFIG, config);
+	bool success = writeRegister(ADS1015_REG_POINTER_CONFIG, config);
 
 	// Wait for the conversion to complete
-	ads_delay(i2c->m_conversionDelay);
-//	osDelay(8);
+	ads_delay(m_conversionDelay);
 
 	// Read the conversion results
-	uint16_t res = readRegister(i2c, ADS1015_REG_POINTER_CONVERT) >> i2c->m_bitShift;
-	if (i2c->m_bitShift == 0) {
+	uint16_t res = readRegister(ADS1015_REG_POINTER_CONVERT) >> m_bitShift;
+	if (m_bitShift == 0) {
 		return (int16_t) res;
 	} else {
 		// Shift 12-bit results right 4 bits for the ADS1015,
@@ -265,11 +246,9 @@ int16_t ADSreadADC_Differential_0_1(ads1113_t *i2c) {
 }
 
 
-float ADSreadADC_Voltage(ads1113_t *i2c) {
-//	float coeff = i2c->full_scale/(ADS_MAX_VALUE*ADS_VOLTAGE_DIVIDER_RATIO);
-//	return ADSreadADC_Differential_0_1(i2c) * coeff;
-	float coeff = i2c->full_scale*ADS_VOLTAGE_DIVIDER_RATIO/ADS_MAX_VALUE;
-	return ADSreadADC_Differential_0_1(i2c) * ADS_COEFF + ADS_OFFSET;
+float ADS1113::ADSreadADC_Voltage() {
+	float coeff = full_scale*ADS_VOLTAGE_DIVIDER_RATIO/ADS_MAX_VALUE;
+	return ADSreadADC_Differential_0_1() * ADS_COEFF + ADS_OFFSET;
 }
 
 /*
@@ -278,7 +257,7 @@ float ADSreadADC_Voltage(ads1113_t *i2c) {
  * value exceeds the specified threshold.
  * This will also set the ADC in continuous conversion mode.
  */
-void ADSstartComparator_SingleEnded(ads1113_t *i2c, uint8_t channel, int16_t threshold) {
+void ADS1113::ADSstartComparator_SingleEnded(uint8_t channel, int16_t threshold) {
 	// Start with default values
 	uint16_t config =
 	ADS1015_REG_CONFIG_CQUE_1CONV 	|   	// Comparator enabled and asserts on 1 match
@@ -290,7 +269,7 @@ void ADSstartComparator_SingleEnded(ads1113_t *i2c, uint8_t channel, int16_t thr
 	ADS1015_REG_CONFIG_MODE_CONTIN;   	// Continuous conversion mode
 
 	// Set PGA/voltage range
-	config |= i2c->m_gain;
+	config |= m_gain;
 
 	// Set single-ended input channel
 	switch (channel) {
@@ -310,23 +289,23 @@ void ADSstartComparator_SingleEnded(ads1113_t *i2c, uint8_t channel, int16_t thr
 
 	// Set the high threshold register
 	// Shift 12-bit results left 4 bits for the ADS1015
-	writeRegister(i2c, ADS1015_REG_POINTER_HITHRESH, threshold << i2c->m_bitShift);
+	writeRegister(ADS1015_REG_POINTER_HITHRESH, threshold << m_bitShift);
 
 	// Write config register to the ADC
-	writeRegister(i2c, ADS1015_REG_POINTER_CONFIG, config);
+	writeRegister(ADS1015_REG_POINTER_CONFIG, config);
 }
 
 /*
  * In order to clear the comparator, we need to read the conversion results.
  * This function reads the last conversion results without changing the config value.
  */
-int16_t ADSgetLastConversionResults(ads1113_t *i2c) {
+int16_t ADS1113::ADSgetLastConversionResults() {
 	// Wait for the conversion to complete
-	HAL_Delay(i2c->m_conversionDelay);
+	HAL_Delay(m_conversionDelay);
 
 	// Read the conversion results
-	uint16_t res = readRegister(i2c, ADS1015_REG_POINTER_CONVERT) >> i2c->m_bitShift;
-	if (i2c->m_bitShift == 0) {
+	uint16_t res = readRegister(ADS1015_REG_POINTER_CONVERT) >> m_bitShift;
+	if (m_bitShift == 0) {
 		return (int16_t) res;
 	} else {
 		// Shift 12-bit results right 4 bits for the ADS1015,

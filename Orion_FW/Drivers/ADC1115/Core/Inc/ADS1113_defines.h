@@ -1,15 +1,13 @@
 /*
- * ADS1015_ADS1115.h
+ * ADS1113_defines.h
  *
- *  Created on: Feb 9, 2020
- *      Author: Adafruit. Rewritten by Daniel Mårtensson
+ *  Created on: Mar 3, 2023
+ *      Author: Vincent
  */
 
-#include "main.h"
-#include <stdbool.h>
+#ifndef ADC1115_CORE_INC_ADS1113_DEFINES_H_
+#define ADC1115_CORE_INC_ADS1113_DEFINES_H_
 
-#ifndef SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_
-#define SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_
 
 /*=========================================================================
    	Conversion factors
@@ -141,34 +139,4 @@ typedef enum {
   GAIN_SIXTEEN = ADS1015_REG_CONFIG_PGA_0_256V
 } adsGain_t;
 
-
-typedef struct {
-	uint16_t m_i2cAddress;      ///< the I2C address
-	uint32_t m_conversionDelay; ///< conversion delay
-	uint8_t m_bitShift;        ///< bit shift amount
-	float full_scale;
-	adsGain_t m_gain;          ///< ADC gain
-	I2C_HandleTypeDef* hi2c;    // Handle for I2C
-} ads1113_t;
-
-bool ADS1113_init(ads1113_t* i2c, I2C_HandleTypeDef* hi2c, uint8_t i2cAddress);
-
-// Write the register
-bool writeRegister(ads1113_t *i2c, uint8_t reg, uint16_t value);
-
-// Read the register
-uint16_t readRegister(ads1113_t *i2c, uint8_t reg);
-
-// Check if we have correct connection.
-bool ADSbegin(ads1113_t *i2c);
-
-
-uint16_t ADSreadADC_SingleEnded(ads1113_t* i2c, uint8_t channel);
-float ADSreadADC_Voltage(ads1113_t *i2c);
-int16_t  ADSreadADC_Differential_0_1(ads1113_t* i2c);
-void  ADSstartComparator_SingleEnded(ads1113_t* i2c, uint8_t channel, int16_t threshold);
-int16_t  ADSgetLastConversionResults();
-void  ADSsetGain(ads1113_t* i2c, adsGain_t gain);
-adsGain_t  ADSgetGain(ads1113_t* i2c);
-
-#endif /* SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_ */
+#endif /* ADC1115_CORE_INC_ADS1113_DEFINES_H_ */

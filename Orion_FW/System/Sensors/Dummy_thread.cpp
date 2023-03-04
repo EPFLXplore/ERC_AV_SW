@@ -15,7 +15,8 @@ static char cbuf[256]; // for printf
 void DummyThread::init() {
 	dummySensorInstance = this;
 	// Initialize the sensor
-	bool success = ADS1113_init(&dummy_sensor, parent->getI2C(), ADS_ADDR_GND);
+//	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
+	bool success = dummy_sensor.ADS1113_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
 		dummySensorInstance = nullptr;
@@ -25,7 +26,7 @@ void DummyThread::init() {
 	}
 
 	// Sensor related configuration after successfully connected
-	ADSsetGain(&dummy_sensor, GAIN_ONE);
+	dummy_sensor.ADSsetGain(GAIN_ONE);
 }
 
 // Declare your data with the proper data structure defined in DataStructures.h
@@ -36,7 +37,7 @@ static DummySystem_DummyPacket packet;
 
 void DummyThread::loop() {
 	// Get the sensor data. Here we only read a differential value as an example
-	dummy_data.data = ADSreadADC_Differential_0_1(&dummy_sensor);
+	dummy_data.data = dummy_sensor.ADSreadADC_Differential_0_1();
 	// We can print it to SVW console (optional)
 	printf("Diff value %s \n", dummy_data.toString(cbuf));
 
