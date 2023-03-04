@@ -1,7 +1,9 @@
 #include <ADS1113.hpp>
 #include "FreeRTOS.h"
+#include "cmsis_os.h"
 #include "task.h"
-//#include "Build/Build.h"
+#include "stdio.h"
+#include "Build.h"
 
 /*============================================================================*/
 /* Redefine local functions													  */
@@ -20,7 +22,7 @@ void ads_delay(int time){
 /*============================================================================*/
 
 // Write the register
-bool ADS1113::writeRegister(uint8_t reg, uint16_t value) {
+bool ADS1113::writeRegister(int8_t reg, uint16_t value) {
 	HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(hi2c, m_i2cAddress, 10, 100);
 	uint8_t pData[2];
 	pData[0] = (value >> 8);
@@ -41,7 +43,7 @@ uint16_t ADS1113::readRegister(uint8_t reg) {
 	if (status == HAL_OK) {
 		return ((pData[0] << 8) | pData[1]);
 	} else {
-		printf("[ADS1113] Cannot read register.")
+		printf("[ADS1113] Cannot read register.");
 		return 0;
 	}
 }
@@ -58,15 +60,15 @@ bool ADS1113::ADSbegin() {
 
 
 ADS1113::ADS1113(I2C_HandleTypeDef* hi2c, uint8_t i2cAddress) {
-	hi2c = hi2c;
-	m_i2cAddresss = i2cAddress << 1; //  It's Important to shift the address << 1
+	this->hi2c = hi2c;
+	m_i2cAddress = i2cAddress << 1; //  It's Important to shift the address << 1
 	m_conversionDelay = ADS1115_CONVERSIONDELAY;
 	m_bitShift = 0;
 	m_gain = GAIN_ONE;
 	full_scale = 4.096f;
 }
 
-bool ADS1113_init() {
+bool ADS1113::ADS1113_init() {
 	//Deinit the port
 	if (HAL_I2C_DeInit(hi2c) != HAL_OK){
 		return false;
@@ -130,7 +132,7 @@ bool ADS1113_init() {
  // ADSsetGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
  */
 void ADS1113::ADSsetGain(adsGain_t gain) {
-	i2c->m_gain = gain;
+	m_gain = gain;
 	switch(gain) {
 	case GAIN_TWOTHIRDS:
 		full_scale = 6.6144;
