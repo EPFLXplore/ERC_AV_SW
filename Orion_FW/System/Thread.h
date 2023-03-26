@@ -26,11 +26,11 @@ public:
 	osThreadId getHandle();
 	bool isRunning() { return running; }
 	void terminate();
+	void setTickDelay(uint32_t ms);
 	uint32_t getTickDelay();
 
 protected:
 	void println(const char* format, ...);
-	void setTickDelay(uint32_t ms);
 
 private:
 	osThreadId handle;

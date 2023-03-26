@@ -44,7 +44,7 @@ void DummyThread::loop() {
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 		// Send data over RoCo network
 		dummy_data.toArray((uint8_t*) &packet);
-		UART5_network.send(&packet);
+		JetsonNetwork.send(&packet);
 		portYIELD();
 	} else {
 		dummySensorInstance = nullptr;
