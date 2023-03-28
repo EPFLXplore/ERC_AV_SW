@@ -9,19 +9,19 @@
 #define SENSORS_DUMMY_THREAD_H_
 
 
+#include <ADS1113.hpp>
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
 
-#include "ADS1113.h"
 
 class DummyThread : public Thread {
 public:
-	DummyThread(ProberThread* parent) : Thread("Dummy"), parent(parent), portNum(parent->getI2CNum()), dummy_member(0) {}
+	DummyThread(ProberThread* parent) : Thread("Dummy"), parent(parent), portNum(parent->getI2CNum()), dummy_sensor(parent->getI2C(), ADS_ADDR_GND), dummy_member(0) {}
 	void init();
 	void loop();
 private:
-	ads1113_t dummy_sensor;
+	ADS1113 dummy_sensor;
 	ProberThread* parent;
 	uint8_t portNum;
 	float dummy_member;

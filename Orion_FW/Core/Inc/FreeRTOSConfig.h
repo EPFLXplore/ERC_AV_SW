@@ -57,10 +57,10 @@
 #endif /* CMSIS_device_header */
 
 #define configENABLE_FPU                         1
-#define configENABLE_MPU                         0
+#define configENABLE_MPU                         1
 
 #define configUSE_PREEMPTION                     1
-#define configSUPPORT_STATIC_ALLOCATION          1
+#define configSUPPORT_STATIC_ALLOCATION          0
 #define configSUPPORT_DYNAMIC_ALLOCATION         1
 #define configUSE_IDLE_HOOK                      0
 #define configUSE_TICK_HOOK                      0
@@ -167,6 +167,8 @@ standard names. */
 #define USE_CUSTOM_SYSTICK_HANDLER_IMPLEMENTATION 0
 
 /* USER CODE BEGIN Defines */
+#undef configSUPPORT_STATIC_ALLOCATION
+#define configSUPPORT_STATIC_ALLOCATION 		  1
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
 /* USER CODE END Defines */
 
