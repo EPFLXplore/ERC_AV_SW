@@ -14,6 +14,7 @@
 #include "Lang/Operators.h"
 
 #include "Dummy_thread.h"
+#include "max11615_sens_defs.h"
 
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
@@ -26,10 +27,17 @@ bool ProberThread::probeI2C(uint8_t address) {
 }
 
 void ProberThread::loop() {
+
+	if(probeI2C(ADDRESS_MAX11615)){
+		this->instance = new DummyThread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+
+	}
 	if (probeI2C(ADS_ADDR_GND)) {
 			this->instance = new DummyThread(this);
 			xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
+
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);
 }

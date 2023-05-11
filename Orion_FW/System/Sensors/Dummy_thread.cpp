@@ -17,6 +17,7 @@ void DummyThread::init() {
 	// Initialize the sensor
 //	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
 	bool success = dummy_sensor.ADS1113_init();
+
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
 		dummySensorInstance = nullptr;

@@ -1,0 +1,24 @@
+/*
+ * max11615_sens_defs.h
+ *
+ *  Created on: May 11, 2023
+ *      Author: leo
+ */
+
+#ifndef MAX11615_CORE_INC_MAX11615_SENS_DEFS_H_
+#define MAX11615_CORE_INC_MAX11615_SENS_DEFS_H_
+
+#define MAX11615_REF_VDD      0x00
+#define MAX11615_REF_EXTERNAL 0x02
+#define MAX11615_REF_INTERNAL 0x04
+#define MAX11615_ANANLOG_IN   0x00
+#define MAX11615_REF_OUT      0x02
+#define MAX11615_INT_REF_ON   0x01
+
+#define ADDRESS_MAX11615 0x66
+#define MAX11615_CONFIG 0x8A
+
+#define I2C_TIMEOUT 100
+
+
+#endif /* MAX11615_CORE_INC_MAX11615_SENS_DEFS_H_ */
