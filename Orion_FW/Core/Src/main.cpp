@@ -50,7 +50,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+modbusHandler_t ModbusH;
+uint16_t ModbusDATA[15];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -129,14 +130,32 @@ int main(void)
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_SPI3_Init();
-  MX_TIM8_Init();
+//  MX_TIM8_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_UART4_Init();
   MX_UART5_Init();
   MX_UART8_Init();
   /* USER CODE BEGIN 2 */
-
+  /* Modbus Master initialization */
+    //ModbusH.uModbusType = MB_SLAVE;
+   /* Master initialization */
+   ModbusH.uModbusType = MB_MASTER;
+   ModbusH.port =  &huart2;
+   ModbusH.u8id = 0; // For master it must be 0
+   ModbusH.u16timeOut = 1000;
+   ModbusH.EN_Port1 = GPIOD;
+   ModbusH.EN_Pin1 = GPIO_PIN_4;
+   ModbusH.EN_Port2 = GPIOD;
+   ModbusH.EN_Pin2 = GPIO_PIN_14;
+   ModbusH.u16regs = ModbusDATA;
+   ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
+   ModbusH.xTypeHW = USART_HW;
+   //Initialize Modbus library
+   ModbusInit(&ModbusH);
+   //Start capturing traffic on serial Port
+   ModbusStart(&ModbusH);
   /* USER CODE END 2 */
 
   /* Init scheduler */

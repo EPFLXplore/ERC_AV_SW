@@ -12,18 +12,18 @@
 #include "RoCo.h"
 #include "usart.h"
 
-extern NetworkBus network;
+//extern NetworkBus network;
 
 void setupTelemetry();
 
 #if defined(BUILD_FOR_NAVIGATION)
-	extern NetworkBus UART1_network;
+//	extern NetworkBus UART1_network;
 #endif
 
-extern NetworkBus JetsonNetwork;
-extern NetworkBus UART3_network;
-extern NetworkBus UART4_network;
-extern NetworkBus UART5_network;
-extern NetworkBus UART8_network;
+//extern NetworkBus JetsonNetwork;
+//extern NetworkBus UART3_network;
+//extern NetworkBus UART4_network;
+//extern NetworkBus UART5_network;
+//extern NetworkBus UART8_network;
 
 #endif /* TELEMETRY_TELEMETRY_H_ */

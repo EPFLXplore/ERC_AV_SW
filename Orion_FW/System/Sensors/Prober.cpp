@@ -7,6 +7,7 @@
  *
  */
 
+#include <max11615.h>
 #include "Prober.h"
 
 #include "i2c.h"
@@ -14,7 +15,6 @@
 #include "Lang/Operators.h"
 
 #include "Dummy_thread.h"
-#include "max11615_sens_defs.h"
 
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
@@ -28,7 +28,7 @@ bool ProberThread::probeI2C(uint8_t address) {
 
 void ProberThread::loop() {
 
-	if(probeI2C(ADDRESS_MAX11615)){
+	if(probeI2C(0x33)){
 		this->instance = new DummyThread(this);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 

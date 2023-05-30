@@ -31,12 +31,13 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Modbus.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+extern modbusHandler_t ModbusH;
+extern uint16_t ModbusDATA[15];
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -99,10 +100,6 @@ void Error_Handler(void);
 #define LED_YELLOW_GPIO_Port GPIOD
 #define HAT2_P5_Pin GPIO_PIN_4
 #define HAT2_P5_GPIO_Port GPIOD
-#define HAT2_P6_Pin GPIO_PIN_5
-#define HAT2_P6_GPIO_Port GPIOD
-#define HAT2_P4_Pin GPIO_PIN_6
-#define HAT2_P4_GPIO_Port GPIOD
 #define LED_GREEN_Pin GPIO_PIN_7
 #define LED_GREEN_GPIO_Port GPIOD
 #define HAT3_P1_Pin GPIO_PIN_6

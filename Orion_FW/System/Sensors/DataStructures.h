@@ -64,6 +64,26 @@ struct DummyData {
     }
 };
 
+struct ALLINONEData {
+    float temp;
+    float moist;
+    float conduct;
+    float PH;
+    char* toString(char* buffer) {
+        static char buf[32];
+        sprintf(buffer, "temperature: %f  moisture level: %f  conductivity: %f  PH level: %f", temp, moist, conduct, PH); // beware of the type: (%d, %f, ...)
+        return buffer;
+    }
+
+    uint8_t* toArray(uint8_t* buffer){
+		*(float*)(buffer + 0) = temp;
+		*(float*)(buffer + 1*4) = moist;
+		*(float*)(buffer + 2*4) = conduct;
+		*(float*)(buffer + 3*4) = PH;
+        return buffer;
+    }
+};
+
 struct IMUData {
 	Vector accel;
 	Vector gyro;
