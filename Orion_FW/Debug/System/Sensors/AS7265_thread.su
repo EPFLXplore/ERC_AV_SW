@@ -1,7 +1,0 @@
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:Thread::~Thread()	16	static
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:virtual Thread::~Thread()	16	static
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
-../System/Sensors/AS7265_thread.cpp:14:6:virtual void AS7265Thread::init()	24	static
-../System/Sensors/AS7265_thread.cpp:36:6:virtual void AS7265Thread::loop()	16	static
-../System/Sensors/AS7265_thread.h:18:7:AS7265Thread::~AS7265Thread()	16	static
-../System/Sensors/AS7265_thread.h:18:7:virtual AS7265Thread::~AS7265Thread()	16	static

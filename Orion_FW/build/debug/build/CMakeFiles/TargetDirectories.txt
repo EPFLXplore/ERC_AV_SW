@@ -1,3 +1,0 @@
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/build/debug/build/CMakeFiles/Orion_FW.dir
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/build/debug/build/CMakeFiles/edit_cache.dir
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/build/debug/build/CMakeFiles/rebuild_cache.dir

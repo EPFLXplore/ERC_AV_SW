@@ -1,8 +1,0 @@
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:Thread::~Thread()	16	static
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:virtual Thread::~Thread()	16	static
-../System/Sensors/DataStructures.h:72:11:char* ALLINONEData::toString(char*)	40	static
-C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
-../System/Sensors/all_in_one_thread.cpp:16:6:virtual void AllInOneThread::init()	24	static
-../System/Sensors/all_in_one_thread.cpp:31:6:virtual void AllInOneThread::loop()	24	static
-../System/Sensors/all_in_one_thread.h:20:7:AllInOneThread::~AllInOneThread()	16	static
-../System/Sensors/all_in_one_thread.h:20:7:virtual AllInOneThread::~AllInOneThread()	16	static

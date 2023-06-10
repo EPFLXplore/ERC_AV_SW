@@ -1,4 +1,0 @@
-ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
-freertos.cpp:97:6:void MX_FREERTOS_Init()	1
-freertos.cpp:141:6:void AliveBlink(void*)	1
-freertos.cpp:170:6:void StartTaskMaster(void*)	2

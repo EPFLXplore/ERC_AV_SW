@@ -1,8 +1,0 @@
-prefix=/home/xplore/AV_workspace/ROCOROS_INTERFACE/devel
-
-Name: av_cs_publisher_node
-Description: Description of av_cs_publisher_node
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

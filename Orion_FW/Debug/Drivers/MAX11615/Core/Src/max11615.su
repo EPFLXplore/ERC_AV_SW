@@ -1,7 +1,0 @@
-../Drivers/MAX11615/Core/Src/max11615.cpp:23:9:uint8_t MAX11615_Write8(MAX11615*, uint8_t, uint8_t)	32	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:36:9:uint8_t MAX11615_Read8(MAX11615*, uint8_t, uint8_t*)	40	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:48:9:uint8_t MAX11615_Init(MAX11615*, I2C_HandleTypeDef*, uint16_t, uint8_t)	32	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:69:9:uint8_t MAX11615_Setup(MAX11615*, uint8_t)	24	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:76:9:uint8_t MAX11615_Configuration(MAX11615*, uint8_t)	24	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:91:9:uint8_t MAX11615_ADC_Read(MAX11615*, uint8_t, uint16_t*)	40	static
-../Drivers/MAX11615/Core/Src/max11615.cpp:113:9:uint8_t MAX11615_Scan(MAX11615*, uint16_t*)	24	static

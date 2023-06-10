@@ -1,8 +1,0 @@
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:11:6:void bmp_delay(uint32_t)	16	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:29:9:uint8_t BMP280::readRegister(uint8_t)	24	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:43:6:void BMP280::writeRegister(uint8_t, uint8_t)	16	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:57:6:void BMP280::readMBRegister(uint8_t, uint8_t*, uint8_t)	32	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:79:9:uint8_t BMP280::spiReadWrite(uint8_t)	32	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:88:6:void BMP280::spiCSNhigh()	16	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:94:6:void BMP280::spiCSNlow()	16	static
-../Drivers/BMP280/Core/Src/BMP280_hardware.cpp:100:6:void BMP280::delay_ms(uint32_t)	16	static

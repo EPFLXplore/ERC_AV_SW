@@ -1,8 +1,0 @@
-Thread.h:23:10:Thread::~Thread()	1
-Thread.h:23:10:virtual Thread::~Thread()	1
-DataStructures.h:72:11:char* ALLINONEData::toString(char*)	1
-ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
-all_in_one_thread.cpp:16:6:virtual void AllInOneThread::init()	1
-all_in_one_thread.cpp:31:6:virtual void AllInOneThread::loop()	1
-all_in_one_thread.h:20:7:AllInOneThread::~AllInOneThread()	1
-all_in_one_thread.h:20:7:virtual AllInOneThread::~AllInOneThread()	1

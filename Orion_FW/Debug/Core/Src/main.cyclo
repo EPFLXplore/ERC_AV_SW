@@ -1,5 +1,0 @@
-main.cpp:77:5:int main()	1
-main.cpp:328:6:void SystemClock_Config()	5
-main.cpp:393:6:void PeriphCommonClock_Config()	2
-main.cpp:416:6:void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef*)	2
-main.cpp:433:6:void Error_Handler()	1
