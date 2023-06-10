@@ -56,6 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
 extern TIM_HandleTypeDef htim1;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
@@ -65,6 +66,9 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
 extern UART_HandleTypeDef huart6;
+=======
+extern FDCAN_HandleTypeDef hfdcan1;
+>>>>>>> Stashed changes:Orion_FW/Core/Src/stm32h7xx_it.c
 extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN EV */
@@ -170,16 +174,17 @@ void DebugMon_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles DMA1 stream0 global interrupt.
+  * @brief This function handles FDCAN1 interrupt 0.
   */
-void DMA1_Stream0_IRQHandler(void)
+void FDCAN1_IT0_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+  /* USER CODE BEGIN FDCAN1_IT0_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_usart3_rx);
-  /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+  /* USER CODE END FDCAN1_IT0_IRQn 0 */
+  HAL_FDCAN_IRQHandler(&hfdcan1);
+  /* USER CODE BEGIN FDCAN1_IT0_IRQn 1 */
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
   /* USER CODE END DMA1_Stream0_IRQn 1 */
 }
 
@@ -279,6 +284,9 @@ void USART3_IRQHandler(void)
   /* USER CODE BEGIN USART3_IRQn 1 */
 
   /* USER CODE END USART3_IRQn 1 */
+=======
+  /* USER CODE END FDCAN1_IT0_IRQn 1 */
+>>>>>>> Stashed changes:Orion_FW/Core/Src/stm32h7xx_it.c
 }
 
 /**
@@ -295,6 +303,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
 /**
   * @brief This function handles USART6 global interrupt.
   */
@@ -309,6 +318,8 @@ void USART6_IRQHandler(void)
   /* USER CODE END USART6_IRQn 1 */
 }
 
+=======
+>>>>>>> Stashed changes:Orion_FW/Core/Src/stm32h7xx_it.c
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */

@@ -6,8 +6,13 @@
   ******************************************************************************
   * @attention
   *
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/stm32h7xx_hal_timebase_tim.c
   * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
+=======
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
+>>>>>>> Stashed changes:Orion_FW/Core/Src/stm32h7xx_hal_timebase_tim.c
   *
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
@@ -85,6 +90,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   htim6.Instance = TIM6;
 
   /* Initialize TIMx peripheral as follow:
+
   + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s time base.
   + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
   + ClockDivision = 0

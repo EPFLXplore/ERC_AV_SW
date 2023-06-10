@@ -1,0 +1,9 @@
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:Thread::~Thread()	16	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:virtual Thread::~Thread()	16	static
+../System/Sensors/DataStructures.h:55:11:char* DummyData::toString(char*)	16	static
+../System/Sensors/DataStructures.h:61:14:uint8_t* DummyData::toArray(uint8_t*)	16	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
+../System/Sensors/Dummy_thread.cpp:15:6:virtual void DummyThread::init()	16	static
+../System/Sensors/Dummy_thread.cpp:38:6:virtual void DummyThread::loop()	24	static
+../System/Sensors/Dummy_thread.h:22:7:DummyThread::~DummyThread()	16	static
+../System/Sensors/Dummy_thread.h:22:7:virtual DummyThread::~DummyThread()	16	static

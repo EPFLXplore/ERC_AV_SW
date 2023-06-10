@@ -1,0 +1,15 @@
+I2CDevice.cpp:10:1:I2CDevice::I2CDevice(I2CDeviceType)	1
+I2CDevice.cpp:14:1:I2CDevice::~I2CDevice()	1
+I2CDevice.cpp:14:1:virtual I2CDevice::~I2CDevice()	1
+I2CDevice.cpp:18:15:I2CDeviceType I2CDevice::getType()	1
+I2CDevice.cpp:22:1:I2CMaster::I2CMaster(std::initializer_list<unsigned char>)	2
+I2CDevice.cpp:30:10:uint8_t* I2CMaster::getSlaves()	1
+I2CDevice.cpp:34:9:uint8_t I2CMaster::getNumSlaves()	1
+I2CDevice.cpp:38:1:I2CSlave::I2CSlave()	1
+initializer_list:75:7:constexpr const _E* std::initializer_list<_E>::begin() const [with _E = unsigned char]	1
+initializer_list:79:7:constexpr const _E* std::initializer_list<_E>::end() const [with _E = unsigned char]	1
+initializer_list:71:7:constexpr std::initializer_list<_E>::size_type std::initializer_list<_E>::size() const [with _E = unsigned char]	1
+I2CDevice.h:42:7:I2CSlave::~I2CSlave()	1
+I2CDevice.h:42:7:virtual I2CSlave::~I2CSlave()	1
+I2CDevice.h:31:7:I2CMaster::~I2CMaster()	1
+I2CDevice.h:31:7:virtual I2CMaster::~I2CMaster()	1

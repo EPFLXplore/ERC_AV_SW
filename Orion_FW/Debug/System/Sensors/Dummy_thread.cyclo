@@ -1,0 +1,9 @@
+Thread.h:23:10:Thread::~Thread()	1
+Thread.h:23:10:virtual Thread::~Thread()	1
+DataStructures.h:55:11:char* DummyData::toString(char*)	1
+DataStructures.h:61:14:uint8_t* DummyData::toArray(uint8_t*)	1
+ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
+Dummy_thread.cpp:15:6:virtual void DummyThread::init()	1
+Dummy_thread.cpp:38:6:virtual void DummyThread::loop()	1
+Dummy_thread.h:22:7:DummyThread::~DummyThread()	1
+Dummy_thread.h:22:7:virtual DummyThread::~DummyThread()	1

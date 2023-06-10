@@ -1,0 +1,11 @@
+Thread.h:27:7:bool Thread::isRunning()	1
+Thread.cpp:20:6:void __task_run(void*)	3
+Thread.cpp:42:1:Thread::Thread(const char*)	1
+Thread.cpp:46:1:Thread::Thread(const char*, osPriority_t)	1
+Thread.cpp:50:1:Thread::Thread(const char*, uint32_t)	1
+Thread.cpp:54:1:Thread::Thread(const char*, osPriority_t, uint32_t)	1
+Thread.cpp:64:12:void* Thread::getHandle()	1
+Thread.cpp:68:6:void Thread::terminate()	1
+Thread.cpp:72:6:)	1
+Thread.cpp:78:6:void Thread::setTickDelay(uint32_t)	1
+Thread.cpp:82:10:uint32_t Thread::getTickDelay()	1

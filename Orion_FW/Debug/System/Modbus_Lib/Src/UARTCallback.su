@@ -1,0 +1,2 @@
+../System/Modbus_Lib/Src/UARTCallback.c:24:6:HAL_UART_TxCpltCallback	32	static,ignoring_inline_asm
+../System/Modbus_Lib/Src/UARTCallback.c:60:6:HAL_UART_RxCpltCallback	40	static,ignoring_inline_asm

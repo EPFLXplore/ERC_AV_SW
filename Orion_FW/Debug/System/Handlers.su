@@ -1,0 +1,2 @@
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
+../System/Handlers.cpp:5:6:void handle_dummyCallback(uint8_t, DummySystem_DummyPacket*)	16	static

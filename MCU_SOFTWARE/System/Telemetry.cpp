@@ -59,9 +59,38 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef* huart) {
 	driver->init();
 }
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/System/Telemetry.cpp
 
 
 void setupTelemetry() {
+=======
+static uint32_t can_id1 = 0x32;
+ROCANDriver FDCAN1_driver(&hfdcan1, can_id1);
+//STMUARTDriver UART1_driver(&huart1);
+//STMUARTDriver UART3_driver(&huart3);
+////STMUARTDriver UART4_driver(&huart4);
+//STMUARTDriver UART5_driver(&huart5);
+////STMUARTDriver UART8_driver(&huart8);
+//
+//
+NetworkBus FDCAN1_network(&FDCAN1_driver);
+//NetworkBus JetsonNetwork(&UART1_driver);
+//NetworkBus UART3_network(&UART3_driver);
+////NetworkBus UART4_network(&UART4_driver);
+//NetworkBus UART5_network(&UART5_driver);
+//NetworkBus UART8_network(&UART8_driver);
+
+void setupTelemetry() {
+//	UART3_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
+//	UART4_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
+//	UART5_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
+//	UART8_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
+//
+
+//	STMUARTDriver_list.push_back(&UART3_driver);
+//	STMUARTDriver_list.push_back(&UART5_driver);
+	FDCAN1_network.handle<DummySystem_DummyPacket>(&handle_dummyCallback);
+>>>>>>> Stashed changes:Orion_FW/System/Telemetry.cpp
 #if defined(BUILD_FOR_NAVIGATION)
 	STMUARTDriver_list.push_back(&UART2_driver);
 	STMUARTDriver_list.push_back(&UART1_driver);

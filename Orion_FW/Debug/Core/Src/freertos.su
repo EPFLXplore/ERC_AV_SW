@@ -1,0 +1,4 @@
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
+../Core/Src/freertos.cpp:97:6:void MX_FREERTOS_Init()	8	static
+../Core/Src/freertos.cpp:141:6:void AliveBlink(void*)	16	static
+../Core/Src/freertos.cpp:170:6:void StartTaskMaster(void*)	32	static

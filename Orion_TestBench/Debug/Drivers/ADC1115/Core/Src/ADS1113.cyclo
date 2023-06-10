@@ -1,0 +1,12 @@
+ADS1113.c:13:6:ads_delay	1
+ADS1113.c:26:6:writeRegister	2
+ADS1113.c:42:10:readRegister	1
+ADS1113.c:50:6:ADSbegin	3
+ADS1113.c:62:6:ADS1113_init	6
+ADS1113.c:149:6:ADSsetGain	11
+ADS1113.c:174:11:ADSgetGain	1
+ADS1113.c:179:10:ADSreadADC_SingleEnded	4
+ADS1113.c:226:9:ADSreadADC_Differential_0_1	3
+ADS1113.c:268:7:ADSreadADC_Voltage	1
+ADS1113.c:281:6:ADSstartComparator_SingleEnded	5
+ADS1113.c:323:9:ADSgetLastConversionResults	3

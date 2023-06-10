@@ -1,0 +1,9 @@
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/BRoCo/Src/Protocol/ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	32	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:Thread::~Thread()	16	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Thread.h:23:10:virtual Thread::~Thread()	16	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Sensors/Prober.h:18:2:ProberThread::ProberThread(I2C_HandleTypeDef*)	16	static
+../System/System.cpp:15:36:void __tcf_0()	8	static
+../System/System.cpp:14:6:void initCortex()	8	static
+../System/System.cpp:24:6:void vApplicationStackOverflowHook()	4	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Sensors/Prober.h:16:7:ProberThread::~ProberThread()	16	static
+C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_FW/System/Sensors/Prober.h:16:7:virtual ProberThread::~ProberThread()	16	static

@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
 #include "adc.h"
 #include "dma.h"
 #include "i2c.h"
@@ -30,6 +31,22 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+=======
+//#include "dma.h"
+#include "i2c.h"
+#include "fdcan.h"
+#include "spi.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
+#include "stm32h7xx_hal_tim.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <string.h>
+#include "stdio.h"
+//#include "cpp_main.h"
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,13 +92,25 @@ int main(void)
 
   /* USER CODE END 1 */
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
+=======
+  /* MPU Configuration--------------------------------------------------------*/
+//  MPU_Config();
+
+  /* Enable I-Cache---------------------------------------------------------*/
+//  SCB_EnableICache();
+//
+//  /* Enable D-Cache---------------------------------------------------------*/
+//  SCB_EnableDCache();
+
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+//  HAL_NVIC_SetPriority(SysTick_IRQn,5,0);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -96,13 +125,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
   MX_I2C1_Init();
   MX_DMA_Init();
+=======
+//  MX_DMA_Init();
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
   MX_I2C2_Init();
   MX_I2C4_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
   MX_ADC1_Init();
   MX_ADC2_Init();
   MX_USART6_UART_Init();
@@ -115,25 +148,145 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
   /* USER CODE END 2 */
+=======
+  MX_UART4_Init();
+  MX_UART5_Init();
+  MX_UART8_Init();
+  MX_USART2_UART_Init();
+  MX_FDCAN1_Init();
+  MX_I2C1_Init();
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
 
-  /* Init scheduler */
+//
+//  /* Modbus Master initialization */
+//    //ModbusH.uModbusType = MB_SLAVE;
+//   /* Master initialization */
+////   ModbusH.uModbusType = MB_MASTER;
+////   ModbusH.port =  &huart2;
+////   ModbusH.u8id = 0; // For master it must be 0
+////   ModbusH.u16timeOut = 1000;
+////   ModbusH.EN_Port1 = GPIOD;
+////   ModbusH.EN_Pin1 = GPIO_PIN_4;
+////   ModbusH.EN_Port2 = GPIOD;
+////   ModbusH.EN_Pin2 = GPIO_PIN_14;
+////   ModbusH.u16regs = ModbusDATA;
+////   ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
+////   ModbusH.xTypeHW = USART_HW;
+////   //Initialize Modbus library
+////   ModbusInit(&ModbusH);
+////   //Start capturing traffic on serial Port
+////   ModbusStart(&ModbusH);
+//  /* USER CODE END 2 */
+//
+//  /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
-
-  /* Start scheduler */
+//////
+//////  /* Start scheduler */
   osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+//
+//  /* We should never get here as control is now taken by the scheduler */
+//  /* Infinite loop */
+//  /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 
+//	  if(tim7_flag && count < 100000){
+//		  tim7_flag = 0;
+//		  TxData[0] = count >> 8 & 0xFF;
+//
+//		  ++cnt_100us;
+//		  cnt_500us = cnt_100us / 5;
+//		  if(cnt_500us && (cnt_100us%5==0)){
+//			  switch(cnt_500us){
+//			  	  case 1: fdcan1_transmit(0x108, FDCAN_DLC_BYTES_64, TxData);
+//			  	  	  	  break;
+//			  	  case 17: fdcan1_transmit(0x003, FDCAN_DLC_BYTES_64, TxData);
+//			  	  case 18: break;
+//			  	  case 19: break;
+//			  	  case 20: ++count; cnt_100us = 0; break;
+//			  }
+//		  } else {
+//			  if(fdcan1_send_fail.flag && cnt_500us > 16){
+//				  for(i = 0; i < fdcan1_send_fail.index; i++) {
+//					  fdcan1_transmit(fdcan1_send_fail.TxHeader[i].Identifier,
+//							  	  	  fdcan1_send_fail.TxHeader[i].DataLength,
+//									  &fdcan1_send_fail.TxData[64*i]);
+//				  }
+//				  fdcan1_send_fail.index = 0;
+//				  fdcan1_send_fail.flag = 0;
+//			  }
+//		  }
+//	  }
+//	  TxData[0] = 0x69;
+//	  			TxData[1] = 0xAD;
+//	  			for(uint8_t i = 0; i < 8; i++){
+//	  				/* Start the transmission process*/
+//	  				TxData[2] = i;
+//	  				if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
+//	  				{
+//	  					TxData[1] = i;
+//	  					/*Transmission request Error*/
+//	  					Error_Handler();
+//	  				}
+////	  				osDelay(10);
+//
+//	  			}
+
+//	  			}
+//	  			if (HAL_FDCAN_GetRxFifoFillLevel(&hfdcan1, FDCAN_RX_FIFO0) > 0) {
+//	  				/* Retrieve Rx messages from RX FIFO0 */
+//	  				HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, RxData);
+//	  				HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, &RxData[8]);
+
+//	  if(tim7_flag && count < 1000) {
+//		  tim7_flag = 0;
+//		  TxData1[0] = count >> 8 & 0xFF;
+//		  TxData1[1] = count & 0xFF;
+//
+//		  ++cnt_100us;
+//		  cnt_500us = cnt_100us / 5;
+//		  if(cnt_500us && (cnt_100us&5==0)){
+//			  switch(cnt_500us){
+//			  case 1: fdcan1_transmit(0x108, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x101, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x102, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x103, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x104, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x105, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x106, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x107, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345678, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345671, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345672, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345673, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345674, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345675, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345676, FDCAN_DLC_BYTES_64, TxData1);
+//			  fdcan1_transmit(0x12345677, FDCAN_DLC_BYTES_64, TxData1);
+//			  break;
+//			  case 17: break;
+//			  case 18: break;
+//			  case 20: ++count; cnt_100us = 0; break;
+//			  }
+//		  } else {
+//			  if(fdcan1_send_fail.flag && cnt_500us > 16){
+//				  for(i = 0; i < fdcan1_send_fail.index; i++) {
+//					  fdcan1_transmit(fdcan1_send_fail.TxHeader[i].Identifier,
+//							  	  	  fdcan1_send_fail.TxHeader[i].DataLength,
+//									  &fdcan1_send_fail.TxData[64*i]);
+//				  }
+//				  fdcan1_send_fail.index = 0;
+//				  fdcan1_send_fail.flag = 0;
+//			  }
+//		  }
+	  }
+    /* USER CODE END WHILE */
+	 }
     /* USER CODE BEGIN 3 */
-  }
+
   /* USER CODE END 3 */
-}
+
 
 /**
   * @brief System Clock Configuration
@@ -163,9 +316,23 @@ void SystemClock_Config(void)
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+=======
+  RCC_OscInitStruct.HSICalibrationValue = 32;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 3;
+  RCC_OscInitStruct.PLL.PLLN = 60;
+  RCC_OscInitStruct.PLL.PLLP = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 12;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
+  RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
+  RCC_OscInitStruct.PLL.PLLFRACN = 0;
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -216,10 +383,13 @@ void PeriphCommonClock_Config(void)
   }
 }
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/main.cpp
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
 
+=======
+>>>>>>> Stashed changes:Orion_FW/Core/Src/main.cpp
 /**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM6 interrupt took place, inside
@@ -228,6 +398,7 @@ void PeriphCommonClock_Config(void)
   * @param  htim : TIM handle
   * @retval None
   */
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */

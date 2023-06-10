@@ -11,8 +11,13 @@
 
 #include "RoCo.h"
 #include "usart.h"
+#include "fdcan.h"
 
+<<<<<<< Updated upstream:MCU_SOFTWARE/System/Telemetry.h
 extern NetworkBus network;
+=======
+extern NetworkBus FDCAN1_network;
+>>>>>>> Stashed changes:Orion_FW/System/Telemetry.h
 
 void setupTelemetry();
 

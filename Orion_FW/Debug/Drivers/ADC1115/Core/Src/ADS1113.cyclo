@@ -1,0 +1,13 @@
+ADS1113.cpp:12:6:void ads_delay(int)	1
+ADS1113.cpp:25:6:bool ADS1113::writeRegister(int8_t, uint16_t)	2
+ADS1113.cpp:39:10:uint16_t ADS1113::readRegister(uint8_t)	2
+ADS1113.cpp:52:6:bool ADS1113::ADSbegin()	3
+ADS1113.cpp:62:1:ADS1113::ADS1113(I2C_HandleTypeDef*, uint8_t)	1
+ADS1113.cpp:71:6:bool ADS1113::ADS1113_init()	9
+ADS1113.cpp:134:6:void ADS1113::ADSsetGain(adsGain_t)	11
+ADS1113.cpp:159:11:adsGain_t ADS1113::ADSgetGain()	1
+ADS1113.cpp:164:10:uint16_t ADS1113::ADSreadADC_SingleEnded(uint8_t)	4
+ADS1113.cpp:210:9:int16_t ADS1113::ADSreadADC_Differential_0_1()	3
+ADS1113.cpp:251:7:float ADS1113::ADSreadADC_Voltage()	1
+ADS1113.cpp:262:6:void ADS1113::ADSstartComparator_SingleEnded(uint8_t, int16_t)	5
+ADS1113.cpp:304:9:int16_t ADS1113::ADSgetLastConversionResults()	3

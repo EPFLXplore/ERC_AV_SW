@@ -1,0 +1,529 @@
+typeinfo:99:17:const char* std::type_info::name() const	2
+typeinfo:143:12:std::size_t std::type_info::hash_code() const	1
+std_function.h:87:17:void* std::_Any_data::_M_access()	1
+std_function.h:88:17:const void* std::_Any_data::_M_access() const	1
+std_function.h:240:5:std::_Function_base::_Function_base()	1
+std_function.h:242:5:std::_Function_base::~_Function_base()	2
+std_function.h:248:10:bool std::_Function_base::_M_empty() const	1
+std_function.h:303:11:std::function<void(unsigned char, void*)>::~function()	1
+ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = DataPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = DataPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = DataPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = DataPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = ALLINONE_Packet]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = ALLINONE_Packet]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = ALLINONE_Packet]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = ALLINONE_Packet]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = MassPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = MassPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = MassPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = MassPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = PingPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = PingPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = PingPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = PingPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = ErrorPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = ErrorPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = ErrorPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = ErrorPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = RequestPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = RequestPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = RequestPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = RequestPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = ResponsePacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = ResponsePacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = ResponsePacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = ResponsePacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = ProgressPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = ProgressPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = ProgressPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = ProgressPacket]	1
+MessageBus.cpp:51:27:bool MessageBus::define(uint8_t) [with T = DummySystem_DummyPacket]	6
+MessageBus.cpp:96:27:bool MessageBus::handle(std::function<void(unsigned char, T*)>) [with T = DummySystem_DummyPacket]	3
+MessageBus.cpp:126:27:bool MessageBus::forward(MessageBus*) [with T = DummySystem_DummyPacket]	3
+MessageBus.cpp:149:27:bool MessageBus::send(T*) [with T = DummySystem_DummyPacket]	1
+MessageBus.cpp:157:6:virtual bool MessageBus::internal_send(PacketDefinition*, uint8_t*)	4
+MessageBus.cpp:191:6:void MessageBus::receive(uint8_t, uint8_t*, uint32_t)	13
+MessageBus.cpp:277:19:virtual PacketDefinition* MessageBus::retrieve(size_t)	5
+MessageBus.cpp:105:25:MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, DataPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, ALLINONE_Packet*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, MassPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, PingPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, ErrorPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, RequestPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, ResponsePacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, ProgressPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+MessageBus.cpp:105:25:MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>	1
+MessageBus.cpp:110:25:MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>	1
+std_function.h:303:11:std::function<void(unsigned char, DummySystem_DummyPacket*)>::~function()	1
+MessageBus.cpp:110:25:MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>::~<lambda>()	1
+std_function.h:699:5:)>&, std::nullptr_t) [with _Res = void; _Args = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, DataPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, DataPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, ALLINONE_Packet*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, ALLINONE_Packet*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, MassPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, MassPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, PingPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, PingPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, ErrorPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, ErrorPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, RequestPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, RequestPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, ResponsePacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, ResponsePacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, ProgressPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, ProgressPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:617:5:) const [with _Res = void; _ArgTypes = {unsigned char, DummySystem_DummyPacket*}]	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:587:5:)>&) [with _Res = void; _ArgTypes = {unsigned char, DummySystem_DummyPacket*}]	2
+MessageBus.cpp:110:25:MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>::<lambda>(MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&&)	1
+std_function.h:457:2:)>::operator=(_Functor&&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, void*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = unsigned char]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = void*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = DataPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, DataPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, DataPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = ALLINONE_Packet*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, ALLINONE_Packet*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, ALLINONE_Packet*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MassPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, MassPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, MassPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = PingPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, PingPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, PingPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = ErrorPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, ErrorPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, ErrorPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = RequestPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, RequestPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, RequestPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = ResponsePacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, ResponsePacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, ResponsePacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = ProgressPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, ProgressPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, ProgressPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = DummySystem_DummyPacket*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:498:16:)>::operator bool() const [with _Res = void; _ArgTypes = {unsigned char, DummySystem_DummyPacket*}]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:357:7:)>&&) [with _Res = void; _ArgTypes = {unsigned char, DummySystem_DummyPacket*}]	1
+std_function.h:601:7:)>::function(_Functor) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; <template-parameter-2-2> = void; <template-parameter-2-3> = void; _Res = void; _ArgTypes = {unsigned char, void*}]	2
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = std::_Any_data&]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = std::_Any_data]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = bool (*&)(std::_Any_data&, const std::_Any_data&, std::_Manager_operation)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = bool (*)(std::_Any_data&, const std::_Any_data&, std::_Manager_operation)]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, void*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, void*&&)]	1
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, DataPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, ALLINONE_Packet*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, MassPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, PingPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, ErrorPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, RequestPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, ResponsePacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, ProgressPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:481:12:)>&) [with _Res = void; _ArgTypes = {unsigned char, DummySystem_DummyPacket*}]	1
+std_function.h:227:4:static bool std::_Function_base::_Base_manager<_Functor>::_M_not_empty_function(const _Tp&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&]	1
+std_function.h:207:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:289:7:) [with _Res = void; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	1
+std_function.h:268:7:), _Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Res = void; _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>; _ArgTypes = {unsigned char, void*}]	3
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = const std::type_info*]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, DataPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, DataPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, ALLINONE_Packet*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, ALLINONE_Packet*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, MassPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, MassPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, PingPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, PingPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, ErrorPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, ErrorPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, RequestPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, RequestPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, ResponsePacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, ResponsePacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, ProgressPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, ProgressPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	5
+move.h:101:5:constexpr typename std::remove_reference<_Tp>::type&& std::move(_Tp&&) [with _Tp = void (*&)(const std::_Any_data&, unsigned char&&, DummySystem_DummyPacket*&&)]	1
+move.h:189:5:std::_Require<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> > std::swap(_Tp&, _Tp&) [with _Tp = void (*)(const std::_Any_data&, unsigned char&&, DummySystem_DummyPacket*&&)]	1
+std_function.h:236:2:static void std::_Function_base::_Base_manager<_Functor>::_M_init_functor(std::_Any_data&, _Functor&&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:136:2:static _Functor* std::_Function_base::_Base_manager<_Functor>::_M_get_pointer(const std::_Any_data&) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+invoke.h:148:5:) [with _Res = void; _Callable = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:92:7:_Tp& std::_Any_data::_M_access() [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:181:2:static bool std::_Function_base::_Base_manager<_Functor>::_M_manager(std::_Any_data&, const std::_Any_data&, std::_Manager_operation) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	5
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1
+move.h:76:5:constexpr _Tp&& std::forward(typename std::remove_reference<_Tp>::type&) [with _Tp = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&]	1
+invoke.h:59:5:) [with _Res = void; _Fn = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&; _Args = {unsigned char, void*}]	1
+MessageBus.cpp:110:25:MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>::<lambda>(const MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>&)	1
+std_function.h:158:2:static void std::_Function_base::_Base_manager<_Functor>::_M_clone(std::_Any_data&, const std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	1
+std_function.h:174:2:static void std::_Function_base::_Base_manager<_Functor>::_M_destroy(std::_Any_data&, std::false_type) [with _Functor = MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>]	2
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<DataPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ALLINONE_Packet>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<MassPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<PingPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ErrorPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<RequestPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ResponsePacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<ProgressPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1
+std_function.h:97:7:const _Tp& std::_Any_data::_M_access() const [with _Tp = const MessageBus::handle<DummySystem_DummyPacket>::<lambda(uint8_t, void*)>*]	1

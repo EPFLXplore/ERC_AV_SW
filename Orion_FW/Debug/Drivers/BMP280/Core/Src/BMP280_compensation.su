@@ -1,0 +1,2 @@
+../Drivers/BMP280/Core/Src/BMP280_compensation.cpp:47:9:int32_t BMP280::compensate_temperature(int32_t)	24	static
+../Drivers/BMP280/Core/Src/BMP280_compensation.cpp:67:10:uint32_t BMP280::compensate_pressure(int32_t)	376	static

@@ -1,0 +1,10 @@
+std_function.h:242:5:std::_Function_base::~_Function_base()	2
+std_function.h:303:11:std::function<void(unsigned char, void*)>::~function()	1
+MessageBus.h:27:10:MessageBus::~MessageBus()	3
+MessageBus.h:27:10:virtual MessageBus::~MessageBus()	1
+ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
+IOBus.h:15:7:IOBus::~IOBus()	1
+IOBus.h:15:7:virtual IOBus::~IOBus()	1
+NetworkBus.cpp:17:1:NetworkBus::NetworkBus(IODriver*)	1
+NetworkBus.h:22:7:NetworkBus::~NetworkBus()	1
+NetworkBus.h:22:7:virtual NetworkBus::~NetworkBus()	1

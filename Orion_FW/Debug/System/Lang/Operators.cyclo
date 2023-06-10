@@ -1,0 +1,4 @@
+Operators.cpp:12:8:void* operator new(size_t)	1
+Operators.cpp:16:8:void* operator new [](size_t)	1
+Operators.cpp:20:6:void operator delete(void*)	1
+Operators.cpp:24:6:void operator delete [](void*)	1

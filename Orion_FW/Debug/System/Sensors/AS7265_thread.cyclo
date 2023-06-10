@@ -1,0 +1,7 @@
+Thread.h:23:10:Thread::~Thread()	1
+Thread.h:23:10:virtual Thread::~Thread()	1
+ProtocolMacros.h:10:17:uint16_t __gen_crc16(const uint8_t*, uint16_t)	5
+AS7265_thread.cpp:14:6:virtual void AS7265Thread::init()	2
+AS7265_thread.cpp:36:6:virtual void AS7265Thread::loop()	1
+AS7265_thread.h:18:7:AS7265Thread::~AS7265Thread()	1
+AS7265_thread.h:18:7:virtual AS7265Thread::~AS7265Thread()	1
