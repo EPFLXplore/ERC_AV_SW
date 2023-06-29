@@ -56,25 +56,20 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, SPI2_CS_Pin|HAT3_P6_Pin|HAT3_P5_Pin|HAT1_P2_Pin
-                          |HAT1_P3_Pin, GPIO_PIN_RESET);
+                          |HAT1_P3_Pin|HAT3_P1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-<<<<<<< HEAD
   HAL_GPIO_WritePin(GPIOA, SPI1_CS_Pin|HAT1_P4_Pin|SPI3_CS_Pin, GPIO_PIN_RESET);
-=======
-  HAL_GPIO_WritePin(GPIOA, SPI1_CS_Pin|HAT1_P4_Pin|HAT1_P6_Pin|HAT1_P5_Pin
-                          |SPI3_CS_Pin, GPIO_PIN_RESET);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, HAT3_P3_Pin|HAT3_P4_Pin|HAT3_P1_Pin|HAT3_P2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, HAT3_P3_Pin|HAT3_P4_Pin|HAT3_P2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, HAT2_P1_Pin|HAT2_P2_Pin|HAT2_P3_Pin|LED_YELLOW_Pin
                           |HAT2_P5_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PCPin PCPin PCPin PCPin
-                           PCPin */
+                           PCPin PCPin */
   GPIO_InitStruct.Pin = SPI2_CS_Pin|HAT3_P6_Pin|HAT3_P5_Pin|HAT1_P2_Pin
                           |HAT1_P3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -82,22 +77,15 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-<<<<<<< HEAD
   /*Configure GPIO pins : PAPin PAPin PAPin */
   GPIO_InitStruct.Pin = SPI1_CS_Pin|HAT1_P4_Pin|SPI3_CS_Pin;
-=======
-  /*Configure GPIO pins : PAPin PAPin PAPin PAPin
-                           PAPin */
-  GPIO_InitStruct.Pin = SPI1_CS_Pin|HAT1_P4_Pin|HAT1_P6_Pin|HAT1_P5_Pin
-                          |SPI3_CS_Pin;
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
-  GPIO_InitStruct.Pin = HAT3_P3_Pin|HAT3_P4_Pin|HAT3_P1_Pin|HAT3_P2_Pin;
+  /*Configure GPIO pins : PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = HAT3_P3_Pin|HAT3_P4_Pin|HAT3_P2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

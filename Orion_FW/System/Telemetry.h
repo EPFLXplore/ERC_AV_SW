@@ -13,15 +13,10 @@
 #include "usart.h"
 #include "fdcan.h"
 
-<<<<<<< HEAD:MCU_SOFTWARE/System/Telemetry.h
-<<<<<<< Updated upstream:MCU_SOFTWARE/System/Telemetry.h
-extern NetworkBus network;
-=======
+
 extern NetworkBus FDCAN1_network;
->>>>>>> Stashed changes:Orion_FW/System/Telemetry.h
-=======
+
 //extern NetworkBus network;
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/System/Telemetry.h
 
 void setupTelemetry();
 

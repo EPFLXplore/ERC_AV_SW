@@ -57,25 +57,25 @@ uint8_t MAX11615_Init(MAX11615* chip, I2C_HandleTypeDef* wireIface, uint16_t add
 	// 5 - SEL1 (vRef)
 	// 6 - SEL2 (vRef)
 	uint8_t setup_byte = 0xa6;
-	ret += MAX11615_Setup(chip, vRef);
+	ret += MAX11615_Setup(chip, setup_byte);
 	// 0 - Single Ended
 	// 1 to 4 - Channel Select:  7
 	// 5 to 6 - Scan Mode: read channels up to selected channel
-	uint8_t config_byte = 0x00;
+	uint8_t config_byte = 0x06;
 	ret += MAX11615_Configuration(chip, config_byte);
 	return ret;
 }
 
 uint8_t MAX11615_Setup(MAX11615* chip, uint8_t data){
 	data = data | 0x80; // make REG bit 7 = 1 (setup byte)
-	if(HAL_I2C_Master_Transmit(chip->wireIface, chip->devAddress, &data, 1, 10) != HAL_OK)
+	if(HAL_I2C_Master_Transmit(chip->wireIface, chip->devAddress << 1, &data, 1, 10) != HAL_OK)
 		return 1;
 	return 0;
 }
 
 uint8_t MAX11615_Configuration(MAX11615* chip, uint8_t data){
 	data = data & (~0x80); // make REG bit 7 = 0 (configuration byte)
-	if(HAL_I2C_Master_Transmit(chip->wireIface, chip->devAddress, &data, 1, 10) != HAL_OK)
+	if(HAL_I2C_Master_Transmit(chip->wireIface, chip->devAddress << 1, &data, 1, 10) != HAL_OK)
 		return 1;
 	return 0;
 }
@@ -88,18 +88,22 @@ uint8_t MAX11615_Configuration(MAX11615* chip, uint8_t data){
  * @param val      Pointer to where the return value should be stored.
  * @return uint8_t
  */
-uint8_t MAX11615_ADC_Read(MAX11615* chip, uint8_t channel, uint16_t* val){
+uint8_t MAX11615_ADC_Read(MAX11615* chip, uint8_t channel, float* val){
 	uint8_t result[2] = {0,0};
 
 	// the conversion consists of two bytes per channel
-	if(HAL_I2C_Master_Receive(chip->wireIface, chip->devAddress, &result[0], 2, HAL_MAX_DELAY) != HAL_OK){
+	if(HAL_I2C_Master_Receive(chip->wireIface, chip->devAddress << 1, &result[0], 2, HAL_MAX_DELAY) != HAL_OK){
 		return 1;
 	}
-	uint16_t value = 0;
+	float value = 0;
 	// cast to uint16_t is necessary to not loose the values by the left shift
 	value =  (((uint16_t)result[0] & 0x000f) << 8); // MSB is returned first
 	value += ((uint16_t)result[1] & 0x00ff); // read LSB
 	*val = value;
+//	if (value >= 256)
+//		*val = ((value  / 256) - 1) * 30 + 3.7;
+//	else
+//		*val = -(1 - (value / 256)) * 30 + 3.7;
 	return 0;
 }
 
@@ -109,14 +113,14 @@ uint8_t MAX11615_ADC_Read(MAX11615* chip, uint8_t channel, uint16_t* val){
  * @author Miguel (5/24/2015)
  *
  * @param buffer an array where the channel read values are put.
- */
-uint8_t MAX11615_Scan(MAX11615* chip, uint16_t* buffer){
-	uint8_t ret = 0;
-	uint8_t configurationByte = 0xf0;
-	ret += MAX11615_Configuration(chip, configurationByte);
-	// 2 bytes per channel. There are 8 channels
-	for(uint8_t i = 0;i<8;i++){
-		ret += MAX11615_ADC_Read(chip, i, buffer+i);
-	}
-	return ret;
-}
+// */
+//uint8_t MAX11615_Scan(MAX11615* chip, uint16_t* buffer){
+//	uint8_t ret = 0;
+//	uint8_t configurationByte = 0xf0;
+//	ret += MAX11615_Configuration(chip, configurationByte);
+//	// 2 bytes per channel. There are 8 channels
+//	for(uint8_t i = 0;i<8;i++){
+//		ret += MAX11615_ADC_Read(chip, i, buffer+i);
+//	}
+//	return ret;
+//}

@@ -14,7 +14,6 @@
 #include "ALLINONE.hpp"
 #include "usart.h"
 
-#define ADDRESS_MAX11615  0x66
 
 
 class AllInOneThread : public Thread {

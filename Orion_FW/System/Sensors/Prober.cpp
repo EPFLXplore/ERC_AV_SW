@@ -15,6 +15,7 @@
 #include "Lang/Operators.h"
 
 #include "Dummy_thread.h"
+#include "MAX11615_thread.h"
 
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
@@ -27,16 +28,15 @@ bool ProberThread::probeI2C(uint8_t address) {
 }
 
 void ProberThread::loop() {
-
-<<<<<<< HEAD
 //	if(probeI2C(0x33)){
-	if(true){
-=======
-	if(probeI2C(0x33)){
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
-		this->instance = new DummyThread(this);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-
+//	if(true){
+//		this->instance = new DummyThread(this);
+//		xSemaphoreTake(semaphore, portMAX_DELAY);
+//
+//	}
+	if (probeI2C(ADDRESS_MAX11615)) {
+			this->instance = new VoltmeterThread(this);
+			xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
 	if (probeI2C(ADS_ADDR_GND)) {
 			this->instance = new DummyThread(this);

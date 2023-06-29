@@ -27,11 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "System.h"
 #include "semphr.h"
-<<<<<<< HEAD
 
 #include "Modbus.h"
-#include "main.h"
-#include "cmsis_os.h"
 //#include "dma.h"
 #include "i2c.h"
 #include "fdcan.h"
@@ -45,9 +42,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include "stdio.h"
-=======
-#include "Modbus.h"
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,13 +95,9 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-<<<<<<< HEAD
 	setupTelemetry();
 	initCortex();
-=======
-//	setupTelemetry();
-//	initCortex();
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -128,11 +119,7 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of aliveBlink */
 //  aliveBlinkHandle = osThreadNew(AliveBlink, NULL, &aliveBlink_attributes);
-<<<<<<< HEAD
 //  myTaskMasterHandle = osThreadNew(StartTaskMaster, NULL, &myTaskMaster_attributes);
-=======
-  myTaskMasterHandle = osThreadNew(StartTaskMaster, NULL, &myTaskMaster_attributes);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -155,7 +142,7 @@ void AliveBlink(void *argument)
 {
   /* USER CODE BEGIN AliveBlink */
   /* Infinite loop */
-<<<<<<< HEAD
+
 //	  TxData[0] = 0x69;
 //	  			TxData[1] = 0xAD;
 //	  			for(uint8_t i = 0; i < 8; i++){
@@ -170,14 +157,7 @@ void AliveBlink(void *argument)
 // 				osDelay(100);
 //  /* USER CODE END AliveBlink */
 //	  			}
-=======
-  for(;;)
-  {
-	HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-    osDelay(1000);
-  }
-  /* USER CODE END AliveBlink */
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7
+
 }
 
 /* Private application code --------------------------------------------------*/

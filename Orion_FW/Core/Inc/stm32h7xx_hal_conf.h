@@ -34,17 +34,8 @@
   */
 #define HAL_MODULE_ENABLED
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Inc/stm32h7xx_hal_conf.h
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Inc/stm32h7xx_hal_conf.h
-  #define HAL_ADC_MODULE_ENABLED
-=======
-  /* #define HAL_ADC_MODULE_ENABLED   */
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Inc/stm32h7xx_hal_conf.h
-/* #define HAL_FDCAN_MODULE_ENABLED   */
-=======
   /* #define HAL_ADC_MODULE_ENABLED   */
 #define HAL_FDCAN_MODULE_ENABLED
->>>>>>> Stashed changes:Orion_FW/Core/Inc/stm32h7xx_hal_conf.h
 /* #define HAL_FMAC_MODULE_ENABLED   */
 /* #define HAL_CEC_MODULE_ENABLED   */
 /* #define HAL_COMP_MODULE_ENABLED   */
@@ -55,7 +46,6 @@
 /* #define HAL_DCMI_MODULE_ENABLED   */
 /* #define HAL_DMA2D_MODULE_ENABLED   */
 /* #define HAL_ETH_MODULE_ENABLED   */
-/* #define HAL_ETH_LEGACY_MODULE_ENABLED   */
 /* #define HAL_NAND_MODULE_ENABLED   */
 /* #define HAL_NOR_MODULE_ENABLED   */
 /* #define HAL_OTFDEC_MODULE_ENABLED   */
@@ -230,8 +220,8 @@
 #define  USE_HAL_WWDG_REGISTER_CALLBACKS    0U /* WWDG register callback disabled    */
 
 /* ########################### Ethernet Configuration ######################### */
-#define ETH_TX_DESC_CNT         4U  /* number of Ethernet Tx DMA descriptors */
-#define ETH_RX_DESC_CNT         4U  /* number of Ethernet Rx DMA descriptors */
+#define ETH_TX_DESC_CNT         4  /* number of Ethernet Tx DMA descriptors */
+#define ETH_RX_DESC_CNT         4  /* number of Ethernet Rx DMA descriptors */
 
 #define ETH_MAC_ADDR0    (0x02UL)
 #define ETH_MAC_ADDR1    (0x00UL)
@@ -295,10 +285,6 @@
 #ifdef HAL_ETH_MODULE_ENABLED
   #include "stm32h7xx_hal_eth.h"
 #endif /* HAL_ETH_MODULE_ENABLED */
-
-#ifdef HAL_ETH_LEGACY_MODULE_ENABLED
-  #include "stm32h7xx_hal_eth_legacy.h"
-#endif /* HAL_ETH_LEGACY_MODULE_ENABLED */
 
 #ifdef HAL_EXTI_MODULE_ENABLED
   #include "stm32h7xx_hal_exti.h"

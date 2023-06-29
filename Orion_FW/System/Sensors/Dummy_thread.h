@@ -14,9 +14,7 @@
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
-#include "max11615.h"
 
-#define ADDRESS_MAX11615  0x66
 
 
 class DummyThread : public Thread {

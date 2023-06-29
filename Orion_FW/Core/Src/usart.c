@@ -30,22 +30,6 @@ UART_HandleTypeDef huart8;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-UART_HandleTypeDef huart6;
-=======
-DMA_HandleTypeDef hdma_uart4_rx;
-DMA_HandleTypeDef hdma_uart5_rx;
-DMA_HandleTypeDef hdma_uart8_rx;
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
-DMA_HandleTypeDef hdma_usart1_rx;
-DMA_HandleTypeDef hdma_usart3_rx;
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-DMA_HandleTypeDef hdma_usart6_rx;
-=======
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
 
 /* UART4 init function */
 void MX_UART4_Init(void)
@@ -233,15 +217,7 @@ void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-  huart2.Init.BaudRate = 576000;
-=======
   huart2.Init.BaudRate = 115200;
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
-=======
-  huart2.Init.BaudRate = 4800;
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -322,12 +298,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-  if(uartHandle->Instance==USART1)
-=======
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   if(uartHandle->Instance==UART4)
   {
   /* USER CODE BEGIN UART4_MspInit 0 */
@@ -358,31 +328,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF8_UART4;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART4 DMA Init */
-    /* UART4_RX Init */
-    hdma_uart4_rx.Instance = DMA1_Stream1;
-    hdma_uart4_rx.Init.Request = DMA_REQUEST_UART4_RX;
-    hdma_uart4_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_uart4_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_uart4_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_uart4_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_uart4_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_uart4_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_uart4_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_uart4_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_uart4_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_uart4_rx);
-
-    /* UART4 interrupt Init */
-    HAL_NVIC_SetPriority(UART4_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(UART4_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART4_MspInit 1 */
 
   /* USER CODE END UART4_MspInit 1 */
@@ -417,31 +362,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF14_UART5;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART5 DMA Init */
-    /* UART5_RX Init */
-    hdma_uart5_rx.Instance = DMA1_Stream2;
-    hdma_uart5_rx.Init.Request = DMA_REQUEST_UART5_RX;
-    hdma_uart5_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_uart5_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_uart5_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_uart5_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_uart5_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_uart5_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_uart5_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_uart5_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_uart5_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_uart5_rx);
-
-    /* UART5 interrupt Init */
-    HAL_NVIC_SetPriority(UART5_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(UART5_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART5_MspInit 1 */
 
   /* USER CODE END UART5_MspInit 1 */
@@ -476,40 +396,11 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF8_UART8;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART8 DMA Init */
-    /* UART8_RX Init */
-    hdma_uart8_rx.Instance = DMA1_Stream3;
-    hdma_uart8_rx.Init.Request = DMA_REQUEST_UART8_RX;
-    hdma_uart8_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_uart8_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_uart8_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_uart8_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_uart8_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_uart8_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_uart8_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_uart8_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_uart8_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_uart8_rx);
-
-    /* UART8 interrupt Init */
-    HAL_NVIC_SetPriority(UART8_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(UART8_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART8_MspInit 1 */
 
   /* USER CODE END UART8_MspInit 1 */
   }
   else if(uartHandle->Instance==USART1)
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   {
   /* USER CODE BEGIN USART1_MspInit 0 */
 
@@ -539,31 +430,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF4_USART1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-    /* USART1 DMA Init */
-    /* USART1_RX Init */
-    hdma_usart1_rx.Instance = DMA1_Stream4;
-    hdma_usart1_rx.Init.Request = DMA_REQUEST_USART1_RX;
-    hdma_usart1_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_usart1_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart1_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart1_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart1_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_usart1_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_usart1_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart1_rx);
-
-    /* USART1 interrupt Init */
-    HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(USART1_IRQn);
-=======
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -598,34 +464,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-    /* USART2 DMA Init */
-    /* USART2_RX Init */
-    hdma_usart2_rx.Instance = DMA1_Stream2;
-    hdma_usart2_rx.Init.Request = DMA_REQUEST_USART2_RX;
-    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart2_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart2_rx);
-
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
-    /* USART2 interrupt Init */
-    HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(USART2_IRQn);
-=======
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -669,12 +507,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 {
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-  if(uartHandle->Instance==USART1)
-=======
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   if(uartHandle->Instance==UART4)
   {
   /* USER CODE BEGIN UART4_MspDeInit 0 */
@@ -689,14 +521,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0|GPIO_PIN_1);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART4 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
-
-    /* UART4 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(UART4_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART4_MspDeInit 1 */
 
   /* USER CODE END UART4_MspDeInit 1 */
@@ -715,14 +539,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_12|GPIO_PIN_13);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART5 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
-
-    /* UART5 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(UART5_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART5_MspDeInit 1 */
 
   /* USER CODE END UART5_MspDeInit 1 */
@@ -741,23 +557,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOE, GPIO_PIN_0|GPIO_PIN_1);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-=======
-    /* UART8 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
-
-    /* UART8 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(UART8_IRQn);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN UART8_MspDeInit 1 */
 
   /* USER CODE END UART8_MspDeInit 1 */
   }
   else if(uartHandle->Instance==USART1)
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
   {
   /* USER CODE BEGIN USART1_MspDeInit 0 */
 
@@ -789,17 +593,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_5|GPIO_PIN_6);
 
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/usart.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/usart.c
-    /* USART2 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
-
-=======
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Src/usart.c
-    /* USART2 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(USART2_IRQn);
-=======
->>>>>>> Stashed changes:Orion_FW/Core/Src/usart.c
   /* USER CODE BEGIN USART2_MspDeInit 1 */
 
   /* USER CODE END USART2_MspDeInit 1 */

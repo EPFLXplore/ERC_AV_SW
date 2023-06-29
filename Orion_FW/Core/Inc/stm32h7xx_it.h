@@ -52,27 +52,8 @@ void MemManage_Handler(void);
 void BusFault_Handler(void);
 void UsageFault_Handler(void);
 void DebugMon_Handler(void);
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Inc/stm32h7xx_it.h
-void DMA1_Stream0_IRQHandler(void);
-void DMA1_Stream1_IRQHandler(void);
-void DMA1_Stream2_IRQHandler(void);
-void DMA1_Stream3_IRQHandler(void);
-void DMA1_Stream4_IRQHandler(void);
-void USART1_IRQHandler(void);
-void USART2_IRQHandler(void);
-void USART3_IRQHandler(void);
-void UART4_IRQHandler(void);
-void UART5_IRQHandler(void);
-void TIM6_DAC_IRQHandler(void);
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Inc/stm32h7xx_it.h
-void USART6_IRQHandler(void);
-=======
 void FDCAN1_IT0_IRQHandler(void);
 void TIM6_DAC_IRQHandler(void);
->>>>>>> Stashed changes:Orion_FW/Core/Inc/stm32h7xx_it.h
-=======
-void UART8_IRQHandler(void);
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_FW/Core/Inc/stm32h7xx_it.h
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

@@ -31,6 +31,8 @@
 
 /** @see Datasheet p.19 Table 6
   */
+#define ADDRESS_MAX11615  	  0x33
+
 #define MAX11615_REF_VDD      0x00
 #define MAX11615_REF_EXTERNAL 0x02
 #define MAX11615_REF_INTERNAL 0x04
@@ -50,7 +52,7 @@ uint8_t MAX11615_Read8             (MAX11615*, uint8_t, uint8_t*);
 uint8_t MAX11615_Init              (MAX11615*, I2C_HandleTypeDef*, uint16_t, uint8_t);
 uint8_t MAX11615_Setup             (MAX11615*, uint8_t);
 uint8_t MAX11615_Configuration 	   (MAX11615*, uint8_t);
-uint8_t MAX11615_ADC_Read          (MAX11615*, uint8_t, uint16_t*);
+uint8_t MAX11615_ADC_Read          (MAX11615*, uint8_t, float*);
 uint8_t MAX11615_Scan              (MAX11615*, uint16_t*);
 
 #endif
