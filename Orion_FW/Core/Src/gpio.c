@@ -71,7 +71,7 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pins : PCPin PCPin PCPin PCPin
                            PCPin PCPin */
   GPIO_InitStruct.Pin = SPI2_CS_Pin|HAT3_P6_Pin|HAT3_P5_Pin|HAT1_P2_Pin
-                          |HAT1_P3_Pin;
+                          |HAT1_P3_Pin|HAT3_P1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
