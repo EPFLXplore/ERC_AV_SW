@@ -27,6 +27,8 @@ public:
 	IMU() = delete;
     bool initialize_sensors();
     bool initialize_sensors(BMI088_Sens::Config bmi_config, LIS3MDL_Sens::Config lis_config);
+    BMI088_Sens::xyz get_last_linear_accel();
+    BMI088_Sens::xyz get_last_angular_accel();
     Quaternion get_last_attitude();
     void init_ekfs();
 

@@ -73,39 +73,39 @@ bool ADS1113::ADS1113_init() {
 	if (HAL_I2C_DeInit(hi2c) != HAL_OK){
 		return false;
 	}
-
-	hi2c->Init.Timing = 0x00401242;
-	hi2c->Init.OwnAddress1 = 0;
-	hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	hi2c->Init.OwnAddress2 = 0;
-	hi2c->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-	hi2c->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	hi2c->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	if (HAL_I2C_Init(hi2c) != HAL_OK)
-	{
-		return false;
-	}
-	/** Configure Analogue filter
-	*/
-	if (HAL_I2CEx_ConfigAnalogFilter(hi2c, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-	{
-		return false;
-	}
-	/** Configure Digital filter
-	*/
-	if (HAL_I2CEx_ConfigDigitalFilter(hi2c, 0x0F) != HAL_OK)
-	{
-		return false;
-	}
-	/** I2C Enable Fast Mode Plus
-	*/
-	if (hi2c->Instance = I2C1)
-		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
-	else if (hi2c->Instance = I2C2)
-		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C2);
-	else if (hi2c->Instance = I2C3)
-		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C3);
+//
+//	hi2c->Init.Timing = 0x00401242;
+//	hi2c->Init.OwnAddress1 = 0;
+//	hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+//	hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+//	hi2c->Init.OwnAddress2 = 0;
+//	hi2c->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+//	hi2c->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+//	hi2c->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+//	if (HAL_I2C_Init(hi2c) != HAL_OK)
+//	{
+//		return false;
+//	}
+//	/** Configure Analogue filter
+//	*/
+//	if (HAL_I2CEx_ConfigAnalogFilter(hi2c, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+//	{
+//		return false;
+//	}
+//	/** Configure Digital filter
+//	*/
+//	if (HAL_I2CEx_ConfigDigitalFilter(hi2c, 0x0F) != HAL_OK)
+//	{
+//		return false;
+//	}
+//	/** I2C Enable Fast Mode Plus
+//	*/
+//	if (hi2c->Instance = I2C1)
+//		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
+//	else if (hi2c->Instance = I2C2)
+//		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C2);
+//	else if (hi2c->Instance = I2C3)
+//		HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C3);
 
 
 	if (ADSbegin() != HAL_OK)

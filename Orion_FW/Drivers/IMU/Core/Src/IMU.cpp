@@ -154,6 +154,14 @@ void IMU::init_ekfs(){
 
 }
 
+BMI088_Sens::xyz IMU::get_last_linear_accel(){
+	return this->last_acc;
+}
+
+BMI088_Sens::xyz IMU::get_last_angular_accel(){
+	return this->last_gyr;
+}
+
 Quaternion IMU::get_last_attitude(){
     this->upd_attitude();
     return this->last_attitude;

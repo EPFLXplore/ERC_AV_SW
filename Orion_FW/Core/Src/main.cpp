@@ -93,13 +93,13 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	/* MPU Configuration--------------------------------------------------------*/
-	  MPU_Config();
-
-	  /* Enable I-Cache---------------------------------------------------------*/
-	  SCB_EnableICache();
+//	  MPU_Config();
+//
+//	  /* Enable I-Cache---------------------------------------------------------*/
+//	  SCB_EnableICache();
 
 	  /* Enable D-Cache---------------------------------------------------------*/
-	  SCB_EnableDCache();
+//	  SCB_EnableDCache();
   /* USER CODE END 1 */
 
 

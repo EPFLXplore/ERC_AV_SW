@@ -10,21 +10,18 @@
 
 
 #include <ADS1113.hpp>
-#include <max11615.h>
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
 
 
-
 class DummyThread : public Thread {
 public:
-	DummyThread(ProberThread* parent) :
-		Thread("Dummy"), parent(parent), portNum(parent->getI2CNum()){};
+	DummyThread(ProberThread* parent) : Thread("Dummy"), parent(parent), portNum(parent->getI2CNum()), dummy_sensor(parent->getI2C(), ADS_ADDR_GND), dummy_member(0) {}
 	void init();
 	void loop();
 private:
-	MAX11615 voltmeter;
+	ADS1113 dummy_sensor;
 	ProberThread* parent;
 	uint8_t portNum;
 	float dummy_member;

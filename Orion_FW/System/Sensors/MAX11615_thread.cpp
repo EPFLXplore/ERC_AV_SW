@@ -40,7 +40,7 @@ void VoltmeterThread::init() {
 static VoltmeterData voltmeter_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-//static VoltmeterPacket packet;
+static VoltmeterPacket packet;
 
 void VoltmeterThread::loop() {
 	// Get the sensor data. Here we only read a differential value as an example
@@ -53,7 +53,7 @@ void VoltmeterThread::loop() {
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 //		 Send data over RoCo network
 //		voltmeter_data.toArray((uint8_t*) &packet);
-//	FDCAN1_network.send(&packet);
+	FDCAN1_network.send(&packet);
 	portYIELD();
 	} else {
 		VoltmeterInstance = nullptr;

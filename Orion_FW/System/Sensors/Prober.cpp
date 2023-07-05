@@ -16,6 +16,9 @@
 
 #include "Dummy_thread.h"
 #include "MAX11615_thread.h"
+#include "bmi08_defs.h"
+#include "lis3mdl_sens.hpp"
+#include "IMU_thread.h"
 
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
@@ -34,6 +37,7 @@ void ProberThread::loop() {
 //		xSemaphoreTake(semaphore, portMAX_DELAY);
 //
 //	}
+
 	if (probeI2C(ADDRESS_MAX11615)) {
 			this->instance = new VoltmeterThread(this);
 			xSemaphoreTake(semaphore, portMAX_DELAY);
@@ -42,7 +46,10 @@ void ProberThread::loop() {
 			this->instance = new DummyThread(this);
 			xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
-
+	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
+		this->instance = new IMUThread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+	}
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);
 }

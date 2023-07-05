@@ -33,10 +33,10 @@ void setupTelemetry(){
 //	UART4_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
 //	UART5_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
 //	UART8_network.forward<DummySystem_DummyPacket>(&JetsonNetwork);
-//
 
-//	STMUARTDriver_list.push_back(&UART3_driver);
-//	STMUARTDriver_list.push_back(&UART5_driver);
+
+
+
 	FDCAN1_network.handle<DummySystem_DummyPacket>(&handle_dummyCallback);
 //	JetsonNetwork.handle<DummySystem_DummyPacket>(&handle_dummyCallback);
 #if defined(BUILD_FOR_NAVIGATION)
