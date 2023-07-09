@@ -45,7 +45,7 @@ void ADS1234Thread::loop() {
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 		// Send data over RoCo network
 		mass_data.toArray((uint8_t*) &packet);
-		FDCAN1_network.send(&packet);
+//		FDCAN1_network.send(&packet);
 		portYIELD();
 	} else {
 		massSensorInstance = nullptr;
