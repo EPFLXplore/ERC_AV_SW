@@ -95,8 +95,8 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-	setupTelemetry();
-	initCortex();
+//	setupTelemetry();
+//	initCortex();
 
   /* USER CODE END Init */
 
@@ -119,7 +119,7 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of aliveBlink */
 //  aliveBlinkHandle = osThreadNew(AliveBlink, NULL, &aliveBlink_attributes);
-//  myTaskMasterHandle = osThreadNew(StartTaskMaster, NULL, &myTaskMaster_attributes);
+  myTaskMasterHandle = osThreadNew(StartTaskMaster, NULL, &myTaskMaster_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

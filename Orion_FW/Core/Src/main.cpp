@@ -140,6 +140,25 @@ int main(void)
   MX_USART2_UART_Init();
   MX_FDCAN1_Init();
 
+  /* USER CODE BEGIN 2 */
+
+  ModbusH.uModbusType = MB_MASTER;
+  ModbusH.port =  &huart2;
+  ModbusH.u8id = 0; // For master it must be 0
+  ModbusH.u16timeOut = 1000;
+  ModbusH.EN_Port1 = GPIOD;
+  ModbusH.EN_Pin1 = GPIO_PIN_4;
+  ModbusH.EN_Port2 = GPIOD;
+  ModbusH.EN_Pin2 = GPIO_PIN_14;
+  ModbusH.u16regs = ModbusDATA;
+  ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
+  ModbusH.xTypeHW = USART_HW;
+  //Initialize Modbus library
+  ModbusInit(&ModbusH);
+  //Start capturing traffic on serial Port
+  ModbusStart(&ModbusH);
+  /* USER CODE END 2 */
+
 //  /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
@@ -150,6 +169,9 @@ int main(void)
 //  /* We should never get here as control is now taken by the scheduler */
 //  /* Infinite loop */
 //  /* USER CODE BEGIN WHILE */
+  /* Modbus Master initialization */
+   /* Master initialization */
+
   while (1)
   {
 
