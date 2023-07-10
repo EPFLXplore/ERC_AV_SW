@@ -6,17 +6,15 @@
  *      Adapted from https://github.com/smarmengol/Modbus-Master-Slave-for-Arduino
  */
 
+
+#include <Modbus.h>
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "task.h"
 #include "queue.h"
 #include "main.h"
-#include "Modbus.h"
 #include "timers.h"
 #include "semphr.h"
-
-
-
 
 #if ENABLE_TCP == 1
 #include "api.h"
@@ -35,7 +33,6 @@
 
 #define lowByte(w) ((w) & 0xff)
 #define highByte(w) ((w) >> 8)
-
 
 modbusHandler_t *mHandlers[MAX_M_HANDLERS];
 
@@ -775,7 +772,7 @@ void ModbusQuery(modbusHandler_t * modH, modbus_t telegram )
 	if (modH->uModbusType == MB_MASTER)
 	{
 	telegram.u32CurrentTask = (uint32_t *) osThreadGetId();
-	xQueueSendToBack(modH->QueueTelegramHandle, &telegram, 0);
+	xQueueSendToBackFromISR(modH->QueueTelegramHandle, &telegram, 0);
 	}
 	else{
 		while(1);// error a slave cannot send queries as a master
@@ -1909,8 +1906,5 @@ int8_t process_FC16(modbusHandler_t *modH )
 
     return u8CopyBufferSize;
 }
-
-
-
 
 

@@ -55,25 +55,20 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
-<<<<<<< Updated upstream:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
+
 extern TIM_HandleTypeDef htim1;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
-=======
+
 extern DMA_HandleTypeDef hdma_uart4_rx;
 extern DMA_HandleTypeDef hdma_uart5_rx;
 extern DMA_HandleTypeDef hdma_uart8_rx;
->>>>>>> 15e8edf9b101a619741313a75427759da7f1b1e7:Orion_TestBench/Core/Src/stm32h7xx_it.c
 extern DMA_HandleTypeDef hdma_usart3_rx;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart8;
 extern UART_HandleTypeDef huart3;
-<<<<<<< HEAD:MCU_SOFTWARE/Core/Src/stm32h7xx_it.c
 extern UART_HandleTypeDef huart6;
-=======
-extern FDCAN_HandleTypeDef hfdcan1;
 
 
 /* USER CODE BEGIN EV */

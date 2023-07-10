@@ -46,7 +46,6 @@ float ALLINONE::get_temperature(){
     if(u32NotificationValue != ERR_OK_QUERY)
     	return 999;
 	return ((ModbusH.xBufferRX.uxBuffer[6] < 4 ) | (ModbusH.xBufferRX.uxBuffer[7]))/10;
-
 };
 
 float ALLINONE::get_moisturelvl(){
@@ -58,7 +57,12 @@ float ALLINONE::get_conductivity(){
 
 };
 float ALLINONE::get_PH(){
-
+	uint32_t u32NotificationValue;
+    ModbusQuery(&ModbusH, telegram[0]); // make a query
+    u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+    if(u32NotificationValue != ERR_OK_QUERY)
+    	return 999;
+	return ((ModbusH.xBufferRX.uxBuffer[12] < 4 ) | (ModbusH.xBufferRX.uxBuffer[13]))/10;
 
 };
 

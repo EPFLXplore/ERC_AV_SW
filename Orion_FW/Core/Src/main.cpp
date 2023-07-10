@@ -26,6 +26,7 @@
 #include "usart.h"
 #include "gpio.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
@@ -52,8 +53,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-modbusHandler_t ModbusH;
-uint16_t ModbusDATA[15];
+//modbusHandler_t ModbusH;
+//uint16_t ModbusDATA[15];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -131,7 +132,7 @@ int main(void)
   MX_SPI1_Init();
 //  MX_SPI2_Init();
   MX_SPI3_Init();
-  MX_TIM8_Init();
+//  MX_TIM8_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_UART4_Init();

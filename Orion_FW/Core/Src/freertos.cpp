@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include <Modbus.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
@@ -28,8 +29,6 @@
 #include "System.h"
 #include "semphr.h"
 
-#include "Modbus.h"
-//#include "dma.h"
 #include "i2c.h"
 #include "fdcan.h"
 #include "spi.h"
@@ -62,7 +61,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-modbus_t telegram[2];
+//modbus_t telegram[2];
 /* USER CODE END Variables */
 /* Definitions for aliveBlink */
 osThreadId_t aliveBlinkHandle;
@@ -173,47 +172,45 @@ void StartTaskMaster(void *argument)
 {
   /* USER CODE BEGIN StartTaskMaster */
   /* Infinite loop */
-	 // telegram 0: read registers
-
-  uint32_t u32NotificationValue;
-
-  telegram[0].u8id = 0x01; // slave address
-  telegram[0].u8fct = (mb_functioncode_t)3; // function code (this one is registers read)
-  //telegram[0].u16RegAdd = 0x160; // start address in slave
-  telegram[0].u16RegAdd = 0x0; // start address in slave
-  telegram[0].u16CoilsNo = 4; // number of elements (coils or registers) to read
-  telegram[0].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
-
-
-  // telegram 0: read registers
-  telegram[1].u8id = 1; // slave address
-  telegram[1].u8fct = (mb_functioncode_t)6; // function code (this one is registers write)
-  //telegram[1].u16RegAdd = 0x160; // start address in slave
-  telegram[1].u16RegAdd = 0x0;
-  telegram[1].u16CoilsNo = 1; // number of elements (coils or registers) to read
-  telegram[1].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
-  int aux;
-
+// uint32_t u32NotificationValue;
+//
+//  telegram[0].u8id = 0x02; // slave address
+//  telegram[0].u8fct = (mb_functioncode_t)3; // function code (this one is registers read)
+//  //telegram[0].u16RegAdd = 0x160; // start address in slave
+//  telegram[0].u16RegAdd = 0x01E; // start address in slave
+//  telegram[0].u16CoilsNo = 3; // number of elements (coils or registers) to read
+//  telegram[0].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
+//
+//
+//  // telegram 0: read registers
+//  telegram[1].u8id = 0x01; // slave address
+//  telegram[1].u8fct = (mb_functioncode_t)3; // function code (this one is registers write)
+//  //telegram[1].u16RegAdd = 0x160; // start address in slave
+//  telegram[1].u16RegAdd = 0x0;
+//  telegram[1].u16CoilsNo = 4; // number of elements (coils or registers) to read
+//  telegram[1].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
+//  int aux;
+//
 
   for(;;)
   {
-	  ModbusQuery(&ModbusH, telegram[0]); // make a query
-	  u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
-	  if(u32NotificationValue != ERR_OK_QUERY)
-	  {
-		//handle error
-		//  while(1);
-		  aux = 1;
-	  }
-	  osDelay(10);
-
-
-//	  ModbusDATA[0]++;
-// 	  ModbusQuery(&ModbusH, telegram[1]); // make a query
+//	  ModbusQuery(&ModbusH, telegram[0]); // make a query
+//	  u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+//	  if(u32NotificationValue != ERR_OK_QUERY)
+//	  {
+//		//handle error
+//		//  while(1);
+//		  aux = 1;
+//	  }
+//	  osDelay(10);
+//
+//
+////	  ModbusDATA[0]++;
+//	  ModbusQuery(&ModbusH, telegram[1]); // make a query
 //	  u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
 //	  if(u32NotificationValue)
 //	  {
-//	  	//handle error
+//		//handle error
 //		//  while(1);
 //		  aux =2;
 //	  }
