@@ -85,6 +85,25 @@ struct ALLINONEData {
 };
 
 
+struct NPKData {
+    float nitrogen;
+    float phosphorus;
+    float potassium;
+    char* toString(char* buffer) {
+        static char buf[32];
+        sprintf(buffer, "nitrogen: %f  phosphorus: %f  potassium: %f ", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
+        return buffer;
+    }
+
+    uint8_t* toArray(uint8_t* buffer){
+		*(float*)(buffer + 0) = nitrogen;
+		*(float*)(buffer + 1*4) = phosphorus;
+		*(float*)(buffer + 2*4) = potassium;
+        return buffer;
+    }
+};
+
+
 
 struct IMUData {
 	Vector accel;

@@ -15,8 +15,6 @@ static char cbuf[256]; // for printf
 void AllInOneThread::init() {
 	AllInOneInstance = this;
 	// Initialize the sensor
-	allSensor.initialization(HAT2_P5_Pin,  HAT2_P5_GPIO_Port,  HAT2_P3_Pin,  HAT2_P3_GPIO_Port);
-	allSensor.sensor_start();
 }
 
 	// Sensor related configuration after successfully connected}
@@ -29,11 +27,16 @@ static ALLINONE_Packet packet;
 
 void AllInOneThread::loop() {
 	// Get the sensor data. Here we only read a differential value as an example
-	float value = 0;
-	value = allSensor.get_temperature();
-	allinone_data.temp = value;
+	float values[4] = {0};
+	allinone_data.moist =  (float)(((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[4] << 8 | Modbus_ALL.xBufferRX.uxBuffer[5]))/10;
+	allinone_data.temp =  (float)(((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[6] << 8 | Modbus_ALL.xBufferRX.uxBuffer[7]))/10;
+	allinone_data.conduct =  (float)((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[8] << 8 | Modbus_ALL.xBufferRX.uxBuffer[9]);
+	allinone_data.PH =  (float)((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[10] << 8 | Modbus_ALL.xBufferRX.uxBuffer[11])/10;
+	allinone_data.toArray((uint8_t*) &packet);
+
 	// We can print it to SVW console (optional)
-	printf("Diff value %s \n", allinone_data.toString(cbuf));
+	FDCAN1_network.send(&packet);
+	portYIELD();
 	osDelay(1000);
 }
 

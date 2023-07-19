@@ -53,8 +53,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-//modbusHandler_t ModbusH;
-//uint16_t ModbusDATA[15];
+modbusHandler_t Modbus_ALL;
+modbusHandler_t Modbus_NPK;
+uint16_t ModbusDATA[15];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,7 +64,7 @@ void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
+void init_Modbus(modbusHandler_t ModbusH);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -130,9 +131,8 @@ int main(void)
   MX_I2C2_Init();
   MX_I2C3_Init();
   MX_SPI1_Init();
-//  MX_SPI2_Init();
+  MX_SPI2_Init();
   MX_SPI3_Init();
-//  MX_TIM8_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_UART4_Init();
@@ -142,28 +142,13 @@ int main(void)
   MX_FDCAN1_Init();
 
   /* USER CODE BEGIN 2 */
-
-//  ModbusH.uModbusType = MB_MASTER;
-//  ModbusH.port =  &huart2;
-//  ModbusH.u8id = 0; // For master it must be 0
-//  ModbusH.u16timeOut = 1000;
-//  ModbusH.EN_Port1 = GPIOD;
-//  ModbusH.EN_Pin1 = GPIO_PIN_4;
-//  ModbusH.EN_Port2 = GPIOD;
-//  ModbusH.EN_Pin2 = GPIO_PIN_14;
-//  ModbusH.u16regs = ModbusDATA;
-//  ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
-//  ModbusH.xTypeHW = USART_HW;
-//  //Initialize Modbus library
-//  ModbusInit(&ModbusH);
-//  //Start capturing traffic on serial Port
-//  ModbusStart(&ModbusH);
+  init_Modbus(Modbus_ALL);
+  init_Modbus(Modbus_NPK);
   /* USER CODE END 2 */
 
 //  /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
-//////
 //////  /* Start scheduler */
   osKernelStart();
 //
@@ -354,7 +339,24 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void init_Modbus(modbusHandler_t ModbusH){
 
+	  ModbusH.uModbusType = MB_MASTER;
+	  ModbusH.port =  &huart2;
+	  ModbusH.u8id = 0; // For master it must be 0
+	  ModbusH.u16timeOut = 1000;
+	  ModbusH.EN_Port1 = GPIOD;
+	  ModbusH.EN_Pin1 = GPIO_PIN_4;
+	  ModbusH.EN_Port2 = GPIOD;
+	  ModbusH.EN_Pin2 = GPIO_PIN_14;
+	  ModbusH.u16regs = ModbusDATA;
+	  ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
+	  ModbusH.xTypeHW = USART_HW;
+	  //Initialize Modbus library
+	  ModbusInit(&ModbusH);
+	  //Start capturing traffic on serial Port
+	  ModbusStart(&ModbusH);
+}
 /* USER CODE END 4 */
 
 /* MPU Configuration */

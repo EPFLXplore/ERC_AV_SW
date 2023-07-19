@@ -177,7 +177,7 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
-						<entry excluding="ALLINONE2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+						<entry excluding="NPKSensor|ALLINONE|ALLINONE2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry excluding="BRoCo/CS|BRoCo/Jetson|BRoCo/GoogleTest|BRoCo/Src/STMI2CDriver.cpp|BRoCo/Src/PowerBus.cpp" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="System"/>
 					</sourceEntries>
@@ -363,7 +363,7 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
-						<entry excluding="ALLINONE2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
+						<entry excluding="NPKSensor|ALLINONE|ALLINONE2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry excluding="BRoCo/CS|BRoCo/Jetson|BRoCo/GoogleTest|BRoCo/Src/STMI2CDriver.cpp|BRoCo/Src/PowerBus.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="System"/>
 					</sourceEntries>

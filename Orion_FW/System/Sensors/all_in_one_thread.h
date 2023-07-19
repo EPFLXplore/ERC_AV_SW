@@ -11,17 +11,15 @@
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
-#include <ALLINONE.hpp>
 #include "usart.h"
 
 class AllInOneThread : public Thread {
 public:
 	AllInOneThread() :
-		Thread("AllInOne"), allSensor(&huart2){};
+		Thread("AllInOne"){};
 	void init();
 	void loop();
 private:
-	ALLINONE allSensor;
 	float dummy_member;
 };
 
