@@ -23,6 +23,7 @@ private:
 	float dummy_member;
 };
 
+extern AllInOneThread* AllInOneInstance;
 
 
 

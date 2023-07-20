@@ -22,7 +22,9 @@
 #include "bmi08_defs.h"
 #include "lis3mdl_sens.hpp"
 #include "IMU_thread.h"
+#include "dummy_addresses.h"
 #include "AS7265_thread.h"
+#include "all_in_one_thread.h"
 
 
 void ProberThread::init() {
@@ -60,6 +62,10 @@ void ProberThread::loop() {
 	}
 	if (probeI2C(AS7265X_ADDR)) {
 		this->instance = new AS7265Thread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+	}
+	if (probeI2C(ADD_RS485TRANS)){
+		this->instance = new AllInOneThread();
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
 	HAL_I2C_DeInit(hi2c);

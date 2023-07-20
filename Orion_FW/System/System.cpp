@@ -17,8 +17,7 @@ void initCortex() {
 //	static ProberThread prober1(&hi2c1);
 	static ProberThread prober2(&hi2c2);
 //	static ProberThread prober3(&hi2c3);
-	static AllInOneThread allinone_thread;
-	static NPKThread npk_thread;
+
 }
 
 

@@ -23,7 +23,11 @@ void AllInOneThread::init() {
 static ALLINONEData allinone_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-static ALLINONE_Packet packet;
+static ALLINONE_Packet allinone_packet;
+
+static NPKData npk_data;
+
+static NPK_Packet npk_packet;
 
 void AllInOneThread::loop() {
 	// Get the sensor data. Here we only read a differential value as an example
@@ -32,12 +36,20 @@ void AllInOneThread::loop() {
 	allinone_data.temp =  (float)(((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[6] << 8 | Modbus_ALL.xBufferRX.uxBuffer[7]))/10;
 	allinone_data.conduct =  (float)((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[8] << 8 | Modbus_ALL.xBufferRX.uxBuffer[9]);
 	allinone_data.PH =  (float)((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[10] << 8 | Modbus_ALL.xBufferRX.uxBuffer[11])/10;
-	allinone_data.toArray((uint8_t*) &packet);
+	allinone_data.toArray((uint8_t*) &allinone_packet);
 
 	// We can print it to SVW console (optional)
-	FDCAN1_network.send(&packet);
+	FDCAN1_network.send(&allinone_packet);
+	osDelay(10);
+
+	npk_data.nitrogen =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[4] << 8 | Modbus_ALL.xBufferRX.uxBuffer[5]));
+	npk_data.phosphorus =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[6] << 8 | Modbus_ALL.xBufferRX.uxBuffer[7]));
+	npk_data.potassium =  (float)((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[8] << 8 | Modbus_ALL.xBufferRX.uxBuffer[9]);
+	npk_data.toArray((uint8_t*) &npk_packet);
+	FDCAN1_network.send(&npk_packet);
+
 	portYIELD();
-	osDelay(1000);
+
 }
 
 
