@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 class ProberThread : Thread {
 public:
 	ProberThread(I2C_HandleTypeDef* hi2c) : Thread("Prober", osPriorityBelowNormal), hi2c(hi2c), instance(nullptr), i2cNum(0) {}

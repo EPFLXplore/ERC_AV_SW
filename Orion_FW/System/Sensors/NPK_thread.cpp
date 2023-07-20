@@ -2,7 +2,7 @@
  * NPK_thread.cpp
  *
  *  Created on: Jul 9, 2023
- *      Author: ybakk
+ *      Author: YassineBakkali
  */
 
 
@@ -11,7 +11,6 @@
 #include "main.h"
 
 NPKThread* NPKInstance = nullptr;
-static char cbuf[256]; // for printf
 
 void NPKThread::init() {
 	NPKInstance = this;
@@ -36,7 +35,6 @@ void NPKThread::loop() {
 	// We can print it to SVW console (optional)
 	FDCAN1_network.send(&packet);
 	portYIELD();
-//	printf("Diff value %s \n", allinone_data.toString(cbuf));
 	osDelay(1000);
 }
 

@@ -2,7 +2,7 @@
  * NPK_thread.h
  *
  *  Created on: Jul 9, 2023
- *      Author: ybakk
+ *      Author: YassineBakkali
  */
 
 #ifndef SENSORS_NPK_THREAD_H_
@@ -24,7 +24,6 @@ private:
 	float dummy_member;
 };
 
-extern NPKThread* NPKInstance;
 
 
 

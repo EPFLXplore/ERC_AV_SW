@@ -9,11 +9,12 @@
 
 
 #include <max11615.h>
-#include "Prober.h"
 
 #include "i2c.h"
 
 #include "Lang/Operators.h"
+#include "Prober.h"
+
 
 #include "Dummy_thread.h"
 #include "MAX11615_thread.h"
@@ -22,15 +23,15 @@
 #include "lis3mdl_sens.hpp"
 #include "IMU_thread.h"
 #include "AS7265_thread.h"
-#include "all_in_one_thread.h"
+
 
 void ProberThread::init() {
 	this->semaphore = xSemaphoreCreateBinary();
 	vTaskDelay(100 / portTICK_PERIOD_MS);
 	this->i2cNum = checkI2CPort(hi2c);
 
-	this->instance = new AllInOneThread();
-	xSemaphoreTake(semaphore, portMAX_DELAY);
+//	this->instance = new AllInOneThread();
+//	xSemaphoreTake(semaphore, portMAX_DELAY);
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
