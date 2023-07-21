@@ -10,7 +10,7 @@
 #include "Prober.h"
 #include "i2c.h"
 #include "all_in_one_thread.h"
-#include "NPK_thread.h"
+//#include "NPK_thread.h"
 
 
 void initCortex() {

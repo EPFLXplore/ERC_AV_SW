@@ -68,6 +68,7 @@ void ProberThread::loop() {
 		this->instance = new AllInOneThread();
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
+
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);
 }

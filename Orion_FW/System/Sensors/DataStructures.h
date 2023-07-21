@@ -10,6 +10,7 @@
 #define SENSORS_DATASTRUCTURES_H_
 
 #include <cstdio>
+#include <cstdlib>
 
 struct Vector {
 	float x;
@@ -90,7 +91,6 @@ struct NPKData {
     float phosphorus;
     float potassium;
     char* toString(char* buffer) {
-        static char buf[32];
         sprintf(buffer, "nitrogen: %f  phosphorus: %f  potassium: %f ", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
         return buffer;
     }
@@ -99,6 +99,22 @@ struct NPKData {
 		*(float*)(buffer + 0) = nitrogen;
 		*(float*)(buffer + 1*4) = phosphorus;
 		*(float*)(buffer + 2*4) = potassium;
+        return buffer;
+    }
+};
+
+struct ColorFilterData {
+    float data[18] = {0};
+//    char refs[18] = {0};
+    char* toString(char* buffer) {
+//        for(int i = 0; i < 18; ++i)
+//        	sprintf(buffer, "\c %f \n", refs[i], data[i]);
+        return buffer;
+    }
+
+    uint8_t* toArray(uint8_t* buffer){
+    	for(int i = 0; i < 18; ++i)
+    		*(float*)(buffer + i * 4) = data[i];
         return buffer;
     }
 };
