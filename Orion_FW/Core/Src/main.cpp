@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -26,12 +26,8 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <string.h>
-#include "stdio.h"
-//#include "cpp_main.h"
 
 /* USER CODE END Includes */
 
@@ -42,7 +38,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -53,9 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-modbusHandler_t Modbus_ALL;
-modbusHandler_t Modbus_NPK;
-uint16_t ModbusDATA[15];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,12 +57,11 @@ void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-void init_Modbus(modbusHandler_t ModbusH);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 uint16_t counter = 0;
 extern "C" { // C++ cannot override printf, must compile in C
 	int __io_putchar(int ch) {
@@ -77,14 +69,6 @@ extern "C" { // C++ cannot override printf, must compile in C
 		return ch;
 	}
 }
-
-//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-//{
-//  SCB_InvalidateDCache_by_Addr((uint32_t*)(((uint32_t)Rx_data) & ~(uint32_t)0x1F), 100+32);
-//  HAL_UART_Receive_DMA(&huart3, Rx_data, 100);
-//  HAL_UART_Transmit(&huart1, Rx_data, sizeof(Rx_data), 100);
-//}
-
 /* USER CODE END 0 */
 
 /**
@@ -94,19 +78,13 @@ extern "C" { // C++ cannot override printf, must compile in C
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	/* MPU Configuration--------------------------------------------------------*/
-//	  MPU_Config();
-//
-//	  /* Enable I-Cache---------------------------------------------------------*/
-//	  SCB_EnableICache();
 
-	  /* Enable D-Cache---------------------------------------------------------*/
-//	  SCB_EnableDCache();
   /* USER CODE END 1 */
 
+  /* MPU Configuration--------------------------------------------------------*/
+  MPU_Config();
 
   /* MCU Configuration--------------------------------------------------------*/
-
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -127,133 +105,42 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
   MX_I2C2_Init();
   MX_I2C3_Init();
   MX_SPI1_Init();
   MX_SPI2_Init();
   MX_SPI3_Init();
+  MX_TIM8_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_UART4_Init();
   MX_UART5_Init();
   MX_UART8_Init();
   MX_USART2_UART_Init();
+  MX_I2C1_Init();
   MX_FDCAN1_Init();
-
   /* USER CODE BEGIN 2 */
-  init_Modbus(Modbus_ALL);
-  init_Modbus(Modbus_NPK);
+
   /* USER CODE END 2 */
 
-//  /* Init scheduler */
+  /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
-//////  /* Start scheduler */
-  osKernelStart();
-//
-//  /* We should never get here as control is now taken by the scheduler */
-//  /* Infinite loop */
-//  /* USER CODE BEGIN WHILE */
-  /* Modbus Master initialization */
-   /* Master initialization */
 
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-//	  if(tim7_flag && count < 100000){
-//		  tim7_flag = 0;
-//		  TxData[0] = count >> 8 & 0xFF;
-//
-//		  ++cnt_100us;
-//		  cnt_500us = cnt_100us / 5;
-//		  if(cnt_500us && (cnt_100us%5==0)){
-//			  switch(cnt_500us){
-//			  	  case 1: fdcan1_transmit(0x108, FDCAN_DLC_BYTES_64, TxData);
-//			  	  	  	  break;
-//			  	  case 17: fdcan1_transmit(0x003, FDCAN_DLC_BYTES_64, TxData);
-//			  	  case 18: break;
-//			  	  case 19: break;
-//			  	  case 20: ++count; cnt_100us = 0; break;
-//			  }
-//		  } else {
-//			  if(fdcan1_send_fail.flag && cnt_500us > 16){
-//				  for(i = 0; i < fdcan1_send_fail.index; i++) {
-//					  fdcan1_transmit(fdcan1_send_fail.TxHeader[i].Identifier,
-//							  	  	  fdcan1_send_fail.TxHeader[i].DataLength,
-//									  &fdcan1_send_fail.TxData[64*i]);
-//				  }
-//				  fdcan1_send_fail.index = 0;
-//				  fdcan1_send_fail.flag = 0;
-//			  }
-//		  }
-//	  }
-//	  TxData[0] = 0x69;
-//	  			TxData[1] = 0xAD;
-//	  			for(uint8_t i = 0; i < 8; i++){
-//	  				/* Start the transmission process*/
-//	  				TxData[2] = i;
-//	  				if(HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, TxData) != HAL_OK)
-//	  				{
-//	  					TxData[1] = i;
-//	  					/*Transmission request Error*/
-//	  					Error_Handler();
-//	  				}
-////	  				osDelay(10);
-//
-//	  			}
-
-//	  			}
-//	  			if (HAL_FDCAN_GetRxFifoFillLevel(&hfdcan1, FDCAN_RX_FIFO0) > 0) {
-//	  				/* Retrieve Rx messages from RX FIFO0 */
-//	  				HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, RxData);
-//	  				HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, &RxData[8]);
-
-//	  if(tim7_flag && count < 1000) {
-//		  tim7_flag = 0;
-//		  TxData1[0] = count >> 8 & 0xFF;
-//		  TxData1[1] = count & 0xFF;
-//
-//		  ++cnt_100us;
-//		  cnt_500us = cnt_100us / 5;
-//		  if(cnt_500us && (cnt_100us&5==0)){
-//			  switch(cnt_500us){
-//			  case 1: fdcan1_transmit(0x108, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x101, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x102, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x103, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x104, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x105, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x106, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x107, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345678, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345671, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345672, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345673, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345674, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345675, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345676, FDCAN_DLC_BYTES_64, TxData1);
-//			  fdcan1_transmit(0x12345677, FDCAN_DLC_BYTES_64, TxData1);
-//			  break;
-//			  case 17: break;
-//			  case 18: break;
-//			  case 20: ++count; cnt_100us = 0; break;
-//			  }
-//		  } else {
-//			  if(fdcan1_send_fail.flag && cnt_500us > 16){
-//				  for(i = 0; i < fdcan1_send_fail.index; i++) {
-//					  fdcan1_transmit(fdcan1_send_fail.TxHeader[i].Identifier,
-//							  	  	  fdcan1_send_fail.TxHeader[i].DataLength,
-//									  &fdcan1_send_fail.TxData[64*i]);
-//				  }
-//				  fdcan1_send_fail.index = 0;
-//				  fdcan1_send_fail.flag = 0;
-//			  }
-//		  }
-	  }
     /* USER CODE END WHILE */
-	 }
+
     /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
+}
 
 /**
   * @brief System Clock Configuration
@@ -339,24 +226,7 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void init_Modbus(modbusHandler_t ModbusH){
 
-	  ModbusH.uModbusType = MB_MASTER;
-	  ModbusH.port =  &huart2;
-	  ModbusH.u8id = 0; // For master it must be 0
-	  ModbusH.u16timeOut = 1000;
-	  ModbusH.EN_Port1 = GPIOD;
-	  ModbusH.EN_Pin1 = GPIO_PIN_4;
-	  ModbusH.EN_Port2 = GPIOD;
-	  ModbusH.EN_Pin2 = GPIO_PIN_14;
-	  ModbusH.u16regs = ModbusDATA;
-	  ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
-	  ModbusH.xTypeHW = USART_HW;
-	  //Initialize Modbus library
-	  ModbusInit(&ModbusH);
-	  //Start capturing traffic on serial Port
-	  ModbusStart(&ModbusH);
-}
 /* USER CODE END 4 */
 
 /* MPU Configuration */

@@ -85,6 +85,8 @@ void Error_Handler(void);
 #define HAT2_P2_GPIO_Port GPIOD
 #define HAT2_P3_Pin GPIO_PIN_14
 #define HAT2_P3_GPIO_Port GPIOD
+#define HAT1_P1_Pin GPIO_PIN_6
+#define HAT1_P1_GPIO_Port GPIOC
 #define HAT1_P2_Pin GPIO_PIN_7
 #define HAT1_P2_GPIO_Port GPIOC
 #define HAT1_P3_Pin GPIO_PIN_8
@@ -105,7 +107,14 @@ void Error_Handler(void);
 #define HAT3_P2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define HAT1_P6_Pin GPIO_PIN_11
+#define HAT1_P6_GPIO_Port GPIOA
+#define HAT1_P5_Pin GPIO_PIN_12
+#define HAT1_P5_GPIO_Port GPIOA
+#define HAT2_P6_Pin GPIO_PIN_5
+#define HAT2_P6_GPIO_Port GPIOD
+#define HAT2_P4_Pin GPIO_PIN_6
+#define HAT2_P4_GPIO_Port GPIOD
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

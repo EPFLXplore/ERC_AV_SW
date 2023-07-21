@@ -30,7 +30,7 @@ void AS7265Thread::init() {
 static ColorFilterData colorFilter_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-static ColorFilterPacket packet;
+//static ColorFilterPacket packet;
 
 void AS7265Thread::loop() {
 
@@ -56,8 +56,8 @@ void AS7265Thread::loop() {
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 		// Send data over RoCo network
-		colorFilter_data.toArray((uint8_t*) &packet);
-		FDCAN1_network.send(&packet);
+//		colorFilter_data.toArray((uint8_t*) &packet);
+//		FDCAN1_network.send(&packet);
 		portYIELD();
 	} else {
 		AS7265Instance = nullptr;

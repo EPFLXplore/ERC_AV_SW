@@ -32,6 +32,7 @@ void ProberThread::init() {
 	vTaskDelay(100 / portTICK_PERIOD_MS);
 	this->i2cNum = checkI2CPort(hi2c);
 
+	this->instance = new ADS1234Thread(this, &hspi2);
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
 }
@@ -48,26 +49,26 @@ void ProberThread::loop() {
 //
 //	}
 
-	if (probeI2C(ADDRESS_MAX11615)) {
-			this->instance = new VoltmeterThread(this);
-			xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	if (probeI2C(ADS_ADDR_GND)) {
-			this->instance = new DummyThread(this);
-			xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
-		this->instance = new IMUThread(this);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	if (probeI2C(AS7265X_ADDR)) {
-		this->instance = new AS7265Thread(this);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	if (probeI2C(ADD_RS485TRANS)){
-		this->instance = new AllInOneThread();
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
+//	if (probeI2C(ADDRESS_MAX11615)) {
+//			this->instance = new VoltmeterThread(this);
+//			xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(ADS_ADDR_GND)) {
+//			this->instance = new DummyThread(this);
+//			xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
+//		this->instance = new IMUThread(this);
+//		xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(AS7265X_ADDR)) {
+//		this->instance = new AS7265Thread(this);
+//		xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(ADD_RS485TRANS)){
+//		this->instance = new AllInOneThread();
+//		xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
 
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);

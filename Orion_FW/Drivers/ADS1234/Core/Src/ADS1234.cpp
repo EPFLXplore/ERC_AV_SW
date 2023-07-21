@@ -2,7 +2,7 @@
  * ADS1234.cpp
  *
  *  Created on: Apr 1, 2023
- *      Author: Yassine Bakkali
+ *      Author: Yassine Bakkali, Vincent Nguyen
  */
 
 
@@ -13,7 +13,7 @@
 
 ADS1234::ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t SPI_DOUT_Pin,
 						 GPIO_TypeDef *SPI_SCLK_Port, uint16_t SPI_SCLK_Pin,
-						 GPIO_TypeDef *PWDN_Port, uint16_t SPI_PWDN_Pin,
+						 GPIO_TypeDef *PDWN_Port, uint16_t SPI_PDWN_Pin,
 						 GPIO_TypeDef *SPEED_Port, uint16_t SPEED_Pin,
 						 GPIO_TypeDef *GAIN0_Port, uint16_t GAIN0_Pin,
 						 GPIO_TypeDef *GAIN1_Port, uint16_t GAIN1_Pin,
@@ -22,7 +22,7 @@ ADS1234::ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t
 						 hspi{hspi_},
 						 PIN_DOUT{SPI_DOUT_Port, SPI_DOUT_Pin},
 						 PIN_SCLK{SPI_SCLK_Port, SPI_SCLK_Pin},
-						 PIN_PDWN{PWDN_Port, SPI_PWDN_Pin},
+						 PIN_PDWN{PDWN_Port, SPI_PDWN_Pin},
 						 PIN_SPEED{SPEED_Port, SPEED_Pin},
 						 PIN_GAIN0{GAIN0_Port, GAIN0_Pin},
 						 PIN_GAIN1{GAIN1_Port, GAIN1_Pin},
@@ -55,41 +55,56 @@ ADS1234::~ADS1234() {
 //}
 
 void ADS1234::begin(Gain gain, Speed speed){
-//  _pin_DOUT = pin_DOUT;
-//  _pin_SCLK = pin_SCLK;
-//  _pin_PDWN = pin_PDWN;
-//  _pin_GAIN0 = pin_GAIN0;
-//  _pin_GAIN1 = pin_GAIN1;
-//  _pin_SPEED = pin_SPEED;
-//  _pin_A0 = pin_A0;
-//  _pin_A1_or_TEMP = pin_A1_or_TEMP;
 
+  HAL_SPI_DeInit(hspi); // replace hspiX with the handle of the SPI peripheral
 
-//  pinMode(_pin_DOUT,  INPUT_PULLUP);
-//  pinMode(_pin_SCLK, OUTPUT);
-//  pinMode(_pin_PDWN, OUTPUT);
-//  pinMode(_pin_GAIN0, OUTPUT);
-//  pinMode(_pin_GAIN1, OUTPUT);
-//  pinMode(_pin_SPEED, OUTPUT);
-//  pinMode(_pin_A0, OUTPUT);
-//  pinMode(_pin_A1_or_TEMP, OUTPUT);
-//  HAL_SPI_DeInit(&hspi1); // replace hspiX with the handle of the SPI peripheral
-//  HAL_SPI_DeInit(&hspi1); // replace hspiX with the handle of the SPI peripheral
-//
-//  this->GPIO_InitStruct.Pin = GPIO_PIN_6; // replace X with the GPIO pin number
-//  this->GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  this->GPIO_InitStruct.Pull = GPIO_PULLUP; // replace with GPIO_PULLDOWN if needed
-//  HAL_GPIO_Init(GPIOA, &this->GPIO_InitStruct);
+  GPIO_InitStruct.Pin = PIN_SCLK.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_SCLK.port, &GPIO_InitStruct);
 
-//  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
-  //HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+  GPIO_InitStruct.Pin = PIN_PDWN.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_PDWN.port, &GPIO_InitStruct);
 
-  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET); // replace GPIO_PIN_X with the GPIO pin number
-  //__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_6); // replace GPIO_PIN_X with the GPIO pin number
-  //HAL_GPIO_EXTI_Callback(GPIO_PIN_6); // replace GPIO_PIN_X with the GPIO pin number
-  //HAL_GPIO_RegisterCallback(GPIOA, GPIO_PIN_6, EXTI_Callback_Function); // replace GPIOX with the GPIO port name, GPIO_PIN_X with the GPIO pin number, and EXTI_Callback_Function with the name of your callback function
+  GPIO_InitStruct.Pin = PIN_SPEED.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_SPEED.port, &GPIO_InitStruct);
 
-//
+  GPIO_InitStruct.Pin = PIN_GAIN0.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_GAIN0.port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = PIN_GAIN1.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_GAIN1.port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = PIN_A0.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_A0.port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = PIN_A1.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(PIN_A1.port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = PIN_DOUT.pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(PIN_DOUT.port, &GPIO_InitStruct);
+
   setGain(gain);
   setSpeed(speed);
   setChannel(AIN3);
@@ -204,7 +219,7 @@ void ADS1234::setChannel(Channel channel)
  * Get the raw ADC value. Can block up to 100ms in normal operation.
  * Returns 0 on success, an error code otherwise.
  */
-ERROR_t ADS1234::read(Channel channel,long& value, bool Calibrating)
+ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 {
     int i=0;
     unsigned long start;
@@ -254,6 +269,7 @@ ERROR_t ADS1234::read(Channel channel,long& value, bool Calibrating)
         if(xTaskGetTickCount()-start > waitingTime)
             return TIMEOUT_LOW; // Timeout waiting for LOW
     }
+//	osDelay(75);
 
     // Read 24 bits
     uint8_t buf[3] = {0, 0, 0};
@@ -296,11 +312,21 @@ ERROR_t ADS1234::read(Channel channel,long& value, bool Calibrating)
     return NoERROR; // Success
 }
 
-ERROR_t ADS1234::read_average(Channel channel, float& value, uint8_t times, bool Calibrating) {
+ERROR_t ADS1234::read_filtered(Channel channel, float& value, float alpha, bool Calibrating) {
+	long val;
+	ERROR_t err = read(channel, val, Calibrating);
+	if (err != NoERROR) return err;
+
+	value = prev_value*alpha + val*(1-alpha);
+	prev_value = value;
+	return NoERROR;
+}
+
+ERROR_t ADS1234::read_average(Channel channel, float& value, uint16_t times, bool Calibrating) {
 
 	long sum = 0;
 	ERROR_t err;
-	for (uint8_t i = 0; i < times; i++) {
+	for (uint16_t i = 0; i < times; i++) {
 		long val;
 		err = read(channel, val, Calibrating);
 		if(err!=NoERROR) return err;
@@ -314,16 +340,17 @@ ERROR_t ADS1234::read_average(Channel channel, float& value, uint8_t times, bool
 	return NoERROR;
 }
 
-ERROR_t ADS1234::get_value(Channel channel, float& value, uint8_t times, bool Calibrating) {
+ERROR_t ADS1234::get_value(Channel channel, float& value, uint16_t times, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
+//	err = read_filtered(channel, val, alpha, Calibrating);
 	err = read_average(channel, val, times, Calibrating);
 	if(err!=NoERROR) return err;
-	value = val - OFFSET[channel-1];
+	value = (val - OFFSET[channel-1]);
 	return NoERROR;
 }
 
-ERROR_t ADS1234::get_units(Channel channel, float& value, uint8_t times, bool Calibrating) {
+ERROR_t ADS1234::get_units(Channel channel, float& value, uint16_t times, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
 	err = get_value(channel, val, times, Calibrating);
@@ -333,10 +360,10 @@ ERROR_t ADS1234::get_units(Channel channel, float& value, uint8_t times, bool Ca
 	return NoERROR;
 }
 
-ERROR_t ADS1234::tare(Channel channel, uint8_t times, bool Calibrating) {
+ERROR_t ADS1234::tare(Channel channel, float alpha, bool Calibrating) {
 	ERROR_t err;
 	float sum = 0;
-	err = read_average(channel, sum, times, Calibrating);
+	err = read_filtered(channel, sum, alpha, Calibrating);
 	if(err!=NoERROR) return err;
 	set_offset(channel, sum);
 	return NoERROR;
@@ -352,6 +379,7 @@ float ADS1234::get_scale(Channel channel) {
 
 void ADS1234::set_offset(Channel channel, float offset) {
 	OFFSET[channel-1] = offset;
+	prev_value = offset;
 }
 
 float ADS1234::get_offset(Channel channel) {

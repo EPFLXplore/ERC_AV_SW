@@ -21,6 +21,7 @@ public:
 	void loop();
 private:
 	float dummy_member;
+	void init_Modbus(modbusHandler_t ModbusH);
 };
 
 extern AllInOneThread* AllInOneInstance;

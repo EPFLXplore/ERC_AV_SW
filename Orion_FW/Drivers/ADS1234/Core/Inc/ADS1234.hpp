@@ -88,17 +88,20 @@ class ADS1234
 		ERROR_t read(Channel channel, long& value, bool Calibrating = false);
 
 		// returns an average reading; times = how many times to read
-		ERROR_t read_average(Channel channel, float& value, uint8_t times = 10, bool Calibrating = false);
+		ERROR_t read_average(Channel channel, float& value, uint16_t times, bool Calibrating);
+
+		// returns a filtered reading (low pass filter)
+		ERROR_t read_filtered(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
 
 		// returns (read_average() - OFFSET), that is the current value without the tare weight; times = how many readings to do
-		ERROR_t get_value(Channel channel, float& value, uint8_t times = 1, bool Calibrating = false);
+		ERROR_t get_value(Channel channel, float& value, uint16_t times = 500, bool Calibrating = false);
 
 		// returns get_value() divided by SCALE, that is the raw value divided by a value obtained via calibration
 		// times = how many readings to do
-		ERROR_t get_units(Channel channel, float& value, uint8_t times = 1, bool Calibrating = false);
+		ERROR_t get_units(Channel channel, float& value, uint16_t times = 1, bool Calibrating = false);
 
 		// set the OFFSET value for tare weight; times = how many times to read the tare value
-		ERROR_t tare(Channel channel, uint8_t times = 10, bool Calibrating = false);
+		ERROR_t tare(Channel channel, float alpha = 0.5, bool Calibrating = false);
 
 		// set the SCALE value; this value is used to convert the raw data to "human readable" data (measure units)
 		void set_scale(Channel channel, float scale = 1.f);
@@ -140,6 +143,7 @@ class ADS1234
 
 		Speed _speed ;
 		Channel lastChannel = AIN1;
+		float prev_value = 0;
 };
 
 
