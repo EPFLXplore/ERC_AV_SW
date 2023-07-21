@@ -9,16 +9,33 @@
 #include "Telemetry.h"
 #include "main.h"
 
-modbusHandler_t Modbus_ALL;
-modbusHandler_t Modbus_NPK;
-uint16_t ModbusDATA[15];
-
+//modbusHandler_t Modbus_ALL;
+//modbusHandler_t Modbus_NPK;
+//uint16_t ModbusDATA[15];
+//modbus_t telegram[2];
 AllInOneThread* AllInOneInstance = nullptr;
+uint32_t u32NotificationValue;
 static char cbuf[256]; // for printf
 
 void AllInOneThread::init() {
+//	  telegram[0].u8id = 0x02; // slave address
+//	  telegram[0].u8fct = (mb_functioncode_t)3; // function code (this one is registers read)
+//	  //telegram[0].u16RegAdd = 0x160; // start address in slave
+//	  telegram[0].u16RegAdd = 0x01E; // start address in slave
+//	  telegram[0].u16CoilsNo = 3; // number of elements (coils or registers) to read
+//	  telegram[0].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
+//
+//
+//	  // telegram 0: read registers
+//	  telegram[1].u8id = 0x01; // slave address
+//	  telegram[1].u8fct = (mb_functioncode_t)3; // function code (this one is registers write)
+//	  //telegram[1].u16RegAdd = 0x160; // start address in slave
+//	  telegram[1].u16RegAdd = 0x0;
+//	  telegram[1].u16CoilsNo = 4; // number of elements (coils or registers) to read
+//	  telegram[1].u16reg = ModbusDATA; // pointer to a memory array in the Arduino
+//	  int aux;
     init_Modbus(Modbus_ALL);
-    init_Modbus(Modbus_NPK);
+//    init_Modbus(Modbus_NPK);
 	AllInOneInstance = this;
 	// Initialize the sensor
 }
@@ -36,6 +53,25 @@ static NPKData npk_data;
 //static NPK_Packet npk_packet;
 
 void AllInOneThread::loop() {
+//	ModbusQuery(&Modbus_ALL, telegram[1]); // make a query
+//		  u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+//		  if(u32NotificationValue != ERR_OK_QUERY)
+//		  {
+//			//handle error
+//			//  while(1);
+////			  aux = 1;
+//		  }
+//		  osDelay(10);
+	//	  ModbusDATA[0]++;
+	//	  ModbusQuery(&ModbusH, telegram[0]); // make a query
+	//	  u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+	//	  if(u32NotificationValue)
+	//	  {
+	//		//handle error
+	//		//  while(1);
+	//		  aux =2;
+	//	  }
+	//	  osDelay(10);
 	// Get the sensor data. Here we only read a differential value as an example
 	float values[4] = {0};
 	allinone_data.moist =  (float)(((uint16_t)Modbus_ALL.xBufferRX.uxBuffer[4] << 8 | Modbus_ALL.xBufferRX.uxBuffer[5]))/10;
@@ -46,11 +82,11 @@ void AllInOneThread::loop() {
 
 	// We can print it to SVW console (optional)
 //	FDCAN1_network.send(&allinone_packet);
-	osDelay(10);
-
-	npk_data.nitrogen =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[4] << 8 | Modbus_ALL.xBufferRX.uxBuffer[5]));
-	npk_data.phosphorus =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[6] << 8 | Modbus_ALL.xBufferRX.uxBuffer[7]));
-	npk_data.potassium =  (float)((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[8] << 8 | Modbus_ALL.xBufferRX.uxBuffer[9]);
+//	osDelay(10);
+//
+//	npk_data.nitrogen =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[4] << 8 | Modbus_ALL.xBufferRX.uxBuffer[5]));
+//	npk_data.phosphorus =  (float)(((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[6] << 8 | Modbus_ALL.xBufferRX.uxBuffer[7]));
+//	npk_data.potassium =  (float)((uint16_t)Modbus_NPK.xBufferRX.uxBuffer[8] << 8 | Modbus_ALL.xBufferRX.uxBuffer[9]);
 //	npk_data.toArray((uint8_t*) &npk_packet);
 //	FDCAN1_network.send(&npk_packet);
 
@@ -72,7 +108,9 @@ void AllInOneThread::init_Modbus(modbusHandler_t ModbusH){
 	  ModbusH.u16regsize= sizeof(ModbusDATA)/sizeof(ModbusDATA[0]);
 	  ModbusH.xTypeHW = USART_HW;
 	  //Initialize Modbus library
+	  vTaskSuspendAll();
 	  ModbusInit(&ModbusH);
+	  xTaskResumeAll();
 	  //Start capturing traffic on serial Port
 	  ModbusStart(&ModbusH);
 }

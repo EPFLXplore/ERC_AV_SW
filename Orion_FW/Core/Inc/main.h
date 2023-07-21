@@ -38,6 +38,7 @@ extern "C" {
 /* USER CODE BEGIN ET */
 extern modbusHandler_t Modbus_ALL;
 extern modbusHandler_t Modbus_NPK;
+extern modbusHandler_t ModbusH;
 extern uint16_t ModbusDATA[15];
 /* USER CODE END ET */
 
@@ -95,14 +96,14 @@ void Error_Handler(void);
 #define HAT1_P4_GPIO_Port GPIOA
 #define SPI3_CS_Pin GPIO_PIN_15
 #define SPI3_CS_GPIO_Port GPIOA
-#define HAT3_P1_Pin GPIO_PIN_11
-#define HAT3_P1_GPIO_Port GPIOC
 #define LED_YELLOW_Pin GPIO_PIN_2
 #define LED_YELLOW_GPIO_Port GPIOD
 #define HAT2_P5_Pin GPIO_PIN_4
 #define HAT2_P5_GPIO_Port GPIOD
 #define LED_GREEN_Pin GPIO_PIN_7
 #define LED_GREEN_GPIO_Port GPIOD
+#define HAT3_P1_Pin GPIO_PIN_6
+#define HAT3_P1_GPIO_Port GPIOB
 #define HAT3_P2_Pin GPIO_PIN_7
 #define HAT3_P2_GPIO_Port GPIOB
 

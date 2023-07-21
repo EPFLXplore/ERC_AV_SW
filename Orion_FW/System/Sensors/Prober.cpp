@@ -32,9 +32,10 @@ void ProberThread::init() {
 	vTaskDelay(100 / portTICK_PERIOD_MS);
 	this->i2cNum = checkI2CPort(hi2c);
 
-	this->instance = new ADS1234Thread(this, &hspi2);
+//	this->instance = new ADS1234Thread(this, &hspi3);
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
+	this->instance = new AllInOneThread();
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
@@ -68,6 +69,15 @@ void ProberThread::loop() {
 //	if (probeI2C(ADD_RS485TRANS)){
 //		this->instance = new AllInOneThread();
 //		xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+
+//	if (probeI2C(ADS1234_HAT_ADDR)) {
+//		if (hi2c == &hi2c1)
+//			this->instance = new ADS1234Thread(this, &hspi1);
+//		else if (hi2c == &hi2c2)
+//			this->instance = new ADS1234Thread(this, &hspi2);
+//		else if (hi2c == &hi2c3)
+//			this->instance = new ADS1234Thread(this, &hspi3);
 //	}
 
 	HAL_I2C_DeInit(hi2c);
