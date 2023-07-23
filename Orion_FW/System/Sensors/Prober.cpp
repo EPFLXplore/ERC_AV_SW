@@ -8,8 +8,9 @@
  */
 
 
+//#include <four_in_one_thread.h>
 #include <max11615.h>
-
+#include <Modbus_thread.hpp>
 #include "i2c.h"
 
 #include "Lang/Operators.h"
@@ -24,7 +25,6 @@
 #include "IMU_thread.h"
 #include "dummy_addresses.h"
 #include "AS7265_thread.h"
-#include "all_in_one_thread.h"
 
 
 void ProberThread::init() {
@@ -35,7 +35,8 @@ void ProberThread::init() {
 //	this->instance = new ADS1234Thread(this, &hspi3);
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
-	this->instance = new AllInOneThread();
+//	this->instance = new FourInOneThread();
+	this->instance = new ModbusThread(this);
 }
 
 bool ProberThread::probeI2C(uint8_t address) {

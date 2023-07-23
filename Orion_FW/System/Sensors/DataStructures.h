@@ -65,22 +65,22 @@ struct DummyData {
     }
 };
 
-struct ALLINONEData {
-    float temp;
-    float moist;
-    float conduct;
-    float PH;
+struct FOURINONEData {
+    float temperature;
+    float moisture;
+    float conductivity;
+    float ph;
     char* toString(char* buffer) {
         static char buf[32];
-        sprintf(buffer, "temperature: %f  moisture level: %f  conductivity: %f  PH level: %f", temp, moist, conduct, PH); // beware of the type: (%d, %f, ...)
+        sprintf(buffer, "Temperature: %f [°C] \t Moisture: %f [%] \t Conductivity: %f [us/cm] \t PH: %f", temperature, moisture, conductivity, ph);
         return buffer;
     }
 
     uint8_t* toArray(uint8_t* buffer){
-		*(float*)(buffer + 0) = temp;
-		*(float*)(buffer + 1*4) = moist;
-		*(float*)(buffer + 2*4) = conduct;
-		*(float*)(buffer + 3*4) = PH;
+		*(float*)(buffer + 0) = temperature;
+		*(float*)(buffer + 1*4) = moisture;
+		*(float*)(buffer + 2*4) = conductivity;
+		*(float*)(buffer + 3*4) = ph;
         return buffer;
     }
 };

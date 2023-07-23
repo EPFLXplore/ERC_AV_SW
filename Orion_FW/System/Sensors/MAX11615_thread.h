@@ -23,7 +23,7 @@
 class VoltmeterThread : public Thread {
 public:
 	VoltmeterThread(ProberThread* parent) :
-		Thread("Dummy"), parent(parent), portNum(parent->getI2CNum()){};
+		Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()){};
 	void init();
 	void loop();
 private:
