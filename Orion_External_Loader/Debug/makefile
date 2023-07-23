@@ -61,8 +61,8 @@ all:
 main-build: Orion_External_Loader.elf secondary-outputs
 
 # Tool invocations
-Orion_External_Loader.elf Orion_External_Loader.map: $(OBJS) $(USER_OBJS) C:\Users\ybakk\OneDrive\Documents\Xplore\AV_SW_workspace\Orion_External_Loader\linker.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Orion_External_Loader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\ybakk\OneDrive\Documents\Xplore\AV_SW_workspace\Orion_External_Loader\linker.ld" --specs=nosys.specs -Wl,-Map="Orion_External_Loader.map" -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Orion_External_Loader.elf Orion_External_Loader.map: $(OBJS) $(USER_OBJS) C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_External_Loader\linker.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Orion_External_Loader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_External_Loader\linker.ld" --specs=nosys.specs -Wl,-Map="Orion_External_Loader.map" -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

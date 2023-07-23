@@ -48,10 +48,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-modbusHandler_t Modbus_ALL;
-modbusHandler_t Modbus_NPK;
-modbusHandler_t ModbusH;
-uint16_t ModbusDATA[15];
+//modbusHandler_t Modbus_ALL;
+//modbusHandler_t Modbus_NPK;
+//modbusHandler_t ModbusH;
+//uint16_t ModbusDATA[15];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

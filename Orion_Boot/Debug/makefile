@@ -60,8 +60,8 @@ all: main-build
 main-build: Orion_Boot.elf secondary-outputs
 
 # Tool invocations
-Orion_Boot.elf Orion_Boot.map: $(OBJS) $(USER_OBJS) C:\Users\ybakk\OneDrive\Documents\Xplore\AV_SW_workspace\Orion_Boot\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Orion_Boot.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\ybakk\OneDrive\Documents\Xplore\AV_SW_workspace\Orion_Boot\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Orion_Boot.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Orion_Boot.elf Orion_Boot.map: $(OBJS) $(USER_OBJS) C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_Boot\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Orion_Boot.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_Boot\STM32H750VBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Orion_Boot.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

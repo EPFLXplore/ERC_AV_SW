@@ -21,13 +21,13 @@ CPP_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Drivers/BMP280/Core/Src/%.o Drivers/BMP280/Core/Src/%.su Drivers/BMP280/Core/Src/%.cyclo: ../Drivers/BMP280/Core/Src/%.cpp Drivers/BMP280/Core/Src/subdir.mk
-	arm-none-eabi-g++ "$<" -mcpu=cortex-m7 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32H750xx -c -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I"C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_TestBench/Drivers/ADC1115/Core/Inc" -I"/Orion_TestBench/Drivers/BMP280/Core/Inc" -I"C:/Users/ybakk/OneDrive/Documents/Xplore/AV_SW_workspace/Orion_TestBench/Drivers/BMP280/Core/Inc" -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
+Drivers/BMP280/Core/Src/%.o Drivers/BMP280/Core/Src/%.su: ../Drivers/BMP280/Core/Src/%.cpp Drivers/BMP280/Core/Src/subdir.mk
+	arm-none-eabi-g++ "$<" -mcpu=cortex-m7 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32H750xx -c -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I"C:/Users/41786/STM32CubeIDE/workspace_1.7.0/AV_SW_workspace/Orion_TestBench/Drivers/ADC1115/Core/Inc" -I"/Orion_TestBench/Drivers/BMP280/Core/Inc" -I"C:/Users/41786/STM32CubeIDE/workspace_1.7.0/AV_SW_workspace/Orion_TestBench/Drivers/BMP280/Core/Inc" -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Drivers-2f-BMP280-2f-Core-2f-Src
 
 clean-Drivers-2f-BMP280-2f-Core-2f-Src:
-	-$(RM) ./Drivers/BMP280/Core/Src/BMP280.cyclo ./Drivers/BMP280/Core/Src/BMP280.d ./Drivers/BMP280/Core/Src/BMP280.o ./Drivers/BMP280/Core/Src/BMP280.su ./Drivers/BMP280/Core/Src/BMP280_compensation.cyclo ./Drivers/BMP280/Core/Src/BMP280_compensation.d ./Drivers/BMP280/Core/Src/BMP280_compensation.o ./Drivers/BMP280/Core/Src/BMP280_compensation.su ./Drivers/BMP280/Core/Src/BMP280_hardware.cyclo ./Drivers/BMP280/Core/Src/BMP280_hardware.d ./Drivers/BMP280/Core/Src/BMP280_hardware.o ./Drivers/BMP280/Core/Src/BMP280_hardware.su
+	-$(RM) ./Drivers/BMP280/Core/Src/BMP280.d ./Drivers/BMP280/Core/Src/BMP280.o ./Drivers/BMP280/Core/Src/BMP280.su ./Drivers/BMP280/Core/Src/BMP280_compensation.d ./Drivers/BMP280/Core/Src/BMP280_compensation.o ./Drivers/BMP280/Core/Src/BMP280_compensation.su ./Drivers/BMP280/Core/Src/BMP280_hardware.d ./Drivers/BMP280/Core/Src/BMP280_hardware.o ./Drivers/BMP280/Core/Src/BMP280_hardware.su
 
 .PHONY: clean-Drivers-2f-BMP280-2f-Core-2f-Src
 
