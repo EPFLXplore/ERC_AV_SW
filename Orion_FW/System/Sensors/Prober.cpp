@@ -79,6 +79,13 @@ void ProberThread::loop() {
 //			this->instance = new ADS1234Thread(this, &hspi2);
 //		else if (hi2c == &hi2c3)
 //			this->instance = new ADS1234Thread(this, &hspi3);
+//		xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(MODBUS_HAT_ADDR)) {
+//		if (hi2c == &hi2c2) {
+//			this->instance = new ModbusThread(this);
+//			xSemaphoreTake(semaphore, portMAX_DELAY);
+//		}
 //	}
 
 	HAL_I2C_DeInit(hi2c);

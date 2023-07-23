@@ -20,14 +20,14 @@ public:
 		Thread("NPK"), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
 	void init();
 	void loop();
+	bool is_connected();
 private:
 	modbusHandler_t* ModbusH;
 	static const uint8_t reg_offset = 4; // first 4 bytes are reserved to 4 in 1 sensor
 	uint16_t (&ModbusDATA)[7];
-
 	modbus_t query_frame;
-
 	uint32_t u32NotificationValue;
+	bool connected = false;
 };
 
 extern NPKThread* NPKInstance;

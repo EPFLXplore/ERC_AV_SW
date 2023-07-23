@@ -8,6 +8,8 @@
 #ifndef SENSORS_MODBUS_THREAD_HPP_
 #define SENSORS_MODBUS_THREAD_HPP_
 
+#define MODBUS_HAT_ADDR (0x55) // address of I2C temperature sensor on RS485 hat
+
 //#include <Modbus.h>
 #include "Thread.h"
 #include "Prober.h"

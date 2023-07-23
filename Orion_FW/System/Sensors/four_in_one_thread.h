@@ -20,11 +20,13 @@ public:
 		Thread("FourInOne"), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
 	void init();
 	void loop();
+	bool is_connected();
 private:
 	modbusHandler_t* ModbusH;
 	uint16_t (&ModbusDATA)[7];
 	modbus_t query_frame;
 	uint32_t u32NotificationValue;
+	bool connected = false;
 };
 
 extern FourInOneThread* FourInOneInstance;

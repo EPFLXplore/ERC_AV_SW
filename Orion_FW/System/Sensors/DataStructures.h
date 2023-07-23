@@ -72,7 +72,7 @@ struct FOURINONEData {
     float ph;
     char* toString(char* buffer) {
         static char buf[32];
-        sprintf(buffer, "Temperature: %f [°C] \t Moisture: %f [%] \t Conductivity: %f [us/cm] \t PH: %f", temperature, moisture, conductivity, ph);
+        sprintf(buffer, "Temperature: %f [deg] \t Moisture: %f [%%] \t Conductivity: %f [us/cm] \t PH: %f", temperature, moisture, conductivity, ph);
         return buffer;
     }
 
@@ -91,7 +91,7 @@ struct NPKData {
     float phosphorus;
     float potassium;
     char* toString(char* buffer) {
-        sprintf(buffer, "nitrogen: %f  phosphorus: %f  potassium: %f ", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
+        sprintf(buffer, "nitrogen: %f [mg/kg] phosphorus: %f [mg/kg] potassium: %f [mg/kg]", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
         return buffer;
     }
 

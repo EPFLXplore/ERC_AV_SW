@@ -18,35 +18,20 @@ void ModbusThread::init() {
 	modbusInstance = this;
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
+	osDelay(500);
 	this->NPKInstance = new NPKThread(&ModbusH, ModbusDATA);
-//	// Initialize the sensor
-////	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
-//	bool success = dummy_sensor.ADS1113_init();
-//	// If the sensor was not found or uncorrectly initialized, reset prober
-//	if(!success) {
-//		dummySensorInstance = nullptr;
-//		terminate();
-//		parent->resetProber();
-//		return;
-//	}
-//
-//	// Sensor related configuration after successfully connected
-//	dummy_sensor.ADSsetGain(GAIN_ONE);
+	osDelay(1000); // wait a bit for both sensors to initialize
 }
 
 
 void ModbusThread::loop() {
-//
-//	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
-//		// Send data over RoCo network
-//		dummy_data.toArray((uint8_t*) &packet);
-//		FDCAN1_network.send(&packet);
-//		portYIELD();
-//	} else {
-//		dummySensorInstance = nullptr;
-//		terminate();
-//		parent->resetProber();
-//	}
+	if (!(FourInOneInstance->is_connected()) && !(NPKInstance->is_connected())) {
+		modbusInstance = nullptr;
+		FourInOneInstance->terminate();
+		NPKInstance->terminate();
+		terminate();
+		parent->resetProber();
+	}
 	osDelay(1000);
 }
 
