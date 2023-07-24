@@ -5,8 +5,14 @@
  *      Author: Vincent
  */
 
-#ifndef ADC1115_CORE_INC_ADS1115_DEFINES_H_
-#define ADC1115_CORE_INC_ADS1115_DEFINES_H_
+#ifndef ADS1115_CORE_INC_ADS1115_DEFINES_H_
+#define ADS1115_CORE_INC_ADS1115_DEFINES_H_
+
+/*=========================================================================
+    I2C ADDRESS/BITS - Connect the following pin to ADDR
+    -----------------------------------------------------------------------*/
+#define ADS_MAX_VALUE (65535)
+/*=========================================================================*/
 
 /*=========================================================================
     I2C ADDRESS/BITS - Connect the following pin to ADDR
@@ -121,4 +127,4 @@ typedef enum {
   GAIN_SIXTEEN = ADS1115_REG_CONFIG_PGA_0_256V
 } adsGain_t;
 
-#endif /* ADC1115_CORE_INC_ADS1115_DEFINES_H_ */
+#endif /* ADS1115_CORE_INC_ADS1115_DEFINES_H_ */

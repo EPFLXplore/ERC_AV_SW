@@ -10,8 +10,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "ADS1115_defines.h"
 #include "stm32h7xx_hal.h"
+#include "../../../ADS1115/Core/Inc/ADS1115_defines.h"
 
 class ADS1115 {
 public:
@@ -24,6 +24,7 @@ public:
 	int16_t  ADSgetLastConversionResults();
 	void  ADSsetGain(adsGain_t gain);
 	adsGain_t  ADSgetGain();
+	float get_full_scale();
 private:
 	bool writeRegister(int8_t reg, uint16_t value);
 	uint16_t readRegister(uint8_t reg);

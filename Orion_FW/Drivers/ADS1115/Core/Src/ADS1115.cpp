@@ -1,4 +1,5 @@
-#include <ADS1115.hpp>
+#include "../../../ADS1115/Core/Inc/ADS1115.hpp"
+
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "task.h"
@@ -278,4 +279,11 @@ int16_t ADS1115::ADSgetLastConversionResults() {
 		}
 		return (int16_t) res;
 	}
+}
+
+/*
+ * Returns the current configured full scale (in V)
+ */
+float ADS1115::get_full_scale() {
+	return full_scale;
 }

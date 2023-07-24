@@ -7,24 +7,20 @@
  *
  */
 
-
-//#include <four_in_one_thread.h>
-#include <max11615.h>
-#include <Modbus_thread.hpp>
 #include "i2c.h"
 
 #include "Lang/Operators.h"
 #include "Prober.h"
 
 
-#include "Dummy_thread.h"
-#include "MAX11615_thread.h"
 #include "ADS1234_thread.hpp"
 #include "bmi08_defs.h"
 #include "lis3mdl_sens.hpp"
 #include "IMU_thread.h"
 #include "dummy_addresses.h"
 #include "AS7265_thread.h"
+#include <Modbus_thread.hpp>
+#include "ADS1115_Voltmeter_thread.hpp"
 
 
 void ProberThread::init() {
@@ -55,10 +51,10 @@ void ProberThread::loop() {
 //			this->instance = new VoltmeterThread(this);
 //			xSemaphoreTake(semaphore, portMAX_DELAY);
 //	}
-//	if (probeI2C(ADS_ADDR_GND)) {
-//			this->instance = new DummyThread(this);
-//			xSemaphoreTake(semaphore, portMAX_DELAY);
-//	}
+	if (probeI2C(ADS_ADDR_GND)) {
+			this->instance = new VoltmeterThread(this);
+			xSemaphoreTake(semaphore, portMAX_DELAY);
+	}
 //	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
 //		this->instance = new IMUThread(this);
 //		xSemaphoreTake(semaphore, portMAX_DELAY);
@@ -88,8 +84,8 @@ void ProberThread::loop() {
 //		}
 //	}
 
-	this->instance = new ModbusThread(this);
-	xSemaphoreTake(semaphore, portMAX_DELAY);
+//	this->instance = new ModbusThread(this);
+//	xSemaphoreTake(semaphore, portMAX_DELAY);
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);
 }

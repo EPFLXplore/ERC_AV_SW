@@ -11,12 +11,12 @@
 
 
 
-#include <ADS1115.hpp>
 #include <max11615.h>
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
 #include "max11615.h"
+#include "../../Drivers/ADS1115/Core/Inc/ADS1115.hpp"
 
 
 
