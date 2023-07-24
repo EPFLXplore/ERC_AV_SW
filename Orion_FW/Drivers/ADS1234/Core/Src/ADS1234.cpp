@@ -55,7 +55,7 @@ ADS1234::~ADS1234() {
 //}
 
 void ADS1234::begin(Gain gain, Speed speed){
-
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   HAL_SPI_DeInit(hspi); // replace hspiX with the handle of the SPI peripheral
 
   GPIO_InitStruct.Pin = PIN_SCLK.pin;

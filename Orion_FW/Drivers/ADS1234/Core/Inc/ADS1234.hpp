@@ -127,7 +127,6 @@ class ADS1234
 		// int _pin_SCLK;
 		// int _pin_PDWN;
 		SPI_HandleTypeDef* hspi;
-		GPIO_InitTypeDef GPIO_InitStruct;
 		IOPin PIN_DOUT;
 		IOPin PIN_SCLK;
 		IOPin PIN_PDWN;

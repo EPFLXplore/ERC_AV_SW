@@ -11,11 +11,15 @@
 
 #include "Telemetry.h"
 
+//#include "usart.h"
+
 ModbusThread* modbusInstance = nullptr;
 static char cbuf[256]; // for printf
 
+
 void ModbusThread::init() {
 	modbusInstance = this;
+	MX_USART2_UART_Init();
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
 	osDelay(500);
@@ -29,6 +33,8 @@ void ModbusThread::loop() {
 		modbusInstance = nullptr;
 		FourInOneInstance->terminate();
 		NPKInstance->terminate();
+		HAL_UART_DeInit(&huart2);
+		reinit_gpios();
 		terminate();
 		parent->resetProber();
 	}
@@ -56,4 +62,22 @@ void ModbusThread::init_Modbus(modbusHandler_t* ModbusH){
 
 	  //Start capturing traffic on serial Port
 	  ModbusStart(ModbusH);
+}
+
+void ModbusThread::reinit_gpios() {
+	// Reinitialize GPIO of Hat 2 that were used for UART2
+
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+	GPIO_InitStruct.Pin = HAT2_P4_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(HAT2_P4_GPIO_Port, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = HAT2_P6_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(HAT2_P6_GPIO_Port, &GPIO_InitStruct);
 }

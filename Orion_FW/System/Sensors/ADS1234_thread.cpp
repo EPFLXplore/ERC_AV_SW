@@ -56,6 +56,7 @@ void ADS1234Thread::init() {
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
 		massSensorInstance = nullptr;
+		MX_SPI1_Init();
 		terminate();
 		parent->resetProber();
 		return;
@@ -97,6 +98,7 @@ void ADS1234Thread::loop() {
 		portYIELD();
 	} else {
 		massSensorInstance = nullptr;
+		MX_SPI1_Init();
 		terminate();
 		parent->resetProber();
 	}

@@ -28,6 +28,7 @@ public:
 	void loop();
 private:
 	void init_Modbus(modbusHandler_t* ModbusH);
+	void reinit_gpios();
 	ProberThread* parent;
 	uint8_t portNum;
 	modbusHandler_t ModbusH;
