@@ -11,7 +11,7 @@
 #include "Telemetry.h"
 
 static char cbuf[256]; // for printf
-NPKThread* NPKInstance = nullptr;
+//NPKThread* NPKInstance = nullptr;
 
 void NPKThread::init() {
 
@@ -22,7 +22,15 @@ void NPKThread::init() {
 	query_frame.u16CoilsNo = 3; // number of registers to read: moisture, temperature, EC, PH
 	query_frame.u16reg = ModbusDATA + reg_offset; // pointer to data buffer
 
-	connected = true;
+//	connected = true;
+	ModbusQuery(ModbusH, query_frame);
+	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+	if(u32NotificationValue != ERR_OK_QUERY) {
+		connected = false;
+		printf("NPK Sensor failed to query \n");
+	} else {
+		connected = true;
+	}
 }
 
 

@@ -12,7 +12,7 @@
 //#include "main.h"
 
 static char cbuf[256]; // for printf
-FourInOneThread* FourInOneInstance = nullptr;
+//FourInOneThread* FourInOneInstance = nullptr;
 
 void FourInOneThread::init() {
 
@@ -24,7 +24,15 @@ void FourInOneThread::init() {
 	query_frame.u16CoilsNo = 4; // number of registers to read: moisture, temperature, EC, PH
 	query_frame.u16reg = ModbusDATA; // pointer to data buffer
 
-	connected = true;
+//	connected = true;
+	ModbusQuery(ModbusH, query_frame);
+	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
+	if(u32NotificationValue != ERR_OK_QUERY) {
+		connected = false;
+		printf("NPK Sensor failed to query \n");
+	} else {
+		connected = true;
+	}
 }
 
 static FOURINONEData fourinone_data;

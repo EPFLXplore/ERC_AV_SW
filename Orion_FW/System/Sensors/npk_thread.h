@@ -30,7 +30,7 @@ private:
 	bool connected = false;
 };
 
-extern NPKThread* NPKInstance;
+//extern NPKThread* NPKInstance;
 
 
 

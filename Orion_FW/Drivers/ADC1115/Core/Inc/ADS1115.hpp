@@ -1,25 +1,24 @@
 /*
- * ADS1015_ADS1115.h
+ * ADS1115_ADS1115.h
  *
  *  Created on: Feb 9, 2020
  *      Author: Adafruit. Rewritten by Daniel Mårtensson
  */
 
-#ifndef SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_
-#define SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_
+#ifndef SRC_ADS1115_ADS1115_ADS1115_ADS1115_H_
+#define SRC_ADS1115_ADS1115_ADS1115_ADS1115_H_
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "ADS1113_defines.h"
+#include "ADS1115_defines.h"
 #include "stm32h7xx_hal.h"
 
-class ADS1113 {
+class ADS1115 {
 public:
-	ADS1113(I2C_HandleTypeDef* hi2c, uint8_t i2cAddress);
-	bool ADS1113_init();
+	ADS1115(I2C_HandleTypeDef* hi2c, uint8_t i2cAddress);
+	bool ADS1115_init();
 	bool ADSbegin();
 	uint16_t ADSreadADC_SingleEnded(uint8_t channel);
-	float ADSreadADC_Voltage();
 	int16_t  ADSreadADC_Differential_0_1();
 	void  ADSstartComparator_SingleEnded(uint8_t channel, int16_t threshold);
 	int16_t  ADSgetLastConversionResults();
@@ -37,4 +36,4 @@ private:
 	I2C_HandleTypeDef* hi2c;    // Handle for I2C
 };
 
-#endif /* SRC_ADS1015_ADS1115_ADS1015_ADS1115_H_ */
+#endif /* SRC_ADS1115_ADS1115_ADS1115_ADS1115_H_ */

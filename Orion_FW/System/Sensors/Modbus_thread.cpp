@@ -19,23 +19,31 @@ static char cbuf[256]; // for printf
 
 void ModbusThread::init() {
 	modbusInstance = this;
-//	MX_USART2_UART_Init();
+	MX_USART2_UART_Init();
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
 	osDelay(500);
 	this->NPKInstance = new NPKThread(&ModbusH, ModbusDATA);
-	osDelay(1000); // wait a bit for both sensors to initialize
+	osDelay(3000); // wait a bit for both sensors to initialize
 }
 
 
 void ModbusThread::loop() {
-	if (!(FourInOneInstance->is_connected()) && !(NPKInstance->is_connected())) {
-		modbusInstance = nullptr;
-		FourInOneInstance->terminate();
-		NPKInstance->terminate();
+	if ((!(FourInOneInstance->is_connected()) && !(NPKInstance->is_connected()))) {
+		if (FourInOneInstance) {
+			FourInOneInstance->terminate();
+			FourInOneInstance = nullptr;
+		}
+
+		if (NPKInstance) {
+			NPKInstance->terminate();
+			NPKInstance = nullptr;
+		}
+		ModbusDeinit(&ModbusH);
 		HAL_UART_DeInit(&huart2);
 		reinit_gpios();
 		terminate();
+		modbusInstance = nullptr;
 		parent->resetProber();
 	}
 	osDelay(1000);

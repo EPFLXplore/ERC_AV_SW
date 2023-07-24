@@ -29,7 +29,7 @@ private:
 	bool connected = false;
 };
 
-extern FourInOneThread* FourInOneInstance;
+//extern FourInOneThread* FourInOneInstance;
 
 
 

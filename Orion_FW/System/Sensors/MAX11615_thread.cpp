@@ -22,7 +22,6 @@ static char cbuf[256]; // for printf
 void VoltmeterThread::init() {
 	VoltmeterInstance = this;
 	// Initialize the sensor
-	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
 	bool success = !MAX11615_Init(&voltmeter, (parent->getI2C()), ADDRESS_MAX11615, 3);
 
 	// If the sensor was not found or uncorrectly initialized, reset prober

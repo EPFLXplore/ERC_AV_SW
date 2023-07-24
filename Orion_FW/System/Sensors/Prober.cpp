@@ -36,7 +36,7 @@ void ProberThread::init() {
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
 //	this->instance = new FourInOneThread();
-	this->instance = new ModbusThread(this);
+//	this->instance = new ModbusThread(this);
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
@@ -88,6 +88,8 @@ void ProberThread::loop() {
 //		}
 //	}
 
+	this->instance = new ModbusThread(this);
+	xSemaphoreTake(semaphore, portMAX_DELAY);
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);
 }

@@ -11,7 +11,7 @@
 
 
 
-#include <ADS1113.hpp>
+#include <ADS1115.hpp>
 #include <max11615.h>
 #include "Thread.h"
 #include "Prober.h"

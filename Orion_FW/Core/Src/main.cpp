@@ -122,7 +122,7 @@ int main(void)
   MX_UART8_Init();
   MX_FDCAN1_Init();
   /* USER CODE BEGIN 2 */
-  MX_USART2_UART_Init();
+
   /* USER CODE END 2 */
 
   /* Init scheduler */

@@ -304,6 +304,61 @@ void ModbusInit(modbusHandler_t * modH)
   }
 
 }
+/**
+ * @brief
+ * Deinitialization for a Master/Slave.
+ * this function will deinitialize a given Modbus handler
+ * of the modbus handler
+ *
+ * @param modH   modbus handler
+ */
+void ModbusDeinit(modbusHandler_t *modH)
+{
+    // Stop the Modbus task if it's running
+    if (modH->myTaskModbusAHandle != NULL) {
+        osThreadTerminate(modH->myTaskModbusAHandle);
+        modH->myTaskModbusAHandle = NULL;
+    }
+
+    // Delete the timers
+    if (modH->xTimerTimeout != NULL) {
+        xTimerDelete(modH->xTimerTimeout, portMAX_DELAY);
+        modH->xTimerTimeout = NULL;
+    }
+
+    if (modH->xTimerT35 != NULL) {
+        xTimerDelete(modH->xTimerT35, portMAX_DELAY);
+        modH->xTimerT35 = NULL;
+    }
+
+    // Delete the message queue if it's a Modbus master
+    if (modH->uModbusType == MB_MASTER) {
+        if (modH->QueueTelegramHandle != NULL) {
+            osMessageQueueDelete(modH->QueueTelegramHandle);
+            modH->QueueTelegramHandle = NULL;
+        }
+    }
+
+    // Delete the semaphore
+    if (modH->ModBusSphrHandle != NULL) {
+        osSemaphoreDelete(modH->ModBusSphrHandle);
+        modH->ModBusSphrHandle = NULL;
+    }
+
+    // Remove the Modbus handler from the array
+    for (int i = 0; i < numberHandlers; i++) {
+        if (mHandlers[i] == modH) {
+            // Shift the array to remove the handler
+            for (int j = i; j < numberHandlers - 1; j++) {
+                mHandlers[j] = mHandlers[j + 1];
+            }
+            numberHandlers--;
+            break;
+        }
+    }
+
+    // Additional cleanup if necessary
+}
 
 /**
  * @brief
