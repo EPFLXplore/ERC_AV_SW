@@ -19,7 +19,7 @@ static char cbuf[256]; // for printf
 
 void ModbusThread::init() {
 	modbusInstance = this;
-	MX_USART2_UART_Init();
+//	MX_USART2_UART_Init();
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
 	osDelay(500);
