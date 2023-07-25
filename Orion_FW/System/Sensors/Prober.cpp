@@ -29,11 +29,20 @@ void ProberThread::init() {
 	vTaskDelay(100 / portTICK_PERIOD_MS);
 	this->i2cNum = checkI2CPort(hi2c);
 
-	this->instance = new ADS1234Thread(this, &hspi2);
+//	this->instance = new ADS1234Thread(this, &hspi2);
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
 //	this->instance = new FourInOneThread();
 //	this->instance = new ModbusThread(this);
+
+	    for(uint16_t i=1; i<128; i++)
+	    {
+	    	HAL_StatusTypeDef ret = HAL_I2C_IsDeviceReady(hi2c, (uint16_t)(i<<1), 3, 5);
+	        if(ret == HAL_OK)
+	        {
+	        	printf("%d \n", i);
+	        }
+	    }
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
