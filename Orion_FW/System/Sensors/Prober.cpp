@@ -7,13 +7,13 @@
  *
  */
 
+#include <ADS1234_Mass_thread.hpp>
 #include "i2c.h"
 
 #include "Lang/Operators.h"
 #include "Prober.h"
 
 
-#include "ADS1234_thread.hpp"
 #include "bmi08_defs.h"
 #include "lis3mdl_sens.hpp"
 #include "IMU_thread.h"
@@ -21,6 +21,7 @@
 #include "AS7265_thread.h"
 #include <Modbus_thread.hpp>
 #include "ADS1115_Voltmeter_thread.hpp"
+#include "ADS1115_Potentiometer_thread.hpp"
 
 
 void ProberThread::init() {
@@ -28,7 +29,7 @@ void ProberThread::init() {
 	vTaskDelay(100 / portTICK_PERIOD_MS);
 	this->i2cNum = checkI2CPort(hi2c);
 
-//	this->instance = new ADS1234Thread(this, &hspi3);
+	this->instance = new ADS1234Thread(this, &hspi2);
 //	this->instance = new AllInOneThread();
 //	xSemaphoreTake(semaphore, portMAX_DELAY);
 //	this->instance = new FourInOneThread();
@@ -51,10 +52,14 @@ void ProberThread::loop() {
 //			this->instance = new VoltmeterThread(this);
 //			xSemaphoreTake(semaphore, portMAX_DELAY);
 //	}
-	if (probeI2C(ADS_ADDR_GND)) {
-			this->instance = new VoltmeterThread(this);
-			xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
+//	if (probeI2C(ADS_ADDR_GND)) {
+//			this->instance = new VoltmeterThread(this);
+//			xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
+//	if (probeI2C(ADS_ADDR_GND)) {
+//			this->instance = new PotentiometerThread(this);
+//			xSemaphoreTake(semaphore, portMAX_DELAY);
+//	}
 //	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
 //		this->instance = new IMUThread(this);
 //		xSemaphoreTake(semaphore, portMAX_DELAY);

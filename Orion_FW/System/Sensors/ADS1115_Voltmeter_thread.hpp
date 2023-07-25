@@ -11,7 +11,7 @@
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
-#include "../../Drivers/ADS1115/Core/Inc/ADS1115.hpp"
+#include "ADS1115.hpp"
 
 
 class VoltmeterThread : public Thread {
@@ -19,12 +19,11 @@ public:
 	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), voltmeter(parent->getI2C(), ADS_ADDR_GND) {}
 	void init();
 	void loop();
-
-	float get_voltage();
 private:
 	ProberThread* parent;
 	uint8_t portNum;
 	ADS1115 voltmeter;
+	float get_voltage();
 	int8_t get_polarity();
 	float divider_ratio = 10.0f; // = 1/(2k / (2k + 18k))
 	uint16_t polarity_threshold = 1000;

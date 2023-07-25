@@ -25,6 +25,15 @@ public:
 	void  ADSsetGain(adsGain_t gain);
 	adsGain_t  ADSgetGain();
 	float get_full_scale();
+
+	void set_scale(uint8_t channel, float scale);
+	float get_scale (uint8_t channel);
+	void set_offset(uint8_t channel, float scale);
+	float get_offset(uint8_t channel);
+
+	float read_average(uint8_t channel, uint16_t times = 10);
+	float get_value_offset(uint8_t channel, uint16_t times = 10);
+	float get_value_conv(uint8_t channel, uint16_t times = 1);
 private:
 	bool writeRegister(int8_t reg, uint16_t value);
 	uint16_t readRegister(uint8_t reg);
@@ -35,6 +44,9 @@ private:
 	float full_scale;
 	adsGain_t m_gain;          ///< ADC gain
 	I2C_HandleTypeDef* hi2c;    // Handle for I2C
+
+	float OFFSET[4] = {0, 0, 0, 0};
+	float SCALE[4] = {1,1,1,1};
 };
 
 #endif /* SRC_ADS1115_ADS1115_ADS1115_ADS1115_H_ */

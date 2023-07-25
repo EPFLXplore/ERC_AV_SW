@@ -22,18 +22,18 @@ void VoltmeterThread::init() {
 
 	// Sensor related configuration after successfully connected
 	voltmeter.ADSsetGain(GAIN_ONE); // FSR = 4.096 V
+	voltmeter.set_scale(1, correction_factor*divider_ratio*voltmeter.get_full_scale()/(ADS_MAX_VALUE));
 }
 
 static VoltmeterData voltmeter_data;
 static VoltmeterPacket packet;
 
 void VoltmeterThread::loop() {
-	// Get the sensor data. Here we only read a differential value as an example
+
 	voltmeter_data.voltage = get_voltage();
-	// We can print it to SVW console (optional)
-	printf("%s \n", voltmeter_data.toString(cbuf));
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+		printf("%s \n", voltmeter_data.toString(cbuf));
 		voltmeter_data.toArray((uint8_t*) &packet);
 		FDCAN1_network.send(&packet);
 		portYIELD();
@@ -46,10 +46,11 @@ void VoltmeterThread::loop() {
 }
 
 int8_t VoltmeterThread::get_polarity() {
-	return voltmeter.ADSreadADC_SingleEnded(1) > polarity_threshold ? -1 : 1;
+	return voltmeter.ADSreadADC_SingleEnded(0) > polarity_threshold ? -1 : 1;
 }
 
 float VoltmeterThread::get_voltage() {
-	return correction_factor*get_polarity()*divider_ratio*voltmeter.get_full_scale()*
-			((float)voltmeter.ADSreadADC_SingleEnded(0)/(ADS_MAX_VALUE));
+//	return correction_factor*get_polarity()*divider_ratio*voltmeter.get_full_scale()*
+//			((float)voltmeter.ADSreadADC_SingleEnded(1)/(ADS_MAX_VALUE));
+	return get_polarity()*voltmeter.get_value_conv(1);
 }

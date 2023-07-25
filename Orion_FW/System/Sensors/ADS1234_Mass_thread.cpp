@@ -5,14 +5,13 @@
  *      Author: Yassine Bakkali
  */
 
-#include "ADS1234_thread.hpp"
-
+#include <ADS1234_Mass_thread.hpp>
 #include "Telemetry.h"
 
 ADS1234Thread* massSensorInstance = nullptr;
 static char cbuf[256]; // for printf
 
-ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) : Thread("ADS1234"), parent(parent), portNum(parent->getI2CNum()), mass_sensor(nullptr){
+ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) : Thread("MassSensor"), parent(parent), portNum(parent->getI2CNum()), mass_sensor(nullptr){
     // You can also perform additional initialization steps here if needed.
 	if (hspi_ == &hspi1) {
 		mass_sensor = new ADS1234(hspi_,
@@ -64,8 +63,14 @@ void ADS1234Thread::init() {
 
 	// Sensor related configuration after successfully connected
 	mass_sensor->begin();
+	mass_sensor->set_offset(AIN1, 265542);
+	mass_sensor->set_scale(AIN1, 452.05);
+	mass_sensor->set_offset(AIN2, 265542);
+	mass_sensor->set_scale(AIN2, 452.05);
 	mass_sensor->set_offset(AIN3, 265542);
 	mass_sensor->set_scale(AIN3, 452.05);
+	mass_sensor->set_offset(AIN4, 265542);
+	mass_sensor->set_scale(AIN4, 452.05);
 //	mass_sensor.get_value(AIN3, mass_value, 0.8, true);
 //	long dummy;
 //	mass_sensor.read(AIN3, dummy, true);
@@ -85,9 +90,12 @@ static MassPacket packet;
 void ADS1234Thread::loop() {
 	// Get the sensor data. Here we only read a differential value as an example
 //	mass_sensor.read(AIN3,mass_value[0],0);
-	mass_sensor->get_units(AIN3, mass_value, 10, false);
+	mass_sensor->get_units(AIN1, mass_data.mass[0], 10, false);
+	mass_sensor->get_units(AIN2, mass_data.mass[1], 10, false);
+	mass_sensor->get_units(AIN3, mass_data.mass[2], 10, false);
+	mass_sensor->get_units(AIN4, mass_data.mass[3], 10, false);
 //	mass_sensor.read_filtered(AIN3, mass_value, 0.5, false);
-	mass_data.mass = mass_value;
+
 	// We can print it to SVW console (optional)
 	printf("Diff value %s \n", mass_data.toString(cbuf));
 

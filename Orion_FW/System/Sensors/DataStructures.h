@@ -71,7 +71,6 @@ struct FOURINONEData {
     float conductivity;
     float ph;
     char* toString(char* buffer) {
-        static char buf[32];
         sprintf(buffer, "Temperature: %f [deg] \t Moisture: %f [%%] \t Conductivity: %f [us/cm] \t PH: %f", temperature, moisture, conductivity, ph);
         return buffer;
     }
@@ -146,7 +145,6 @@ struct TOFData {
 	float distance;
 
 	char* toString(char* buffer) {
-		static char buf[32];
 		sprintf(buffer, "Tof: %f [mm]", distance);
 		return buffer;
 	}
@@ -159,15 +157,15 @@ struct TOFData {
 
 
 struct MassData {
-    float mass;
-    char* toString(char* buffer) {
-        static char buf[32];
-        sprintf(buffer, "Mass: %f [g]", mass);
-        return buffer;
-    }
+    float mass[4];
+	char* toString(char* buffer) {
+		sprintf(buffer, "CH0: %f [g] \t CH1: %f [g] \t CH2: %f [g] \t CH3: %f [g]", mass[0], mass[1], mass[2], mass[3]);
+		return buffer;
+	}
 
     uint8_t* toArray(uint8_t* buffer){
-        *(float*)(buffer) = mass;
+    	for(int i = 0; i < 4; ++i)
+    		*(float*)(buffer + i * 4) = mass[i];
         return buffer;
     }
 };
@@ -187,5 +185,18 @@ struct VoltmeterData {
 	}
 };
 
+struct PotentiometerData {
+	float angles[4] = {0};
+	char* toString(char* buffer) {
+		sprintf(buffer, "CH0: %f [deg] \t CH1: %f [deg] \t CH2: %f [deg] \t CH3: %f [deg]", angles[0], angles[1], angles[2], angles[3]);
+		return buffer;
+	}
+
+    uint8_t* toArray(uint8_t* buffer){
+    	for(int i = 0; i < 4; ++i)
+    		*(float*)(buffer + i * 4) = angles[i];
+        return buffer;
+    }
+};
 
 #endif /* SENSORS_DATASTRUCTURES_H_ */

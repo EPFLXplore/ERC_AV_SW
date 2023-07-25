@@ -5,8 +5,8 @@
  *      Author: Yassine
  */
 
-#ifndef SENSORS_ADS1234_THREAD_HPP_
-#define SENSORS_ADS1234_THREAD_HPP_
+#ifndef SENSORS_ADS1234_MASS_THREAD_HPP_
+#define SENSORS_ADS1234_MASS_THREAD_HPP_
 
 
 #include <ADS1234.hpp>
@@ -25,7 +25,6 @@ private:
 	ProberThread* parent;
 	uint8_t portNum;
 	ADS1234* mass_sensor;
-	float mass_value = 0;
 
 };
 
@@ -34,4 +33,4 @@ extern ADS1234Thread* massSensorInstance;
 
 
 
-#endif /* SENSORS_ADS1234_THREAD_HPP_ */
+#endif /* SENSORS_ADS1234_MASS_THREAD_HPP_ */

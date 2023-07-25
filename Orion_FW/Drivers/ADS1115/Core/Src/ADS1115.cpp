@@ -287,3 +287,37 @@ int16_t ADS1115::ADSgetLastConversionResults() {
 float ADS1115::get_full_scale() {
 	return full_scale;
 }
+
+float ADS1115::read_average(uint8_t channel, uint16_t times) {
+	long sum = 0;
+	for (uint16_t i = 0; i < times; i++) {
+		uint16_t val = ADSreadADC_SingleEnded(channel);
+		sum += val;
+	}
+	if(times==0) return 0;
+	return (float)sum / times;
+}
+
+float ADS1115::get_value_offset(uint8_t channel, uint16_t times) {
+	return read_average(channel, times) -  OFFSET[channel];
+}
+
+float ADS1115::get_value_conv(uint8_t channel, uint16_t times) {
+	return get_value_offset(channel, times) * SCALE[channel];
+}
+
+void ADS1115::set_scale(uint8_t channel, float scale) {
+	SCALE[channel] = scale;
+}
+
+float ADS1115::get_scale(uint8_t channel) {
+	return SCALE[channel];
+}
+
+void ADS1115::set_offset(uint8_t channel, float offset) {
+	OFFSET[channel] = offset;
+}
+
+float ADS1115::get_offset(uint8_t channel) {
+	return OFFSET[channel];
+}

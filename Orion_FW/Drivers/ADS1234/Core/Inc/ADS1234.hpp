@@ -137,7 +137,7 @@ class ADS1234
 		IOPin PIN_A1;
 
 
-		float OFFSET[4] = {};	// used for tare weight
+		float OFFSET[4] = {0, 0, 0, 0};	// used for tare weight
 		float SCALE[4] = {1,1,1,1};	// used to return weight in grams, kg, ounces, whatever
 
 		Speed _speed ;
