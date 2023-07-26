@@ -12,15 +12,15 @@
 #include <chrono>
 
 bool LIS3MDL_Sens::write_reg(uint8_t reg_addr, uint8_t* data, uint16_t len){
-	int8_t rslt = 0;
+	HAL_StatusTypeDef rslt;
 
 	vTaskSuspendAll();
 
-	rslt = HAL_I2C_Mem_Write(this->i2c, this->dev_addr << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, data, len, I2C_TIMEOUT);
+	rslt = HAL_I2C_Mem_Write(this->i2c, this->dev_addr << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, data, len, 1000);
 
 	xTaskResumeAll();
 
-	return rslt == 0;
+	return rslt == HAL_OK;
 }
 
 bool LIS3MDL_Sens::read_reg(uint8_t reg_addr, uint8_t* data, uint16_t len){
@@ -108,6 +108,8 @@ bool LIS3MDL_Sens::chip_id_ok(){
  return LIS3_CHIP_ID == to_read;
 }
 
+
+
 bool LIS3MDL_Sens::set_odr(const LIS3MDL_Sens::LIS3MDL_Odr& odr){
 
 switch(odr){
@@ -193,7 +195,7 @@ bool LIS3MDL_Sens::set_range(const LIS3MDL_Sens::LIS3MDL_Range& range){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		this->mag_scale_real = 4.0;
+		this->mag_scale_real = 6842; // LSB/gauss
 		return to_write == to_read;
 	}
 	case LIS3MDL_Sens::LIS3MDL_Range::Range_8:{
@@ -204,7 +206,7 @@ bool LIS3MDL_Sens::set_range(const LIS3MDL_Sens::LIS3MDL_Range& range){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		this->mag_scale_real = 8.0f;
+		this->mag_scale_real = 3421; // LSB/gauss
 		return to_write == to_read;
 	}
 	case LIS3MDL_Sens::LIS3MDL_Range::Range_12:{
@@ -215,7 +217,7 @@ bool LIS3MDL_Sens::set_range(const LIS3MDL_Sens::LIS3MDL_Range& range){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		this->mag_scale_real = 12.0;
+		this->mag_scale_real = 2281; // LSB/gauss
 		return to_write == to_read;
 	}
 	case LIS3MDL_Sens::LIS3MDL_Range::Range_16:{
@@ -226,7 +228,7 @@ bool LIS3MDL_Sens::set_range(const LIS3MDL_Sens::LIS3MDL_Range& range){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		this->mag_scale_real = 16.0;
+		this->mag_scale_real = 1711; // LSB/gauss
 		return to_write == to_read;
 	}
 
@@ -243,7 +245,7 @@ bool LIS3MDL_Sens::set_reboot(const bool& reboot){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		return to_write = to_read;
+		return to_write == to_read;
 	}
 	else{
 		to_write = to_write & ~(0b00001000);
@@ -251,7 +253,7 @@ bool LIS3MDL_Sens::set_reboot(const bool& reboot){
 		osDelay(50);
 		uint8_t to_read = 0;
 		assert(this->read_reg(LIS3_CTRL_REG2, &to_read, 1));
-		return to_write = to_read;
+		return to_write == to_read;
 	}
 }
 
@@ -343,9 +345,9 @@ void LIS3MDL_Sens::get_data(){
 	mval[0] = (int16_t)(buff[1]<<8 | buff[0]);
 	mval[1] = (int16_t)(buff[3]<<8 | buff[2]);
 	mval[2] = (int16_t)(buff[5]<<8 | buff[4]);
-	this->mag_val[0] = mval[0]*this->mag_scale_real/32768.0f;
-	this->mag_val[1] = mval[1]*this->mag_scale_real/32768.0f;
-	this->mag_val[2] = mval[2]*this->mag_scale_real/32768.0f;
+	this->mag_val[0] = mval[0]/this->mag_scale_real*100.f; // uT
+	this->mag_val[1] = mval[1]/this->mag_scale_real*100.f; // uT
+	this->mag_val[2] = mval[2]/this->mag_scale_real*100.f; // uT
 }
 
 

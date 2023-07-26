@@ -54,7 +54,7 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle):i2c_handle(i2c_handle),
 		};
 
 		this->lis_conf = LIS3MDL_Sens::Config{
-				LIS3MDL_Sens::LIS3MDL_Odr::Odr_1000Hz,
+				LIS3MDL_Sens::LIS3MDL_Odr::Odr_155Hz,
 				LIS3MDL_Sens::LIS3MDL_Range::Range_4,
 				true,
 				false,
@@ -114,8 +114,8 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle):i2c_handle(i2c_handle),
 		};
 
 		this->lis_conf = LIS3MDL_Sens::Config{
-				LIS3MDL_Sens::LIS3MDL_Odr::Odr_1000Hz,
-				LIS3MDL_Sens::LIS3MDL_Range::Range_4,
+				LIS3MDL_Sens::LIS3MDL_Odr::Odr_155Hz,
+				LIS3MDL_Sens::LIS3MDL_Range::Range_12,
 				true,
 				false,
 				true,
@@ -131,12 +131,58 @@ bool IMU::initialize_sensors(){
     bool res_bmi_init_acc = this->bmi_sensor->initialize_accel();
     bool res_bmi_init_gyr = this->bmi_sensor->initialize_gyro();
 
-	this->lis_sensor = new  LIS3MDL_Sens(this->i2c_handle);
-    this->lis_sensor->set_config(this->lis_conf);
-    bool res_lis_init = this->lis_sensor->init();
+	this->lis_sensor = new Adafruit_LIS3MDL(this->i2c_handle);
+	HAL_StatusTypeDef res = lis_sensor->init();
+	bool res_lis_init = (res == HAL_OK) ? true : false;
+//    this->lis_sensor->set_config(this->lis_conf);
+//    bool res_lis_init = this->lis_sensor->init();
+	lis_sensor->setPerformanceMode(LIS3MDL_MEDIUMMODE);
+	printf("Performance mode set to: \n");
+	switch (lis_sensor->getPerformanceMode()) {
+	    case LIS3MDL_LOWPOWERMODE: printf("Low\n"); break;
+	    case LIS3MDL_MEDIUMMODE: printf("Medium\n"); break;
+	    case LIS3MDL_HIGHMODE: printf("High\n"); break;
+	    case LIS3MDL_ULTRAHIGHMODE: printf("Ultra-High\n"); break;
+	  }
+	lis_sensor->setOperationMode(LIS3MDL_CONTINUOUSMODE);
+	printf("Operation mode set to: \n");
+	switch (lis_sensor->getOperationMode()) {
+		case LIS3MDL_CONTINUOUSMODE: printf("Continuous\n"); break;
+		case LIS3MDL_SINGLEMODE: printf("Single mode\n"); break;
+		case LIS3MDL_POWERDOWNMODE: printf("Power-down\n"); break;
+	}
+	lis_sensor->setDataRate(LIS3MDL_DATARATE_155_HZ);
+	printf("Data rate set to: \n");
+	switch (lis_sensor->getDataRate()) {
+		case LIS3MDL_DATARATE_0_625_HZ: printf("0.625 Hz\n"); break;
+		case LIS3MDL_DATARATE_1_25_HZ: printf("1.25 Hz\n"); break;
+		case LIS3MDL_DATARATE_2_5_HZ: printf("2.5 Hz\n"); break;
+		case LIS3MDL_DATARATE_5_HZ: printf("5 Hz\n"); break;
+		case LIS3MDL_DATARATE_10_HZ: printf("10 Hz\n"); break;
+		case LIS3MDL_DATARATE_20_HZ: printf("20 Hz\n"); break;
+		case LIS3MDL_DATARATE_40_HZ: printf("40 Hz\n"); break;
+		case LIS3MDL_DATARATE_80_HZ: printf("80 Hz\n"); break;
+		case LIS3MDL_DATARATE_155_HZ: printf("155 Hz\n"); break;
+		case LIS3MDL_DATARATE_300_HZ: printf("300 Hz\n"); break;
+		case LIS3MDL_DATARATE_560_HZ: printf("560 Hz\n"); break;
+		case LIS3MDL_DATARATE_1000_HZ: printf("1000 Hz\n"); break;
+	}
 
+	lis_sensor->setRange(LIS3MDL_RANGE_4_GAUSS);
+	printf("Range set to: \n");
+	switch (lis_sensor->getRange()) {
+		case LIS3MDL_RANGE_4_GAUSS: printf("+-4 gauss\n"); break;
+		case LIS3MDL_RANGE_8_GAUSS: printf("+-8 gauss\n"); break;
+		case LIS3MDL_RANGE_12_GAUSS: printf("+-12 gauss\n"); break;
+		case LIS3MDL_RANGE_16_GAUSS: printf("+-16 gauss\n"); break;
+	}
 
-    return (res_lis_init & res_bmi_init_acc & res_bmi_init_gyr);
+	lis_sensor->setIntThreshold(500);
+	lis_sensor->configInterrupt(false, false, true, // enable z axis
+						  true, // polarity
+						  false, // don't latch
+						  true); // enabled!
+	return (res_lis_init & res_bmi_init_acc & res_bmi_init_gyr);
 
 }
 
@@ -162,6 +208,14 @@ BMI088_Sens::xyz IMU::get_last_angular_accel(){
 	return this->last_gyr;
 }
 
+//LIS3MDL_Sens::xyz IMU::get_last_mag() {
+//	return this->last_mag;
+//}
+
+Adafruit_LIS3MDL::xyz IMU::get_last_mag() {
+	return this->last_mag;
+}
+
 Quaternion IMU::get_last_attitude(){
     this->upd_attitude();
     return this->last_attitude;
@@ -171,7 +225,9 @@ Quaternion IMU::get_last_attitude(){
 void IMU::upd_attitude(){
     this->last_acc = this->bmi_sensor->get_last_accel();
     this->last_gyr = this->bmi_sensor->get_last_angle_accel();
-    this->last_mag = this->lis_sensor->get_last_mag_transformed();
+//    this->last_mag = this->lis_sensor->get_last_mag_transformed();
+    this->last_mag = this->lis_sensor->get_last_mag();
+
 
 	float Ax = (-1.0)*this->last_acc.y;
 	float Ay = this->last_acc.x;

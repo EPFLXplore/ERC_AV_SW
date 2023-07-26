@@ -234,7 +234,7 @@ static IMU_Packet packet;
 
 void IMUThread::ekf(){
 /*
-	char buffer[64] = {'\0'};
+//	char buffer[64] = {'\0'};
 	BMI088_Sens::xyz acc_ang = this->bmi_dummy_sensor->get_last_angle_accel_w_bias();
 	BMI088_Sens::xyz acc = this->bmi_dummy_sensor->get_last_accel_w_bias();
 	LIS3MDL_Sens::xyz mag = this->lis_dummy_sensor->get_last_mag_transformed();
@@ -300,8 +300,6 @@ void IMUThread::ekf(){
 
 void IMUThread::loop() {
 
-	char buffer[64] = {'\0'};
-
 	//auto start_time = xTaskGetTickCount();
 
 /*
@@ -332,12 +330,16 @@ void IMUThread::loop() {
 	imu_data.accel = bnoVectorToVector(this->my_imu->get_last_linear_accel());
 	imu_data.gyro = bnoVectorToVector(this->my_imu->get_last_angular_accel());
 	imu_data.orientation = this->my_imu->get_last_attitude();
+
+	Vector mag = bnoVectorToVector(this->my_imu->get_last_mag());
 //	imu_data.gyro = quaternionToEuler(quat);
 
 	//Vector vec = {1.0, 12.0, 0.10};
-//	sprintf(buffer, "%+.6f,%+.6f,%+.6f\n",vec.x, vec.y, vec.z);
+//	sprintf(cbuf, "Raw:%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f\n",imu_data.accel.x, imu_data.accel.y, imu_data.accel.z, imu_data.gyro.x, imu_data.gyro.y, imu_data.gyro.z, mag.x, mag.y, mag.z);
+//	sprintf(cbuf, "%.6f,%.6f,%.6f\n", mag.x, mag.y, mag.z);
+	printf("acc x: %f y: %f z: %f \t gyro x: %f, y: %f, z: %f \t mag x: %f, y: %f z: %f \n", imu_data.accel.x, imu_data.accel.y, imu_data.accel.z, imu_data.gyro.x, imu_data.gyro.y, imu_data.gyro.z, mag.x, mag.y, mag.z);
 
-//	HAL_UART_Transmit(&huart1, (uint8_t*)buffer, 64, 1);
+//	HAL_UART_Transmit(&huart1, (uint8_t*)cbuf, 256, 1);
 	//printf("%.3f, %.3f, %3f, %.3f\n", acc_ang.x, acc_ang.y, acc_ang.z, 0.0);
 
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
@@ -350,7 +352,7 @@ void IMUThread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(5);
+	osDelay(100);
 }
 
 Vector IMUThread::bnoVectorToVector(BMI088_Sens::xyz v) {
@@ -362,5 +364,26 @@ Vector IMUThread::bnoVectorToVector(BMI088_Sens::xyz v) {
 
 	return vector;
 }
+
+Vector IMUThread::bnoVectorToVector(LIS3MDL_Sens::xyz v) {
+	Vector vector;
+
+	vector.x = v.x;
+	vector.y = v.y;
+	vector.z = v.z;
+
+	return vector;
+}
+
+Vector IMUThread::bnoVectorToVector(Adafruit_LIS3MDL::xyz v) {
+	Vector vector;
+
+	vector.x = v.x;
+	vector.y = v.y;
+	vector.z = v.z;
+
+	return vector;
+}
+
 
 

@@ -34,6 +34,8 @@ public:
 	void loop();
 	LIS3MDL_Sens::xyz apply_calibration_transformation(const LIS3MDL_Sens::xyz& mag_data);
 	Vector bnoVectorToVector(BMI088_Sens::xyz v);
+	Vector bnoVectorToVector(LIS3MDL_Sens::xyz v);
+	Vector bnoVectorToVector(Adafruit_LIS3MDL::xyz v);
 private:
 
 	BMI088_Sens::xyz apply_calibration_gyro(const BMI088_Sens::xyz& gyro_data);

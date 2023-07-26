@@ -10,6 +10,7 @@
 
 #include <bmi088_sens.hpp>
 #include <lis3mdl_sens.hpp>
+#include <LIS3MDL.hpp>
 #include <ekf_imu.h>
 #include <ekf.h>
 #include <matrix.h>
@@ -29,6 +30,8 @@ public:
     bool initialize_sensors(BMI088_Sens::Config bmi_config, LIS3MDL_Sens::Config lis_config);
     BMI088_Sens::xyz get_last_linear_accel();
     BMI088_Sens::xyz get_last_angular_accel();
+//    LIS3MDL_Sens::xyz get_last_mag();
+    Adafruit_LIS3MDL::xyz get_last_mag();
     Quaternion get_last_attitude();
     void init_ekfs();
 
@@ -53,7 +56,8 @@ private:
     float_prec EKF_QINIT_data[ss_x_len*ss_x_len];
 
 	BMI088_Sens* bmi_sensor;
-	LIS3MDL_Sens* lis_sensor;
+//	LIS3MDL_Sens* lis_sensor;
+	Adafruit_LIS3MDL* lis_sensor;
     I2C_HandleTypeDef* i2c_handle;
     BMI088_Sens::Config bmi_conf;
     LIS3MDL_Sens::Config lis_conf;
@@ -77,7 +81,7 @@ private:
 
     BMI088_Sens::xyz last_acc = {0.0, 0.0, 0.0};
     BMI088_Sens::xyz last_gyr = {0.0, 0.0, 0.0};
-    LIS3MDL_Sens::xyz last_mag = {0.0, 0.0, 0.0};
+    Adafruit_LIS3MDL::xyz last_mag = {0.0, 0.0, 0.0};
 
     Quaternion last_attitude = {0.0, 0.0, 0.0, 0.0};
 

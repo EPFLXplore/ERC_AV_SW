@@ -35,14 +35,21 @@ void ProberThread::init() {
 //	this->instance = new FourInOneThread();
 //	this->instance = new ModbusThread(this);
 
-	    for(uint16_t i=1; i<128; i++)
-	    {
-	    	HAL_StatusTypeDef ret = HAL_I2C_IsDeviceReady(hi2c, (uint16_t)(i<<1), 3, 5);
-	        if(ret == HAL_OK)
-	        {
-	        	printf("%d \n", i);
-	        }
-	    }
+	int i = 0;
+	if (hi2c == &hi2c1)
+		i = 1;
+	else if (hi2c == &hi2c2)
+		i = 2;
+	else if (hi2c == &hi2c3)
+		i = 3;
+	for(uint16_t id=1; id<128; id++)
+	{
+		HAL_StatusTypeDef ret = HAL_I2C_IsDeviceReady(hi2c, (uint16_t)(id<<1), 3, 5);
+		if(ret == HAL_OK)
+		{
+			printf("Device ID %d found on I2C %d \n", id, i);
+		}
+	}
 }
 
 bool ProberThread::probeI2C(uint8_t address) {
@@ -69,10 +76,10 @@ void ProberThread::loop() {
 //			this->instance = new PotentiometerThread(this);
 //			xSemaphoreTake(semaphore, portMAX_DELAY);
 //	}
-//	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
-//		this->instance = new IMUThread(this);
-//		xSemaphoreTake(semaphore, portMAX_DELAY);
-//	}
+	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
+		this->instance = new IMUThread(this);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
+	}
 //	if (probeI2C(AS7265X_ADDR)) {
 //		this->instance = new AS7265Thread(this);
 //		xSemaphoreTake(semaphore, portMAX_DELAY);
