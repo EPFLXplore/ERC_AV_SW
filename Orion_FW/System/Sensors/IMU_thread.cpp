@@ -331,17 +331,17 @@ void IMUThread::loop() {
 	imu_data.gyro = bnoVectorToVector(this->my_imu->get_last_angular_accel());
 	imu_data.orientation = this->my_imu->get_last_attitude();
 
-	Vector mag = bnoVectorToVector(this->my_imu->get_last_mag());
+//	Vector mag = bnoVectorToVector(this->my_imu->get_last_mag());
 //	imu_data.gyro = quaternionToEuler(quat);
 
 	//Vector vec = {1.0, 12.0, 0.10};
 //	sprintf(cbuf, "Raw:%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f\n",imu_data.accel.x, imu_data.accel.y, imu_data.accel.z, imu_data.gyro.x, imu_data.gyro.y, imu_data.gyro.z, mag.x, mag.y, mag.z);
 //	sprintf(cbuf, "%.6f,%.6f,%.6f\n", mag.x, mag.y, mag.z);
-	printf("acc x: %f y: %f z: %f \t gyro x: %f, y: %f, z: %f \t mag x: %f, y: %f z: %f \n", imu_data.accel.x, imu_data.accel.y, imu_data.accel.z, imu_data.gyro.x, imu_data.gyro.y, imu_data.gyro.z, mag.x, mag.y, mag.z);
+//	printf("acc x: %f y: %f z: %f \t gyro x: %f, y: %f, z: %f \t mag x: %f, y: %f z: %f \n", imu_data.accel.x, imu_data.accel.y, imu_data.accel.z, imu_data.gyro.x, imu_data.gyro.y, imu_data.gyro.z, mag.x, mag.y, mag.z);
 
 //	HAL_UART_Transmit(&huart1, (uint8_t*)cbuf, 256, 1);
 	//printf("%.3f, %.3f, %3f, %.3f\n", acc_ang.x, acc_ang.y, acc_ang.z, 0.0);
-
+//	printf("quat %s", imu_data.orientation.toString(cbuf));
 	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
 		// Send data over RoCo network
 		imu_data.toArray((uint8_t*) &packet);
@@ -352,7 +352,7 @@ void IMUThread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(100);
+	osDelay(5);
 }
 
 Vector IMUThread::bnoVectorToVector(BMI088_Sens::xyz v) {

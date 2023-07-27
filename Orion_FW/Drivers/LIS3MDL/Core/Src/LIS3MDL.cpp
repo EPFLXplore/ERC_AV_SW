@@ -167,6 +167,10 @@ void Adafruit_LIS3MDL::read(void) {
   x_gauss = (float)x / scale;
   y_gauss = (float)y / scale;
   z_gauss = (float)z / scale;
+
+  x_uT = x_gauss*100;
+  y_uT = y_gauss*100;
+  z_uT = z_gauss*100;
 }
 
 /**************************************************************************/
@@ -425,5 +429,16 @@ int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
 
 Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag() {
 	read();
-	return Adafruit_LIS3MDL::xyz{x_gauss, y_gauss, z_gauss};
+	return Adafruit_LIS3MDL::xyz{x_uT, y_uT, z_uT};
+}
+
+Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag_cal() {
+	read();
+	float x_nb = x_uT - HARD_IRON[0][0];
+	float y_nb = y_uT - HARD_IRON[0][1];
+	float z_nb = z_uT - HARD_IRON[0][2];
+
+	x_cal_uT = SOFT_IRON[0][0]*x_nb + SOFT_IRON[0][1]*y_nb + SOFT_IRON[0][2]*z_nb;
+	y_cal_uT = SOFT_IRON[1][0]*x_nb + SOFT_IRON[1][1]*y_nb + SOFT_IRON[1][2]*z_nb;
+	z_cal_uT = SOFT_IRON[2][0]*x_nb + SOFT_IRON[2][1]*y_nb + SOFT_IRON[2][2]*z_nb;
 }
