@@ -27,7 +27,7 @@
 
 class IMUThread : public Thread {
 public:
-	IMUThread(ProberThread* parent) : Thread("IMU", osPriorityRealtime, 8192), parent(parent), portNum(parent->getI2CNum()),
+	IMUThread(ProberThread* parent) : Thread("IMU"), parent(parent), portNum(parent->getI2CNum()),
 	//dummy_sensor(parent->getI2C(), BMI08_ACCEL_I2C_ADDR_PRIMARY),
 		dummy_member(0), my_imu(new IMU(parent->getI2C(),P_INIT, Q_INIT, R_INIT_ACC, R_INIT_MAG)) {}
 	void init();

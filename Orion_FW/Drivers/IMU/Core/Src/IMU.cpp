@@ -70,14 +70,14 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
     Rn_INIT_MAG(rn_init_mag),
 
     UKF_PINIT_data({P_INIT, 0,      0,      0,
-                            0,      P_INIT, 0,      0,
-                            0,      0,      P_INIT, 0,
-                            0,      0,      0,      P_INIT}),
+					0,      P_INIT, 0,      0,
+					0,      0,      P_INIT, 0,
+					0,      0,      0,      P_INIT}),
 
-    UKF_RVINIT_data({Rv_INIT, 0,      0,      0,
-                            0,      Rv_INIT, 0,      0,
-                            0,      0,      Rv_INIT, 0,
-                            0,      0,      0,      Rv_INIT}),
+    UKF_RVINIT_data({Rv_INIT, 0,       0,       0,
+					 0,       Rv_INIT, 0,       0,
+					 0,       0,       Rv_INIT, 0,
+					 0,       0,       0,       Rv_INIT}),
 
 	UKF_RNINIT_data({Rn_INIT_ACC, 0,          0,          0,          0,          0,
 					0,          Rn_INIT_ACC, 0,          0,          0,          0,
@@ -90,7 +90,6 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
 	UKF_RnINIT(ss_z_len, ss_z_len, UKF_RNINIT_data),
     Y(ss_z_len, 1),
 	U(ss_u_len, 1),
-
     UKF_IMU(quaternionData, UKF_PINIT, UKF_RvINIT, UKF_RnINIT,
     Main_bUpdateNonlinearX,
     Main_bUpdateNonlinearY)
@@ -222,7 +221,7 @@ void IMU::upd_attitude(){
     this->last_acc = this->bmi_sensor->get_last_accel();
     this->last_gyr = this->bmi_sensor->get_last_angle_accel();
 //    this->last_mag = this->lis_sensor->get_last_mag_transformed();
-    this->last_mag = this->lis_sensor->get_last_mag();
+    this->last_mag_cal = this->lis_sensor->get_last_mag_cal();
 
 
 	float Ax = (-1.0)*this->last_acc.y;
@@ -263,7 +262,7 @@ void IMU::upd_attitude(){
     this->UKF_IMU.bUpdate(this->Y, this->U);
     this->quaternionData = UKF_IMU.GetX();
     this->last_timestamp = current_timestamp;
-    
+
     this->last_attitude.w = this->quaternionData[0][0];
     this->last_attitude.x = this->quaternionData[1][0];
     this->last_attitude.y = this->quaternionData[2][0];

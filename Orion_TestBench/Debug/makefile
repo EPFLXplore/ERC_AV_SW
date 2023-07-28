@@ -81,8 +81,8 @@ all: main-build
 main-build: Orion_TestBench.elf secondary-outputs
 
 # Tool invocations
-Orion_TestBench.elf Orion_TestBench.map: $(OBJS) $(USER_OBJS) C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_TestBench\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Orion_TestBench.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\41786\STM32CubeIDE\workspace_1.7.0\AV_SW_workspace\Orion_TestBench\STM32H750VBTX_FLASH.ld" -Wl,-Map="Orion_TestBench.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Orion_TestBench.elf Orion_TestBench.map: $(OBJS) $(USER_OBJS) C:\Users\Vincent\Documents\Xplore\GitHub\AV_SW_workspace\Orion_TestBench\STM32H750VBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Orion_TestBench.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\Vincent\Documents\Xplore\GitHub\AV_SW_workspace\Orion_TestBench\STM32H750VBTX_FLASH.ld" -Wl,-Map="Orion_TestBench.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

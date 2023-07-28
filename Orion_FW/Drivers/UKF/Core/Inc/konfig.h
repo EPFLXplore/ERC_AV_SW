@@ -25,12 +25,12 @@
 #define MATRIX_MAXIMUM_SIZE     (9)
 
 /* Define this to enable matrix bound checking */
-#define MATRIX_USE_BOUNDS_CHECKING
+//#define MATRIX_USE_BOUNDS_CHECKING
 
 /* Set this define to choose math precision of the system */
 #define PRECISION_SINGLE    1
 #define PRECISION_DOUBLE    2
-#define FPU_PRECISION       (PRECISION_DOUBLE)
+#define FPU_PRECISION       (PRECISION_SINGLE)
 
 #if (FPU_PRECISION == PRECISION_SINGLE)
     #define float_prec          float

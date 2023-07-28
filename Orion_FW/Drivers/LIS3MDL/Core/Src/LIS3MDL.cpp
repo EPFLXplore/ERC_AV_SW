@@ -441,4 +441,6 @@ Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag_cal() {
 	x_cal_uT = SOFT_IRON[0][0]*x_nb + SOFT_IRON[0][1]*y_nb + SOFT_IRON[0][2]*z_nb;
 	y_cal_uT = SOFT_IRON[1][0]*x_nb + SOFT_IRON[1][1]*y_nb + SOFT_IRON[1][2]*z_nb;
 	z_cal_uT = SOFT_IRON[2][0]*x_nb + SOFT_IRON[2][1]*y_nb + SOFT_IRON[2][2]*z_nb;
+
+	return Adafruit_LIS3MDL::xyz{x_cal_uT, y_cal_uT, z_cal_uT};
 }

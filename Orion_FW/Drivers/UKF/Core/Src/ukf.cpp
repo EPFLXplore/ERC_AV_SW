@@ -158,19 +158,19 @@ bool UKF::bUpdate(const Matrix& Y, const Matrix& U)
     if (!bCalculateSigmaPoint()) {
         return false;
     }
-    
-    
+
+
     /* Unscented Transform XSigma [f,XSigma,u,Rv] -> [x,XSigma,P,DX]:       ...{UKF_5a} - {UKF_8a} */
     if (!bUnscentedTransform(X_Est, X_Sigma, P, DX, bNonlinearUpdateX, X_Sigma, U, Rv)) {
         return false;
     }
-    
+
     /* Unscented Transform YSigma [h,XSigma,u,Rn] -> [y_est,YSigma,Py,DY]:  ...{UKF_5b} - {UKF_8b} */
     if (!bUnscentedTransform(Y_Est, Y_Sigma, Py, DY, bNonlinearUpdateY, X_Sigma, U, Rn)) {
         return false;
     }
-    
-    
+
+
     /* Calculate Cross-Covariance Matrix:
      *  Pxy(k) = sum(Wc(i)*DX*DY(i))            ; i = 1 ... (2N+1)          ...{UKF_9}
      */
@@ -180,8 +180,8 @@ bool UKF::bUpdate(const Matrix& Y, const Matrix& U)
         }
     }
     Pxy = DX * (DY.Transpose());
-    
-    
+
+
     /* Calculate the Kalman Gain:
      *  K           = Pxy(k) * (Py(k)^-1)                                   ...{UKF_10}
      */
@@ -190,15 +190,15 @@ bool UKF::bUpdate(const Matrix& Y, const Matrix& U)
         return false;
     }
     Gain = Pxy * PyInv;
-    
-    
+
+
     /* Update the Estimated State Variable:
      *  x(k|k)      = x(k|k-1) + K * (y(k) - y_est(k))                      ...{UKF_11}
      */
     Err = Y - Y_Est;
     X_Est = X_Est + (Gain*Err);
-    
-    
+
+
     /* Update the Covariance Matrix:
      *  P(k|k)      = P(k|k-1) - K*Py(k)*K'                                 ...{UKF_12}
      */

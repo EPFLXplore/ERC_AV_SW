@@ -16,12 +16,12 @@
 #include <chrono>
 #include <cmath>
 #include <vector>
-#include "ekf_imu.h"
+//#include "ekf_imu.h"
 
 
 #include "matrix.h"
-#include "ekf.h"
 //#include "ekf.h"
+#include "ukf.h"
 
 /* ================================================== The AHRS/IMU variables ================================================== */
 /* Gravity vector constant (align with global Z-axis) */
@@ -352,7 +352,7 @@ void IMUThread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(5);
+//	osDelay(5);
 }
 
 Vector IMUThread::bnoVectorToVector(BMI088_Sens::xyz v) {
