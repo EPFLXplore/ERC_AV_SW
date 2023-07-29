@@ -8,37 +8,40 @@
 #include "../Inc/IMU.h"
 #include "matrix.h"
 
-IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
+IMU::IMU(I2C_HandleTypeDef* i2c_handle):i2c_handle(i2c_handle),
     quaternionData(ss_x_len, 1),
+    Q_INIT(1e-6),
     P_INIT(10.0),
-    Rv_INIT(1e-6),
-    Rn_INIT_ACC(0.0015),
-    Rn_INIT_MAG(0.0015),
+    R_INIT_ACC(15/10.0),
+    R_INIT_MAG(0.00015/10.0),
 
-    UKF_PINIT_data({P_INIT, 0,      0,      0,
+    EKF_QINIT_data({Q_INIT, 0,      0,      0,
+                            0,      Q_INIT, 0,      0,
+                            0,      0,      Q_INIT, 0,
+                            0,      0,      0,      Q_INIT}),
+
+    EKF_RINIT_data({R_INIT_ACC, 0,          0,          0,          0,          0,
+                    0,          R_INIT_ACC, 0,          0,          0,          0,
+                    0,          0,          R_INIT_ACC, 0,          0,          0,
+                    0,          0,          0,          R_INIT_MAG, 0,          0,
+                    0,          0,          0,          0,          R_INIT_MAG, 0,
+                    0,          0,          0,          0,          0,          R_INIT_MAG}),
+
+    EKF_PINIT_data({P_INIT, 0,      0,      0,
                             0,      P_INIT, 0,      0,
                             0,      0,      P_INIT, 0,
                             0,      0,      0,      P_INIT}),
 
-    UKF_RVINIT_data({Rv_INIT, 0,      0,      0,
-                            0,      Rv_INIT, 0,      0,
-                            0,      0,      Rv_INIT, 0,
-                            0,      0,      0,      Rv_INIT}),
-
-	UKF_RNINIT_data({Rn_INIT_ACC, 0,          0,          0,          0,          0,
-					0,          Rn_INIT_ACC, 0,          0,          0,          0,
-					0,          0,          Rn_INIT_ACC, 0,          0,          0,
-					0,          0,          0,          Rn_INIT_MAG, 0,          0,
-					0,          0,          0,          0,          Rn_INIT_MAG, 0,
-					0,          0,          0,          0,          0,          Rn_INIT_MAG}),
-    UKF_PINIT(ss_x_len, ss_x_len, UKF_PINIT_data),
-    UKF_RvINIT(ss_x_len, ss_x_len, UKF_RVINIT_data),
-    UKF_RnINIT(ss_z_len, ss_z_len, UKF_RNINIT_data),
+    EKF_PINIT(ss_x_len, ss_x_len, EKF_PINIT_data),
+    EKF_QINIT(ss_x_len, ss_x_len, EKF_QINIT_data),
+    EKF_RINIT(ss_z_len, ss_z_len, EKF_RINIT_data),
+    U(ss_u_len, 1),
     Y(ss_z_len, 1),
-	U(ss_u_len, 1),
-    UKF_IMU(quaternionData, UKF_PINIT, UKF_RvINIT, UKF_RnINIT,
+    EKF_IMU(quaternionData, EKF_PINIT, EKF_QINIT, EKF_RINIT,
     Main_bUpdateNonlinearX,
-    Main_bUpdateNonlinearY)
+    Main_bUpdateNonlinearY,
+    Main_bCalcJacobianF,
+    Main_bCalcJacobianH)
     {
 	    this->bmi_conf = BMI088_Sens::Config{
 				BMI088_Sens::Odr::ODR_1600HZ_BW_280HZ,
@@ -51,7 +54,7 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
 		};
 
 		this->lis_conf = LIS3MDL_Sens::Config{
-				LIS3MDL_Sens::LIS3MDL_Odr::Odr_155Hz,
+				LIS3MDL_Sens::LIS3MDL_Odr::Odr_1000Hz,
 				LIS3MDL_Sens::LIS3MDL_Range::Range_4,
 				true,
 				false,
@@ -62,38 +65,44 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
 
 	};
 
-	IMU::IMU(I2C_HandleTypeDef* i2c_handle, float p_init, float rv_init, float rn_init_acc, float rn_init_mag): i2c_handle(i2c_handle),
+	IMU::IMU(I2C_HandleTypeDef* i2c_handle, float p_init, float q_init, float r_init_acc, float r_init_mag): i2c_handle(i2c_handle),
     quaternionData(ss_x_len, 1), 
+    Q_INIT(q_init),
     P_INIT(p_init),
-    Rv_INIT(rv_init),
-    Rn_INIT_ACC(rn_init_acc),
-    Rn_INIT_MAG(rn_init_mag),
+    R_INIT_ACC(r_init_acc),
+    R_INIT_MAG(r_init_mag),
 
-    UKF_PINIT_data({P_INIT, 0,      0,      0,
-					0,      P_INIT, 0,      0,
-					0,      0,      P_INIT, 0,
-					0,      0,      0,      P_INIT}),
+    EKF_QINIT_data({Q_INIT, 0,      0,      0,
+                            0,      Q_INIT, 0,      0,
+                            0,      0,      Q_INIT, 0,
+                            0,      0,      0,      Q_INIT}),
 
-    UKF_RVINIT_data({Rv_INIT, 0,       0,       0,
-					 0,       Rv_INIT, 0,       0,
-					 0,       0,       Rv_INIT, 0,
-					 0,       0,       0,       Rv_INIT}),
+    EKF_RINIT_data({R_INIT_ACC, 0,          0,          0,          0,          0,
+                    0,          R_INIT_ACC, 0,          0,          0,          0,
+                    0,          0,          R_INIT_ACC, 0,          0,          0,
+                    0,          0,          0,          R_INIT_MAG, 0,          0,
+                    0,          0,          0,          0,          R_INIT_MAG, 0,
+                    0,          0,          0,          0,          0,          R_INIT_MAG}),
 
-	UKF_RNINIT_data({Rn_INIT_ACC, 0,          0,          0,          0,          0,
-					0,          Rn_INIT_ACC, 0,          0,          0,          0,
-					0,          0,          Rn_INIT_ACC, 0,          0,          0,
-					0,          0,          0,          Rn_INIT_MAG, 0,          0,
-					0,          0,          0,          0,          Rn_INIT_MAG, 0,
-					0,          0,          0,          0,          0,          Rn_INIT_MAG}),
-	UKF_PINIT(ss_x_len, ss_x_len, UKF_PINIT_data),
-	UKF_RvINIT(ss_x_len, ss_x_len, UKF_RVINIT_data),
-	UKF_RnINIT(ss_z_len, ss_z_len, UKF_RNINIT_data),
+    EKF_PINIT_data({P_INIT, 0,      0,      0,
+                            0,      P_INIT, 0,      0,
+                            0,      0,      P_INIT, 0,
+                            0,      0,      0,      P_INIT}),
+
+    EKF_PINIT(ss_x_len, ss_x_len, EKF_PINIT_data),
+    EKF_QINIT(ss_x_len, ss_x_len, EKF_QINIT_data),
+    EKF_RINIT(ss_z_len, ss_z_len, EKF_RINIT_data),
+    U(ss_u_len, 1),
     Y(ss_z_len, 1),
-	U(ss_u_len, 1),
-    UKF_IMU(quaternionData, UKF_PINIT, UKF_RvINIT, UKF_RnINIT,
+
+    EKF_IMU(quaternionData, EKF_PINIT, EKF_QINIT, EKF_RINIT,
     Main_bUpdateNonlinearX,
-    Main_bUpdateNonlinearY)
+    Main_bUpdateNonlinearY,
+    Main_bCalcJacobianF,
+    Main_bCalcJacobianH)
+
     {
+		this->EKF_PINIT = Matrix(ss_x_len, ss_x_len, EKF_PINIT_data);
 	    this->bmi_conf = BMI088_Sens::Config{
 				BMI088_Sens::Odr::ODR_1600HZ_BW_280HZ,
 				BMI088_Sens::Range_acc::Mg3,
@@ -105,8 +114,8 @@ IMU::IMU(I2C_HandleTypeDef* i2c_handle): i2c_handle(i2c_handle),
 		};
 
 		this->lis_conf = LIS3MDL_Sens::Config{
-				LIS3MDL_Sens::LIS3MDL_Odr::Odr_155Hz,
-				LIS3MDL_Sens::LIS3MDL_Range::Range_12,
+				LIS3MDL_Sens::LIS3MDL_Odr::Odr_1000Hz,
+				LIS3MDL_Sens::LIS3MDL_Range::Range_4,
 				true,
 				false,
 				true,
@@ -187,7 +196,7 @@ void IMU::init_ekfs(){
 
     this->quaternionData.vSetToZero();
     this->quaternionData[0][0] = 1.0;
-    this->UKF_IMU.vReset(this->quaternionData, this->UKF_PINIT, this->UKF_RvINIT, this->UKF_RnINIT);
+    this->EKF_IMU.vReset(this->quaternionData, this->EKF_PINIT, this->EKF_QINIT, this->EKF_RINIT);
 
 }
 
@@ -224,43 +233,47 @@ void IMU::upd_attitude(){
     this->last_mag_cal = this->lis_sensor->get_last_mag_cal();
 
 
-	float Ax = (-1.0)*this->last_acc.y;
-	float Ay = this->last_acc.x;
-	float Az = this->last_acc.z;
-	float Bx = this->last_mag_cal.x;
-	float By = (-1.0)*this->last_mag_cal.y;
-	float Bz = (-1.0)*this->last_mag_cal.z;
-	float p = (-1.0)*this->last_gyr.y;
-	float q = this->last_gyr.x;
-	float r = this->last_gyr.z;
+//	float Ax = this->last_acc.x;
+//	float Ay = this->last_acc.y;
+//	float Az = this->last_acc.z;
+//	float Bx = this->last_mag_cal.y;
+//	float By = this->last_mag_cal.x;
+//	float Bz = (-1.0)*this->last_mag_cal.z;
+//	float p = this->last_gyr.x;
+//	float q = this->last_gyr.y;
+//	float r = this->last_gyr.z;
+	float Ax = this->last_acc.z;
+	float Ay = this->last_acc.y;
+	float Az = this->last_acc.x;
+	float Bx = this->last_mag_cal.z;
+	float By = this->last_mag_cal.y;
+	float Bz = this->last_mag_cal.x;
+	float p = this->last_gyr.z;
+	float q = this->last_gyr.y;
+	float r = this->last_gyr.x;
 
 
-	/* Input 1:3 = gyroscope */
-	U[0][0] = p;  U[1][0] = q;  U[2][0] = r;
-	/* Output 1:3 = accelerometer */
-	Y[0][0] = Ax; Y[1][0] = Ay; Y[2][0] = Az;
-	/* Output 4:6 = magnetometer */
-	Y[3][0] = Bx; Y[4][0] = By; Y[5][0] = Bz;
+    /* Input 1:3 = gyroscope */
+    U[0][0] = p;  U[1][0] = q;  U[2][0] = r;
+    /* Output 1:3 = accelerometer */
+    Y[0][0] = Ax; Y[1][0] = Ay; Y[2][0] = Az;
+    /* Output 4:6 = magnetometer */
+    Y[3][0] = Bx; Y[4][0] = By; Y[5][0] = Bz;
 
-	/* Compensating Hard-Iron Bias for magnetometer */
-	Y[3][0] = Y[3][0];
-	Y[4][0] = Y[4][0];
-	Y[5][0] = Y[5][0];
-
-	/* Normalizing the output vector */
-	float_prec _normG = sqrt(Y[0][0] * Y[0][0]) + (Y[1][0] * Y[1][0]) + (Y[2][0] * Y[2][0]);
-	Y[0][0] = Y[0][0] / _normG;
-	Y[1][0] = Y[1][0] / _normG;
-	Y[2][0] = Y[2][0] / _normG;
-	float_prec _normM = sqrt(Y[3][0] * Y[3][0]) + (Y[4][0] * Y[4][0]) + (Y[5][0] * Y[5][0]);
-	Y[3][0] = Y[3][0] / _normM;
-	Y[4][0] = Y[4][0] / _normM;
-	Y[5][0] = Y[5][0] / _normM;
+    /* Normalizing the output vector */
+    float_prec _normG = sqrt((Y[0][0] * Y[0][0]) + (Y[1][0] * Y[1][0]) + (Y[2][0] * Y[2][0]));
+    Y[0][0] = Y[0][0] / _normG;
+    Y[1][0] = Y[1][0] / _normG;
+    Y[2][0] = Y[2][0] / _normG;
+    float_prec _normM = sqrt((Y[3][0] * Y[3][0]) + (Y[4][0] * Y[4][0]) + (Y[5][0] * Y[5][0]));
+    Y[3][0] = Y[3][0] / _normM;
+    Y[4][0] = Y[4][0] / _normM;
+    Y[5][0] = Y[5][0] / _normM;
 
     TickType_t current_timestamp = xTaskGetTickCount();
     this->dt = (float)(current_timestamp - this->last_timestamp)/(float(configTICK_RATE_HZ));
-    this->UKF_IMU.bUpdate(this->Y, this->U);
-    this->quaternionData = UKF_IMU.GetX();
+    this->EKF_IMU.bUpdate(this->Y, this->U, this->dt);
+    this->quaternionData = EKF_IMU.GetX();
     this->last_timestamp = current_timestamp;
 
     this->last_attitude.w = this->quaternionData[0][0];
@@ -270,8 +283,8 @@ void IMU::upd_attitude(){
 
 }
 
-bool IMU::Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& U)
-{
+bool IMU::Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& U, float dt){
+
     /* Insert the nonlinear update transformation here
      *          x(k+1) = f[x(k), u(k)]
      *
@@ -299,10 +312,10 @@ bool IMU::Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& 
     q = U[1][0];
     r = U[2][0];
 
-    X_Next[0][0] = (0.5 * (+0.00 -p*q1 -q*q2 -r*q3))*SS_DT + q0;
-    X_Next[1][0] = (0.5 * (+p*q0 +0.00 +r*q2 -q*q3))*SS_DT + q1;
-    X_Next[2][0] = (0.5 * (+q*q0 -r*q1 +0.00 +p*q3))*SS_DT + q2;
-    X_Next[3][0] = (0.5 * (+r*q0 +q*q1 -p*q2 +0.00))*SS_DT + q3;
+    X_Next[0][0] = (0.5 * (+0.00 -p*q1 -q*q2 -r*q3))*dt + q0;
+    X_Next[1][0] = (0.5 * (+p*q0 +0.00 +r*q2 -q*q3))*dt + q1;
+    X_Next[2][0] = (0.5 * (+q*q0 -r*q1 +0.00 +p*q3))*dt + q2;
+    X_Next[3][0] = (0.5 * (+r*q0 +q*q1 -p*q2 +0.00))*dt + q3;
 
 
     /* ======= Additional ad-hoc quaternion normalization to make sure the quaternion is a unit vector (i.e. ||q|| = 1) ======= */
@@ -358,17 +371,112 @@ bool IMU::Main_bUpdateNonlinearY(Matrix& Y, const Matrix& X, const Matrix& U)
 //    Y[5][0] = (2*(q1*q3+q0*q2)) * IMU_MAG_B0[0][0]
 //             +(2*(q2*q3-q0*q1)) * IMU_MAG_B0[1][0]
 //             +(+(q0_2)-(q1_2)-(q2_2)+(q3_2)) * IMU_MAG_B0[2][0];
-    Y[3][0] = (+(q0_2)+(q1_2)-(q2_2)-(q3_2)) * 1
-             +(2*(q1*q2+q0*q3)) * 0
-             +(2*(q1*q3-q0*q2)) * 0;
 
-    Y[4][0] = (2*(q1*q2-q0*q3)) * 1
-             +(+(q0_2)-(q1_2)+(q2_2)-(q3_2)) * 0
-             +(2*(q2*q3+q0*q1)) * 0;
+    Y[3][0] = (+(q0_2)+(q1_2)-(q2_2)-(q3_2)) * 1;
 
-    Y[5][0] = (2*(q1*q3+q0*q2)) * 1
-             +(2*(q2*q3-q0*q1)) * 0
-             +(+(q0_2)-(q1_2)-(q2_2)+(q3_2)) * 0;
+    Y[4][0] = (2*(q1*q2-q0*q3)) * 1;
+
+    Y[5][0] = (2*(q1*q3+q0*q2)) * 1;
+
+    return true;
+}
+
+bool IMU::Main_bCalcJacobianF(Matrix& F, const Matrix& X, const Matrix& U, float dt)
+{
+    /* In Main_bUpdateNonlinearX():
+     *  q0 = q0 + q0_dot * dT;
+     *  q1 = q1 + q1_dot * dT;
+     *  q2 = q2 + q2_dot * dT;
+     *  q3 = q3 + q3_dot * dT;
+     */
+    float_prec p, q, r;
+
+    p = U[0][0];
+    q = U[1][0];
+    r = U[2][0];
+
+    F[0][0] =  1.000;
+    F[1][0] =  0.5*p * dt;
+    F[2][0] =  0.5*q * dt;
+    F[3][0] =  0.5*r * dt;
+
+    F[0][1] = -0.5*p * dt;
+    F[1][1] =  1.000;
+    F[2][1] = -0.5*r * dt;
+    F[3][1] =  0.5*q * dt;
+
+    F[0][2] = -0.5*q * dt;
+    F[1][2] =  0.5*r * dt;
+    F[2][2] =  1.000;
+    F[3][2] = -0.5*p * dt;
+
+    F[0][3] = -0.5*r * dt;
+    F[1][3] = -0.5*q * dt;
+    F[2][3] =  0.5*p * dt;
+    F[3][3] =  1.000;
+
+    return true;
+}
+
+bool IMU::Main_bCalcJacobianH(Matrix& H, const Matrix& X, const Matrix& U, float dt)
+{
+    /* In Main_bUpdateNonlinearY():
+     *
+     * The measurement output is the gravitational and magnetic projection to the body:
+     *     DCM     = [(+(q0**2)+(q1**2)-(q2**2)-(q3**2)),                    2*(q1*q2+q0*q3),                    2*(q1*q3-q0*q2)]
+     *               [                   2*(q1*q2-q0*q3), (+(q0**2)-(q1**2)+(q2**2)-(q3**2)),                    2*(q2*q3+q0*q1)]
+     *               [                   2*(q1*q3+q0*q2),                    2*(q2*q3-q0*q1), (+(q0**2)-(q1**2)-(q2**2)+(q3**2))]
+     *
+     *  G_proj_sens = DCM * [0 0 -g]            --> Gravitational projection to the accelerometer sensor
+     *  M_proj_sens = DCM * [Mx My Mz]          --> (Earth) magnetic projection to the magnetometer sensor
+     */
+    float_prec q0, q1, q2, q3;
+
+    q0 = X[0][0];
+    q1 = X[1][0];
+    q2 = X[2][0];
+    q3 = X[3][0];
+
+    H[0][0] = -2*q2 * IMU_ACC_Z0;
+    H[1][0] = +2*q1 * IMU_ACC_Z0;
+    H[2][0] = +2*q0 * IMU_ACC_Z0;
+//    H[3][0] =  2*q0*IMU_MAG_B0[0][0] + 2*q3*IMU_MAG_B0[1][0] - 2*q2*IMU_MAG_B0[2][0];
+//    H[4][0] = -2*q3*IMU_MAG_B0[0][0] + 2*q0*IMU_MAG_B0[1][0] + 2*q1*IMU_MAG_B0[2][0];
+//    H[5][0] =  2*q2*IMU_MAG_B0[0][0] - 2*q1*IMU_MAG_B0[1][0] + 2*q0*IMU_MAG_B0[2][0];
+    H[3][0] =  2*q0;
+    H[4][0] = -2*q3;
+    H[5][0] =  2*q2;
+
+    H[0][1] = +2*q3 * IMU_ACC_Z0;
+    H[1][1] = +2*q0 * IMU_ACC_Z0;
+    H[2][1] = -2*q1 * IMU_ACC_Z0;
+//    H[3][1] =  2*q1*IMU_MAG_B0[0][0]+2*q2*IMU_MAG_B0[1][0] + 2*q3*IMU_MAG_B0[2][0];
+//    H[4][1] =  2*q2*IMU_MAG_B0[0][0]-2*q1*IMU_MAG_B0[1][0] + 2*q0*IMU_MAG_B0[2][0];
+//    H[5][1] =  2*q3*IMU_MAG_B0[0][0]-2*q0*IMU_MAG_B0[1][0] - 2*q1*IMU_MAG_B0[2][0];
+    H[3][1] =  2*q1;
+    H[4][1] =  2*q2;
+    H[5][1] =  2*q3;
+
+    H[0][2] = -2*q0 * IMU_ACC_Z0;
+    H[1][2] = +2*q3 * IMU_ACC_Z0;
+    H[2][2] = -2*q2 * IMU_ACC_Z0;
+//    H[3][2] = -2*q2*IMU_MAG_B0[0][0]+2*q1*IMU_MAG_B0[1][0] - 2*q0*IMU_MAG_B0[2][0];
+//    H[4][2] =  2*q1*IMU_MAG_B0[0][0]+2*q2*IMU_MAG_B0[1][0] + 2*q3*IMU_MAG_B0[2][0];
+//    H[5][2] =  2*q0*IMU_MAG_B0[0][0]+2*q3*IMU_MAG_B0[1][0] - 2*q2*IMU_MAG_B0[2][0];
+    H[3][2] = -2*q2;
+    H[4][2] =  2*q1;
+    H[5][2] =  2*q0;
+
+    H[0][3] = +2*q1 * IMU_ACC_Z0;
+    H[1][3] = +2*q2 * IMU_ACC_Z0;
+    H[2][3] = +2*q3 * IMU_ACC_Z0;
+//    H[3][3] = -2*q3*IMU_MAG_B0[0][0]+2*q0*IMU_MAG_B0[1][0] + 2*q1*IMU_MAG_B0[2][0];
+//    H[4][3] = -2*q0*IMU_MAG_B0[0][0]-2*q3*IMU_MAG_B0[1][0] + 2*q2*IMU_MAG_B0[2][0];
+//    H[5][3] =  2*q1*IMU_MAG_B0[0][0]+2*q2*IMU_MAG_B0[1][0] + 2*q3*IMU_MAG_B0[2][0];
+    H[3][3] = -2*q3;
+    H[4][3] = -2*q0;
+    H[5][3] =  2*q1;
+
     return true;
 }
 

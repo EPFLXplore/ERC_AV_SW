@@ -1,7 +1,16 @@
+/*
+ * matrix.h
+ *
+ *  Created on: May 20, 2023
+ *      Author: leo
+ */
+
+#ifndef EKF_CORE_INC_MATRIX_H_
+#define EKF_CORE_INC_MATRIX_H_
 /*************************************************************************************************************
  * Matrix Class
  *  Contain the matrix class definition and operation.
- * 
+ *
  *  Notes:
  *    a. The matrix data is a 2 dimensional array, with structure:
  *      ->  0 <= i16row <= MATRIX_MAXIMUM_SIZE
@@ -9,18 +18,18 @@
  *      ->  floatData[MATRIX_MAXIMUM_SIZE][MATRIX_MAXIMUM_SIZE] is the memory
  *           representation of the matrix. We only use the first i16row-th
  *           and first i16col-th memory for the matrix data. The rest is unused.
- * 
+ *
  *    b. Indexing start from 0, there are 3 ways to access the data:
  *          1. A(idxRow,idxCol)       <-- The preferred way. With bounds checking.
  *          2. A[idxRow][idxCol]      <-- Slow, not recommended, but makes a cute code. With bounds checking.
  *          3. A._at(idxRow,idxCol)   <-- Just for internal function usage. Without bounds checking.
- *       
+ *
  *       Accessing index start from 0 until i16row/i16col, that is:
  *          (0 <= idxRow < i16row)     and     (0 <= idxRow < i16col).
- * 
+ *
  *    See below at "Data structure of Matrix class" at private member class definition for more information!
- * 
- * 
+ *
+ *
  * Class Matrix Versioning:
  *    v0.10 (2020-04-29), {PNb}:
  *      - Add NoInitMatZero for _outp matrix initialization in ForwardSubtitution.
@@ -34,7 +43,7 @@
  *      - No need to check fabs(_normM) as non-zero in bNormVector().
  *      - Add operator != (checking with float_prec_ZERO_ECO).
  *      - Add MatIdentity() function.
- * 
+ *
  *    v0.9 (2020-04-28), {PNb}:
  *      - Set all function as inline function (insert oprah meme here).
  *      - Rework matrix library to increase readability.
@@ -52,41 +61,41 @@
  *       - Implement assignment operator       (more more sweet speed up, 382 us -> 327 us!).
  *       - Remove Copy() function, use assignment operator instead.
  *       - Change MATRIX_USE_BOUND_CHECKING -> MATRIX_USE_BOUNDS_CHECKING (see ...BOUND*S*_CH...).
- *  
+ *
  *    v0.8 (2020-03-26), {PNb}:
  *      - Change indexing from int32_t to int16_t.
  *      - Add way to initialize matrix with existing float_prec array.
  *      - Add enum InitZero.
- *      - Make temporary matrix initialization inside almost all method with 
+ *      - Make temporary matrix initialization inside almost all method with
  *          NoInitMatZero argument.
  *      - Remove the 1 index buffer reserve in bMatrixIsValid function.
- *      - Add bMatrixIsPositiveDefinite method to check the positive 
+ *      - Add bMatrixIsPositiveDefinite method to check the positive
  *          (semi)definiteness of a matrix.
  *      - Add GetDiagonalEntries method.
  *      - Change SYSTEM_IMPLEMENTATION_EMBEDDED_NO_PRINT into
  *          SYSTEM_IMPLEMENTATION_EMBEDDED_CUSTOM, and make vPrint and
  *          vPrintFull as function declaration (the user must define that
- *          function somewhere). 
- * 
+ *          function somewhere).
+ *
  *    v0.7 (2020-02-23), {PNb}:
  *      - Make the matrix class interface in English (at long last, yay?).
- * 
- * 
+ *
+ *
  *** Documentation below is for tracking purpose *************************************
- * 
+ *
  *    v0.6 (2020-01-16), {PNb}:
- *      - Tambahkan sanity check saat pengecekan MATRIX_PAKAI_BOUND_CHECKING 
+ *      - Tambahkan sanity check saat pengecekan MATRIX_PAKAI_BOUND_CHECKING
  *          dengan membandingkan baris & kolom dengan MATRIX_MAXIMUM_SIZE.
  *      - Menambahkan pengecekan matrix untuk operasi dasar antar matrix (*,+,-).
- * 
+ *
  *    v0.5 (2020-01-14), {PNb}:
  *      - Buat file matrix.cpp (akhirnya!) untuk definisi fungsi di luar class.
  *      - Tambahkan operator overloading untuk operasi negatif matrix (mis. a = -b).
- *      - Tambahkan operator overloading untuk operasi penjumlahan & pengurangan 
+ *      - Tambahkan operator overloading untuk operasi penjumlahan & pengurangan
  *          dengan scalar.
  *      - Ubah evaluasi MATRIX_PAKAI_BOUND_CHECKING menggunakan ASSERT.
  *      - Tambahkan pengecekan index selalu positif di MATRIX_PAKAI_BOUND_CHECKING.
- * 
+ *
  *    v0.4 (2020-01-10), {PNb}:
  *      - Tambahkan rounding to zero sebelum operasi sqrt(x) untuk menghindari
  *          kasus x = 0-
@@ -94,12 +103,12 @@
  *          lagi setelah memanggil QRDec untuk mendapatkan Q).
  *      - Menambahkan pengecekan hasil HouseholderTransformQR di dalam QRDec.
  *      - Tambah warning jika MATRIX_PAKAI_BOUND_CHECKING dinonaktifkan.
- * 
+ *
  *    v0.3_engl (2019-12-31), {PNb}:
  *      - Modifikasi dokumentasi kode buat orang asing.
- * 
+ *
  *    v0.3 (2019-12-25), {PNb}:
- *      - Menambahkan fungsi back subtitution untuk menyelesaikan permasalahan 
+ *      - Menambahkan fungsi back subtitution untuk menyelesaikan permasalahan
  *          persamaan linear Ax = B. Dengan A matrix segitiga atas & B vektor.
  *      - Memperbaiki bug pengecekan MATRIX_PAKAI_BOUND_CHECKING pada indexing kolom.
  *      - Menambahkan fungsi QR Decomposition (via Householder Transformation).
@@ -110,7 +119,7 @@
  *          operasi insert dari SubMatrix ke SubMatrix.
  *      - Saat inisialisasi, matrix diisi nol (melalui vIsiHomogen(0.0)).
  *      - Menambahkan function overloading operator '/' dengan scalar.
- * 
+ *
  *    v0.2 (2019-11-30), {PNb}:
  *      - Fungsi yang disupport:
  *          - Operator ==
@@ -118,13 +127,13 @@
  *          - Cholesky Decomposition
  *          - InsertSubMatrix
  *          - InsertVector
- * 
- *    v0.1 (2019-11-29), {PNb}: 
+ *
+ *    v0.1 (2019-11-29), {PNb}:
  *      - Fungsi yang disupport:
  *          - Operasi matrix dasar
  *          - Invers
  *          - Cetak
- * 
+ *
  * See https://github.com/pronenewbits for more!
  ************************************************************************************************************/
 #ifndef MATRIX_H
@@ -134,13 +143,14 @@
 #include "stdio.h"
 #include "string.h"
 
+
 #if (SYSTEM_IMPLEMENTATION == SYSTEM_IMPLEMENTATION_PC)
     #include <iostream>
     #include <iomanip>      // std::setprecision
 
     using namespace std;
 #elif (SYSTEM_IMPLEMENTATION == SYSTEM_IMPLEMENTATION_EMBEDDED_ARDUINO)
-    #include <Wire.h>
+    //#include <Wire.h>
 #endif
 
 
@@ -151,8 +161,8 @@ public:
         InitMatWithZero,    /* Initialize matrix with zero data */
         NoInitMatZero
     } InitZero;
-    
-    
+
+
     /* --------------------------------------------- Basic Matrix Class functions --------------------------------------------- */
     /* Init empty matrix size _i16row x _i16col */
     Matrix(const int16_t _i16row, const int16_t _i16col, const InitZero _init = InitMatWithZero);
@@ -167,13 +177,13 @@ public:
     /* Get internal state */
     inline int16_t i16getRow(void) const { return this->i16row; }
     inline int16_t i16getCol(void) const { return this->i16col; }
-    
-    
+
+
     /* ------------------------------------------- Matrix entry accessing functions ------------------------------------------- */
     /* For example: A(1,2) access the 1st row and 2nd column data of matrix A <--- The preferred way to access the matrix */
     float_prec& operator () (const int16_t _row, const int16_t _col);
     float_prec operator () (const int16_t _row, const int16_t _col) const;
-    
+
     /* For example: A[1][2] access the 1st row and 2nd column data of matrix A <-- The awesome way */
     class Proxy {
         public:
@@ -190,8 +200,8 @@ public:
     };
     Proxy operator [] (const int16_t _row);
     const Proxy operator [] (const int16_t _row) const;
-    
-    
+
+
     /* ----------------------------------------- Matrix checking function declaration ----------------------------------------- */
     bool bMatrixIsValid(void);
     void vSetMatrixInvalid(void);
@@ -251,34 +261,34 @@ public:
      */
     Matrix ForwardSubtitution(const Matrix& A, const Matrix& B) const;
     /* ----------------------------------------------- Matrix printing function ----------------------------------------------- */
-//    void vPrint(void);
-//    void vPrintFull(void);
-    
+    void vPrint(void);
+    void vPrintFull(void);
+
 private:
     /* Data structure of Matrix class:
      *  0 <= i16row <= MATRIX_MAXIMUM_SIZE      ; i16row is the row of the matrix. i16row is invalid if (i16row == -1)
      *  0 <= i16col <= MATRIX_MAXIMUM_SIZE      ; i16col is the column of the matrix. i16col is invalid if (i16col == -1)
-     * 
+     *
      * Accessing index start from 0 until i16row/i16col, that is:
      *  (0 <= idxRow < i16row)     and     (0 <= idxCol < i16col).
      * There are 3 ways to access the data:
      *  1. A[idxRow][idxCol]          <-- Slow, not recommended, but make a cute code. With bounds checking.
      *  2. A(idxRow, idxCol)          <-- The preferred way. With bounds checking.
      *  3. A._at(idxRow, idxCol)      <-- Just for internal function usage. Without bounds checking.
-     * 
+     *
      * floatData[MATRIX_MAXIMUM_SIZE][MATRIX_MAXIMUM_SIZE] is the memory representation of the matrix. We only use the
      *  first i16row-th and first i16col-th memory for the matrix data. The rest is unused.
-     * 
+     *
      * This configuration might seems wasteful (yes it is). But with this, we can make the matrix library code as cleanly
      *  as possible (like I said in the github page, I've made decision to sacrifice speed & performance to get best code
      *  readability I could get).
-     * 
+     *
      * You could change the data structure of floatData if you want to make the implementation more memory efficient.
      */
     int16_t i16row;
     int16_t i16col;
     float_prec floatData[MATRIX_MAXIMUM_SIZE][MATRIX_MAXIMUM_SIZE];
-    
+
     /* Private way to access floatData without bound checking.
      *  TODO: For Matrix member function we could do the bound checking once at the beginning of the function, and use this
      *          to access the floatData instead of (i,j) operator. From preliminary experiment doing this only on elementary
@@ -311,7 +321,7 @@ inline Matrix MatIdentity(const int16_t _i16size);
 inline Matrix::Matrix(const int16_t _i16row, const int16_t _i16col, const InitZero _init) {
     this->i16row = _i16row;
     this->i16col = _i16col;
-    
+
     if (_init == InitMatWithZero) {
         this->vSetHomogen(0.0);
     }
@@ -320,7 +330,7 @@ inline Matrix::Matrix(const int16_t _i16row, const int16_t _i16col, const InitZe
 inline Matrix::Matrix(const int16_t _i16row, const int16_t _i16col, const float_prec* initData, const InitZero _init) {
     this->i16row = _i16row;
     this->i16col = _i16col;
-    
+
     if (_init == InitMatWithZero) {
         this->vSetHomogen(0.0);
     }
@@ -336,7 +346,7 @@ inline Matrix::Matrix(const Matrix& old_obj) {
     /* For copy contructor, we only need to copy (_i16row x _i16col) submatrix, there's no need to copy all data */
     this->i16row = old_obj.i16row;
     this->i16col = old_obj.i16col;
-    
+
     const float_prec *sourc = old_obj.floatData[0];
     float_prec *desti = this->floatData[0];
 
@@ -352,7 +362,7 @@ inline Matrix& Matrix::operator = (const Matrix& obj) {
     /* For assignment operator, we only need to copy (_i16row x _i16col) submatrix, there's no need to copy all data */
     this->i16row = obj.i16row;
     this->i16col = obj.i16col;
-    
+
     const float_prec *sourc = obj.floatData[0];
     float_prec *desti = this->floatData[0];
 
@@ -362,7 +372,7 @@ inline Matrix& Matrix::operator = (const Matrix& obj) {
         sourc += (MATRIX_MAXIMUM_SIZE);
         desti += (MATRIX_MAXIMUM_SIZE);
     }
-    
+
     return *this;
 }
 
@@ -377,6 +387,7 @@ inline Matrix::~Matrix(void) {
 
 /* The preferred method to access the matrix data (boring code) */
 inline float_prec& Matrix::operator () (const int16_t _row, const int16_t _col) {
+/*
     #if (defined(MATRIX_USE_BOUNDS_CHECKING))
         ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
                "Matrix index out-of-bounds (at row evaluation)");
@@ -385,17 +396,20 @@ inline float_prec& Matrix::operator () (const int16_t _row, const int16_t _col) 
     #else
         #warning("Matrix bounds checking is disabled... good luck >:3");
     #endif
+*/
     return this->floatData[_row][_col];
 }
 inline float_prec Matrix::operator () (const int16_t _row, const int16_t _col) const {
-//    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
-//        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
-//               "Matrix index out-of-bounds (at row evaluation)");
-//        ASSERT((_col >= 0) && (_col < this->i16col) && (_col < MATRIX_MAXIMUM_SIZE),
-//               "Matrix index out-of-bounds (at column _column)");
-//    #else
-//        #warning("Matrix bounds checking is disabled... good luck >:3");
-//    #endif
+/*
+    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
+        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
+               "Matrix index out-of-bounds (at row evaluation)");
+        ASSERT((_col >= 0) && (_col < this->i16col) && (_col < MATRIX_MAXIMUM_SIZE),
+               "Matrix index out-of-bounds (at column _column)");
+    #else
+        #warning("Matrix bounds checking is disabled... good luck >:3");
+    #endif
+*/
     return this->floatData[_row][_col];
 }
 
@@ -403,39 +417,39 @@ inline float_prec Matrix::operator () (const int16_t _row, const int16_t _col) c
  * Modified to be lvalue modifiable (I know this is so dirty, but it makes the code so FABULOUS XD)
  */
 inline float_prec & Matrix::Proxy::operator [] (const int16_t _col) {
-    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
-        ASSERT((_col >= 0) && (_col < this->_maxCol) && (_col < MATRIX_MAXIMUM_SIZE),
-                "Matrix index out-of-bounds (at column evaluation)");
-    #else
-        #warning("Matrix bounds checking is disabled... good luck >:3");
-    #endif
+//    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
+//        ASSERT((_col >= 0) && (_col < this->_maxCol) && (_col < MATRIX_MAXIMUM_SIZE),
+//                "Matrix index out-of-bounds (at column evaluation)");
+//    #else
+//        #warning("Matrix bounds checking is disabled... good luck >:3");
+//    #endif
     return _array.ptr[_col];
 }
 inline float_prec Matrix::Proxy::operator [] (const int16_t _col) const {
-    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
-        ASSERT((_col >= 0) && (_col < this->_maxCol) && (_col < MATRIX_MAXIMUM_SIZE),
-                "Matrix index out-of-bounds (at column evaluation)");
-    #else
-        #warning("Matrix bounds checking is disabled... good luck >:3");
-    #endif
+//    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
+//        ASSERT((_col >= 0) && (_col < this->_maxCol) && (_col < MATRIX_MAXIMUM_SIZE),
+//                "Matrix index out-of-bounds (at column evaluation)");
+//    #else
+//        #warning("Matrix bounds checking is disabled... good luck >:3");
+//    #endif
     return _array.cptr[_col];
 }
 inline Matrix::Proxy Matrix::operator [] (const int16_t _row) {
-    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
-        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
-               "Matrix index out-of-bounds (at row evaluation)");
-    #else
-        #warning("Matrix bounds checking is disabled... good luck >:3");
-    #endif
+//    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
+//        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
+//               "Matrix index out-of-bounds (at row evaluation)");
+//    #else
+//        #warning("Matrix bounds checking is disabled... good luck >:3");
+//    #endif
     return Proxy(floatData[_row], this->i16col);  /* Parsing column index for bound checking */
 }
 inline const Matrix::Proxy Matrix::operator [] (const int16_t _row) const {
-    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
-        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
-               "Matrix index out-of-bounds (at row evaluation)");
-    #else
-        #warning("Matrix bounds checking is disabled... good luck >:3");
-    #endif
+//    #if (defined(MATRIX_USE_BOUNDS_CHECKING))
+//        ASSERT((_row >= 0) && (_row < this->i16row) && (_row < MATRIX_MAXIMUM_SIZE),
+//               "Matrix index out-of-bounds (at row evaluation)");
+//    #else
+//        #warning("Matrix bounds checking is disabled... good luck >:3");
+//    #endif
     return Proxy(floatData[_row], this->i16col);  /* Parsing column index for bound checking */
 }
 
@@ -472,9 +486,9 @@ inline bool Matrix::bMatrixIsSquare(void) {
  */
 
 inline bool Matrix::operator == (const Matrix& _compare) const {
-    if ((this->i16row != _compare.i16row) || (this->i16col != _compare.i16col)) {
+/*    if ((this->i16row != _compare.i16row) || (this->i16col != _compare.i16col)) {
         return false;
-    }
+    }*/
 
     for (int16_t _i = 0; _i < this->i16row; _i++) {
         for (int16_t _j = 0; _j < this->i16col; _j++) {
@@ -537,10 +551,10 @@ inline Matrix Matrix::operator * (const float_prec _scalar) const {
 inline Matrix Matrix::operator / (const float_prec _scalar) const {
     Matrix _outp(this->i16row, this->i16col, Matrix::NoInitMatZero);
 
-    if (fabs(_scalar) < float_prec(float_prec_ZERO_ECO)) {
+/*    if (fabs(_scalar) < float_prec(float_prec_ZERO_ECO)) {
         _outp.vSetMatrixInvalid();
         return _outp;
-    }
+    }*/
     for (int16_t _i = 0; _i < this->i16row; _i++) {
         for (int16_t _j = 0; _j < this->i16col; _j++) {
             _outp(_i,_j) = (*this)(_i,_j) / _scalar;
@@ -587,10 +601,10 @@ inline Matrix operator * (const float_prec _scalar, const Matrix& _mat) {
 
 inline Matrix Matrix::operator + (const Matrix& _matAdd) const {
     Matrix _outp(this->i16row, this->i16col, NoInitMatZero);
-    if ((this->i16row != _matAdd.i16row) || (this->i16col != _matAdd.i16col)) {
+/*    if ((this->i16row != _matAdd.i16row) || (this->i16col != _matAdd.i16col)) {
         _outp.vSetMatrixInvalid();
         return _outp;
-    }
+    }*/
 
     for (int16_t _i = 0; _i < this->i16row; _i++) {
         for (int16_t _j = 0; _j < this->i16col; _j++) {
@@ -602,10 +616,10 @@ inline Matrix Matrix::operator + (const Matrix& _matAdd) const {
 
 inline Matrix Matrix::operator - (const Matrix& _matSub) const {
     Matrix _outp(this->i16row, this->i16col, NoInitMatZero);
-    if ((this->i16row != _matSub.i16row) || (this->i16col != _matSub.i16col)) {
+/*    if ((this->i16row != _matSub.i16row) || (this->i16col != _matSub.i16col)) {
         _outp.vSetMatrixInvalid();
         return _outp;
-    }
+    }*/
 
     for (int16_t _i = 0; _i < this->i16row; _i++) {
         for (int16_t _j = 0; _j < this->i16col; _j++) {
@@ -617,10 +631,10 @@ inline Matrix Matrix::operator - (const Matrix& _matSub) const {
 
 inline Matrix Matrix::operator * (const Matrix& _matMul) const {
     Matrix _outp(this->i16row, _matMul.i16col, NoInitMatZero);
-    if ((this->i16col != _matMul.i16row)) {
+/*    if ((this->i16col != _matMul.i16row)) {
         _outp.vSetMatrixInvalid();
         return _outp;
-    }
+    }*/
 
     for (int16_t _i = 0; _i < this->i16row; _i++) {
         for (int16_t _j = 0; _j < _matMul.i16col; _j++) {
@@ -692,7 +706,7 @@ inline void Matrix::vSetIdentity(void) {
 
 inline Matrix MatIdentity(const int16_t _i16size) {
     Matrix _outp(_i16size, _i16size, Matrix::NoInitMatZero);
-    _outp.vSetDiag(1.0);   
+    _outp.vSetDiag(1.0);
     return _outp;
 }
 
@@ -792,7 +806,7 @@ inline Matrix Matrix::InsertSubMatrix(const Matrix& _subMatrix, const int16_t _p
 
 /* Insert the first _lenRow-th and first _lenColumn-th submatrix into matrix;
  *  at the matrix's _posRow and _posCol position.
- * 
+ *
  * Example: A = Matrix 4x4, B = Matrix 2x3
  *
  *  C = A.InsertSubMatrix(B, 1, 1, 2, 2);
@@ -829,7 +843,7 @@ inline Matrix Matrix::InsertSubMatrix(const Matrix& _subMatrix, const int16_t _p
 
 /* Insert the _lenRow & _lenColumn submatrix, start from _posRowSub & _posColSub submatrix;
  *  into matrix at the matrix's _posRow and _posCol position.
- * 
+ *
  * Example: A = Matrix 4x4, B = Matrix 2x3
  *
  *  C = A.InsertSubMatrix(B, 1, 1, 0, 1, 1, 2);
@@ -873,7 +887,7 @@ inline Matrix Matrix::Invers(void) const {
     Matrix _outp(this->i16row, this->i16col, NoInitMatZero);
     Matrix _temp(*this);
     _outp.vSetIdentity();
-    
+
     /* Gauss Elimination... */
     for (int16_t _j = 0; _j < (_temp.i16row)-1; _j++) {
         for (int16_t _i = _j+1; _i < _temp.i16row; _i++) {
@@ -949,28 +963,28 @@ inline Matrix Matrix::Invers(void) const {
 
 /* Use elemetary row operation to reduce the matrix into upper triangular form
  *  (like in the first phase of gauss-jordan algorithm).
- * 
+ *
  * Useful if we want to check whether the matrix is positive definite or not
  *  (useful before calling CholeskyDec function).
  */
 inline bool Matrix::bMatrixIsPositiveDefinite(const bool checkPosSemidefinite) const {
     bool _posDef, _posSemiDef;
     Matrix _temp(*this);
-    
+
     /* Gauss Elimination... */
     for (int16_t _j = 0; _j < (_temp.i16row)-1; _j++) {
         for (int16_t _i = _j+1; _i < _temp.i16row; _i++) {
             if (fabs(_temp(_j,_j)) < float_prec(float_prec_ZERO)) {
                 /* Q: Do we still need to check this?
                  * A: idk, it's 3 AM. I need sleep :<
-                 * 
+                 *
                  * NOTE TO FUTURE SELF: Confirm it!
                  */
                 return false;
             }
-            
+
             float_prec _tempfloat = _temp(_i,_j) / _temp(_j,_j);
-            
+
             for (int16_t _k = 0; _k < _temp.i16col; _k++) {
                 _temp(_i,_k) -= (_temp(_j,_k) * _tempfloat);
                 _temp.vRoundingElementToZero(_i, _k);
@@ -978,7 +992,7 @@ inline bool Matrix::bMatrixIsPositiveDefinite(const bool checkPosSemidefinite) c
 
         }
     }
-    
+
     _posDef = true;
     _posSemiDef = true;
     for (int16_t _i = 0; _i < _temp.i16row; _i++) {
@@ -991,7 +1005,7 @@ inline bool Matrix::bMatrixIsPositiveDefinite(const bool checkPosSemidefinite) c
             _posSemiDef = false;
         }
     }
-    
+
     if (checkPosSemidefinite) {
         return _posSemiDef;
     } else {
@@ -1001,18 +1015,18 @@ inline bool Matrix::bMatrixIsPositiveDefinite(const bool checkPosSemidefinite) c
 
 /* For square matrix 'this' with size MxM, return vector Mx1 with entries
  * correspond with diagonal entries of 'this'.
- * 
+ *
  *   Example:    this = [a11 a12 a13]
  *                      [a21 a22 a23]
  *                      [a31 a32 a33]
- * 
+ *
  * out = this.GetDiagonalEntries() = [a11]
  *                                   [a22]
  *                                   [a33]
  */
 inline Matrix Matrix::GetDiagonalEntries(void) const {
     Matrix _temp(this->i16row, 1, NoInitMatZero);
-    
+
     if (this->i16row != this->i16col) {
         _temp.vSetMatrixInvalid();
         return _temp;
@@ -1024,7 +1038,7 @@ inline Matrix Matrix::GetDiagonalEntries(void) const {
 }
 
 /* Do the Cholesky Decomposition using Cholesky-Crout algorithm.
- * 
+ *
  *      A = L*L'     ; A = real, positive definite, and symmetry MxM matrix
  *
  *      L = A.CholeskyDec();
@@ -1042,7 +1056,7 @@ inline Matrix Matrix::CholeskyDec(void) const {
 
     /* Note that _outp need to be initialized as zero matrix */
     Matrix _outp(this->i16row, this->i16col, InitMatWithZero);
-    
+
     if (this->i16row != this->i16col) {
         _outp.vSetMatrixInvalid();
         return _outp;
@@ -1089,16 +1103,16 @@ inline Matrix Matrix::HouseholderTransformQR(const int16_t _rowTransform, const 
     float_prec _x1;
     float_prec _u1;
     float_prec _vLen2;
-    
+
     /* Note that _outp & _vectTemp need to be initialized as zero matrix */
     Matrix _outp(this->i16row, this->i16row, InitMatWithZero);
     Matrix _vectTemp(this->i16row, 1, InitMatWithZero);
-    
+
     if ((_rowTransform >= this->i16row) || (_colTransform >= this->i16col)) {
         _outp.vSetMatrixInvalid();
         return _outp;
     }
-    
+
     /* Until here:
      *
      * _xLen    = ||x||            = sqrt(x1^2 + x2^2 + .. + xn^2)
@@ -1116,18 +1130,18 @@ inline Matrix Matrix::HouseholderTransformQR(const int16_t _rowTransform, const 
         _vLen2 += _tempFloat;
     }
     _xLen = sqrt(_xLen);
-    
+
     /* u1    = x1+(-sign(x1))*xLen */
     if (_x1 < 0.0) {
         _u1 = _x1+_xLen;
     } else {
         _u1 = _x1-_xLen;
     }
-    
+
     /* Solve vlen2 & tempHH */
     _vLen2 += (_u1*_u1);
     _vectTemp(_rowTransform,0) = _u1;
-    
+
     if (fabs(_vLen2) < float_prec(float_prec_ZERO_ECO)) {
         /* x vector is collinear with basis vector e, return result = I */
         _outp.vSetIdentity();
@@ -1153,12 +1167,12 @@ inline Matrix Matrix::HouseholderTransformQR(const int16_t _rowTransform, const 
 
 /* Do the QR Decomposition for matrix using Householder Transformation.
  *                      A = Q*R
- * 
+ *
  * PERHATIAN! CAUTION! The matrix calculated by this function are Q' and R (Q transpose and R).
  *  Because QR Decomposition usually used to calculate solution for least-squares equation
  *  (that need Q'), we don't do the transpose of Q inside this routine to lower the
  *  computation cost (user need to transpose outside if they want Q).
- * 
+ *
  * Example of using QRDec to solve least-squares:
  *                      Ax = b
  *                   (QR)x = b
@@ -1196,14 +1210,14 @@ inline bool Matrix::QRDec(Matrix& Qt, Matrix& R) const {
         }
     }
 #endif
-    
+
     /* Q = Qt.Transpose */
     return true;
 }
 
 /* Do the back-subtitution operation for upper triangular matrix A & column matrix B to solve x:
  *                      Ax = B
- * 
+ *
  * x = BackSubtitution(&A, &B);
  *
  * CATATAN! NOTE! To lower the computation cost, we don't check that A is a upper triangular
@@ -1233,7 +1247,7 @@ inline Matrix Matrix::BackSubtitution(const Matrix& A, const Matrix& B) const {
 
 /* Do the forward-subtitution operation for lower triangular matrix A & column matrix B to solve x:
  *                      Ax = B
- * 
+ *
  * x = ForwardSubtitution(&A, &B);
  *
  * CATATAN! NOTE! To lower the computation cost, we don't check that A is a lower triangular
@@ -1288,34 +1302,23 @@ inline Matrix Matrix::ForwardSubtitution(const Matrix& A, const Matrix& B) const
     }
 #elif (SYSTEM_IMPLEMENTATION == SYSTEM_IMPLEMENTATION_EMBEDDED_ARDUINO)
     inline void Matrix::vPrint(void) {
-        char _bufSer[10];
-        for (int16_t _i = 0; _i < this->i16row; _i++) {
-            Serial.print("[ ");
-            for (int16_t _j = 0; _j < this->i16col; _j++) {
-                snprintf(_bufSer, sizeof(_bufSer)-1, "%2.2f ", (*this)(_i,_j));
-                Serial.print(_bufSer);
-            }
-            Serial.println("]");
-        }
-        Serial.println("");
+        //char _bufSer[10];
     }
     inline void Matrix::vPrintFull(void) {
-        char _bufSer[32];
-        for (int16_t _i = 0; _i < this->i16row; _i++) {
-            Serial.print("[ ");
-            for (int16_t _j = 0; _j < this->i16col; _j++) {
-                snprintf(_bufSer, sizeof(_bufSer)-1, "%e ", (*this)(_i,_j));
-                Serial.print(_bufSer);
-            }
-            Serial.println("]");
-        }
-        Serial.println("");
+        //char _bufSer[32];
+
     }
 #else
     /* User must define the print function somewhere */
     /* void vPrint(); */
     /* void vPrintFull(); */
 #endif
-    
-    
+
+
 #endif // MATRIX_H
+
+
+
+
+
+#endif /* EKF_CORE_INC_MATRIX_H_ */

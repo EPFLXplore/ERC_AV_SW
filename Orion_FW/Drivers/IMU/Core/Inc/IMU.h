@@ -11,9 +11,7 @@
 #include <bmi088_sens.hpp>
 #include <lis3mdl_sens.hpp>
 #include <LIS3MDL.hpp>
-//#include <ekf_imu.h>
-//#include <ekf.h>
-#include <ukf.h>
+#include <ekf.h>
 #include <matrix.h>
 #include <array>
 #include <Prober.h>
@@ -44,18 +42,18 @@ private:
 
 
     float P_INIT;
-    float Rv_INIT;
-    float Rn_INIT_ACC;
-    float Rn_INIT_MAG;
+    float Q_INIT;
+    float R_INIT_ACC;
+    float R_INIT_MAG;
 
     static const uint ss_x_len = SS_X_LEN;
     static const uint ss_z_len = SS_Z_LEN;
     static const uint ss_u_len = SS_U_LEN;
 
     //std::vector<float_prec> EKF_QINIT_data;
-    float_prec UKF_PINIT_data[ss_x_len*ss_x_len];
-    float_prec UKF_RVINIT_data[ss_x_len*ss_x_len];
-    float_prec UKF_RNINIT_data[ss_z_len*ss_z_len];
+    float_prec EKF_PINIT_data[ss_x_len*ss_x_len];
+    float_prec EKF_RINIT_data[ss_z_len*ss_z_len];
+    float_prec EKF_QINIT_data[ss_x_len*ss_x_len];
 
 //    constexpr static float_prec IMU_MAG_B0_data[3] = {cos(0), sin(0), 0.000000};
 
@@ -67,22 +65,22 @@ private:
     LIS3MDL_Sens::Config lis_conf;
 
     Matrix quaternionData;
-    Matrix UKF_PINIT;
-    Matrix UKF_RvINIT;
-    Matrix UKF_RnINIT;
+    Matrix EKF_PINIT;
+    Matrix EKF_QINIT;
+    Matrix EKF_RINIT;
 //   static Matrix IMU_MAG_B0 = Matrix(3, 1, IMU_MAG_B0_data);
 
 
     Matrix U;
     Matrix Y;
 
-//    EKF EKF_IMU;
-    UKF UKF_IMU;
+    EKF EKF_IMU;
+//    UKF UKF_IMU;
 
-    static bool Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& U);
+    static bool Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& U, float dt);
     static bool Main_bUpdateNonlinearY(Matrix& Y, const Matrix& X, const Matrix& U);
-    static bool Main_bCalcJacobianF(Matrix& F, const Matrix& X, const Matrix& U);
-    static bool Main_bCalcJacobianH(Matrix& H, const Matrix& X, const Matrix& U);
+    static bool Main_bCalcJacobianF(Matrix& F, const Matrix& X, const Matrix& U, float dt);
+    static bool Main_bCalcJacobianH(Matrix& H, const Matrix& X, const Matrix& U, float dt);
 
 
     BMI088_Sens::xyz last_acc = {0.0, 0.0, 0.0};

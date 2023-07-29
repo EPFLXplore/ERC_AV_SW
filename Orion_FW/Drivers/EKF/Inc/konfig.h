@@ -1,7 +1,17 @@
+/*
+ * konfig.h
+ *
+ *  Created on: May 20, 2023
+ *      Author: leo
+ */
+
+#ifndef EKF_CORE_INC_KONFIG_H_
+#define EKF_CORE_INC_KONFIG_H_
+
 /*************************************************************************************************************
  * This file contains configuration parameters
- * 
- * 
+ *
+ *
  * See https://github.com/pronenewbits for more!
  ************************************************************************************************************/
 #ifndef KONFIG_H
@@ -22,10 +32,10 @@
 
 
 /* Change this size based on the biggest matrix you will use */
-#define MATRIX_MAXIMUM_SIZE     (9)
+#define MATRIX_MAXIMUM_SIZE     (6)
 
 /* Define this to enable matrix bound checking */
-//#define MATRIX_USE_BOUNDS_CHECKING
+#define MATRIX_USE_BOUNDS_CHECKIN
 
 /* Set this define to choose math precision of the system */
 #define PRECISION_SINGLE    1
@@ -51,7 +61,7 @@
 #define SYSTEM_IMPLEMENTATION_EMBEDDED_CUSTOM       2
 #define SYSTEM_IMPLEMENTATION_EMBEDDED_ARDUINO      3
 
-#define SYSTEM_IMPLEMENTATION                       (SYSTEM_IMPLEMENTATION_EMBEDDED_CUSTOM)
+#define SYSTEM_IMPLEMENTATION                       (SYSTEM_IMPLEMENTATION_EMBEDDED_ARDUINO)
 
 
 
@@ -61,3 +71,8 @@ void SPEW_THE_ERROR(char const * str);
 
 
 #endif // KONFIG_H
+
+
+
+
+#endif /* EKF_CORE_INC_KONFIG_H_ */

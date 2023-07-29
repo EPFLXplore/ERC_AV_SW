@@ -435,8 +435,8 @@ Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag() {
 Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag_cal() {
 	read();
 	float x_nb = x_uT - HARD_IRON[0][0];
-	float y_nb = y_uT - HARD_IRON[0][1];
-	float z_nb = z_uT - HARD_IRON[0][2];
+	float y_nb = y_uT - HARD_IRON[1][0];
+	float z_nb = z_uT - HARD_IRON[2][0];
 
 	x_cal_uT = SOFT_IRON[0][0]*x_nb + SOFT_IRON[0][1]*y_nb + SOFT_IRON[0][2]*z_nb;
 	y_cal_uT = SOFT_IRON[1][0]*x_nb + SOFT_IRON[1][1]*y_nb + SOFT_IRON[1][2]*z_nb;

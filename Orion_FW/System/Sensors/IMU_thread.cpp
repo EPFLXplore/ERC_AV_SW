@@ -20,8 +20,8 @@
 
 
 #include "matrix.h"
-//#include "ekf.h"
-#include "ukf.h"
+#include "ekf.h"
+//#include "ukf.h"
 
 /* ================================================== The AHRS/IMU variables ================================================== */
 /* Gravity vector constant (align with global Z-axis) */
@@ -139,6 +139,7 @@ void IMUThread::init() {
 	if(res_init == false){
 		return;
 	}
+	osDelay(500);
 	// Initialize the sensor
 //	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
 	//bool success = dummy_sensor.ADS1113_init();
@@ -326,10 +327,18 @@ void IMUThread::loop() {
 	//sprintf(buffer, "%+.6f,%+.6f,%+.6f\n",acc.x, acc.y, acc.z);
 
 	//this->ekf();
-
+	Vector mag = bnoVectorToVector(this->my_imu->get_last_mag_cal());
 	imu_data.accel = bnoVectorToVector(this->my_imu->get_last_linear_accel());
 	imu_data.gyro = bnoVectorToVector(this->my_imu->get_last_angular_accel());
 	imu_data.orientation = this->my_imu->get_last_attitude();
+
+//    auto vec = quaternionToEuler(imu_data.orientation);
+//	printf("%.6f,%.6f,%.6f\n",mag.x, mag.y, mag.z);
+	char data_string[50];
+	snprintf(data_string, sizeof(data_string), "w%.6fw,a%.6fa,b%.6fb,c%.6fc\n", imu_data.orientation.w, imu_data.orientation.x, imu_data.orientation.y, imu_data.orientation.z);
+//	snprintf(data_string, sizeof(data_string), "%+.6f,%+.6f,%+.6f\n", mag.x, mag.y, mag.z);
+	// Send the data string to the serial port
+	HAL_UART_Transmit(&huart1, (uint8_t*)data_string, strlen(data_string), 1000);
 
 //	Vector mag = bnoVectorToVector(this->my_imu->get_last_mag());
 //	imu_data.gyro = quaternionToEuler(quat);
