@@ -11,6 +11,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 
 struct Vector {
 	float x;

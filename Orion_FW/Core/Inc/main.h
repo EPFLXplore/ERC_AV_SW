@@ -60,6 +60,12 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define FDCAN1_STATUS_Pin GPIO_PIN_2
+#define FDCAN1_STATUS_GPIO_Port GPIOE
+#define CAN1_SILENT_Pin GPIO_PIN_3
+#define CAN1_SILENT_GPIO_Port GPIOE
+#define STATUS_3V3_Pin GPIO_PIN_4
+#define STATUS_3V3_GPIO_Port GPIOE
 #define SPI2_CS_Pin GPIO_PIN_1
 #define SPI2_CS_GPIO_Port GPIOC
 #define SPI1_CS_Pin GPIO_PIN_4
@@ -72,12 +78,18 @@ void Error_Handler(void);
 #define HAT3_P3_GPIO_Port GPIOB
 #define HAT3_P4_Pin GPIO_PIN_1
 #define HAT3_P4_GPIO_Port GPIOB
-#define SEL0_Pin GPIO_PIN_12
-#define SEL0_GPIO_Port GPIOE
-#define SEL1_Pin GPIO_PIN_13
-#define SEL1_GPIO_Port GPIOE
-#define SEL2_Pin GPIO_PIN_14
-#define SEL2_GPIO_Port GPIOE
+#define ID0_Pin GPIO_PIN_11
+#define ID0_GPIO_Port GPIOE
+#define ID1_Pin GPIO_PIN_12
+#define ID1_GPIO_Port GPIOE
+#define ID2_Pin GPIO_PIN_13
+#define ID2_GPIO_Port GPIOE
+#define ID3_Pin GPIO_PIN_14
+#define ID3_GPIO_Port GPIOE
+#define CAN2_SILENT_Pin GPIO_PIN_8
+#define CAN2_SILENT_GPIO_Port GPIOD
+#define FDCAN2_STATUS_Pin GPIO_PIN_9
+#define FDCAN2_STATUS_GPIO_Port GPIOD
 #define STATUS_5V_Pin GPIO_PIN_11
 #define STATUS_5V_GPIO_Port GPIOD
 #define HAT2_P1_Pin GPIO_PIN_12
@@ -94,8 +106,14 @@ void Error_Handler(void);
 #define HAT1_P3_GPIO_Port GPIOC
 #define HAT1_P4_Pin GPIO_PIN_9
 #define HAT1_P4_GPIO_Port GPIOA
+#define HAT1_P6_Pin GPIO_PIN_11
+#define HAT1_P6_GPIO_Port GPIOA
+#define HAT1_P5_Pin GPIO_PIN_12
+#define HAT1_P5_GPIO_Port GPIOA
 #define SPI3_CS_Pin GPIO_PIN_15
 #define SPI3_CS_GPIO_Port GPIOA
+#define SEL_3V3_Pin GPIO_PIN_12
+#define SEL_3V3_GPIO_Port GPIOC
 #define LED_YELLOW_Pin GPIO_PIN_2
 #define LED_YELLOW_GPIO_Port GPIOD
 #define HAT2_P5_Pin GPIO_PIN_4
@@ -110,6 +128,10 @@ void Error_Handler(void);
 #define HAT3_P1_GPIO_Port GPIOB
 #define HAT3_P2_Pin GPIO_PIN_7
 #define HAT3_P2_GPIO_Port GPIOB
+#define CTL_5V_Pin GPIO_PIN_0
+#define CTL_5V_GPIO_Port GPIOE
+#define CTL_3V3_Pin GPIO_PIN_1
+#define CTL_3V3_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 #define HAT1_P6_Pin GPIO_PIN_11

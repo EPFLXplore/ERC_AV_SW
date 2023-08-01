@@ -46,9 +46,9 @@ private:
     float R_INIT_ACC;
     float R_INIT_MAG;
 
-    static const uint ss_x_len = SS_X_LEN;
-    static const uint ss_z_len = SS_Z_LEN;
-    static const uint ss_u_len = SS_U_LEN;
+    static const uint8_t ss_x_len = SS_X_LEN;
+    static const uint8_t ss_z_len = SS_Z_LEN;
+    static const uint8_t ss_u_len = SS_U_LEN;
 
     //std::vector<float_prec> EKF_QINIT_data;
     float_prec EKF_PINIT_data[ss_x_len*ss_x_len];

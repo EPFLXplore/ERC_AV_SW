@@ -44,7 +44,7 @@ void ProberThread::init() {
 		i = 3;
 	for(uint16_t id=1; id<128; id++)
 	{
-		HAL_StatusTypeDef ret = HAL_I2C_IsDeviceReady(hi2c, (uint16_t)(id<<1), 3, 5);
+		HAL_StatusTypeDef ret = HAL_I2C_IsDeviceReady(hi2c, (uint16_t)(id<<1), 3, 1000);
 		if(ret == HAL_OK)
 		{
 			printf("Device ID %d found on I2C %d \n", id, i);

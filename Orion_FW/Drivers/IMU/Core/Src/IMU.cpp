@@ -252,7 +252,6 @@ void IMU::upd_attitude(){
 	float q = this->last_gyr.y;
 	float r = this->last_gyr.x;
 
-
     /* Input 1:3 = gyroscope */
     U[0][0] = p;  U[1][0] = q;  U[2][0] = r;
     /* Output 1:3 = accelerometer */
