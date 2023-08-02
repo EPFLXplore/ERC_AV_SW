@@ -64,5 +64,4 @@ void AS7265Thread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(1000);
 }

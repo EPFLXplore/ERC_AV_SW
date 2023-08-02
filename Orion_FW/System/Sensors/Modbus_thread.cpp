@@ -24,7 +24,7 @@ void ModbusThread::init() {
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
 	osDelay(500);
 	this->NPKInstance = new NPKThread(&ModbusH, ModbusDATA);
-	osDelay(3000); // wait a bit for both sensors to initialize
+	osDelay(10000); // wait a bit for both sensors to initialize
 }
 
 
@@ -46,7 +46,6 @@ void ModbusThread::loop() {
 		modbusInstance = nullptr;
 		parent->resetProber();
 	}
-	osDelay(1000);
 }
 
 void ModbusThread::init_Modbus(modbusHandler_t* ModbusH){

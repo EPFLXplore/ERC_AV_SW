@@ -17,7 +17,7 @@
 class NPKThread : public Thread {
 public:
 	NPKThread(modbusHandler_t* ModbusH_, uint16_t (&ModbusDATA_)[7]) :
-		Thread("NPK"), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
+		Thread("NPK", osPriorityHigh), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
 	void init();
 	void loop();
 	bool is_connected();

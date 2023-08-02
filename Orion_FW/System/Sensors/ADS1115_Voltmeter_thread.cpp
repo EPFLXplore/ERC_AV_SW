@@ -42,7 +42,6 @@ void VoltmeterThread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(100);
 }
 
 int8_t VoltmeterThread::get_polarity() {

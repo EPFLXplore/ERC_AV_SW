@@ -17,7 +17,7 @@
 class FourInOneThread : public Thread {
 public:
 	FourInOneThread(modbusHandler_t* ModbusH_, uint16_t (&ModbusDATA_)[7]) :
-		Thread("FourInOne"), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
+		Thread("FourInOne", osPriorityHigh), ModbusH(ModbusH_), ModbusDATA(ModbusDATA_) {};
 	void init();
 	void loop();
 	bool is_connected();

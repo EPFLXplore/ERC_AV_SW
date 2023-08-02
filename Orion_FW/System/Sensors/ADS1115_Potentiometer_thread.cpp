@@ -70,7 +70,6 @@ void PotentiometerThread::loop() {
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(100);
 }
 
 float PotentiometerThread::get_angle(uint8_t channel) {

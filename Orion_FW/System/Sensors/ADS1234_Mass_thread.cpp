@@ -11,7 +11,28 @@
 ADS1234Thread* massSensorInstance = nullptr;
 static char cbuf[256]; // for printf
 
-ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) : Thread("MassSensor"), parent(parent), portNum(parent->getI2CNum()), mass_sensor(nullptr){
+#ifdef PLOT_CH1
+float global_mass_ch1 = 0;
+#endif
+
+#ifdef PLOT_CH2
+float global_mass_ch2 = 0;
+#endif
+
+#ifdef PLOT_CH3
+float global_mass_ch3 = 0;
+#endif
+
+#ifdef PLOT_CH4
+float global_mass_ch4 = 0;
+#endif
+
+ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) :
+		Thread("MassSensor"),
+		parent(parent),
+		portNum(parent->getI2CNum()),
+		hspi(hspi_),
+		mass_sensor(nullptr){
     // You can also perform additional initialization steps here if needed.
 	if (hspi_ == &hspi1) {
 		mass_sensor = new ADS1234(hspi_,
@@ -71,9 +92,6 @@ void ADS1234Thread::init() {
 	mass_sensor->set_scale(AIN3, 452.05);
 	mass_sensor->set_offset(AIN4, 265542);
 	mass_sensor->set_scale(AIN4, 452.05);
-//	mass_sensor.get_value(AIN3, mass_value, 0.8, true);
-//	long dummy;
-//	mass_sensor.read(AIN3, dummy, true);
 }
 
 ADS1234Thread::~ADS1234Thread() {
@@ -85,30 +103,75 @@ ADS1234Thread::~ADS1234Thread() {
 static MassData mass_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-static MassPacket packet;
+static MassPacket mass_packet;
 
 void ADS1234Thread::loop() {
-	// Get the sensor data. Here we only read a differential value as an example
-//	mass_sensor.read(AIN3,mass_value[0],0);
-	mass_sensor->get_units(AIN1, mass_data.mass[0], 10, false);
-	mass_sensor->get_units(AIN2, mass_data.mass[1], 10, false);
-	mass_sensor->get_units(AIN3, mass_data.mass[2], 10, false);
-	mass_sensor->get_units(AIN4, mass_data.mass[3], 10, false);
-//	mass_sensor.read_filtered(AIN3, mass_value, 0.5, false);
+	// Calibrate every 90 seconds
+	ERROR_t err_ch1 = NoERROR;
+	ERROR_t err_ch2 = NoERROR;
+	ERROR_t err_ch3 = NoERROR;
+	ERROR_t err_ch4 = NoERROR;
+    if(xTaskGetTickCount()-start > 90000){
+    	calibrating = true;
+    	start = xTaskGetTickCount();
+    	printf("Calibrating mass sensor... \n");
+    }
+#ifdef USE_LOW_PASS_FILTER
+#ifdef CH1_ENABLE
+    	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], alpha, calibrating);
+#endif
+#ifdef CH2_ENABLE
+    	err_ch2 = mass_sensor->get_units(AIN2, mass_data.mass[1], alpha, calibrating);
+#endif
+#ifdef CH3_ENABLE
+    	err_ch3 = mass_sensor->get_units(AIN3, mass_data.mass[2], alpha, calibrating);
+#endif
+#ifdef CH4_ENABLE
+    	err_ch4 = mass_sensor->get_units(AIN4, mass_data.mass[3], alpha, calibrating);
+#endif
+#elif
+#ifdef CH1_ENABLE
+    	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], num_averages, calibrating);
+#endif
+#ifdef CH2_ENABLE
+    	err_ch2 = mass_sensor->get_units(AIN2, mass_data.mass[1], num_averages, calibrating);
+#endif
+#ifdef CH3_ENABLE
+    	err_ch3 = mass_sensor->get_units(AIN3, mass_data.mass[2], num_averages, calibrating);
+#endif
+#ifdef CH4_ENABLE
+    	err_ch4 = mass_sensor->get_units(AIN4, mass_data.mass[3], num_averages, calibrating);
+#endif
+#endif
 
-	// We can print it to SVW console (optional)
-	printf("Diff value %s \n", mass_data.toString(cbuf));
+#ifdef PLOT_CH1
+    global_mass_ch1 = mass_data.mass[0];
+#endif
+#ifdef PLOT_CH2
+    global_mass_ch2 = mass_data.mass[1];
+#endif
+#ifdef PLOT_CH3
+    global_mass_ch3 = mass_data.mass[2];
+#endif
+#ifdef PLOT_CH4
+    global_mass_ch2 = mass_data.mass[3];
+#endif
+	printf("%s \n", mass_data.toString(cbuf));
 
-	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+	if((err_ch1 == NoERROR) && (err_ch2 == NoERROR) && (err_ch3 == NoERROR) && (err_ch4 == NoERROR)) {
 		// Send data over RoCo network
-		mass_data.toArray((uint8_t*) &packet);
-//		JetsonNetwork.send(&packet);
+		mass_data.toArray((uint8_t*) &mass_packet);
+		FDCAN1_network.send(&mass_packet);
 		portYIELD();
 	} else {
 		massSensorInstance = nullptr;
-		MX_SPI1_Init();
+		if (hspi == &hspi1)
+			MX_SPI1_Init();
+		else if (hspi == &hspi2)
+			MX_SPI2_Init();
+		else if (hspi == &hspi3)
+			MX_SPI3_Init();
 		terminate();
 		parent->resetProber();
 	}
-	osDelay(100);
 }

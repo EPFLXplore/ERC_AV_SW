@@ -134,14 +134,6 @@ void Error_Handler(void);
 #define CTL_3V3_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
-#define HAT1_P6_Pin GPIO_PIN_11
-#define HAT1_P6_GPIO_Port GPIOA
-#define HAT1_P5_Pin GPIO_PIN_12
-#define HAT1_P5_GPIO_Port GPIOA
-#define HAT2_P6_Pin GPIO_PIN_5
-#define HAT2_P6_GPIO_Port GPIOD
-#define HAT2_P4_Pin GPIO_PIN_6
-#define HAT2_P4_GPIO_Port GPIOD
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

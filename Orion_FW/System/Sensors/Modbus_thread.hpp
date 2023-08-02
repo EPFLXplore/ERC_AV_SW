@@ -8,7 +8,7 @@
 #ifndef SENSORS_MODBUS_THREAD_HPP_
 #define SENSORS_MODBUS_THREAD_HPP_
 
-#define MODBUS_HAT_ADDR (0x55) // address of I2C temperature sensor on RS485 hat
+#define MODBUS_HAT_ADDR (0x4D) // address of I2C temperature sensor on RS485 hat
 
 //#include <Modbus.h>
 #include "Thread.h"
@@ -23,7 +23,7 @@
 
 class ModbusThread : public Thread {
 public:
-	ModbusThread(ProberThread* parent) : Thread("Modbus"), parent(parent), portNum(parent->getI2CNum()){}
+	ModbusThread(ProberThread* parent) : Thread("Modbus", osPriorityHigh), parent(parent), portNum(parent->getI2CNum()){}
 	void init();
 	void loop();
 private:

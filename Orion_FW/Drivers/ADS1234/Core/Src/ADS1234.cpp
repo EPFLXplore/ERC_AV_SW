@@ -32,27 +32,6 @@ ADS1234::ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t
 
 ADS1234::~ADS1234() {
 }
-//
-//void EXTI9_5_IRQHandler(void)   // <----- The ISR Function We're Looking For!
-//{
-//	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
-//
-//}
-//
-//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-//{
-//    if(GPIO_Pin == GPIO_PIN_6) // If The INT Source Is EXTI Line9 (A9 Pin)
-//    {
-//    	GPIO_InitTypeDef GPIO_InitStruct;
-//    	HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
-//    	GPIO_InitStruct.Pin = GPIO_PIN_6; // replace X with the GPIO pin number
-//    	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-//    	GPIO_InitStruct.Pull = GPIO_NOPULL;
-//    	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//    	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1; // replace GPIO_AFx_SPIx with the alternate function for SPIx
-//    	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-//    }
-//}
 
 void ADS1234::begin(Gain gain, Speed speed){
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -107,7 +86,6 @@ void ADS1234::begin(Gain gain, Speed speed){
 
   setGain(gain);
   setSpeed(speed);
-  setChannel(AIN3);
 //  power_down();
 //  osDelay(10);
   power_up();
@@ -152,6 +130,7 @@ void ADS1234::setGain(Gain gain)
 
 void ADS1234::power_up(void)
 {
+  HAL_GPIO_WritePin(PIN_PDWN.port, PIN_PDWN.pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(PIN_PDWN.port, PIN_PDWN.pin, GPIO_PIN_SET);
 
   // Set CLK low to get the ADS1231 out of suspend
@@ -226,13 +205,12 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 	unsigned int waitingTime;
 	unsigned int SettlingTimeAfterChangeChannel=0;
 
-//	if(channel!=lastChannel){
-//		setChannel(channel);
-//
-//		if(_speed==FAST) SettlingTimeAfterChangeChannel=55;
-//		else SettlingTimeAfterChangeChannel=405;
-//		lastChannel=channel;
-//	}
+	if(channel!=lastChannel){
+		setChannel(channel);
+		if(_speed==FAST) SettlingTimeAfterChangeChannel=55;
+		else SettlingTimeAfterChangeChannel=405;
+		lastChannel=channel;
+	}
 
     /* A high to low transition on the data pin means that the ADS1231
      * has finished a measurement (see datasheet page 13).
@@ -275,13 +253,6 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
     uint8_t buf[3] = {0, 0, 0};
 
 
-    //for(i=23 ; i >= 0; i--) {
-    //    digitalWrite(_pin_SCLK, HIGH);
-    //    value = (value << 1) + digitalRead(_pin_DOUT);
-    //    digitalWrite(_pin_SCLK, LOW);
-    //}
-
-
     // Read 24 bits
     for(i=23 ; i >= 0; i--) {
         HAL_GPIO_WritePin(PIN_SCLK.port, PIN_SCLK.pin, GPIO_PIN_SET);
@@ -309,6 +280,8 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 		HAL_GPIO_WritePin(PIN_SCLK.port, PIN_SCLK.pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(PIN_SCLK.port, PIN_SCLK.pin, GPIO_PIN_RESET);
 	}
+	osDelay(1);
+	taskYIELD();
     return NoERROR; // Success
 }
 
@@ -317,8 +290,8 @@ ERROR_t ADS1234::read_filtered(Channel channel, float& value, float alpha, bool 
 	ERROR_t err = read(channel, val, Calibrating);
 	if (err != NoERROR) return err;
 
-	value = prev_value*alpha + val*(1-alpha);
-	prev_value = value;
+	value = prev_value[channel-1]*alpha + val*(1-alpha);
+	prev_value[channel-1] = value;
 	return NoERROR;
 }
 
@@ -332,8 +305,6 @@ ERROR_t ADS1234::read_average(Channel channel, float& value, uint16_t times, boo
 		if(err!=NoERROR) return err;
 
 		sum += val;
-		//yield();
-
 	}
 	if(times==0) return DIVIDED_by_ZERO;
 	value = (float)sum / times;
@@ -343,8 +314,16 @@ ERROR_t ADS1234::read_average(Channel channel, float& value, uint16_t times, boo
 ERROR_t ADS1234::get_value(Channel channel, float& value, uint16_t times, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
-//	err = read_filtered(channel, val, alpha, Calibrating);
 	err = read_average(channel, val, times, Calibrating);
+	if(err!=NoERROR) return err;
+	value = (val - OFFSET[channel-1]);
+	return NoERROR;
+}
+
+ERROR_t ADS1234::get_value(Channel channel, float& value, float alpha, bool Calibrating) {
+	float val = 0;
+	ERROR_t err;
+	err = read_filtered(channel, val, 0.8, Calibrating);
 	if(err!=NoERROR) return err;
 	value = (val - OFFSET[channel-1]);
 	return NoERROR;
@@ -354,6 +333,16 @@ ERROR_t ADS1234::get_units(Channel channel, float& value, uint16_t times, bool C
 	float val = 0;
 	ERROR_t err;
 	err = get_value(channel, val, times, Calibrating);
+	if(err!=NoERROR) return err;
+	if(SCALE[channel-1]==0) return DIVIDED_by_ZERO;
+	value = val / SCALE[channel-1];
+	return NoERROR;
+}
+
+ERROR_t ADS1234::get_units(Channel channel, float& value, float alpha, bool Calibrating) {
+	float val = 0;
+	ERROR_t err;
+	err = get_value(channel, val, alpha, Calibrating);
 	if(err!=NoERROR) return err;
 	if(SCALE[channel-1]==0) return DIVIDED_by_ZERO;
 	value = val / SCALE[channel-1];
@@ -379,7 +368,7 @@ float ADS1234::get_scale(Channel channel) {
 
 void ADS1234::set_offset(Channel channel, float offset) {
 	OFFSET[channel-1] = offset;
-	prev_value = offset;
+	prev_value[channel-1] = offset;
 }
 
 float ADS1234::get_offset(Channel channel) {

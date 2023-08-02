@@ -160,7 +160,7 @@ struct TOFData {
 struct MassData {
     float mass[4];
 	char* toString(char* buffer) {
-		sprintf(buffer, "CH0: %f [g] \t CH1: %f [g] \t CH2: %f [g] \t CH3: %f [g]", mass[0], mass[1], mass[2], mass[3]);
+		sprintf(buffer, "CH1: %f [g] \t CH2: %f [g] \t CH3: %f [g] \t CH4: %f [g]", mass[0], mass[1], mass[2], mass[3]);
 		return buffer;
 	}
 
