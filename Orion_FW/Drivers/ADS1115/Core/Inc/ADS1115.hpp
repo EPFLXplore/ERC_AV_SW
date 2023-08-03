@@ -18,10 +18,11 @@ public:
 	ADS1115(I2C_HandleTypeDef* hi2c, uint8_t i2cAddress);
 	HAL_StatusTypeDef ADS1115_init();
 	HAL_StatusTypeDef ADSbegin();
-	HAL_StatusTypeDef ADSreadADC_SingleEnded(uint8_t channel, uint16_t& val);
+	HAL_StatusTypeDef ADSreadADC_SingleEnded(uint8_t channel, int16_t& val);
 	HAL_StatusTypeDef  ADSreadADC_Differential_0_1(int16_t& val);
 	HAL_StatusTypeDef  ADSstartComparator_SingleEnded(uint8_t channel, int16_t threshold);
 	HAL_StatusTypeDef  ADSgetLastConversionResults(int16_t& val);
+	bool conversionComplete();
 	void ADSsetGain(adsGain_t gain);
 	adsGain_t  ADSgetGain();
 	float get_full_scale();

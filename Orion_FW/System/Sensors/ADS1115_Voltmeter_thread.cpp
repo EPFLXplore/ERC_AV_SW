@@ -45,7 +45,7 @@ void VoltmeterThread::loop() {
 }
 
 HAL_StatusTypeDef VoltmeterThread::get_polarity(int8_t& polarity) {
-	uint16_t res = 0;
+	int16_t res = 0;
 	HAL_StatusTypeDef status = voltmeter.ADSreadADC_SingleEnded(0, res);
 	if (status != HAL_OK) {
 		polarity = 0;

@@ -37,19 +37,15 @@ HAL_StatusTypeDef ADS1115::writeRegister(int8_t reg, uint16_t value) {
 
 // Read the register
 HAL_StatusTypeDef ADS1115::readRegister(uint8_t reg, uint16_t& val) {
-	HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(hi2c, m_i2cAddress, &reg, 1, 10);
+	HAL_StatusTypeDef status;
+	uint8_t data[2] = {0, 0};
+
+	status = HAL_I2C_Mem_Read(hi2c, m_i2cAddress, (uint16_t)reg, I2C_MEMADD_SIZE_8BIT, (uint8_t*)data, 2, 1000);
 	if (status != HAL_OK) {
 		val = 0;
 		return status;
 	}
-	uint8_t pData[2] = { 0, 0 };
-	status = HAL_I2C_Master_Receive(hi2c, m_i2cAddress, pData, 2, 10);
-	if (status != HAL_OK) {
-		val = 0;
-		printf("[ADS1115] Cannot read register.");
-		return status;
-	}
-	val = ((pData[0] << 8) | pData[1]);
+	val = (uint16_t)(data[0] << 8) | data[1];
 	return HAL_OK;
 }
 
@@ -96,35 +92,34 @@ HAL_StatusTypeDef ADS1115::ADS1115_init() {
  // functions, but be careful never to exceed VDD +0.3V max, or to
  // exceed the upper and lower limits if you adjust the input range!
  // Setting these values incorrectly may destroy your ADC!
- //                                                                ADS1115  ADS1115
- //                                                                -------  -------
- // ADSsetGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
- // ADSsetGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
- // ADSsetGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
- // ADSsetGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
- // ADSsetGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
- // ADSsetGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
+
+ // ADSsetGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 0.1875mV (default)
+ // ADSsetGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 0.125mV
+ // ADSsetGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 0.0625mV
+ // ADSsetGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.03125mV
+ // ADSsetGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.015625mV
+ // ADSsetGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.0078125mV
  */
 void ADS1115::ADSsetGain(adsGain_t gain) {
 	m_gain = gain;
 	switch(gain) {
 	case GAIN_TWOTHIRDS:
-		full_scale = 6.6144;
+		full_scale = 2*6.6144;
 		break;
 	case GAIN_ONE:
-		full_scale = 4.096;
+		full_scale = 2*4.096;
 		break;
 	case GAIN_TWO:
-		full_scale = 2.048;
+		full_scale = 2*2.048;
 		break;
 	case GAIN_FOUR:
-		full_scale = 1.024;
+		full_scale = 2*1.024;
 		break;
 	case GAIN_EIGHT:
-		full_scale = 0.512;
+		full_scale = 2*0.512;
 		break;
 	case GAIN_SIXTEEN:
-		full_scale = 0.256;
+		full_scale = 2*0.256;
 		break;
 	}
 }
@@ -135,7 +130,7 @@ adsGain_t ADS1115::ADSgetGain() {
 }
 
 // Gets a single-ended ADC reading from the specified channel
-HAL_StatusTypeDef ADS1115::ADSreadADC_SingleEnded(uint8_t channel, uint16_t& val) {
+HAL_StatusTypeDef ADS1115::ADSreadADC_SingleEnded(uint8_t channel, int16_t& val) {
 	if (channel > 3) {
 		val = 0;
 		return HAL_ERROR;
@@ -147,7 +142,7 @@ HAL_StatusTypeDef ADS1115::ADSreadADC_SingleEnded(uint8_t channel, uint16_t& val
 			ADS1115_REG_CONFIG_CLAT_NONLAT 	|  	// Non-latching (default val)
 			ADS1115_REG_CONFIG_CPOL_ACTVLOW | 	// Alert/Rdy active low   (default val)
 			ADS1115_REG_CONFIG_CMODE_TRAD 	| 	// Traditional comparator (default val)
-			ADS1115_REG_CONFIG_MODE_SINGLE;   	// Single-shot mode (default)
+			ADS1115_REG_CONFIG_MODE_SINGLE;    	// Single-shot mode (default)
 
 	// Set PGA/voltage range
 	config |= m_gain;
@@ -180,15 +175,17 @@ HAL_StatusTypeDef ADS1115::ADSreadADC_SingleEnded(uint8_t channel, uint16_t& val
 	}
 		// Wait for the conversion to complete
 	ads_delay(m_conversionDelay);
+//	while (!conversionComplete()) {}
 
 	// Read the conversion results
-	// Shift 12-bit results right 4 bits for the ADS1115
-	status = readRegister(ADS1115_REG_POINTER_CONVERT, val);
+	uint16_t res;
+	status = readRegister(ADS1115_REG_POINTER_CONVERT, res);
 	if (status != HAL_OK) {
 		val = 0;
 		return status;
 	}
-	val = val >> m_bitShift;
+	val = (int16_t)(res << m_bitShift);
+
 	return HAL_OK;
 }
 
@@ -204,11 +201,12 @@ HAL_StatusTypeDef ADS1115::ADSreadADC_Differential_0_1(int16_t& val) {
 	ADS1115_REG_CONFIG_CLAT_NONLAT 	|  	// Non-latching (default val)
 	ADS1115_REG_CONFIG_CPOL_ACTVLOW | 	// Alert/Rdy active low   (default val)
 	ADS1115_REG_CONFIG_CMODE_TRAD 	| 	// Traditional comparator (default val)
-	ADS1115_REG_CONFIG_DR_128SPS 	|   // 128 samples per second (default)
 	ADS1115_REG_CONFIG_MODE_SINGLE;   	// Single-shot mode (default)
 
 	// Set PGA/voltage range
 	config |= m_gain;
+
+	config |= m_dataRate;
 
 	// Set channels
 	config |= ADS1115_REG_CONFIG_MUX_DIFF_0_1; // AIN0 = P, AIN1 = N
@@ -262,12 +260,12 @@ HAL_StatusTypeDef ADS1115::ADSstartComparator_SingleEnded(uint8_t channel, int16
 	ADS1115_REG_CONFIG_CLAT_LATCH 	|   	// Latching mode
 	ADS1115_REG_CONFIG_CPOL_ACTVLOW | 	// Alert/Rdy active low   (default val)
 	ADS1115_REG_CONFIG_CMODE_TRAD 	| 	// Traditional comparator (default val)
-	ADS1115_REG_CONFIG_DR_128SPS 	|	 // 128 samples per second (default)
-	ADS1115_REG_CONFIG_MODE_CONTIN 	|  	// Continuous conversion mode
 	ADS1115_REG_CONFIG_MODE_CONTIN;   	// Continuous conversion mode
 
 	// Set PGA/voltage range
 	config |= m_gain;
+
+	config |= m_dataRate;
 
 	// Set single-ended input channel
 	switch (channel) {
@@ -285,8 +283,6 @@ HAL_StatusTypeDef ADS1115::ADSstartComparator_SingleEnded(uint8_t channel, int16
 		break;
 	}
 
-	// Set the high threshold register
-	// Shift 12-bit results left 4 bits for the ADS1115
 	HAL_StatusTypeDef status = writeRegister(ADS1115_REG_POINTER_HITHRESH, threshold << m_bitShift);
 	if (status != HAL_OK)
 		return status;
@@ -314,8 +310,6 @@ HAL_StatusTypeDef ADS1115::ADSgetLastConversionResults(int16_t& val) {
 		val = (int16_t) res;
 		return HAL_OK;
 	} else {
-		// Shift 12-bit results right 4 bits for the ADS1115,
-		// making sure we keep the sign bit intact
 		if (res > 0x07FF) {
 			// negative number - extend the sign to 16th bit
 			res |= 0xF000;
@@ -335,7 +329,7 @@ float ADS1115::get_full_scale() {
 HAL_StatusTypeDef ADS1115::read_average(uint8_t channel, float& val, uint16_t times) {
 	long sum = 0;
 	HAL_StatusTypeDef status;
-	uint16_t res = 0;
+	int16_t res = 0;
 	for (uint16_t i = 0; i < times; i++) {
 		status = ADSreadADC_SingleEnded(channel, res);
 		if (status != HAL_OK) {
@@ -383,4 +377,10 @@ void ADS1115::set_offset(uint8_t channel, float offset) {
 
 float ADS1115::get_offset(uint8_t channel) {
 	return OFFSET[channel];
+}
+
+bool ADS1115::conversionComplete() {
+	uint16_t val;
+	readRegister(ADS1115_REG_POINTER_CONFIG, val);
+	return ((val & 0x8000) != 0);
 }

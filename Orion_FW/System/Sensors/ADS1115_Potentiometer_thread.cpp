@@ -72,10 +72,11 @@ HAL_StatusTypeDef PotentiometerThread::get_angle(uint8_t channel, float& val) {
 		printf("Requested channel is not available. \n");
 		return HAL_ERROR;
 	}
-//	HAL_StatusTypeDef status = potentiometer.get_value_conv(channel, val);
-	HAL_StatusTypeDef status = potentiometer.read_average(channel, val);
+	HAL_StatusTypeDef status = potentiometer.get_value_conv(channel, val);
+//	HAL_StatusTypeDef status = potentiometer.read_average(channel, val, 1);
 	if (status != HAL_OK)
 		val = 0;
+//	osDelay(1);
 	return status;
 }
 

@@ -839,10 +839,6 @@ HAL_StatusTypeDef AS7265x::writeRegister(uint8_t addr, uint8_t value) {
 	if (status != HAL_OK)
 		return status;
 
-	status = HAL_I2C_IsDeviceReady(hi2c, i2c_address, 10, 100);
-	if(status != HAL_OK)
-		return status;
-
 	return HAL_I2C_Mem_Write(hi2c, i2c_address, addr, I2C_MEMADD_SIZE_8BIT, &value, 1, 10);
 }
 
