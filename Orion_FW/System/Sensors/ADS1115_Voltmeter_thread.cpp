@@ -2,7 +2,7 @@
  * ADS1115_Voltmeter_thread.cpp
  *
  *  Created on: Jul 24, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 #include "ADS1115_Voltmeter_thread.hpp"
@@ -12,9 +12,9 @@ static char cbuf[256]; // for printf
 
 void VoltmeterThread::init() {
 
-	bool success = voltmeter.ADS1115_init();
+	HAL_StatusTypeDef status = voltmeter.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
-	if(!success) {
+	if(status != HAL_OK) {
 		terminate();
 		parent->resetProber();
 		return;
@@ -30,9 +30,9 @@ static VoltmeterPacket packet;
 
 void VoltmeterThread::loop() {
 
-	voltmeter_data.voltage = get_voltage();
+	HAL_StatusTypeDef status = get_voltage(voltmeter_data.voltage);
 
-	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+	if(status == HAL_OK) {
 		printf("%s \n", voltmeter_data.toString(cbuf));
 		voltmeter_data.toArray((uint8_t*) &packet);
 		FDCAN1_network.send(&packet);
@@ -44,12 +44,29 @@ void VoltmeterThread::loop() {
 	}
 }
 
-int8_t VoltmeterThread::get_polarity() {
-	return voltmeter.ADSreadADC_SingleEnded(0) > polarity_threshold ? -1 : 1;
+HAL_StatusTypeDef VoltmeterThread::get_polarity(int8_t& polarity) {
+	uint16_t res = 0;
+	HAL_StatusTypeDef status = voltmeter.ADSreadADC_SingleEnded(0, res);
+	if (status != HAL_OK) {
+		polarity = 0;
+		return status;
+	}
+	polarity = (res > polarity_threshold ? -1 : 1);
+	return HAL_OK;
 }
 
-float VoltmeterThread::get_voltage() {
-//	return correction_factor*get_polarity()*divider_ratio*voltmeter.get_full_scale()*
-//			((float)voltmeter.ADSreadADC_SingleEnded(1)/(ADS_MAX_VALUE));
-	return get_polarity()*voltmeter.get_value_conv(1);
+HAL_StatusTypeDef VoltmeterThread::get_voltage(float& val) {
+	int8_t polarity = 0;
+	HAL_StatusTypeDef status = get_polarity(polarity);
+	if (status != HAL_OK) {
+		val = 0;
+		return status;
+	}
+	status = voltmeter.get_value_conv(1, val);
+	if (status != HAL_OK) {
+		val = 0;
+		return status;
+	}
+	val*=polarity;
+	return HAL_OK;
 }

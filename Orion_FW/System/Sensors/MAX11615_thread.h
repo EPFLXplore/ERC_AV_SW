@@ -2,7 +2,7 @@
  * MAX11615_thread.h
  *
  *  Created on: 15 Jun 2023
- *      Author: YassineBakkali
+ *      Author: Yassine Bakkali
  */
 
 #ifndef SENSORS_MAX11615_THREAD_H_

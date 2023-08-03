@@ -2,7 +2,7 @@
  * ADS1234_thread.hpp
  *
  *  Created on: Apr 2, 2023
- *      Author: Yassine
+ *      Author: Yassine Bakkali, Vincent Nguyen
  */
 
 #ifndef SENSORS_ADS1234_MASS_THREAD_HPP_

@@ -2,7 +2,7 @@
  * npk_thread.cpp
  *
  *  Created on: Jul 23, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 // Soil NPK Sensor: JXBS-3001-NPK-RS

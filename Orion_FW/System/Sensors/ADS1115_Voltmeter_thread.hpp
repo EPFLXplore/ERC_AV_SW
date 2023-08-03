@@ -2,7 +2,7 @@
  * ADS1115_Voltemeter_thread.hpp
  *
  *  Created on: Jul 24, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 #ifndef SENSORS_ADS1115_VOLTMETER_THREAD_HPP_
@@ -23,8 +23,8 @@ private:
 	ProberThread* parent;
 	uint8_t portNum;
 	ADS1115 voltmeter;
-	float get_voltage();
-	int8_t get_polarity();
+	HAL_StatusTypeDef get_voltage(float& val);
+	HAL_StatusTypeDef get_polarity(int8_t& polarity);
 	float divider_ratio = 10.0f; // = 1/(2k / (2k + 18k))
 	uint16_t polarity_threshold = 1000;
 	float correction_factor = 1.0f;

@@ -2,7 +2,7 @@
  * ADS1234_thread.cpp
  *
  *  Created on: Apr 2, 2023
- *      Author: Yassine Bakkali
+ *      Author: Yassine Bakkali, Vincent Nguyen
  */
 
 #include <ADS1234_Mass_thread.hpp>

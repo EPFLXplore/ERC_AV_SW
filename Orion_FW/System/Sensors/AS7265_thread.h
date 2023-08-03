@@ -1,8 +1,7 @@
 /*
- * Voltmeter_thread.h
+ * AS7265_thread.h
  *
- *  Created on: 10 Aug 2022
- *      Author: Yassine
+ *      Author: Yassine Bakkali, Vincent Nguyen
  */
 
 #ifndef SENSORS_AS7265_THREAD_H
@@ -13,6 +12,7 @@
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
+#include "Telemetry.h"
 
 
 class AS7265Thread : public Thread {
@@ -20,10 +20,13 @@ public:
 	AS7265Thread(ProberThread* parent) : Thread("AS7265"), parent(parent), portNum(parent->getI2CNum()), spectro(parent->getI2C(),  AS7265X_ADDR){}
 	void init();
 	void loop();
+
+	static void handle_take_measurement(uint8_t sender_id, ColorFilterPacket* packet);
 private:
-	AS7265x spectro;
 	ProberThread* parent;
 	uint8_t portNum;
+	AS7265x spectro;
+	ColorFilterPacket color_filter_packet;
 
 };
 

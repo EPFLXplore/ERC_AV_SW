@@ -2,8 +2,8 @@
  * Prober.cpp
  *
  *  Created on: 8 Apr 2021
- *  Updated on: 13 Aug 2022
- *      Authors: arion, Yassine, Vincent
+ *  Updated on: Aug 2023
+ *      Authors: Arion Zimmermann, Yassine Bakkali, Vincent Nguyen
  *
  */
 

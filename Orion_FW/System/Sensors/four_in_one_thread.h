@@ -1,8 +1,8 @@
 /*
- * all_in_one_thread.h
+ * four_in_one_thread.h
  *
  *  Created on: May 30, 2023
- *      Author: YassineBakkali
+ *      Author: Yassine Bakkali, Vincent Nguyen
  */
 
 #ifndef SENSORS_FOUR_IN_ONE_THREAD_H_

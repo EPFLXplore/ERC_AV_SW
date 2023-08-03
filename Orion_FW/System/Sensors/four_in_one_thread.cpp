@@ -1,8 +1,8 @@
 /*
- * all_in_one_thread.cpp
+ * four_in_one_thread.cpp
  *
  *  Created on: May 30, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 // Soil Moisture & Temperature & EC & PH Sensor: RS-ECTHPH-N01-TR-1

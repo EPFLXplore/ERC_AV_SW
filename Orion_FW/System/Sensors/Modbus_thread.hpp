@@ -2,7 +2,7 @@
  * Modbus_thread.hpp
  *
  *  Created on: Jul 23, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 #ifndef SENSORS_MODBUS_THREAD_HPP_

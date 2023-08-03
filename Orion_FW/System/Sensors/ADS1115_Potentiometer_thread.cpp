@@ -1,8 +1,8 @@
-/*
+   /*
  * ADS1115_Potentiometer_thread.cpp
  *
  *  Created on: Jul 24, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 #include "ADS1115_Potentiometer_thread.hpp"
@@ -12,9 +12,9 @@ static char cbuf[256]; // for printf
 
 void PotentiometerThread::init() {
 
-	bool success = potentiometer.ADS1115_init();
+	HAL_StatusTypeDef status = potentiometer.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
-	if(!success) {
+	if(status != HAL_OK) {
 		terminate();
 		parent->resetProber();
 		return;
@@ -53,14 +53,9 @@ static PotentiometerData potentiometer_data;
 static PotentiometerPacket packet;
 
 void PotentiometerThread::loop() {
-	potentiometer_data.angles[0] = get_angle(0);
-	potentiometer_data.angles[1] = get_angle(1);
-	potentiometer_data.angles[2] = get_angle(2);
-	potentiometer_data.angles[3] = get_angle(3);
-	// We can print it to SVW console (optional)
-	printf("%s \n", potentiometer_data.toString(cbuf));
+	HAL_StatusTypeDef status = get_angles(potentiometer_data.angles);
 
-	if(HAL_I2C_GetError(parent->getI2C()) == HAL_I2C_ERROR_NONE) {
+	if(status == HAL_OK) {
 		printf("%s \n", potentiometer_data.toString(cbuf));
 		potentiometer_data.toArray((uint8_t*) &packet);
 		FDCAN1_network.send(&packet);
@@ -72,11 +67,41 @@ void PotentiometerThread::loop() {
 	}
 }
 
-float PotentiometerThread::get_angle(uint8_t channel) {
+HAL_StatusTypeDef PotentiometerThread::get_angle(uint8_t channel, float& val) {
 	if (channel > 3) {
 		printf("Requested channel is not available. \n");
-		return 0;
+		return HAL_ERROR;
 	}
-	return potentiometer.get_value_conv(channel);
+//	HAL_StatusTypeDef status = potentiometer.get_value_conv(channel, val);
+	HAL_StatusTypeDef status = potentiometer.read_average(channel, val);
+	if (status != HAL_OK)
+		val = 0;
+	return status;
+}
+
+HAL_StatusTypeDef PotentiometerThread::get_angles(float* angles) {
+	HAL_StatusTypeDef status;
+#ifdef POT_CH0_ENABLE
+	status = get_angle(0, angles[0]);
+	if (status != HAL_OK)
+		return status;
+#endif
+#ifdef POT_CH1_ENABLE
+	status = get_angle(1, angles[1]);
+	if (status != HAL_OK)
+		return status;
+#endif
+#ifdef POT_CH2_ENABLE
+	status = get_angle(2, angles[2]);
+	if (status != HAL_OK)
+		return status;
+#endif
+#ifdef POT_CH3_ENABLE
+	status = get_angle(3, angles[3]);
+	if (status != HAL_OK)
+		return status;
+#endif
+
+	return HAL_OK;
 }
 

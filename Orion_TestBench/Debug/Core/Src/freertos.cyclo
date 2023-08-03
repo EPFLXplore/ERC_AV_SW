@@ -1,6 +1,6 @@
-freertos.cpp:120:6:void MX_FREERTOS_Init()	1
-freertos.cpp:174:6:void StartBlink01(void*)	1
-freertos.cpp:193:6:void StartAdsTask(void*)	2
-freertos.cpp:237:6:void StartGPIOTask(void*)	1
-freertos.cpp:267:6:void StartBMPTask(void*)	1
-freertos.cpp:310:6:void StartBlink02(void*)	1
+../Core/Src/freertos.cpp:120:6:void MX_FREERTOS_Init()	1
+../Core/Src/freertos.cpp:174:6:void StartBlink01(void*)	1
+../Core/Src/freertos.cpp:193:6:void StartAdsTask(void*)	2
+../Core/Src/freertos.cpp:237:6:void StartGPIOTask(void*)	1
+../Core/Src/freertos.cpp:267:6:void StartBMPTask(void*)	1
+../Core/Src/freertos.cpp:310:6:void StartBlink02(void*)	1

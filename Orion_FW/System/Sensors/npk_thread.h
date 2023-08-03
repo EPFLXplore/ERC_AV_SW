@@ -2,7 +2,7 @@
  * npk_thread.hpp
  *
  *  Created on: Jul 23, 2023
- *      Author: Vincent
+ *      Author: Vincent Nguyen
  */
 
 #ifndef SENSORS_NPK_THREAD_H_

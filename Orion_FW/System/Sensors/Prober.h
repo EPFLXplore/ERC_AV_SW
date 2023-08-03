@@ -2,7 +2,7 @@
  * Prober.h
  *
  *  Created on: 8 Apr 2021
- *      Author: arion
+ *      Author: Arion Zimmermann, Vincent Nguyen, Yassine Bakkali
  */
 
 #ifndef SENSORS_PROBER_H_
