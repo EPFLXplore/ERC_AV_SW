@@ -14,8 +14,6 @@
 #include "Lang/Operators.h"
 #include "Prober.h"
 
-
-#include "bmi08_defs.h"
 #include "AHRS_thread.h"
 #include <Modbus_thread.hpp>
 #include "ADS1115_Voltmeter_thread.hpp"
@@ -62,7 +60,7 @@ void ProberThread::loop() {
 	}
 	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3MDL_I2CADDR_DEFAULT)){
 		this->instance = new AHRSThread(this);
-		this->instance->setTickDelay(5); // 200 Hz
+		this->instance->setTickDelay(4); // 250 Hz
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
 	if (probeI2C(AS7265X_ADDR)) {

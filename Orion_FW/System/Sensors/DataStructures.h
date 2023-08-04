@@ -52,6 +52,24 @@ struct Quaternion {
 
 };
 
+struct EulerAngles {
+	float r;
+	float p;
+	float y;
+	char* toString(char* buffer) {
+		sprintf(buffer, "[r: %f \t p: %f \t y: %f] deg", r, p, y);
+		return buffer;
+	}
+
+	uint8_t* toArray(uint8_t* buffer) {
+		*(float*)(buffer + 0) = r;
+		*(float*)(buffer + 1*4) = p;
+		*(float*)(buffer + 2*4) = y;
+		return buffer;
+	}
+
+};
+
 struct DummyData {
     int data;
     char* toString(char* buffer) {

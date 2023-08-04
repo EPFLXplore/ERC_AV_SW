@@ -2,9 +2,6 @@
 #include "cmsis_os.h"
 #include <BMI088.hpp>
 #include <BMI088_defs.hpp>
-#include <cassert>
-#include <stdio.h>
-#include <chrono>
 
 HAL_StatusTypeDef BMI088::read_reg(uint8_t reg, uint8_t* data, uint16_t len, uint8_t dev_addr) {
 //  not sure if necessary to suspend tasks and disable interrupts

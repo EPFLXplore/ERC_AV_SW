@@ -16,7 +16,8 @@
 
 class AHRSThread : public Thread {
 public:
-	AHRSThread(ProberThread* parent) : Thread("AHRS"), parent(parent), portNum(parent->getI2CNum()) {}
+	AHRSThread(ProberThread* parent) : Thread("AHRS"), parent(parent), portNum(parent->getI2CNum()),
+										q({1.0f, 0.0f, 0.0f, 0.0f}), start_time_us(0), end_time_us(0) {}
 	~AHRSThread();
 	void init();
 	void loop();
@@ -27,6 +28,8 @@ private:
 						  float gx, float gy, float gz,
 						  float mx, float my, float mz,
 						  float dt);
+
+	EulerAngles QuaternionToEuler(Quaternion q_);
 
 	// Sensor instances
 
@@ -55,6 +58,21 @@ private:
 	Vector mag; // in uTesla
 	Vector acc; // in m/s^2
 	Vector gyro; // in rad/s
+
+	// Sensor fusion output
+
+	Quaternion q;
+
+	EulerAngles rpy;
+
+	// Timestamps
+
+	long start_time_us;
+	long end_time_us;
+
+	// Madgwick filter parameters
+
+	float beta = 0.6;
 
 };
 

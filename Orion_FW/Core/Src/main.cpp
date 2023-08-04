@@ -118,8 +118,9 @@ int main(void)
   MX_USART1_UART_Init();
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start(&htim5);
   /* USER CODE END 2 */
 
   /* Init scheduler */

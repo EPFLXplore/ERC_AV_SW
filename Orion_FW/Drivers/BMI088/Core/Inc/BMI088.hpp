@@ -2,7 +2,7 @@
  * bmi088.h
  *
  *  Created on: Mar 8, 2023
- *      Author: leo
+ *      Author: Leo Kruglikov, Vincent Nguyen
  */
 
 
@@ -10,8 +10,6 @@
 #define BMI088_CORE_INC_BMI088_HPP_
 
 #include <BMI088_defs.hpp>
-#include "bmi08_defs.h"
-//#include "bmi08x.h"
 #include "stm32h7xx_hal.h"
 #include "DataStructures.h"
 

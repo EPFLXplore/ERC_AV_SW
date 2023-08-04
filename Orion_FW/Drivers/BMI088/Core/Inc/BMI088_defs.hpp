@@ -105,9 +105,16 @@
 
 #define GYRO_DATA_ADDR 0x02
 
-#define BMI_SENS_LOG(fmt, args...) fprintf(stdout, fmt, ##args);
-#define SET_FIELD(regval,regname,value) ((regval & ~regname##_MASK) | ((value << regname##_POS) & regname##_MASK))
-#define GET_FIELD(regname,value) ((value & regname##_MASK) >> regname##_POS)
+/**\name    Accel I2C slave address */
+#define BMI08_ACCEL_I2C_ADDR_PRIMARY            UINT8_C(0x18)
+#define BMI08_ACCEL_I2C_ADDR_SECONDARY          UINT8_C(0x19)
+
+/**\name    Gyro I2C slave address */
+#define BMI08_GYRO_I2C_ADDR_PRIMARY             UINT8_C(0x68)
+#define BMI08_GYRO_I2C_ADDR_SECONDARY           UINT8_C(0x69)
+
+/**\name    Accel Chip Id register */
+#define BMI08_REG_ACCEL_CHIP_ID                 UINT8_C(0x00)
 
 #define G 9.807f
 
