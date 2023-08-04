@@ -16,6 +16,12 @@
 ModbusThread* modbusInstance = nullptr;
 static char cbuf[256]; // for printf
 
+ModbusThread::~ModbusThread() {
+	delete FourInOneInstance;
+	FourInOneInstance = nullptr;
+	delete NPKInstance;
+	FourInOneInstance = nullptr;
+}
 
 void ModbusThread::init() {
 	modbusInstance = this;
@@ -32,11 +38,13 @@ void ModbusThread::loop() {
 	if ((!(FourInOneInstance->is_connected()) && !(NPKInstance->is_connected()))) {
 		if (FourInOneInstance) {
 			FourInOneInstance->terminate();
+			delete FourInOneInstance;
 			FourInOneInstance = nullptr;
 		}
 
 		if (NPKInstance) {
 			NPKInstance->terminate();
+			delete NPKInstance;
 			NPKInstance = nullptr;
 		}
 		ModbusDeinit(&ModbusH);

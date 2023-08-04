@@ -8,6 +8,7 @@
  */
 
 #include <ADS1234_Mass_thread.hpp>
+#include <AS7265_thread.h>
 #include "i2c.h"
 
 #include "Lang/Operators.h"
@@ -15,10 +16,7 @@
 
 
 #include "bmi08_defs.h"
-#include "lis3mdl_sens.hpp"
-#include "IMU_thread.h"
-#include "dummy_addresses.h"
-#include "AS7265_thread.h"
+#include "AHRS_thread.h"
 #include <Modbus_thread.hpp>
 #include "ADS1115_Voltmeter_thread.hpp"
 #include "ADS1115_Potentiometer_thread.hpp"
@@ -62,8 +60,8 @@ void ProberThread::loop() {
 		this->instance->setTickDelay(100);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
-	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3_I2C_ADDR)){
-		this->instance = new IMUThread(this);
+	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3MDL_I2CADDR_DEFAULT)){
+		this->instance = new AHRSThread(this);
 		this->instance->setTickDelay(5); // 200 Hz
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}

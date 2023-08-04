@@ -79,6 +79,8 @@ void ADS1234Thread::init() {
 		MX_SPI1_Init();
 		terminate();
 		parent->resetProber();
+		delete mass_sensor;
+		mass_sensor = nullptr;
 		return;
 	}
 
@@ -97,6 +99,7 @@ void ADS1234Thread::init() {
 ADS1234Thread::~ADS1234Thread() {
     // Release the dynamically allocated memory for mass_sensor
     delete mass_sensor;
+    mass_sensor = nullptr;
 }
 
 // Declare your data with the proper data structure defined in DataStructures.h
@@ -171,6 +174,8 @@ void ADS1234Thread::loop() {
 			MX_SPI2_Init();
 		else if (hspi == &hspi3)
 			MX_SPI3_Init();
+		delete mass_sensor;
+		mass_sensor = nullptr;
 		terminate();
 		parent->resetProber();
 	}

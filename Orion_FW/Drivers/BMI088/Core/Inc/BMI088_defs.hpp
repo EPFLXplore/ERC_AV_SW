@@ -84,7 +84,6 @@
 #define GYRO_RANGE_250_DPS 0x03
 #define GYRO_RANGE_125_DPS 0x04
 
-#define GYRO_ENABLE_DRDY_INT 0x80
 #define GYRO_DIS_DRDY_INT 0x00
 
 #define GYRO_INT_CNTRL_ADDR 0x15
@@ -111,33 +110,6 @@
 #define GET_FIELD(regname,value) ((value & regname##_MASK) >> regname##_POS)
 
 #define G 9.807f
-
-enum Odr {
-      ODR_1600HZ_BW_280HZ,
-      ODR_1600HZ_BW_234HZ,
-      ODR_1600HZ_BW_145HZ,
-      ODR_800HZ_BW_230HZ,
-      ODR_800HZ_BW_140HZ,
-      ODR_800HZ_BW_80HZ,
-      ODR_400HZ_BW_145HZ,
-      ODR_400HZ_BW_75HZ,
-      ODR_400HZ_BW_40HZ,
-      ODR_200HZ_BW_80HZ,
-      ODR_200HZ_BW_38HZ,
-      ODR_200HZ_BW_20HZ,
-      ODR_100HZ_BW_40HZ,
-      ODR_100HZ_BW_19HZ,
-      ODR_100HZ_BW_10HZ,
-      ODR_50HZ_BW_20HZ,
-      ODR_50HZ_BW_9HZ,
-      ODR_50HZ_BW_5HZ,
-      ODR_25HZ_BW_10HZ,
-      ODR_25HZ_BW_5HZ,
-      ODR_25HZ_BW_3HZ,
-      ODR_12_5HZ_BW_5HZ,
-      ODR_12_5HZ_BW_2HZ,
-      ODR_12_5HZ_BW_1HZ
-};
 
 
 
