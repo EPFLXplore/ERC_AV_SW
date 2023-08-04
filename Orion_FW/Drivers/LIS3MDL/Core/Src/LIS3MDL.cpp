@@ -25,7 +25,6 @@ HAL_StatusTypeDef Adafruit_LIS3MDL::read_bits(uint8_t reg, uint8_t* data, uint8_
     uint8_t reg_value;
     HAL_StatusTypeDef res;
 
-    // Read the register value using HAL_I2C_Mem_Read
     res = read_reg(reg, &reg_value, 1);
     if (res != HAL_OK) {
         return res; // Error occurred during the I2C read
@@ -434,9 +433,9 @@ Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag() {
 
 Adafruit_LIS3MDL::xyz Adafruit_LIS3MDL::get_last_mag_cal() {
 	read();
-	float x_nb = x_uT - HARD_IRON[0][0];
-	float y_nb = y_uT - HARD_IRON[1][0];
-	float z_nb = z_uT - HARD_IRON[2][0];
+	float x_nb = x_uT - HARD_IRON[0];
+	float y_nb = y_uT - HARD_IRON[1];
+	float z_nb = z_uT - HARD_IRON[2];
 
 	x_cal_uT = SOFT_IRON[0][0]*x_nb + SOFT_IRON[0][1]*y_nb + SOFT_IRON[0][2]*z_nb;
 	y_cal_uT = SOFT_IRON[1][0]*x_nb + SOFT_IRON[1][1]*y_nb + SOFT_IRON[1][2]*z_nb;

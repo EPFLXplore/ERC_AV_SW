@@ -40,6 +40,7 @@ private:
 
 	BMI088_Sens::xyz apply_calibration_gyro(const BMI088_Sens::xyz& gyro_data);
 	BMI088_Sens::xyz apply_calibration_acc(const BMI088_Sens::xyz& acc_data);
+	void QuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz, float dt);
 	void ekf();
 /*
 
@@ -60,6 +61,10 @@ private:
 	int frequency_counter = 1;
 
 	float frequency;
+	float q[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+
+	float beta = 0.6045998;
+	float zeta = 0.0;
 	/*std::vector<float> mag_bias;
 	std::vector<std::vector<float>> mag_transform;
 	std::vector<float> gyro_bias;

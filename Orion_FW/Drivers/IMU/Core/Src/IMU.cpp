@@ -242,44 +242,44 @@ void IMU::upd_attitude(){
 //	float p = this->last_gyr.x;
 //	float q = this->last_gyr.y;
 //	float r = this->last_gyr.z;
-	float Ax = this->last_acc.z;
-	float Ay = this->last_acc.y;
-	float Az = this->last_acc.x;
-	float Bx = this->last_mag_cal.z;
-	float By = this->last_mag_cal.y;
-	float Bz = this->last_mag_cal.x;
-	float p = this->last_gyr.z;
-	float q = this->last_gyr.y;
-	float r = this->last_gyr.x;
+//	float Ax = this->last_acc.z;
+//	float Ay = this->last_acc.y;
+//	float Az = this->last_acc.x;
+//	float Bx = this->last_mag_cal.z;
+//	float By = this->last_mag_cal.y;
+//	float Bz = this->last_mag_cal.x;
+//	float p = this->last_gyr.z;
+//	float q = this->last_gyr.y;
+//	float r = this->last_gyr.x;
 
-    /* Input 1:3 = gyroscope */
-    U[0][0] = p;  U[1][0] = q;  U[2][0] = r;
-    /* Output 1:3 = accelerometer */
-    Y[0][0] = Ax; Y[1][0] = Ay; Y[2][0] = Az;
-    /* Output 4:6 = magnetometer */
-    Y[3][0] = Bx; Y[4][0] = By; Y[5][0] = Bz;
-
-    /* Normalizing the output vector */
-    float_prec _normG = sqrt((Y[0][0] * Y[0][0]) + (Y[1][0] * Y[1][0]) + (Y[2][0] * Y[2][0]));
-    Y[0][0] = Y[0][0] / _normG;
-    Y[1][0] = Y[1][0] / _normG;
-    Y[2][0] = Y[2][0] / _normG;
-    float_prec _normM = sqrt((Y[3][0] * Y[3][0]) + (Y[4][0] * Y[4][0]) + (Y[5][0] * Y[5][0]));
-    Y[3][0] = Y[3][0] / _normM;
-    Y[4][0] = Y[4][0] / _normM;
-    Y[5][0] = Y[5][0] / _normM;
-
-    TickType_t current_timestamp = xTaskGetTickCount();
-    this->dt = (float)(current_timestamp - this->last_timestamp)/(float(configTICK_RATE_HZ));
-    this->EKF_IMU.bUpdate(this->Y, this->U, this->dt);
-    this->quaternionData = EKF_IMU.GetX();
-    this->last_timestamp = current_timestamp;
-
-    this->last_attitude.w = this->quaternionData[0][0];
-    this->last_attitude.x = this->quaternionData[1][0];
-    this->last_attitude.y = this->quaternionData[2][0];
-    this->last_attitude.z = this->quaternionData[3][0];
-
+//    /* Input 1:3 = gyroscope */
+//    U[0][0] = p;  U[1][0] = q;  U[2][0] = r;
+//    /* Output 1:3 = accelerometer */
+//    Y[0][0] = Ax; Y[1][0] = Ay; Y[2][0] = Az;
+//    /* Output 4:6 = magnetometer */
+//    Y[3][0] = Bx; Y[4][0] = By; Y[5][0] = Bz;
+//
+//    /* Normalizing the output vector */
+//    float_prec _normG = sqrt((Y[0][0] * Y[0][0]) + (Y[1][0] * Y[1][0]) + (Y[2][0] * Y[2][0]));
+//    Y[0][0] = Y[0][0] / _normG;
+//    Y[1][0] = Y[1][0] / _normG;
+//    Y[2][0] = Y[2][0] / _normG;
+//    float_prec _normM = sqrt((Y[3][0] * Y[3][0]) + (Y[4][0] * Y[4][0]) + (Y[5][0] * Y[5][0]));
+//    Y[3][0] = Y[3][0] / _normM;
+//    Y[4][0] = Y[4][0] / _normM;
+//    Y[5][0] = Y[5][0] / _normM;
+//
+//    TickType_t current_timestamp = xTaskGetTickCount();
+//    this->dt = (float)(current_timestamp - this->last_timestamp)/(float(configTICK_RATE_HZ));
+//    this->EKF_IMU.bUpdate(this->Y, this->U, this->dt);
+//    this->quaternionData = EKF_IMU.GetX();
+//    this->last_timestamp = current_timestamp;
+//
+//    this->last_attitude.w = this->quaternionData[0][0];
+//    this->last_attitude.x = this->quaternionData[1][0];
+//    this->last_attitude.y = this->quaternionData[2][0];
+//    this->last_attitude.z = this->quaternionData[3][0];
+//
 }
 
 bool IMU::Main_bUpdateNonlinearX(Matrix& X_Next, const Matrix& X, const Matrix& U, float dt){

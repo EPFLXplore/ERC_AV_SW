@@ -9,6 +9,7 @@
 #define LIS3MDL_CORE_INC_LIS3MDL_HPP_
 #include "stm32h7xx_hal.h"
 #include <stdbool.h>
+#include <vector>
 #include "matrix.h"
 #include "konfig.h"
 
@@ -73,12 +74,10 @@ public:
   Adafruit_LIS3MDL(I2C_HandleTypeDef* i2c):
 	  i2c(i2c),
 	  dev_addr(LIS3MDL_I2CADDR_DEFAULT),
-	  HARD_IRON_data({-13.185064, -28.107286, 23.059407}),
-	  SOFT_IRON_data({0.834208, 0.022749, -0.015229,
-		              0.022749, 0.861209, 0.003485,
-		              -0.015229, 0.003485, 0.838099}),
-	  HARD_IRON(3, 1, HARD_IRON_data),
-	  SOFT_IRON(3, 3, SOFT_IRON_data) {};
+	  HARD_IRON{0.834208, 0.022749, -0.015229},
+	  SOFT_IRON({{0.834208, 0.022749, -0.015229},
+          	  	 {0.022749, 0.861209, 0.003485},
+				 {-0.015229, 0.003485, 0.838099}}) {};
 
   HAL_StatusTypeDef read_reg(uint8_t reg, uint8_t* data, uint16_t len);
   HAL_StatusTypeDef read_bits(uint8_t reg, uint8_t* data, uint8_t bits, uint8_t shift);
@@ -134,11 +133,13 @@ public:
   //! buffer for the magnetometer range
   lis3mdl_range_t rangeBuffered = LIS3MDL_RANGE_4_GAUSS;
 
-  float_prec HARD_IRON_data[3*1];
-  float_prec SOFT_IRON_data[3*3];
-
-  Matrix HARD_IRON;
-  Matrix SOFT_IRON;
+//  float_prec HARD_IRON_data[3*1];
+//  float_prec SOFT_IRON_data[3*3];
+//
+//  Matrix HARD_IRON;
+//  Matrix SOFT_IRON;
+  float HARD_IRON[3];
+  std::vector<std::vector<float>> SOFT_IRON;
 
 private:
   HAL_StatusTypeDef _init(void);
