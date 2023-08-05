@@ -56,7 +56,7 @@ void AHRSThread::init() {
 		imu = nullptr;
 		return;
 	}
-	start_time_us = __HAL_TIM_GET_COUNTER(&htim5);
+	prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 }
 
 // Declare your data with the proper data structure defined in DataStructures.h
@@ -69,7 +69,12 @@ void AHRSThread::loop() {
 	HAL_StatusTypeDef status;
 	uint8_t err_cnt = 0;
 
+#ifdef TRANSMIT_MAG_FOR_CALIBRATION
+	status = magnetometer->get_mag(mag);
+#else
 	status = magnetometer->get_mag_cal(mag);
+#endif
+
 	if (status != HAL_OK)
 		++err_cnt;
 
@@ -83,20 +88,30 @@ void AHRSThread::loop() {
 
 	if(err_cnt == 0) {
 //		printf("acc: %f \t %f \t %f \t gyro: %f \t %f \t %f \t mag: %f \t %f \t %f \n", acc.x, acc.y, acc.z, gyro.x, gyro.y, gyro.z, mag.x, mag.y, mag.z);
-		end_time_us = __HAL_TIM_GET_COUNTER(&htim5);
-		float dt = (end_time_us > start_time_us) ? (end_time_us - start_time_us)/1000000.f : (4294967295 - start_time_us + end_time_us + 1)/1000000.f;
+		curr_time_us = __HAL_TIM_GET_COUNTER(&htim5);
+		volatile float dt = (curr_time_us > prev_time_us) ? (curr_time_us - prev_time_us)/1000000.f : (4294967295 - prev_time_us + curr_time_us + 1)/1000000.f;
+		prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 		QuaternionUpdate(acc.x, acc.y, acc.z, gyro.x, gyro.y, gyro.z, mag.x, mag.y, mag.z, dt);
-		start_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 
 		// Send data over RoCo network
 		imu_data.accel = acc;
 		imu_data.gyro = gyro;
 		imu_data.orientation = q;
-		rpy = QuaternionToEuler(q);
-		printf("%s \n", rpy.toString(cbuf));
+//		rpy = QuaternionToEuler(q);
+//		printf("%s \n", rpy.toString(cbuf));
 
+#ifdef TRANSMIT_MAG_FOR_CALIBRATION
+		char buffer[32];
+		sprintf(buffer, "%.6f,%.6f,%.6f\n", mag.x, mag.y, mag.z);
+		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
+#endif
+#ifdef TRANSMIT_QUAT_FOR_PLOT
+		char buffer[50];
+		sprintf(buffer, "w%.6fw,a%.6fa,b%.6fb,c%.6fc\n", q.w, q.x, q.y, q.z);
+		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
+#endif
 		imu_data.toArray((uint8_t*) &imu_packet);
-		FDCAN1_network.send(&imu_packet);
+//		FDCAN1_network.send(&imu_packet);
 		portYIELD();
 	} else {
 		AHRSInstance = nullptr;

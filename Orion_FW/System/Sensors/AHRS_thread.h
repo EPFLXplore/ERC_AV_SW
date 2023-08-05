@@ -8,6 +8,9 @@
 #ifndef SENSORS_AHRS_THREAD_H_
 #define SENSORS_AHRS_THREAD_H_
 
+//#define TRANSMIT_MAG_FOR_CALIBRATION
+#define TRANSMIT_QUAT_FOR_PLOT
+
 #include "Thread.h"
 #include "Prober.h"
 #include "DataStructures.h"
@@ -17,7 +20,7 @@
 class AHRSThread : public Thread {
 public:
 	AHRSThread(ProberThread* parent) : Thread("AHRS"), parent(parent), portNum(parent->getI2CNum()),
-										q({1.0f, 0.0f, 0.0f, 0.0f}), start_time_us(0), end_time_us(0) {}
+										q({1.0f, 0.0f, 0.0f, 0.0f}), prev_time_us(0), curr_time_us(0) {}
 	~AHRSThread();
 	void init();
 	void loop();
@@ -47,9 +50,9 @@ private:
 	};
 
 	BMI088::Config imu_conf = {
-		ODR_1600HZ_BW_280HZ,
-		RANGE_24G,
-		ODR_2000HZ_BW_532,
+		ODR_800HZ_BW_140HZ,
+		RANGE_12G,
+		ODR_1000HZ_BW_116,
 		RANGE_2000
 	};
 
@@ -67,12 +70,12 @@ private:
 
 	// Timestamps
 
-	long start_time_us;
-	long end_time_us;
+	volatile uint32_t prev_time_us;
+	volatile uint32_t curr_time_us;
 
 	// Madgwick filter parameters
 
-	float beta = 0.6;
+	float beta = 0.2;
 
 };
 
