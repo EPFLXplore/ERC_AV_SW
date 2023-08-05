@@ -10,6 +10,9 @@
 
 //#define TRANSMIT_MAG_FOR_CALIBRATION
 #define TRANSMIT_QUAT_FOR_PLOT
+//#define TRANSMIT_ACC_FOR_CALIBRATION
+
+//#define PRINT_GYRO_BIAS
 
 #include "Thread.h"
 #include "Prober.h"
@@ -75,7 +78,7 @@ private:
 
 	// Madgwick filter parameters
 
-	float beta = 0.2;
+	float beta = 0.65;
 
 };
 

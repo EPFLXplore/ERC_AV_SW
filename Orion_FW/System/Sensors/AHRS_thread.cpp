@@ -56,6 +56,14 @@ void AHRSThread::init() {
 		imu = nullptr;
 		return;
 	}
+
+#ifdef PRINT_GYRO_BIAS
+	printf("Computing gyro bias (uncalibrated)... \n");
+	Vector gyro_bias = {0, 0, 0};
+	imu->compute_gyro_bias(gyro_bias);
+	printf("Gyro bias x: %f \t y: %f \t z: %f \n", gyro_bias.x, gyro_bias.y, gyro_bias.z);
+#endif
+
 	prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 }
 
@@ -78,11 +86,15 @@ void AHRSThread::loop() {
 	if (status != HAL_OK)
 		++err_cnt;
 
+#ifdef TRANSMIT_ACC_FOR_CALIBRATION
 	status = imu->get_accel(acc);
+#else
+	status = imu->get_accel_cal(acc);
+#endif
 	if (status != HAL_OK)
 		++err_cnt;
 
-	status = imu->get_gyro(gyro);
+	status = imu->get_gyro_cal(gyro);
 	if (status != HAL_OK)
 		++err_cnt;
 
@@ -105,13 +117,20 @@ void AHRSThread::loop() {
 		sprintf(buffer, "%.6f,%.6f,%.6f\n", mag.x, mag.y, mag.z);
 		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
 #endif
+#ifdef TRANSMIT_ACC_FOR_CALIBRATION
+		osDelay(10);
+		char buffer[32];
+		sprintf(buffer, "%.6f,%.6f,%.6f\n", acc.x, acc.y, acc.z);
+		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
+#endif
+
 #ifdef TRANSMIT_QUAT_FOR_PLOT
 		char buffer[50];
 		sprintf(buffer, "w%.6fw,a%.6fa,b%.6fb,c%.6fc\n", q.w, q.x, q.y, q.z);
 		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
 #endif
 		imu_data.toArray((uint8_t*) &imu_packet);
-//		FDCAN1_network.send(&imu_packet);
+		FDCAN1_network.send(&imu_packet);
 		portYIELD();
 	} else {
 		AHRSInstance = nullptr;

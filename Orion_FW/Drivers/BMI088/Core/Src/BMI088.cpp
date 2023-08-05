@@ -308,13 +308,23 @@ HAL_StatusTypeDef BMI088::read_accel() {
 		return status;
 	}
 
+	// Read raw values in two's complement
+
 	acc.x = (int16_t)((buff[1] << 8 ) | buff[0]);
 	acc.y = (int16_t)((buff[3] << 8 ) | buff[2]);
 	acc.z = (int16_t)((buff[5] << 8 ) | buff[4]);
 
+	// Convert to m/s^2
+
 	acc_mss.x = acc.x / 32767.0f * acc_range * G;
 	acc_mss.y = acc.y / 32767.0f * acc_range * G;
 	acc_mss.z = acc.z / 32767.0f * acc_range * G;
+
+	// Apply transform and remove bias
+
+	acc_cal_mss.x = ACC_TF[0][0]*acc_mss.x + ACC_TF[0][1]*acc_mss.y + ACC_TF[0][2]*acc_mss.z;
+	acc_cal_mss.y = ACC_TF[1][0]*acc_mss.x + ACC_TF[1][1]*acc_mss.y + ACC_TF[1][2]*acc_mss.z;
+	acc_cal_mss.z = ACC_TF[2][0]*acc_mss.x + ACC_TF[2][1]*acc_mss.y + ACC_TF[2][2]*acc_mss.z;
 
 	return status;
 }
@@ -331,6 +341,21 @@ HAL_StatusTypeDef BMI088::get_accel(Vector& acc_){
 	acc_.x = acc_mss.x;
 	acc_.y = acc_mss.y;
 	acc_.z = acc_mss.z;
+	return HAL_OK;
+}
+
+HAL_StatusTypeDef BMI088::get_accel_cal(Vector& acc_){
+	HAL_StatusTypeDef status;
+	status = read_accel();
+	if (status != HAL_OK) {
+		acc_.x = 0;
+		acc_.y = 0;
+		acc_.z = 0;
+		return status;
+	}
+	acc_.x = acc_cal_mss.x;
+	acc_.y = acc_cal_mss.y;
+	acc_.z = acc_cal_mss.z;
 	return HAL_OK;
 }
 
@@ -402,13 +427,23 @@ HAL_StatusTypeDef BMI088::read_gyro() {
 		return status;
 	}
 
+	// Read raw values in two's complement and convert to float
+
 	gyro.x = (int16_t)((buff[1] << 8 ) | buff[0]);
 	gyro.y = (int16_t)((buff[3] << 8 ) | buff[2]);
 	gyro.z = (int16_t)((buff[5] << 8 ) | buff[4]);
 
+	// Convert to rad/s
+
 	gyro_rads.x = gyro.x / 32767.0f * gyro_range * D2R;
 	gyro_rads.y = gyro.y / 32767.0f * gyro_range * D2R;
 	gyro_rads.z = gyro.z / 32767.0f * gyro_range * D2R;
+
+	// Remove bias
+
+	gyro_cal_rads.x = gyro_rads.x - GYRO_BIAS[0];
+	gyro_cal_rads.y = gyro_rads.y - GYRO_BIAS[1];
+	gyro_cal_rads.z = gyro_rads.z - GYRO_BIAS[2];
 
 	return status;
 }
@@ -428,6 +463,21 @@ HAL_StatusTypeDef BMI088::get_gyro(Vector& gyro_){
 	return HAL_OK;
 }
 
+HAL_StatusTypeDef BMI088::get_gyro_cal(Vector& gyro_){
+	HAL_StatusTypeDef status;
+	status = read_gyro();
+	if (status != HAL_OK) {
+		gyro_.x = 0;
+		gyro_.y = 0;
+		gyro_.z = 0;
+		return status;
+	}
+	gyro_.x = gyro_cal_rads.x;
+	gyro_.y = gyro_cal_rads.y;
+	gyro_.z = gyro_cal_rads.z;
+	return HAL_OK;
+}
+
 HAL_StatusTypeDef BMI088::get_gyro_raw(Vector& gyro_){
 	HAL_StatusTypeDef status;
 	status = read_gyro();
@@ -440,6 +490,49 @@ HAL_StatusTypeDef BMI088::get_gyro_raw(Vector& gyro_){
 	gyro_.x = gyro.x;
 	gyro_.y = gyro.y;
 	gyro_.z = gyro.z;
+	return HAL_OK;
+}
+
+HAL_StatusTypeDef BMI088::compute_gyro_bias(Vector& bias_, uint32_t times) {
+	HAL_StatusTypeDef status;
+	uint8_t delay = 0;
+	switch(config.odr_gyro_conf) {
+	case ODR_2000HZ_BW_532:
+	case ODR_2000HZ_BW_230:
+		delay = 0;
+		break;
+	case ODR_1000HZ_BW_116:
+		delay = 1;
+		break;
+	case ODR_400HZ_BW_47:
+		delay = 2;
+		break;
+	case ODR_200HZ_BW_23:
+	case ODR_200HZ_BW_64:
+		delay = 4;
+		break;
+	case ODR_100HZ_BW_12:
+	case ODR_100HZ_BW_32:
+		delay = 8;
+		break;
+	}
+
+	double sum_x = 0;
+	double sum_y = 0;
+	double sum_z = 0;
+	for (uint32_t i = 0; i < times; ++i) {
+		status = read_gyro();
+		if (status != HAL_OK)
+			return status;
+
+		sum_x += (double)gyro_rads.x;
+		sum_y += (double)gyro_rads.y;
+		sum_z += (double)gyro_rads.z;
+		osDelay(delay);
+	}
+	bias_.x = sum_x/times;
+	bias_.y = sum_y/times;
+	bias_.z = sum_z/times;
 	return HAL_OK;
 }
 

@@ -12,6 +12,7 @@
 #include <BMI088_defs.hpp>
 #include "stm32h7xx_hal.h"
 #include "DataStructures.h"
+#include <vector>
 
 enum acc_scale_type_t { // measurement rage
     RANGE_3G = 0x00,
@@ -94,27 +95,35 @@ class BMI088{
 		acc_dev_addr(BMI08_ACCEL_I2C_ADDR_PRIMARY),
 		gyro_dev_addr(BMI08_GYRO_I2C_ADDR_PRIMARY),
 		config(conf_),
-		bias_offset_acc({0.0f, 0.0f, 0.0f}),
-		bias_offset_gyro({0.0f, 0.0f, 0.0f})
+		ACC_BIAS{-0.041430, 0.117302, -0.016241},
+		GYRO_BIAS{0.00663f, -0.0005f, -0.00166f},
+		ACC_TF({{0.999371, -0.000365, -0.000939},
+            	{-0.000365, 1.001050, 0.000545},
+				{-0.000939, 0.000545, 0.995865}})
   {};
 
     HAL_StatusTypeDef initialize_accel();
     HAL_StatusTypeDef initialize_gyro();
 
     HAL_StatusTypeDef get_accel(Vector& acc_);
+    HAL_StatusTypeDef get_accel_cal(Vector& acc_);
     HAL_StatusTypeDef get_accel_raw(Vector& acc_);
 
-    HAL_StatusTypeDef get_gyro(Vector& acc_);
-    HAL_StatusTypeDef get_gyro_raw(Vector& acc_);
+    HAL_StatusTypeDef get_gyro(Vector& gyro_);
+    HAL_StatusTypeDef get_gyro_cal(Vector& gyro_);
+    HAL_StatusTypeDef get_gyro_raw(Vector& gyro_);
 
+    HAL_StatusTypeDef compute_gyro_bias(Vector& bias_, uint32_t times = 10000);
 
 //    void calibrate_acc(int sec);
 //    void calibrate_gyro(int sec);
 
     Vector acc;
     Vector acc_mss;
+    Vector acc_cal_mss;
     Vector gyro;
     Vector gyro_rads;
+    Vector gyro_cal_rads;
 
     struct Config{
     	acc_odr_type_t odr_acc_conf;
@@ -157,8 +166,9 @@ class BMI088{
 		uint16_t acc_range;
 		uint16_t gyro_range;
 		const float D2R = M_PI/180.0f;
-		Vector bias_offset_acc;
-		Vector bias_offset_gyro;
+		float ACC_BIAS[3];
+		float GYRO_BIAS[3];
+		std::vector<std::vector<float>> ACC_TF;
 
 };
 
