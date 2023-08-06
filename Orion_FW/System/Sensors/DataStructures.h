@@ -19,7 +19,7 @@ struct Vector {
 	float z;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "[%f %f %f]", x, y, z);
+		sprintf(buffer, "[%+.3f %+.3f %+.3f]", x, y, z);
 		return buffer;
 	}
 
@@ -38,7 +38,7 @@ struct Quaternion {
 	float y;
 	float z;
 	char* toString(char* buffer) {
-		sprintf(buffer, "[%f %f %f %f]", w, x, y, z);
+		sprintf(buffer, "[%+.3f %+.3f %+.3f %+.3f]", w, x, y, z);
 		return buffer;
 	}
 
@@ -57,7 +57,7 @@ struct EulerAngles {
 	float p;
 	float y;
 	char* toString(char* buffer) {
-		sprintf(buffer, "[r: %f \t p: %f \t y: %f] deg", r, p, y);
+		sprintf(buffer, "[r: %+.3f p: %+.3f y: %+.3f] [deg]", r, p, y);
 		return buffer;
 	}
 
@@ -73,7 +73,6 @@ struct EulerAngles {
 struct DummyData {
     int data;
     char* toString(char* buffer) {
-        static char buf[32];
         sprintf(buffer, "Data: %d", data); // beware of the type: (%d, %f, ...)
         return buffer;
     }
@@ -146,8 +145,10 @@ struct IMUData {
 	Quaternion orientation;
 
 	char* toString(char* buffer) {
-		static char buf[32];
-		sprintf(buffer, "Acc: %s [m/s2], Gyro [rad/s]: %s, Quaternion: %s", accel.toString(buf), gyro.toString(buf), orientation.toString(buf));
+		static char buf_accel[32];
+		static char buf_gyro[32];
+		static char buf_quat[32];
+		sprintf(buffer, "Acc: %s \t Gyro: %s \t Quat: %s", accel.toString(buf_accel), gyro.toString(buf_gyro), orientation.toString(buf_quat));
 		return buffer;
 	}
 
@@ -156,20 +157,6 @@ struct IMUData {
 		gyro.toArray(buffer + 3*4);
 		orientation.toArray(buffer + 6*4);
 //		mag.toArray(buffer + 6*4);
-		return buffer;
-	}
-};
-
-struct TOFData {
-	float distance;
-
-	char* toString(char* buffer) {
-		sprintf(buffer, "Tof: %f [mm]", distance);
-		return buffer;
-	}
-
-	uint8_t* toArray(uint8_t* buffer){
-		*(float*)(buffer) = distance;
 		return buffer;
 	}
 };

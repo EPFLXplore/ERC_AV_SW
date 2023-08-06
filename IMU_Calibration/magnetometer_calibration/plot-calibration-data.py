@@ -35,14 +35,14 @@ import matplotlib.pyplot as plt
 
 
 # Define calibration parameters
-A = np.array(   [[0.869358, 0.020422, 0.005522],
-                [0.020422, 0.917307, 0.009982],
-                [0.005522, 0.009982, 0.905441]])
-b = np.array([-18.582426, 11.345667, -4.903485])
+A = np.array(   [[0.995341, 0.080374, -0.004083],
+                [0.080374, 0.868745, 0.039082],
+                [-0.004083, 0.039082, 0.994559]])
+b = np.array([-24.720910, -2.528412, -11.211841])
 
 
 # Read raw data and apply calibration
-rawData = np.genfromtxt('mag-readings.txt', delimiter='\t')  # Read raw measurements
+rawData = np.genfromtxt('magnetometer_calibration/mag-readings.txt', delimiter='\t')  # Read raw measurements
 
 # Choose the number of points to skip (e.g., 9 out of 10 points)
 skip_points = 10

@@ -7,6 +7,7 @@
 
 #include "Thread.h"
 #include "Lang/Operators.h"
+#include "Debugging/Debug.h"
 
 #include "usart.h"
 
@@ -72,6 +73,14 @@ void Thread::terminate() {
 void Thread::println(const char* format, ...) {
 	va_list args;
 	va_start(args, format);
+	va_end(args);
+
+	sprintf(buffer, "[%s] ", name);
+	vsprintf(buffer + strlen(buffer), format, args);
+	strcat(buffer, "\r\n");
+
+	console.print(buffer);
+
 	va_end(args);
 }
 

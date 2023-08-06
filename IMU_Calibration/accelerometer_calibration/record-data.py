@@ -88,8 +88,7 @@ def RecordDataPt(ser: SerialPort) -> tuple:
         # read data
         try:
             raw_data = ser.Read().split(',')
-            print(raw_data)
-            data = [value.strip('\x00') for value in raw_data]
+            data = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
             if len(data) == 3:
                 ax_now = float(data[0])
                 ay_now = float(data[1])

@@ -1,0 +1,16 @@
+/*
+ * Debug.cpp
+ *
+ *  Created on: Jan 23, 2021
+ *      Author: AV Team 2020
+ */
+
+#include "Debugging/Debug.h"
+
+#include <usart.h>
+
+
+Console console(&huart1);
+Monitor monitor;
+Profiler profiler;
+Terminal terminal;

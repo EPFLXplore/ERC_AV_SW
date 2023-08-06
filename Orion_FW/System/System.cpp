@@ -9,10 +9,14 @@
 #include <four_in_one_thread.h>
 #include "System.h"
 #include "Prober.h"
+#include "Debugging/Debug.h"
 #include "i2c.h"
 
 
 void initCortex() {
+
+	static Shell shell(&huart1, &terminal);
+
 	static ProberThread prober1(&hi2c1);
 	static ProberThread prober2(&hi2c2);
 	static ProberThread prober3(&hi2c3);

@@ -8,21 +8,62 @@ import math
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from pygame.locals import *
-
-useSerial = True # set true for using serial for data transmission, false for wifi
+import serial
 useQuat = True   # set true for using quaternions, false for using y,p,r angles
 
-if(useSerial):
-    import serial
-    ser = serial.Serial('COM6', 921600)
-else:
-    import socket
+class SerialPort:
+    """Create and read data from a serial port.
 
-    UDP_IP = "0.0.0.0"
-    UDP_PORT = 5005
-    sock = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # UDP
-    sock.bind((UDP_IP, UDP_PORT))
+    Attributes:
+        read(**kwargs): Read and decode data string from serial port.
+    """
+
+    def __init__(self, port, baud=921600):
+        """Create and read serial data.
+
+        Args:
+            port (str): Serial port name. Example: 'COM4'
+            baud (int): Serial baud rate, default 9600.
+        """
+        if isinstance(port, str) == False:
+            raise TypeError('port must be a string.')
+
+        if isinstance(baud, int) == False:
+            raise TypeError('Baud rate must be an integer.')
+
+        self.port = port
+        self.baud = baud
+
+        # Initialize serial connection
+        self.ser = serial.Serial(
+            self.port, self.baud, timeout=None, xonxoff=False, rtscts=False, dsrdtr=False)
+        self.ser.flushInput()
+        self.ser.flushOutput()
+
+    def Read(self, clean_end=True) -> str:
+        """
+        Read and decode data string from serial port.
+
+        Args:
+            clean_end (bool): Strip '\\r' and '\\n' characters from string. Common if used Serial.println() Arduino function. Default true
+
+        Returns:
+            (str): utf-8 decoded message.
+        """
+        self.ser.flushInput()
+        bytesToRead = self.ser.readline()
+        decodedMsg = bytesToRead.decode('utf-8')
+
+        if clean_end == True:
+            decodedMsg = decodedMsg.rstrip()  # Strip extra chars at the end
+
+        return decodedMsg
+
+    def Close(self) -> None:
+        """Close serial connection."""
+        self.ser.close()
+
+ser = SerialPort('COM6', 921600)
 
 last_time = 0
 def main():
@@ -40,7 +81,7 @@ def main():
         # Calculate the data rate (in Hz)
         current_time = pygame.time.get_ticks()
         if last_time:
-            datarate = 1000 / (current_time - last_time)  # Milliseconds to seconds conversion
+            datarate = 1  # Milliseconds to seconds conversion
 
         last_time = current_time  # Update the last frame time
 
@@ -85,51 +126,27 @@ def init():
     glDepthFunc(GL_LEQUAL)
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)
 
-
-def cleanSerialBegin():
-    if(useQuat):
-        try:
-            line = ser.readline().decode('UTF-8').replace('\n', '')
-            w = float(line.split('w')[1])
-            nx = float(line.split('a')[1])
-            ny = float(line.split('b')[1])
-            nz = float(line.split('c')[1])
-        except Exception:
-            pass
-    else:
-        try:
-            line = ser.readline().decode('UTF-8').replace('\n', '')
-            yaw = float(line.split('y')[1])
-            pitch = float(line.split('p')[1])
-            roll = float(line.split('r')[1])
-        except Exception:
-            pass
-
-
 def read_data():
-    if(useSerial):
-        ser.reset_input_buffer()
-        cleanSerialBegin()
-        line = ser.readline().decode('UTF-8').replace('\n', '')
-        print(line)
-    else:
-        # Waiting for data from udp port 5005
-        data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-        line = data.decode('UTF-8').replace('\n', '')
-        print(line)
-                
+    raw_data = ser.Read().split(',')
+    line = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
+    # print(raw_data)
+    print(line)
     if(useQuat):
-        if len(line.split('w')) > 2:
-            w = float(line.split('w')[1])
-            nx = float(line.split('a')[1])
-            ny = float(line.split('b')[1])
-            nz = float(line.split('c')[1])
+
+        if len(line) == 4:
+            try:
+                w = float(line[0])
+                nx = float(line[1])
+                ny = float(line[2])
+                nz = float(line[3])
+            except Exception:
+                return [0, 0, 0, 0]
             return [w, nx, ny, nz]
         return [0, 0, 0, 0]
     else:
-        yaw = float(line.split('y')[1])
-        pitch = float(line.split('p')[1])
-        roll = float(line.split('r')[1])
+        yaw = float(line[0])
+        pitch = float(line[1])
+        roll = float(line[2])
         return [yaw, pitch, roll]
 
 

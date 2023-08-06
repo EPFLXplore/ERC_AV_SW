@@ -33,7 +33,7 @@ SER_PORT = 'COM6'  # Serial port
 SER_BAUD = 921600  # Serial baud rate
 SAMPLE_FREQ = 200  # Frequency to record magnetometer readings at [Hz]
 T_SAMPLE = 30  # Total time to read mangetometer readings [sec]
-OUTPUT_FILENAME = 'mag-readings.txt'  # Output data file name
+OUTPUT_FILENAME = 'magnetometer_calibration/mag-readings.txt'  # Output data file name
 
 
 
@@ -182,7 +182,7 @@ measurements = np.zeros((N, 3), dtype='float')
 
 for currMeas in range(N):
     raw_data = Arduino.Read().split(',')  # Split into separate values
-    data = [value.strip('\x00') for value in raw_data]
+    data = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
     if len(data) == 3:
         mx, my, mz = float(data[0]), float(data[1]), float(data[2])  # Convert to floats, [uT]
         

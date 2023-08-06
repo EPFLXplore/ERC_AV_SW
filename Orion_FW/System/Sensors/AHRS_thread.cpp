@@ -15,6 +15,8 @@
 #include <vector>
 #include "tim.h"
 
+#include "Debugging/Debug.h"
+
 
 AHRSThread* AHRSInstance = nullptr;
 static char cbuf[256]; // for printf
@@ -77,20 +79,13 @@ void AHRSThread::loop() {
 	HAL_StatusTypeDef status;
 	uint8_t err_cnt = 0;
 
-#ifdef TRANSMIT_MAG_FOR_CALIBRATION
-	status = magnetometer->get_mag(mag);
-#else
 	status = magnetometer->get_mag_cal(mag);
-#endif
 
 	if (status != HAL_OK)
 		++err_cnt;
 
-#ifdef TRANSMIT_ACC_FOR_CALIBRATION
-	status = imu->get_accel(acc);
-#else
 	status = imu->get_accel_cal(acc);
-#endif
+
 	if (status != HAL_OK)
 		++err_cnt;
 
@@ -99,7 +94,7 @@ void AHRSThread::loop() {
 		++err_cnt;
 
 	if(err_cnt == 0) {
-//		printf("acc: %f \t %f \t %f \t gyro: %f \t %f \t %f \t mag: %f \t %f \t %f \n", acc.x, acc.y, acc.z, gyro.x, gyro.y, gyro.z, mag.x, mag.y, mag.z);
+
 		curr_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 		volatile float dt = (curr_time_us > prev_time_us) ? (curr_time_us - prev_time_us)/1000000.f : (4294967295 - prev_time_us + curr_time_us + 1)/1000000.f;
 		prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
@@ -109,26 +104,59 @@ void AHRSThread::loop() {
 		imu_data.accel = acc;
 		imu_data.gyro = gyro;
 		imu_data.orientation = q;
-//		rpy = QuaternionToEuler(q);
-//		printf("%s \n", rpy.toString(cbuf));
 
-#ifdef TRANSMIT_MAG_FOR_CALIBRATION
-		char buffer[32];
-		sprintf(buffer, "%.6f,%.6f,%.6f\n", mag.x, mag.y, mag.z);
-		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
-#endif
-#ifdef TRANSMIT_ACC_FOR_CALIBRATION
-		osDelay(10);
-		char buffer[32];
-		sprintf(buffer, "%.6f,%.6f,%.6f\n", acc.x, acc.y, acc.z);
-		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
-#endif
+		// Data monitors
 
-#ifdef TRANSMIT_QUAT_FOR_PLOT
-		char buffer[50];
-		sprintf(buffer, "w%.6fw,a%.6fa,b%.6fb,c%.6fc\n", q.w, q.x, q.y, q.z);
-		HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 1);
-#endif
+		if(monitor.enter(IMU_MONITOR)) {
+			println("%s", imu_data.toString(cbuf));
+			monitor.exit(IMU_MONITOR);
+		}
+
+		if(monitor.enter(ACCEL_MONITOR)) {
+			println("%s [m/s^2]", acc.toString(cbuf));
+			monitor.exit(ACCEL_MONITOR);
+		}
+
+		if(monitor.enter(GYRO_MONITOR)) {
+			println("%s [rad/s]", gyro.toString(cbuf));
+			monitor.exit(GYRO_MONITOR);
+		}
+
+		if(monitor.enter(MAG_MONITOR)) {
+			println("%s [uT]", mag.toString(cbuf));
+			monitor.exit(MAG_MONITOR);
+		}
+
+		if(monitor.enter(QUAT_MONITOR)) {
+			println("f: %.3f [Hz] %s", 1.f/dt, q.toString(cbuf));
+			monitor.exit(QUAT_MONITOR);
+		}
+
+		if(monitor.enter(RPY_MONITOR)) {
+			rpy = QuaternionToEuler(q);
+			println("f: %.3f [Hz] %s", 1.f/dt, rpy.toString(cbuf));
+			monitor.exit(RPY_MONITOR);
+		}
+
+		// Calibration monitors
+
+		if(monitor.enter(MAG_CAL_MONITOR)) {
+			Vector mag_raw = {0, 0, 0};
+			magnetometer->get_mag(mag_raw);
+			println("%.6f,%.6f,%.6f\n", mag_raw.x, mag_raw.y, mag_raw.z);
+		}
+		if(monitor.enter(ACC_CAL_MONITOR)) {
+			Vector acc_raw = {0, 0, 0};
+			imu->get_accel(acc_raw);
+			println("%.6f,%.6f,%.6f\n", acc_raw.x, acc_raw.y, acc_raw.z);
+		}
+
+		// Plot monitors
+
+		if(monitor.enter(IMU_PLOT_MONITOR)) {
+			println("%.6f,%.6f,%.6f,%.6f\n", q.w, q.x, q.y, q.z);
+		}
+
 		imu_data.toArray((uint8_t*) &imu_packet);
 		FDCAN1_network.send(&imu_packet);
 		portYIELD();

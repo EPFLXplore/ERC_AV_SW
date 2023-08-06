@@ -101,9 +101,13 @@ HAL_StatusTypeDef LIS3MDL::init() {
 	return HAL_ERROR;
 	}
 
+	osDelay(100);
+
 	res = reset();
 	if (res != HAL_OK)
 	  return res;
+
+	osDelay(100);
 
 	res = setPerformanceMode(this->conf.perf_conf);
 	if (res != HAL_OK)
@@ -120,6 +124,8 @@ HAL_StatusTypeDef LIS3MDL::init() {
 	res = setOperationMode(this->conf.op_conf);
 	if (res != HAL_OK)
 		return res;
+
+	osDelay(100);
 
 	return HAL_OK;
 }
