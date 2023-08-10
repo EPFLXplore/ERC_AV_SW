@@ -73,7 +73,7 @@ void AHRSThread::init() {
 static IMUData imu_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-static IMU_Packet imu_packet;
+static IMUPacket imu_packet;
 
 void AHRSThread::loop() {
 	HAL_StatusTypeDef status;

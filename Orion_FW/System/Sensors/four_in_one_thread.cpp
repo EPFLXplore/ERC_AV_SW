@@ -37,7 +37,7 @@ void FourInOneThread::init() {
 
 static FOURINONEData fourinone_data;
 
-static FOURINONE_Packet fourinone_packet;
+static FOURINONEPacket fourinone_packet;
 
 //static NPK_Packet npk_packet;
 

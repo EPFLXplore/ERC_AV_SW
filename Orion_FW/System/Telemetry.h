@@ -8,6 +8,8 @@
 #ifndef TELEMETRY_TELEMETRY_H_
 #define TELEMETRY_TELEMETRY_H_
 
+#define BUILD_WITH_FDCAN
+
 
 #include "RoCo.h"
 #include "usart.h"

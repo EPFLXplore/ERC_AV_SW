@@ -36,7 +36,7 @@ void NPKThread::init() {
 
 static NPKData npk_data;
 
-static NPK_Packet npk_packet;
+static NPKPacket npk_packet;
 
 void NPKThread::loop() {
 
