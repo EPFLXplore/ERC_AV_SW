@@ -1,4 +1,4 @@
 [submodule "Orion_FW/System/BRoCo"]
 	path = Orion_FW/System/BRoCo
 	url = git@github.com:EPFLXplore/BRoCo.git
-	branch = El-Broco
+	branch = EL-BRoCo

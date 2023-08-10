@@ -35,10 +35,10 @@ import matplotlib.pyplot as plt
 
 
 # Define calibration parameters
-A = np.array(   [[0.995341, 0.080374, -0.004083],
-                [0.080374, 0.868745, 0.039082],
-                [-0.004083, 0.039082, 0.994559]])
-b = np.array([-24.720910, -2.528412, -11.211841])
+b = np.array([-16.299722, -22.681104, 15.229583])
+A = np.array([[0.938294, -0.000981, 0.017228],  # 'A^-1' matrix from Magneto
+              [-0.000981, 0.947876, 0.022693],
+              [0.017228, 0.022693, 0.910578]])
 
 
 # Read raw data and apply calibration

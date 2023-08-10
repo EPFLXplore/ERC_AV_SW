@@ -14,7 +14,7 @@
 #include "fdcan.h"
 
 
-extern NetworkBus FDCAN1_network;
+extern CANBus FDCAN1_network;
 
 //extern NetworkBus network;
 

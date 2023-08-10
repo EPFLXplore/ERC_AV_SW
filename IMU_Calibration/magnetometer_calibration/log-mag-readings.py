@@ -31,8 +31,8 @@ import matplotlib.pyplot as plt
 # GLOBAL VARIABLES
 SER_PORT = 'COM6'  # Serial port
 SER_BAUD = 921600  # Serial baud rate
-SAMPLE_FREQ = 200  # Frequency to record magnetometer readings at [Hz]
-T_SAMPLE = 30  # Total time to read mangetometer readings [sec]
+SAMPLE_FREQ = 100  # Frequency to record magnetometer readings at [Hz]
+T_SAMPLE = 60  # Total time to read mangetometer readings [sec]
 OUTPUT_FILENAME = 'magnetometer_calibration/mag-readings.txt'  # Output data file name
 
 
@@ -184,18 +184,23 @@ for currMeas in range(N):
     raw_data = Arduino.Read().split(',')  # Split into separate values
     data = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
     if len(data) == 3:
-        mx, my, mz = float(data[0]), float(data[1]), float(data[2])  # Convert to floats, [uT]
+        try:
+            mx, my, mz = float(data[0]), float(data[1]), float(data[2])  # Convert to floats, [uT]
+        except Exception:
+            mx, my, mz = 0, 0, 0
         
         print('[%0.4f, %0.4f, %0.4f] uT  |  Norm: %0.4f uT  |  %0.1f %% Complete.' % 
             (mx, my, mz, np.sqrt(mx**2 + my**2 + mz**2), (currMeas / N) * 100.0)
         )
 
-        # Store data to array
-        measurements[currMeas, 0] = mx
-        measurements[currMeas, 1] = my
-        measurements[currMeas, 2] = mz
-        
-        RawDataPlot.AddPoint(mx, my, mz)  # Add point to 3D plot
+        if (mx != 0 and my != 0 and mz != 0):
+
+            # Store data to array
+            measurements[currMeas, 0] = mx
+            measurements[currMeas, 1] = my
+            measurements[currMeas, 2] = mz
+            
+            RawDataPlot.AddPoint(mx, my, mz)  # Add point to 3D plot
 
 
 
@@ -207,6 +212,7 @@ print('Writing data to {} ...'.format(OUTPUT_FILENAME))
 for i in range(N):
     with open(OUTPUT_FILENAME, 'a', newline='') as f:
         writer = csv.writer(f, delimiter='\t')
-        writer.writerow([measurements[i, 0], measurements[i, 1], measurements[i, 2]])
+        if (measurements[i, 0] != 0 and measurements[i, 1] != 0 and measurements[i, 2] != 0):
+            writer.writerow([measurements[i, 0], measurements[i, 1], measurements[i, 2]])
 
 plt.show()

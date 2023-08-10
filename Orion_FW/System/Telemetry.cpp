@@ -22,7 +22,7 @@ ROCANDriver FDCAN1_driver(&hfdcan1, can_id1);
 ////STMUARTDriver UART8_driver(&huart8);
 //
 //
-NetworkBus FDCAN1_network(&FDCAN1_driver);
+CANBus FDCAN1_network(&FDCAN1_driver);
 //NetworkBus JetsonNetwork(&UART1_driver);
 //NetworkBus UART3_network(&UART3_driver);
 ////NetworkBus UART4_network(&UART4_driver);
