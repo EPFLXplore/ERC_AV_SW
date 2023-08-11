@@ -18,6 +18,7 @@
 #include <Modbus_thread.hpp>
 #include "ADS1115_Voltmeter_thread.hpp"
 #include "ADS1115_Potentiometer_thread.hpp"
+#include "Servo_thread.h"
 
 
 void ProberThread::init() {
@@ -86,6 +87,11 @@ void ProberThread::loop() {
 			this->instance->setTickDelay(1000);
 			xSemaphoreTake(semaphore, portMAX_DELAY);
 		}
+	}
+	if (probeI2C(LEVEL_SHIFTER_HAT_ADDR)) {
+		this->instance = new ServoThread(this);
+		this->instance->setTickDelay(100);
+		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
 	HAL_I2C_DeInit(hi2c);
 	HAL_I2C_Init(hi2c);

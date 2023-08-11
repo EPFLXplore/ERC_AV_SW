@@ -120,7 +120,7 @@ struct NPKData {
     }
 };
 
-struct ColorFilterData {
+struct SpectroData {
     float data[18] = {0};
 //    char refs[18] = {0};
     char* toString(char* buffer) {
@@ -203,6 +203,18 @@ struct PotentiometerData {
     		*(float*)(buffer + i * 4) = angles[i];
         return buffer;
     }
+};
+
+struct ServoData {
+	bool success;
+	char* toString(char* buffer) {
+		sprintf(buffer, "%s\n", success ? "success" : "failure");
+		return buffer;
+	}
+	uint8_t* toArray(uint8_t* buffer){
+		*(bool*)(buffer) = success;
+		return buffer;
+	}
 };
 
 #endif /* SENSORS_DATASTRUCTURES_H_ */

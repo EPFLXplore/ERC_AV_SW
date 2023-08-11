@@ -21,12 +21,14 @@ public:
 	void init();
 	void loop();
 
-	static void handle_take_measurement(uint8_t sender_id, ColorFilterPacket* packet);
+	static void handle_take_measurement(uint8_t sender_id, SpectroPacket* packet);
+	void take_measurements();
 private:
 	ProberThread* parent;
 	uint8_t portNum;
 	AS7265x spectro;
-	ColorFilterPacket color_filter_packet;
+	SpectroPacket spectro_request_packet;
+	SpectroResponsePacket spectro_response_packet;
 
 };
 

@@ -39,7 +39,7 @@ void setupTelemetry(){
 
 
 	FDCAN1_network.handle<DummyPacket>(&handle_dummyCallback);
-	FDCAN1_network.handle<ColorFilterPacket>(&AS7265Thread::handle_take_measurement);
+	FDCAN1_network.handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
 //	JetsonNetwork.handle<DummySystem_DummyPacket>(&handle_dummyCallback);
 #if defined(BUILD_FOR_NAVIGATION)
 	STMUARTDriver_list.push_back(&UART2_driver);

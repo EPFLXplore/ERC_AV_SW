@@ -60,6 +60,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define DEFAULT_TIM_PERIOD 20000-1
+#define DEFAULT_TIM_DUTY 5
 #define FDCAN1_STATUS_Pin GPIO_PIN_2
 #define FDCAN1_STATUS_GPIO_Port GPIOE
 #define CAN1_SILENT_Pin GPIO_PIN_3

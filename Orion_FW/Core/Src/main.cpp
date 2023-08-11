@@ -121,8 +121,21 @@ int main(void)
   MX_FDCAN2_Init();
   MX_I2C1_Init();
   MX_TIM5_Init();
+  MX_TIM1_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim5);
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+	GPIO_InitStruct.Pin = HAT1_P1_Pin|HAT1_P2_Pin|HAT1_P3_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	GPIO_InitStruct.Alternate = GPIO_AF3_TIM8;
+	HAL_GPIO_Init(HAT1_P1_GPIO_Port, &GPIO_InitStruct);
+	HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Init scheduler */
