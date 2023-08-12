@@ -61,7 +61,7 @@ void FourInOneThread::loop() {
 
 		fourinone_data.toArray((uint8_t*) &fourinone_packet);
 		printf("4IN1: %s \n", fourinone_data.toString(cbuf));
-		FDCAN1_network.send(&fourinone_packet);
+		FDCAN1_network->send(&fourinone_packet);
 		portYIELD();
 	}
 

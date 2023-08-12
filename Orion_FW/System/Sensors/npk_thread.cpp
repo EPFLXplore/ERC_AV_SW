@@ -57,7 +57,7 @@ void NPKThread::loop() {
 
 	npk_data.toArray((uint8_t*) &npk_packet);
 	printf("NPK: %s \n", npk_data.toString(cbuf));
-	FDCAN1_network.send(&npk_packet);
+	FDCAN1_network->send(&npk_packet);
 	portYIELD();
 	}
 

@@ -120,7 +120,7 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	}
 	// Send data over RoCo network
 	servo_data.toArray((uint8_t*) &ServoInstance->servo_response_packet);
-	FDCAN1_network.send(&ServoInstance->servo_response_packet);
+	FDCAN1_network->send(&ServoInstance->servo_response_packet);
 	portYIELD();
 }
 

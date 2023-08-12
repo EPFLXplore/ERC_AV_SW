@@ -5,3 +5,7 @@
 void handle_dummyCallback(uint8_t sender_id, DummyPacket* packet) {
 	printf("Dummy packet received from [%d] with value %d \n", sender_id, packet->data);
 }
+
+void handle_ping(uint8_t sender_id, PingPacket*packet) {
+//	printf("Received ping \n");
+}

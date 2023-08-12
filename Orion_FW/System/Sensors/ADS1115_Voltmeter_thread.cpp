@@ -35,7 +35,7 @@ void VoltmeterThread::loop() {
 	if(status == HAL_OK) {
 		printf("%s \n", voltmeter_data.toString(cbuf));
 		voltmeter_data.toArray((uint8_t*) &packet);
-		FDCAN1_network.send(&packet);
+		FDCAN1_network->send(&packet);
 		portYIELD();
 	} else {
 		VoltmeterInstance = nullptr;

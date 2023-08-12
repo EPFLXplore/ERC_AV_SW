@@ -164,7 +164,7 @@ void ADS1234Thread::loop() {
 	if((err_ch1 == NoERROR) && (err_ch2 == NoERROR) && (err_ch3 == NoERROR) && (err_ch4 == NoERROR)) {
 		// Send data over RoCo network
 		mass_data.toArray((uint8_t*) &mass_packet);
-		FDCAN1_network.send(&mass_packet);
+		FDCAN1_network->send(&mass_packet);
 		portYIELD();
 	} else {
 		massSensorInstance = nullptr;

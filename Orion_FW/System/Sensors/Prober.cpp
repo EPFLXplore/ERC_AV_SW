@@ -61,7 +61,7 @@ void ProberThread::loop() {
 	}
 	if (probeI2C(BMI08_ACCEL_I2C_ADDR_PRIMARY) && probeI2C(LIS3MDL_I2CADDR_DEFAULT)){
 		this->instance = new AHRSThread(this);
-		this->instance->setTickDelay(10);
+		this->instance->setTickDelay(1);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
 	if (probeI2C(AS7265X_ADDR)) {

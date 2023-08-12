@@ -11,5 +11,6 @@
 #include "RoCo.h"
 
 void handle_dummyCallback(uint8_t sender_id, DummyPacket* packet);
+void handle_ping(uint8_t sender_id, PingPacket* packet);
 
 #endif /* HANDLERS_H_ */

@@ -58,7 +58,7 @@ void PotentiometerThread::loop() {
 	if(status == HAL_OK) {
 		printf("%s \n", potentiometer_data.toString(cbuf));
 		potentiometer_data.toArray((uint8_t*) &packet);
-		FDCAN1_network.send(&packet);
+		FDCAN1_network->send(&packet);
 		portYIELD();
 	} else {
 		PotentiometerInstance = nullptr;

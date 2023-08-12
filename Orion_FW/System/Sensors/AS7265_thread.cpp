@@ -172,7 +172,7 @@ void AS7265Thread::take_measurements() {
 	if(err_cnt == 0) {
 		// Send data over RoCo network
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
-		FDCAN1_network.send(&spectro_response_packet);
+		FDCAN1_network->send(&spectro_response_packet);
 		portYIELD();
 	} else {
 		AS7265Instance = nullptr;

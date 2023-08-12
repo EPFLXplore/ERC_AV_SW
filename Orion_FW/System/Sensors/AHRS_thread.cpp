@@ -158,7 +158,9 @@ void AHRSThread::loop() {
 		}
 
 		imu_data.toArray((uint8_t*) &imu_packet);
-		FDCAN1_network.send(&imu_packet);
+		MAKE_IDENTIFIABLE(imu_packet);
+		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+		FDCAN1_network->send(&imu_packet);
 		portYIELD();
 	} else {
 		AHRSInstance = nullptr;

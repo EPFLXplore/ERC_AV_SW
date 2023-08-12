@@ -12,6 +12,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstdint>
+#include "System.h"
+
+#define MAKE_IDENTIFIABLE(PACKET) PACKET.id = System::get_node_id();
 
 struct Vector {
 	float x;
