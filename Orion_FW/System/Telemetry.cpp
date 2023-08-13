@@ -10,6 +10,7 @@
 #include "Handlers.h"
 #include "tim.h"
 #include "AS7265_thread.h"
+#include "Servo_thread.h"
 #include "System.h"
 
 //ROCANDriver FDCAN1_driver(&hfdcan1,8);
@@ -31,5 +32,6 @@ void setupTelemetry(){
 	// Setup handles
 	FDCAN1_network->handle<DummyPacket>(&handle_dummyCallback);
 	FDCAN1_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
+	FDCAN1_network->handle<ServoPacket>(&ServoThread::handle_rotate);
 	FDCAN1_network->handle<PingPacket>(&handle_ping);
 }

@@ -24,6 +24,7 @@ public:
 	~ServoThread();
 	void init();
 	void loop();
+	static void handle_rotate(uint8_t sender_id, ServoPacket* packet);
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -43,7 +44,6 @@ private:
 	ServoResponsePacket servo_response_packet;
 
 	HAL_StatusTypeDef set_angle(float angle, uint8_t ch);
-	static void handle_rotate(uint8_t sender_id, ServoPacket* packet);
 	void reinit_gpios();
 };
 
