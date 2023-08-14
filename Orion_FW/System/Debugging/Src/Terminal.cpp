@@ -5,11 +5,11 @@
  *      Author: AV Team 2020
  */
 
-#include "Debugging/Terminal.h"
+#include "Terminal.h"
 
 #include <stm32h7xx_hal.h>
 #include <stdlib.h> // Even though not recommended
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 #include "AHRS_thread.h"
 #include "ADS1115_Potentiometer_thread.hpp"

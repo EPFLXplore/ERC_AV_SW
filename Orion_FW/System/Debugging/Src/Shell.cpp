@@ -7,7 +7,7 @@
 
 
 #include <string.h>
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 
 Shell::Shell(UART_HandleTypeDef* uart, Terminal* terminal) : Thread("Shell"), uart(uart), terminal(terminal) {

@@ -9,7 +9,7 @@
 #include <four_in_one_thread.h>
 #include "System.h"
 #include "Prober.h"
-#include "Debugging/Debug.h"
+#include "Debug.h"
 #include "i2c.h"
 
 uint32_t System::node_id = 0x7FF;

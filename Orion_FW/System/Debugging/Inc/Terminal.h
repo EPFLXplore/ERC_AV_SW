@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "Debugging/Console.h"
+#include "Console.h"
 
 
 #define CMD_MAX_COMPONENTS 8

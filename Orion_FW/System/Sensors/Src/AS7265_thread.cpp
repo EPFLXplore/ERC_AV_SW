@@ -8,7 +8,7 @@
 
 #include "Telemetry.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 AS7265Thread* AS7265Instance = nullptr;
 static char cbuf[256]; // for printf

@@ -16,7 +16,7 @@
 #include <stdbool.h>
 
 #include <stm32h7xx_hal.h>
-#include "Debugging/Terminal.h"
+#include "Terminal.h"
 
 #define CMD_BUFFER_SIZE 256
 

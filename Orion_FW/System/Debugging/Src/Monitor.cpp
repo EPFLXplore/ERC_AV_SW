@@ -5,7 +5,7 @@
  *      Author: AV Team 2020
  */
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 #include <stm32h7xx_hal.h>
 

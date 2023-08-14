@@ -8,11 +8,11 @@
 #ifndef DEBUGGING_DEBUG_H_
 #define DEBUGGING_DEBUG_H_
 
-#include "Debugging/Console.h"
-#include "Debugging/Monitor.h"
-#include "Debugging/Profiler.h"
-#include "Debugging/Shell.h"
-#include "Debugging/Terminal.h"
+#include "Console.h"
+#include "Monitor.h"
+#include "Profiler.h"
+#include "Shell.h"
+#include "Terminal.h"
 
 
 extern Console console;

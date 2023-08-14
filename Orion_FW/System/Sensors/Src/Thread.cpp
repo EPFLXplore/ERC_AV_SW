@@ -7,7 +7,7 @@
 
 #include "Thread.h"
 #include "Lang/Operators.h"
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 #include "usart.h"
 

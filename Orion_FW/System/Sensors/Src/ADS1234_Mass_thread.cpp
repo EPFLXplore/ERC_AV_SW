@@ -8,7 +8,7 @@
 #include <ADS1234_Mass_thread.hpp>
 #include "Telemetry.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 ADS1234Thread* MassSensorInstance = nullptr;
 static char cbuf[256]; // for printf

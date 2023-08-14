@@ -15,7 +15,7 @@
 #include <vector>
 #include "tim.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 
 AHRSThread* AHRSInstance = nullptr;

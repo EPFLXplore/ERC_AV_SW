@@ -8,7 +8,7 @@
 #include "ADS1115_Potentiometer_thread.hpp"
 #include "Telemetry.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 PotentiometerThread* PotentiometerInstance = nullptr;
 static char cbuf[256]; // for printf

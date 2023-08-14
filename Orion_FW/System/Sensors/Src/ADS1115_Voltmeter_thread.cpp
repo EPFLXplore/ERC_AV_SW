@@ -8,7 +8,7 @@
 #include "ADS1115_Voltmeter_thread.hpp"
 #include "Telemetry.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 VoltmeterThread* VoltmeterInstance = nullptr;
 static char cbuf[256]; // for printf

@@ -5,7 +5,7 @@
  *      Author: AV Team 2020
  */
 
-#include "Debugging/Console.h"
+#include "Console.h"
 
 #include <stdarg.h>
 #include <string.h>

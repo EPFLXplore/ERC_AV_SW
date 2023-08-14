@@ -10,7 +10,7 @@
 #include <four_in_one_thread.h>
 #include "Telemetry.h"
 
-#include "Debugging/Debug.h"
+#include "Debug.h"
 
 static char cbuf[256]; // for printf
 
