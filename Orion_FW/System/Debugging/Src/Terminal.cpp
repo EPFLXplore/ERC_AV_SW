@@ -2,7 +2,7 @@
  * terminal.c
  *
  *  Created on: 6 Sep 2020
- *      Author: AV Team 2020
+ *      Authors: Arion Zimmermann, Vincent Nguyen
  */
 
 #include "Terminal.h"
@@ -33,6 +33,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			feedback->printf_info("> version: displays the current terminal version\r\n");
 			feedback->printf_info("> calibrate: puts the relevant sensor into calibration mode\r\n");
 			feedback->printf_info("> plot: puts the relevant sensor in plotting mode\r\n");
+			feedback->printf_info("> info: prints system info\r\n");
 		} else if(EQUALS(0, "version")) {
 			feedback->printf_info("> Xplore Orion Avionics Terminal v1.0 \r\n");
 		} else if(EQUALS(0, "reset")) {
@@ -41,6 +42,11 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			feedback->printf_info("%d\r\n", HAL_GetTick());
 		} else if(EQUALS(0, "clear")) {
 			feedback->printf("\x1b[2J\x1b[H\e7");
+		} else if (EQUALS(0, "info")) {
+			feedback->printf_info("> System: \t Orion rev.4 (CAN)\r\n");
+			feedback->printf_info("> Node ID: \t %d (0x%03X)\r\n", System::get_node_id(), System::get_node_id());
+			feedback->printf_info("> 5V source: \t %s\r\n", System::using_USB_5V() ? "USB VBUS" : "Meissa 5V buck");
+			feedback->printf_info("> 3V3 source: \t %s\r\n", System::using_LDO_3V3() ? "Embedded LDO" : "Meissa 3V3 buck");
 		} else if(EQUALS(0, "profiler")) {
 			if(EQUALS(1, "enable")) {
 				profiler.enable();
@@ -170,12 +176,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(IMU_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(IMU_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -190,12 +196,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(ACCEL_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(ACCEL_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -210,12 +216,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(GYRO_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(GYRO_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -230,12 +236,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(MAG_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(MAG_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -250,12 +256,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(QUAT_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(QUAT_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -270,12 +276,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AHRSInstance != nullptr) {
 						if (!monitor.is_enabled(RPY_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(RPY_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -290,12 +296,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (PotentiometerInstance != nullptr) {
 						if (!monitor.is_enabled(POT_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(POT_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -310,12 +316,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (VoltmeterInstance != nullptr) {
 						if (!monitor.is_enabled(VOLTMETER_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(VOLTMETER_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -330,12 +336,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (MassSensorInstance != nullptr) {
 						if (!monitor.is_enabled(MASS_MONITOR)) {
 							uint8_t chosen_loc;
-							location++;
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location++;
 							monitor.enable(MASS_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -350,12 +356,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					if (AS7265Instance != nullptr) {
 						if (!monitor.is_enabled(SPECTRO_MONITOR)) {
 							uint8_t chosen_loc;
-							location+=2; // Spectro takes 2 lines
 							if(cmd->num_components == 3) {
 								chosen_loc = location;
 							} else {
 								chosen_loc = custom_loc;
 							}
+							location+=2; // Spectro takes 2 lines
 							monitor.enable(SPECTRO_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
@@ -372,12 +378,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							if (ModbusInstance->four_in_one_connected()) {
 								if (!monitor.is_enabled(FOURINONE_MONITOR)) {
 									uint8_t chosen_loc;
-									location++;
 									if(cmd->num_components == 3) {
 										chosen_loc = location;
 									} else {
 										chosen_loc = custom_loc;
 									}
+									location++;
 									monitor.enable(FOURINONE_MONITOR, chosen_loc, refresh_rate);
 									feedback->printf("\x1b[2J");
 								} else {
@@ -392,12 +398,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							if (ModbusInstance->four_in_one_connected()) {
 								if (!monitor.is_enabled(NPK_MONITOR)) {
 									uint8_t chosen_loc;
-									location++;
 									if(cmd->num_components == 3) {
 										chosen_loc = location;
 									} else {
 										chosen_loc = custom_loc;
 									}
+									location++;
 									monitor.enable(NPK_MONITOR, chosen_loc, refresh_rate);
 									feedback->printf("\x1b[2J");
 								} else {

@@ -2,7 +2,7 @@
  * shell.c
  *
  *  Created on: 5 Sep 2020
- *      Author: AV Team 2020
+ *      Author: Arion Zimmermann, Vincent Nguyen
  */
 
 
@@ -17,6 +17,7 @@ Shell::Shell(UART_HandleTypeDef* uart, Terminal* terminal) : Thread("Shell"), ua
 void Shell::init() {
 	console.printf("\x1b[2J\x1b[H");
 	console.printf("----- EPFL Xplore Orion (rev.4) Shell -----\r\n");
+	console.printf_info("Type 'help' for a list of commands\r\n");
 }
 
 void Shell::loop() {

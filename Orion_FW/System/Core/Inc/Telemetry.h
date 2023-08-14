@@ -2,7 +2,7 @@
  * Telemetry.h
  *
  *  Created on: Aug 1, 2022
- *      Author: Yassine
+ *      Author: Yassine, Vincent
  */
 
 #ifndef TELEMETRY_TELEMETRY_H_

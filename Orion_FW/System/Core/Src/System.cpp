@@ -2,7 +2,7 @@
  * system.cpp
  *
  *  Created on: Aug 1, 2022
- *      Author: Yassine
+ *      Author: Yassine, Vincent
  */
 
 
@@ -70,6 +70,14 @@ void System::update_node_id() {
 
 uint32_t System::get_node_id() {
 	return node_id;
+}
+
+bool System::using_USB_5V() {
+	return HAL_GPIO_ReadPin(STATUS_3V3_GPIO_Port, STATUS_3V3_Pin) == GPIO_PIN_RESET;
+}
+
+bool System::using_LDO_3V3() {
+	return HAL_GPIO_ReadPin(STATUS_5V_GPIO_Port, STATUS_5V_Pin) == GPIO_PIN_RESET;
 }
 
 static LaserResponsePacket laser_response_packet;

@@ -128,13 +128,13 @@ void AHRSThread::loop() {
 		}
 
 		if(monitor.enter(QUAT_MONITOR)) {
-			println("f: %.3f [Hz] %s", 1.f/dt, q.toString(cbuf));
+			println("%s %.3f [Hz]", q.toString(cbuf), 1.f/dt);
 			monitor.exit(QUAT_MONITOR);
 		}
 
 		if(monitor.enter(RPY_MONITOR)) {
 			rpy = QuaternionToEuler(q);
-			println("f: %.3f [Hz] %s", 1.f/dt, rpy.toString(cbuf));
+			println("%s %.3f [Hz]", rpy.toString(cbuf), 1.f/dt);
 			monitor.exit(RPY_MONITOR);
 		}
 

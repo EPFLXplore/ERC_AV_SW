@@ -2,7 +2,7 @@
  * console.c
  *
  *  Created on: Feb 17, 2020
- *      Author: AV Team 2020
+ *      Author: Arion Zimmermann, Vincent Nguyen
  */
 
 #include "Console.h"

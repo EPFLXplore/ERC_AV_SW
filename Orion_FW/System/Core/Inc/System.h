@@ -2,7 +2,7 @@
  * System.h
  *
  *  Created on: Aug 1, 2022
- *      Author: Yassine
+ *      Author: Yassine, Vincent
  */
 
 #ifndef SYSTEM_H_
@@ -23,6 +23,9 @@ public:
 	static void disable_meissa_3V3_output();
 	static void update_node_id();
 	static uint32_t get_node_id();
+
+	static bool using_USB_5V();
+	static bool using_LDO_3V3();
 
 	static void handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet);
 
