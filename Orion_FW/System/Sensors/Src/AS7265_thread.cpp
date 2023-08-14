@@ -118,13 +118,18 @@ void AS7265Thread::take_measurements() {
 		++err_cnt;
 
 	if(err_cnt == 0) {
-		// Send data over RoCo network
+		spectro_data.success = true;
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&spectro_response_packet);
 		portYIELD();
 	} else {
+		spectro_data.success = false;
+		spectro_data.toArray((uint8_t*) &spectro_response_packet);
+		MAKE_IDENTIFIABLE(spectro_response_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&spectro_response_packet);
 		AS7265Instance = nullptr;
 		terminate();
 		parent->resetProber();

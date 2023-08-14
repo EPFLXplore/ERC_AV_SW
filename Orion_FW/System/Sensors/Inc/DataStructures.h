@@ -126,6 +126,7 @@ struct NPKData {
 
 struct SpectroData {
 	float data[18] = {0};
+	bool success = false;
 
 	// Wavelength labels [nm]
 	const char *labels[18] = {"410", "435", "460", "485", "510", "535", "560", "585", "610",
@@ -158,8 +159,10 @@ struct SpectroData {
 	}
 
     uint8_t* toArray(uint8_t* buffer){
-    	for(int i = 0; i < 18; ++i)
+    	int i = 0;
+    	for(i = 0; i < 18; ++i)
     		*(float*)(buffer + i * 4) = data[i];
+    	*(bool*)(buffer + 18*4) = success;
         return buffer;
     }
 };
@@ -234,13 +237,31 @@ struct PotentiometerData {
 };
 
 struct ServoData {
+	uint8_t channel;
+	float angle;
 	bool success;
 	char* toString(char* buffer) {
-		sprintf(buffer, "%s\n", success ? "success" : "failure");
+		sprintf(buffer, "%s on channel %d with angle %+.3f\n", success ? "success" : "failure", channel, angle);
 		return buffer;
 	}
 	uint8_t* toArray(uint8_t* buffer){
-		*(bool*)(buffer) = success;
+		*(uint8_t*)(buffer) = channel;
+		*(float*)(buffer + 1) = angle;
+		*(bool*)(buffer + 5) = success;
+		return buffer;
+	}
+};
+
+struct LedData {
+	uint8_t state;
+	bool success;
+	char* toString(char* buffer) {
+		sprintf(buffer, "%s for state %d \n", success ? "success" : "failure", state);
+		return buffer;
+	}
+	uint8_t* toArray(uint8_t* buffer){
+		*(uint8_t*)(buffer) = state;
+		*(bool*)(buffer + 1) = success;
 		return buffer;
 	}
 };

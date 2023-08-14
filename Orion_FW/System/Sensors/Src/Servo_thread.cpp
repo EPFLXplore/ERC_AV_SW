@@ -120,7 +120,8 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 			servo_data.success = false;
 		}
 	}
-
+	servo_data.angle = packet->angle;
+	servo_data.channel = packet->channel;
 	servo_data.toArray((uint8_t*) &servo_response_packet);
 	MAKE_IDENTIFIABLE(servo_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);

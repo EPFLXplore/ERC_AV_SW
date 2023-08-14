@@ -88,7 +88,11 @@ void System::handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet) {
 	else
 		disable_meissa_5V_output();
 
-	laser_response_packet.success = true;
+	// Laser is not correctly activated if Meissa is not being powered
+	if (using_USB_5V())
+		laser_response_packet.success = false;
+	else
+		laser_response_packet.success = true;
 
 	MAKE_IDENTIFIABLE(*packet);
 	Telemetry::set_id(JETSON_NODE_ID);
