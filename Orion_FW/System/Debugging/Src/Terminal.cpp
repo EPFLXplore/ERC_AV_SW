@@ -648,6 +648,7 @@ void Terminal::disable_monitors(Console* feedback) {
 	feedback->printf("\x1b[2J");
 	monitor.disable(NPK_MONITOR);
 	feedback->printf("\x1b[2J");
+	feedback->printf("\x1b[2J\x1b[H\e7");
 }
 
 bool Terminal::isVerbose() {
