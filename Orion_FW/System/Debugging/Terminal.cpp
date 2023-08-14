@@ -24,44 +24,44 @@
 void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 	if(cmd->num_components > 0) {
 		if(EQUALS(0, "help")) {
-			feedback->printf("> Xplore Avionics available commands:\r\n");
-			feedback->printf("> clear: clears the screen\r\n");
-			feedback->printf("> help: shows this help page\r\n");
-			feedback->printf("> monitor: enables or disables a specific monitor\r\n");
-			feedback->printf("> profiler: enables or disables the embedded profiler\r\n");
-			feedback->printf("> reset: performs a software reset of the avionics\r\n");
-			feedback->printf("> version: displays the current terminal version\r\n");
-			feedback->printf("> calibrate: puts the relevant sensor into calibration mode\r\n");
-			feedback->printf("> plot: puts the relevant sensor in plotting mode\r\n");
+			feedback->printf_info("> Xplore Avionics available commands:\r\n");
+			feedback->printf_info("> clear: clears the screen\r\n");
+			feedback->printf_info("> help: shows this help page\r\n");
+			feedback->printf_info("> monitor: enables or disables a specific monitor\r\n");
+			feedback->printf_info("> profiler: enables or disables the embedded profiler\r\n");
+			feedback->printf_info("> reset: performs a software reset of the avionics\r\n");
+			feedback->printf_info("> version: displays the current terminal version\r\n");
+			feedback->printf_info("> calibrate: puts the relevant sensor into calibration mode\r\n");
+			feedback->printf_info("> plot: puts the relevant sensor in plotting mode\r\n");
 		} else if(EQUALS(0, "version")) {
-			feedback->printf("> Xplore Orion Avionics Terminal v1.0 \r\n");
+			feedback->printf_info("> Xplore Orion Avionics Terminal v1.0 \r\n");
 		} else if(EQUALS(0, "reset")) {
 			HAL_NVIC_SystemReset();
 		} else if(EQUALS(0, "time")) {
-			feedback->printf("%d\r\n", HAL_GetTick());
+			feedback->printf_info("%d\r\n", HAL_GetTick());
 		} else if(EQUALS(0, "clear")) {
 			feedback->printf("\x1b[2J\x1b[H\e7");
 		} else if(EQUALS(0, "profiler")) {
 			if(EQUALS(1, "enable")) {
 				profiler.enable();
 				feedback->printf("\x1b[2J");
-				feedback->printf("> Profiler now enabled\r\n");
+				feedback->printf_info("> Profiler now enabled\r\n");
 			} else if(EQUALS(1, "disable")) {
 				profiler.disable();
 				feedback->printf("\x1b[2J");
-				feedback->printf("> Profiler now disabled\r\n");
+				feedback->printf_info("> Profiler now disabled\r\n");
 			} else {
-				feedback->printf("> Usage: profiler { enable | disable }\r\n");
+				feedback->printf_info("> Usage: profiler { enable | disable }\r\n");
 			}
 		} else if(EQUALS(0, "verbose")) {
 			if(EQUALS(1, "on")) {
 				verbose = true;
-				feedback->printf("> Verbose mode enabled\r\n");
+				feedback->printf_info("> Verbose mode enabled\r\n");
 			} else if(EQUALS(1, "off")) {
 				verbose = false;
-				feedback->printf("> Verbose mode disabled\r\n");
+				feedback->printf_info("> Verbose mode disabled\r\n");
 			} else {
-				feedback->printf("> Usage: verbose { on | off }\r\n");
+				feedback->printf_info("> Usage: verbose { on | off }\r\n");
 			}
 		} else if(EQUALS(0, "calibrate")) {
 			if(EQUALS(1, "mag")) {
@@ -69,7 +69,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					disable_monitors(feedback);
 					monitor.enable(MAG_CAL_MONITOR, 0, 100);
 				} else {
-					feedback->printf("> IMU Hat is not plugged in\r\n");
+					feedback->printf_error("> IMU Hat is not plugged in\r\n");
 				}
 			}
 			else if(EQUALS(1, "accel")) {
@@ -88,11 +88,11 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					monitor.disable(ACC_CAL_MONITOR);
 					feedback->printf("\x1b[2J");
 				} else {
-					feedback->printf("> IMU Hat is not plugged in\r\n");
+					feedback->printf_error("> IMU Hat is not plugged in\r\n");
 				}
 			}
 			else {
-				feedback->printf("> Usage: calibrate { mag | accel | disable }\r\n");
+				feedback->printf_info("> Usage: calibrate { mag | accel | disable }\r\n");
 			}
 		} else if(EQUALS(0, "plot")) {
 			if(EQUALS(1, "imu")) {
@@ -100,7 +100,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					disable_monitors(feedback);
 					monitor.enable(IMU_PLOT_MONITOR, 0, 100);
 				} else {
-					feedback->printf("> IMU Hat is not plugged in\r\n");
+					feedback->printf_error("> IMU Hat is not plugged in\r\n");
 				}
 			}
 			else if(EQUALS(1, "disable")) {
@@ -109,48 +109,48 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					monitor.disable(IMU_PLOT_MONITOR);
 					feedback->printf("\x1b[2J");
 				} else {
-					feedback->printf("> IMU Hat is not plugged in\r\n");
+					feedback->printf_error("> IMU Hat is not plugged in\r\n");
 				}
 			}
 			else {
-				feedback->printf("> Usage: plot { imu | disable }\r\n");
+				feedback->printf_info("> Usage: plot { imu | disable }\r\n");
 			}
 		} else if(EQUALS(0, "monitor")) {
 			if(EQUALS(1, "list")) {
-				feedback->printf("> Currently available monitor IDs: \r\n");
+				feedback->printf_info("> Currently available monitor IDs: \r\n");
 				if (AHRSInstance != nullptr) {
-					feedback->printf("> IMU on Hat %d \r\n", AHRSInstance->getPortNum());
-					feedback->printf("> imu \r\n");
-					feedback->printf("> accel \r\n");
-					feedback->printf("> gyro \r\n");
-					feedback->printf("> mag \r\n");
-					feedback->printf("> quat \r\n");
-					feedback->printf("> rpy \r\n");
+					feedback->printf_info("> IMU on Hat %d \r\n", AHRSInstance->getPortNum());
+					feedback->printf_success("> imu \r\n");
+					feedback->printf_success("> accel \r\n");
+					feedback->printf_success("> gyro \r\n");
+					feedback->printf_success("> mag \r\n");
+					feedback->printf_success("> quat \r\n");
+					feedback->printf_success("> rpy \r\n");
 				}
 				if (PotentiometerInstance != nullptr) {
-					feedback->printf("> Potentiometer on Hat %d \r\n", PotentiometerInstance->getPortNum());
-					feedback->printf("> pot \r\n");
+					feedback->printf_info("> Potentiometer on Hat %d \r\n", PotentiometerInstance->getPortNum());
+					feedback->printf_success("> pot \r\n");
 				}
 				if (VoltmeterInstance != nullptr) {
-					feedback->printf("Voltmeter on Hat %d \r\n", VoltmeterInstance->getPortNum());
-					feedback->printf("> volt \r\n");
+					feedback->printf_info("Voltmeter on Hat %d \r\n", VoltmeterInstance->getPortNum());
+					feedback->printf_success("> volt \r\n");
 				}
 				if (MassSensorInstance != nullptr) {
-					feedback->printf("> Mass sensor on Hat %d \r\n", MassSensorInstance->getPortNum());
-					feedback->printf("> mass \r\n");
+					feedback->printf_info("> Mass sensor on Hat %d \r\n", MassSensorInstance->getPortNum());
+					feedback->printf_success("> mass \r\n");
 				}
 				if (AS7265Instance != nullptr) {
-					feedback->printf("> Spectrophotometer on Hat %d \r\n", AS7265Instance->getPortNum());
-					feedback->printf("> spectro \r\n");
+					feedback->printf_info("> Spectrophotometer on Hat %d \r\n", AS7265Instance->getPortNum());
+					feedback->printf_success("> spectro \r\n");
 				}
 				if (ModbusInstance != nullptr) {
-					feedback->printf("> Modbus on Hat %d \r\n", ModbusInstance->getPortNum());
-					feedback->printf("> modbus \r\n");
+					feedback->printf_info("> Modbus on Hat %d \r\n", ModbusInstance->getPortNum());
+					feedback->printf_success("> modbus \r\n");
 					if (ModbusInstance->four_in_one_connected()) {
-						feedback->printf("> fourinone \r\n");
+						feedback->printf_success("> fourinone \r\n");
 					}
 					if (ModbusInstance->npk_connected()) {
-						feedback->printf("> npk \r\n");
+						feedback->printf_success("> npk \r\n");
 					}
 				}
 			}
@@ -179,10 +179,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(IMU_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> IMU monitor already enabled\r\n");
+							feedback->printf_error("> IMU monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -199,10 +199,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(ACCEL_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Accelerometer monitor already enabled\r\n");
+							feedback->printf_error("> Accelerometer monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -219,10 +219,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(GYRO_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Gyroscope monitor already enabled\r\n");
+							feedback->printf_error("> Gyroscope monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -239,10 +239,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(MAG_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Magnetometer monitor already enabled\r\n");
+							feedback->printf_error("> Magnetometer monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -259,10 +259,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(QUAT_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Quaternion monitor already enabled\r\n");
+							feedback->printf_error("> Quaternion monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -279,10 +279,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(RPY_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Roll, pitch, yaw monitor already enabled\r\n");
+							feedback->printf_error("> Roll, pitch, yaw monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 
@@ -299,10 +299,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(POT_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Potentiometer monitor already enabled\r\n");
+							feedback->printf_error("> Potentiometer monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> Potentiometer Hat is not plugged in\r\n");
+						feedback->printf_error("> Potentiometer Hat is not plugged in\r\n");
 					}
 				}
 
@@ -319,10 +319,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(VOLTMETER_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Voltmeter monitor already enabled\r\n");
+							feedback->printf_error("> Voltmeter monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> Voltmeter Hat is not plugged in\r\n");
+						feedback->printf_error("> Voltmeter Hat is not plugged in\r\n");
 					}
 				}
 
@@ -339,10 +339,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(MASS_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Mass monitor already enabled\r\n");
+							feedback->printf_error("> Mass monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> Mass Hat is not plugged in\r\n");
+						feedback->printf_error("> Mass Hat is not plugged in\r\n");
 					}
 				}
 
@@ -359,10 +359,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							monitor.enable(SPECTRO_MONITOR, chosen_loc, refresh_rate);
 							feedback->printf("\x1b[2J");
 						} else {
-							feedback->printf("> Spectro monitor already enabled\r\n");
+							feedback->printf_error("> Spectro monitor already enabled\r\n");
 						}
 					} else {
-						feedback->printf("> Spectrophotometer Hat is not plugged in\r\n");
+						feedback->printf_error("> Spectrophotometer Hat is not plugged in\r\n");
 					}
 				}
 
@@ -381,10 +381,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 									monitor.enable(FOURINONE_MONITOR, chosen_loc, refresh_rate);
 									feedback->printf("\x1b[2J");
 								} else {
-									feedback->printf("> FourInOne monitor already enabled\r\n");
+									feedback->printf_error("> FourInOne monitor already enabled\r\n");
 								}
 							} else {
-								feedback->printf("> FourInOne sensor not detected\r\n");
+								feedback->printf_error("> FourInOne sensor not detected\r\n");
 							}
 						}
 
@@ -401,48 +401,49 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 									monitor.enable(NPK_MONITOR, chosen_loc, refresh_rate);
 									feedback->printf("\x1b[2J");
 								} else {
-									feedback->printf("> NPK monitor already enabled\r\n");
+									feedback->printf_error("> NPK monitor already enabled\r\n");
 								}
 							} else {
-								feedback->printf("> NPK sensor not detected\r\n");
+								feedback->printf_error("> NPK sensor not detected\r\n");
 							}
 						}
 					} else {
-						feedback->printf("> Modbus Hat is not plugged in\r\n");
+						feedback->printf_error("> Modbus Hat is not plugged in\r\n");
 					}
 				}
 
 				else {
-					feedback->printf("> Invalid monitor ID\r\n");
+					feedback->printf_error("> %.*s: Invalid monitor ID\r\n", cmd->components[2].length, cmd->components[2].component);
 				}
 
 			} else if(EQUALS(1, "enable") && cmd->num_components == 2) {
+				uint8_t refresh_rate = 10;
 				if (AHRSInstance != nullptr) {
-					monitor.enable(ACCEL_MONITOR, location, 100);
+					monitor.enable(ACCEL_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
-					monitor.enable(GYRO_MONITOR, location, 100);
+					monitor.enable(GYRO_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
-					monitor.enable(MAG_MONITOR, location, 100);
+					monitor.enable(MAG_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
-					monitor.enable(RPY_MONITOR, location, 100);
+					monitor.enable(RPY_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
 				if (PotentiometerInstance != nullptr) {
-					monitor.enable(POT_MONITOR, location, 100);
+					monitor.enable(POT_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
 				if (VoltmeterInstance != nullptr) {
-					monitor.enable(VOLTMETER_MONITOR, location, 100);
+					monitor.enable(VOLTMETER_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
 				if (MassSensorInstance != nullptr) {
-					monitor.enable(MASS_MONITOR, location, 100);
+					monitor.enable(MASS_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
@@ -472,7 +473,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(IMU_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> IMU Hat is not plugged in\r\n");
+						feedback->printf_error("> IMU Hat is not plugged in\r\n");
 					}
 				}
 				else if(EQUALS(2, "accel")) {
@@ -481,7 +482,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(ACCEL_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Accel monitor not created yet\r\n");
+						feedback->printf_error("> Accel monitor not created yet\r\n");
 					}
 				}
 				else if(EQUALS(2, "gyro")) {
@@ -490,7 +491,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(GYRO_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Gyro monitor not created yet\r\n");
+						feedback->printf_error("> Gyro monitor not created yet\r\n");
 					}
 				}
 				else if(EQUALS(2, "mag")) {
@@ -499,7 +500,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(MAG_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Mag onitor not created yet\r\n");
+						feedback->printf_error("> Mag monitor not created yet\r\n");
 					}
 				}
 				else if(EQUALS(2, "quat")) {
@@ -508,7 +509,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(QUAT_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Quaternion monitor not created yet\r\n");
+						feedback->printf_error("> Quaternion monitor not created yet\r\n");
 					}
 				}
 				else if(EQUALS(2, "rpy")) {
@@ -517,7 +518,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(RPY_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> RPY monitor not created yet\r\n");
+						feedback->printf_error("> RPY monitor not created yet\r\n");
 					}
 				}
 				else if(EQUALS(2, "pot")) {
@@ -526,7 +527,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(POT_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Potentiometer monitor not created yet\r\n");
+						feedback->printf_error("> Potentiometer monitor not created yet\r\n");
 					}
 				}
 
@@ -536,7 +537,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(POT_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Potentiometer monitor not created yet\r\n");
+						feedback->printf_error("> Potentiometer monitor not created yet\r\n");
 					}
 				}
 
@@ -546,7 +547,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(VOLTMETER_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Voltmeter monitor not created yet\r\n");
+						feedback->printf_error("> Voltmeter monitor not created yet\r\n");
 					}
 				}
 
@@ -556,7 +557,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(MASS_MONITOR));
 						location--;
 					} else {
-						feedback->printf("> Mass monitor not created yet\r\n");
+						feedback->printf_error("> Mass monitor not created yet\r\n");
 					}
 				}
 
@@ -566,7 +567,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						update_monitors(monitor.get_location(SPECTRO_MONITOR), 2);
 						location--;
 					} else {
-						feedback->printf("> Spectrophotometer monitor not created yet\r\n");
+						feedback->printf_error("> Spectrophotometer monitor not created yet\r\n");
 					}
 				}
 
@@ -578,7 +579,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							update_monitors(monitor.get_location(FOURINONE_MONITOR));
 							location--;
 						} else {
-							feedback->printf("> FourInOne monitor not created yet\r\n");
+							feedback->printf_error("> FourInOne monitor not created yet\r\n");
 						}
 					}
 
@@ -588,13 +589,13 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							update_monitors(monitor.get_location(NPK_MONITOR));
 							location--;
 						} else {
-							feedback->printf("> NPK monitor not created yet\r\n");
+							feedback->printf_error("> NPK monitor not created yet\r\n");
 						}
 					}
 				}
 
 				else {
-					feedback->printf("Invalid monitor ID \r\n");
+					feedback->printf_error("> %.*s: Invalid monitor ID\r\n", cmd->components[2].length, cmd->components[2].component);
 				}
 				feedback->printf("\x1b[2J");
 			}
@@ -603,12 +604,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 				disable_monitors(feedback);
 			}
 			else {
-				feedback->printf("> Usage:\r\n");
-				feedback->printf("> monitor { enable | disable } device_id [location] [refresh rate; default: 10]\r\n");
-				feedback->printf("> monitor list\r\n");
+				feedback->printf_info("> Usage:\r\n");
+				feedback->printf_info("> monitor { enable | disable } device_id [location] [refresh rate; default: 10]\r\n");
+				feedback->printf_info("> monitor list\r\n");
 			}
 		} else {
-			feedback->printf("> %.*s: command not found\r\n", cmd->components[0].length, cmd->components[0].component);
+			feedback->printf_error("> %.*s: command not found\r\n", cmd->components[0].length, cmd->components[0].component);
 		}
 	}
 }

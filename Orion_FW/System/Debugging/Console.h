@@ -29,6 +29,9 @@ public:
 	void unlock();
 	void print(const char* buffer);
 	void printf(const char* format, ...);
+	void printf_error(const char* format, ...);
+	void printf_info(const char* format, ...);
+	void printf_success(const char* format, ...);
 	void transmit(uint8_t* buffer, uint32_t length);
 
 private:
