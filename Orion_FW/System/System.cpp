@@ -72,6 +72,21 @@ uint32_t System::get_node_id() {
 	return node_id;
 }
 
+static LaserResponsePacket laser_response_packet;
+
+void System::handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet) {
+	if (packet->enable)
+		enable_meissa_5V_output();
+	else
+		disable_meissa_5V_output();
+
+	laser_response_packet.success = true;
+
+	MAKE_IDENTIFIABLE(*packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(packet);
+}
+
 extern "C" {
 
 void vApplicationStackOverflowHook() {

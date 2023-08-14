@@ -19,22 +19,16 @@
 #define HD_NODE_ID     (0x004)
 #define NAV_NODE_ID    (0x008)
 
+class Telemetry {
+public:
+	static void setup();
+
+	static void handle_ping(uint8_t sender_id, PingPacket* packet);
+
+	static void set_id(uint32_t id);
+private:
+};
 
 extern CANBus* FDCAN1_network;
-
-#define SET_DESTINATION_NODE_ID(id) dynamic_cast<ROCANDriver*>(FDCAN1_network->get_driver())->TxHeaderConfigID(id);
-
-void setupNodeID();
-void setupTelemetry();
-
-#if defined(BUILD_FOR_NAVIGATION)
-//	extern NetworkBus UART1_network;
-#endif
-
-//extern NetworkBus JetsonNetwork;
-//extern NetworkBus UART3_network;
-//extern NetworkBus UART4_network;
-//extern NetworkBus UART5_network;
-//extern NetworkBus UART8_network;
 
 #endif /* TELEMETRY_TELEMETRY_H_ */

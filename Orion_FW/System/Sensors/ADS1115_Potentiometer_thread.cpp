@@ -67,7 +67,7 @@ void PotentiometerThread::loop() {
 		}
 
 		MAKE_IDENTIFIABLE(pot_packet);
-		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&pot_packet);
 		portYIELD();
 	} else {

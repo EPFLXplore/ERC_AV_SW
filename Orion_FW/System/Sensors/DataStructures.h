@@ -15,7 +15,7 @@
 #include <string.h>
 #include "System.h"
 
-#define MAKE_IDENTIFIABLE(PACKET) PACKET.id = System::get_node_id();
+#define MAKE_IDENTIFIABLE(PACKET) (PACKET).id = System::get_node_id();
 
 struct Vector {
 	float x;

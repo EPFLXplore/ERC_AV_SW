@@ -169,7 +169,7 @@ void ADS1234Thread::loop() {
 
 		mass_data.toArray((uint8_t*) &mass_packet);
 		MAKE_IDENTIFIABLE(mass_packet);
-		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&mass_packet);
 		portYIELD();
 	} else {

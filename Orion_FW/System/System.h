@@ -23,6 +23,9 @@ public:
 	static void disable_meissa_3V3_output();
 	static void update_node_id();
 	static uint32_t get_node_id();
+
+	static void handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet);
+
 private:
 	static uint32_t node_id;
 };
