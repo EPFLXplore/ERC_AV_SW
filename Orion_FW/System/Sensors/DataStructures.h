@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstdint>
+#include <string.h>
 #include "System.h"
 
 #define MAKE_IDENTIFIABLE(PACKET) PACKET.id = System::get_node_id();
@@ -92,7 +93,7 @@ struct FOURINONEData {
     float conductivity;
     float ph;
     char* toString(char* buffer) {
-        sprintf(buffer, "Temperature: %f [deg] \t Moisture: %f [%%] \t Conductivity: %f [us/cm] \t PH: %f", temperature, moisture, conductivity, ph);
+        sprintf(buffer, "Temp: %+.3f [deg] \t Humid: %.3f [%%] \t Cond.: %.3f [us/cm] \t PH: %.3f", temperature, moisture, conductivity, ph);
         return buffer;
     }
 
@@ -111,7 +112,7 @@ struct NPKData {
     float phosphorus;
     float potassium;
     char* toString(char* buffer) {
-        sprintf(buffer, "nitrogen: %f [mg/kg] phosphorus: %f [mg/kg] potassium: %f [mg/kg]", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
+        sprintf(buffer, "Nitrogen: %.3f [mg/kg] \t Phosphorus: %.3f [mg/kg] Potassium: %.3f [mg/kg]", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
         return buffer;
     }
 
@@ -124,13 +125,37 @@ struct NPKData {
 };
 
 struct SpectroData {
-    float data[18] = {0};
-//    char refs[18] = {0};
-    char* toString(char* buffer) {
-//        for(int i = 0; i < 18; ++i)
-//        	sprintf(buffer, "\c %f \n", refs[i], data[i]);
-        return buffer;
-    }
+	float data[18] = {0};
+
+	// Wavelength labels [nm]
+	const char *labels[18] = {"410", "435", "460", "485", "510", "535", "560", "585", "610",
+							  "645", "680", "705", "730", "760", "810", "860", "900", "940"};
+
+	char* toString(char* buffer) {
+	    char dataLine[18][20];  // Space for formatted data strings
+	    int maxLabelLength = 0;
+
+	    // Calculate the maximum label length
+	    for (int i = 0; i < 18; ++i) {
+	        int labelLength = strlen(labels[i]);
+	        if (labelLength > maxLabelLength) {
+	            maxLabelLength = labelLength;
+	        }
+	    }
+
+	    // Format the data strings and store them in dataLine array
+	    for (int i = 0; i < 18; ++i) {
+	        snprintf(dataLine[i], sizeof(dataLine[i]), "%+.3f", data[i]);
+	    }
+
+	    // Construct the buffer with aligned labels and data
+	    for (int i = 0; i < 18; ++i) {
+	        snprintf(buffer, 100, "%-*s %s\n", maxLabelLength, labels[i], dataLine[i]);
+	        buffer += strlen(buffer);  // Move the buffer pointer
+	    }
+
+	    return buffer;
+	}
 
     uint8_t* toArray(uint8_t* buffer){
     	for(int i = 0; i < 18; ++i)
@@ -168,7 +193,7 @@ struct IMUData {
 struct MassData {
     float mass[4];
 	char* toString(char* buffer) {
-		sprintf(buffer, "CH1: %f [g] \t CH2: %f [g] \t CH3: %f [g] \t CH4: %f [g]", mass[0], mass[1], mass[2], mass[3]);
+		sprintf(buffer, "CH1: %+.3f [g] \t CH2: %+.3f [g] \t CH3: %+.3f [g] \t CH4: %+.3f [g]", mass[0], mass[1], mass[2], mass[3]);
 		return buffer;
 	}
 
@@ -184,7 +209,7 @@ struct VoltmeterData {
 	float voltage;
 
 	char* toString(char* buffer) {
-		sprintf(buffer, "Voltage: %f [V]", voltage);
+		sprintf(buffer, "Voltage: %+.3f [V]", voltage);
 		return buffer;
 	}
 
@@ -197,7 +222,7 @@ struct VoltmeterData {
 struct PotentiometerData {
 	float angles[4] = {0};
 	char* toString(char* buffer) {
-		sprintf(buffer, "CH0: %f [deg] \t CH1: %f [deg] \t CH2: %f [deg] \t CH3: %f [deg]", angles[0], angles[1], angles[2], angles[3]);
+		sprintf(buffer, "CH0: %+.3f [deg] \t CH1: %+.3f [deg] \t CH2: %+.3f [deg] \t CH3: %+.3f [deg]", angles[0], angles[1], angles[2], angles[3]);
 		return buffer;
 	}
 

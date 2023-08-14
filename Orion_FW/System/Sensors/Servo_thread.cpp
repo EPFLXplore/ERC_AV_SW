@@ -102,6 +102,8 @@ HAL_StatusTypeDef ServoThread::set_angle(float angle, uint8_t ch) {
 	}
 }
 
+static ServoResponsePacket servo_response_packet;
+
 void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	servo_data.success = false;
 	if (ServoInstance == nullptr) {
@@ -118,9 +120,11 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 			servo_data.success = false;
 		}
 	}
-	// Send data over RoCo network
-	servo_data.toArray((uint8_t*) &ServoInstance->servo_response_packet);
-	FDCAN1_network->send(&ServoInstance->servo_response_packet);
+
+	servo_data.toArray((uint8_t*) &servo_response_packet);
+	MAKE_IDENTIFIABLE(servo_response_packet);
+	SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+	FDCAN1_network->send(&servo_response_packet);
 	portYIELD();
 }
 

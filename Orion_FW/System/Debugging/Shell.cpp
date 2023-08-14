@@ -6,6 +6,7 @@
  */
 
 
+#include <string.h>
 #include "Debugging/Debug.h"
 
 
@@ -19,11 +20,20 @@ void Shell::init() {
 }
 
 void Shell::loop() {
-	HAL_StatusTypeDef status = HAL_UART_Receive(uart, dma_buffer, 1, 0);
+	HAL_UART_Receive_DMA(uart, dma_buffer, CMD_BUFFER_SIZE);
+    uint16_t bytesRead = CMD_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(uart->hdmarx);
 
-	if(status == HAL_OK) {
-		receiveByte(dma_buffer[0]);
-	}
+    for (uint16_t i = 0; i < bytesRead; i++) {
+        receiveByte(dma_buffer[i]);
+        dma_buffer[i] = '\0'; // Clear the byte after processing
+    }
+
+    // Compact the buffer by moving unread data to the beginning
+    if (bytesRead > 0) {
+        uint16_t unreadBytes = bytesRead - lastProcessedIndex;
+        memmove(dma_buffer, dma_buffer + lastProcessedIndex, unreadBytes);
+        lastProcessedIndex = 0;
+    }
 }
 
 

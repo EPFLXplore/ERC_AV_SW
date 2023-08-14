@@ -27,6 +27,9 @@ public:
 	~ModbusThread();
 	void init();
 	void loop();
+	uint8_t getPortNum();
+	bool four_in_one_connected();
+	bool npk_connected();
 private:
 	void init_Modbus(modbusHandler_t* ModbusH);
 	void reinit_gpios();
@@ -39,7 +42,7 @@ private:
 	NPKThread* NPKInstance;
 };
 
-extern ModbusThread* modbusInstance;
+extern ModbusThread* ModbusInstance;
 
 
 #endif /* SENSORS_MODBUS_THREAD_HPP_ */

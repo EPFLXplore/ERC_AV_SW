@@ -18,15 +18,15 @@
 
 // Enables the channels w.r.t. number of expected load cells
 // More channels will also decrease the maximum output data rate
-//#define CH1_ENABLE
-#define CH2_ENABLE
+#define CH1_ENABLE
+//#define CH2_ENABLE
 //#define CH3_ENABLE
 //#define CH4_ENABLE
 #define USE_LOW_PASS_FILTER
 
 // For plotting with SWV Data Trace Timeline Graph
 //#define PLOT_CH1
-#define PLOT_CH2
+//#define PLOT_CH2
 //#define PLOT_CH3
 //#define PLOT_CH4
 
@@ -37,6 +37,7 @@ public:
 	~ADS1234Thread();
 	void init();
 	void loop();
+	uint8_t getPortNum();
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -48,7 +49,7 @@ private:
 	bool calibrating = false;
 };
 
-extern ADS1234Thread* massSensorInstance;
+extern ADS1234Thread* MassSensorInstance;
 
 
 

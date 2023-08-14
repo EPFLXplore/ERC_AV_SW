@@ -173,6 +173,10 @@ void AHRSThread::loop() {
 	}
 }
 
+uint8_t AHRSThread::getPortNum() {
+	return portNum;
+}
+
 void AHRSThread::QuaternionUpdate(float ax, float ay, float az,
 								 float gx, float gy, float gz,
 								 float mx, float my, float mz,

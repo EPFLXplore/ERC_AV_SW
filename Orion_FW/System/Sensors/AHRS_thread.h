@@ -25,6 +25,7 @@ public:
 	~AHRSThread();
 	void init();
 	void loop();
+	uint8_t getPortNum();
 private:
 	ProberThread* parent;
 	uint8_t portNum;

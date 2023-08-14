@@ -7,11 +7,14 @@
 
 #include "ADS1115_Potentiometer_thread.hpp"
 #include "Telemetry.h"
+
+#include "Debugging/Debug.h"
+
 PotentiometerThread* PotentiometerInstance = nullptr;
 static char cbuf[256]; // for printf
 
 void PotentiometerThread::init() {
-
+	PotentiometerInstance = this;
 	HAL_StatusTypeDef status = potentiometer.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(status != HAL_OK) {
@@ -50,21 +53,32 @@ void PotentiometerThread::init() {
 }
 
 static PotentiometerData potentiometer_data;
-static PotentiometerPacket packet;
+static PotentiometerPacket pot_packet;
 
 void PotentiometerThread::loop() {
 	HAL_StatusTypeDef status = get_angles(potentiometer_data.angles);
 
 	if(status == HAL_OK) {
-		printf("%s \n", potentiometer_data.toString(cbuf));
-		potentiometer_data.toArray((uint8_t*) &packet);
-		FDCAN1_network->send(&packet);
+
+		potentiometer_data.toArray((uint8_t*) &pot_packet);
+
+		if(monitor.enter(POT_MONITOR)) {
+			println("%s", potentiometer_data.toString(cbuf));
+		}
+
+		MAKE_IDENTIFIABLE(pot_packet);
+		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+		FDCAN1_network->send(&pot_packet);
 		portYIELD();
 	} else {
 		PotentiometerInstance = nullptr;
 		terminate();
 		parent->resetProber();
 	}
+}
+
+uint8_t PotentiometerThread::getPortNum() {
+	return portNum;
 }
 
 HAL_StatusTypeDef PotentiometerThread::get_angle(uint8_t channel, float& val) {

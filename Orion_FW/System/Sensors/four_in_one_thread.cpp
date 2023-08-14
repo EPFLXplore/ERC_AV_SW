@@ -9,10 +9,11 @@
 
 #include <four_in_one_thread.h>
 #include "Telemetry.h"
-//#include "main.h"
+
+#include "Debugging/Debug.h"
 
 static char cbuf[256]; // for printf
-//FourInOneThread* FourInOneInstance = nullptr;
+
 
 void FourInOneThread::init() {
 
@@ -60,7 +61,13 @@ void FourInOneThread::loop() {
 		fourinone_data.ph =  ModbusDATA[3] / 10.0f;
 
 		fourinone_data.toArray((uint8_t*) &fourinone_packet);
-		printf("4IN1: %s \n", fourinone_data.toString(cbuf));
+
+		if(monitor.enter(FOURINONE_MONITOR)) {
+			println("%s", fourinone_data.toString(cbuf));
+		}
+
+		MAKE_IDENTIFIABLE(fourinone_packet);
+		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
 		FDCAN1_network->send(&fourinone_packet);
 		portYIELD();
 	}

@@ -10,8 +10,9 @@
 #include <npk_thread.h>
 #include "Telemetry.h"
 
+#include "Debugging/Debug.h"
+
 static char cbuf[256]; // for printf
-//NPKThread* NPKInstance = nullptr;
 
 void NPKThread::init() {
 
@@ -55,8 +56,15 @@ void NPKThread::loop() {
 	npk_data.phosphorus = ModbusDATA[1 + reg_offset]; // P [mg/kg]
 	npk_data.potassium = ModbusDATA[1 + reg_offset]; // K [mg/kg]
 
+	if(monitor.enter(NPK_MONITOR)) {
+		println("%s", npk_data.toString(cbuf));
+	}
+
+
 	npk_data.toArray((uint8_t*) &npk_packet);
-	printf("NPK: %s \n", npk_data.toString(cbuf));
+
+	MAKE_IDENTIFIABLE(npk_packet);
+	SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
 	FDCAN1_network->send(&npk_packet);
 	portYIELD();
 	}

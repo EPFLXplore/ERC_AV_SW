@@ -28,6 +28,8 @@ public:
 	void init();
 	void loop();
 
+	void receiveByte(char cbuf);
+
 private:
 	UART_HandleTypeDef* uart;
 	Terminal* terminal;
@@ -35,14 +37,12 @@ private:
 	uint8_t dma_buffer[CMD_BUFFER_SIZE];
 
 	char command_buffer[CMD_BUFFER_SIZE];
-	uint32_t lastDmaStreamIndex = 0;
-	uint32_t endDmaStreamIndex = 0;
+	uint16_t lastProcessedIndex = 0;
 
 	uint8_t command_index;
 
 	ShellCommand cmd;
 
-	void receiveByte(char cbuf);
 	bool componentMatches(struct CommandComponent* comp, const char* target);
 };
 

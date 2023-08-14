@@ -8,7 +8,9 @@
 #include <ADS1234_Mass_thread.hpp>
 #include "Telemetry.h"
 
-ADS1234Thread* massSensorInstance = nullptr;
+#include "Debugging/Debug.h"
+
+ADS1234Thread* MassSensorInstance = nullptr;
 static char cbuf[256]; // for printf
 
 #ifdef PLOT_CH1
@@ -69,13 +71,13 @@ ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) :
 }
 
 void ADS1234Thread::init() {
-	massSensorInstance = this;
+	MassSensorInstance = this;
 	// Initialize the sensor
 //	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
 	bool success = 1;
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
-		massSensorInstance = nullptr;
+		MassSensorInstance = nullptr;
 		MX_SPI1_Init();
 		terminate();
 		parent->resetProber();
@@ -159,15 +161,19 @@ void ADS1234Thread::loop() {
 #ifdef PLOT_CH4
     global_mass_ch2 = mass_data.mass[3];
 #endif
-	printf("%s \n", mass_data.toString(cbuf));
 
 	if((err_ch1 == NoERROR) && (err_ch2 == NoERROR) && (err_ch3 == NoERROR) && (err_ch4 == NoERROR)) {
-		// Send data over RoCo network
+		if(monitor.enter(MASS_MONITOR)) {
+			println("%s", mass_data.toString(cbuf));
+		}
+
 		mass_data.toArray((uint8_t*) &mass_packet);
+		MAKE_IDENTIFIABLE(mass_packet);
+		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
 		FDCAN1_network->send(&mass_packet);
 		portYIELD();
 	} else {
-		massSensorInstance = nullptr;
+		MassSensorInstance = nullptr;
 		if (hspi == &hspi1)
 			MX_SPI1_Init();
 		else if (hspi == &hspi2)
@@ -179,4 +185,8 @@ void ADS1234Thread::loop() {
 		terminate();
 		parent->resetProber();
 	}
+}
+
+uint8_t ADS1234Thread::getPortNum() {
+	return portNum;
 }

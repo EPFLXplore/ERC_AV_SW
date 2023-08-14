@@ -41,7 +41,6 @@ private:
 	float MAX_DUTY[4] = {10, 10, 10, 10};
 
 	ServoPacket servo_request_packet;
-	ServoResponsePacket servo_response_packet;
 
 	HAL_StatusTypeDef set_angle(float angle, uint8_t ch);
 	void reinit_gpios();

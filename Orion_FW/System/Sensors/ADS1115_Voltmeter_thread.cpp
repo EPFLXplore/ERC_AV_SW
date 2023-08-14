@@ -7,11 +7,14 @@
 
 #include "ADS1115_Voltmeter_thread.hpp"
 #include "Telemetry.h"
+
+#include "Debugging/Debug.h"
+
 VoltmeterThread* VoltmeterInstance = nullptr;
 static char cbuf[256]; // for printf
 
 void VoltmeterThread::init() {
-
+	VoltmeterInstance = this;
 	HAL_StatusTypeDef status = voltmeter.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(status != HAL_OK) {
@@ -26,22 +29,31 @@ void VoltmeterThread::init() {
 }
 
 static VoltmeterData voltmeter_data;
-static VoltmeterPacket packet;
+static VoltmeterPacket voltage_packet;
 
 void VoltmeterThread::loop() {
 
 	HAL_StatusTypeDef status = get_voltage(voltmeter_data.voltage);
 
 	if(status == HAL_OK) {
-		printf("%s \n", voltmeter_data.toString(cbuf));
-		voltmeter_data.toArray((uint8_t*) &packet);
-		FDCAN1_network->send(&packet);
+		if(monitor.enter(VOLTMETER_MONITOR)) {
+			println("%s", voltmeter_data.toString(cbuf));
+		}
+
+		voltmeter_data.toArray((uint8_t*) &voltage_packet);
+		MAKE_IDENTIFIABLE(voltage_packet);
+		SET_DESTINATION_NODE_ID(JETSON_NODE_ID);
+		FDCAN1_network->send(&voltage_packet);
 		portYIELD();
 	} else {
 		VoltmeterInstance = nullptr;
 		terminate();
 		parent->resetProber();
 	}
+}
+
+uint8_t VoltmeterThread::getPortNum() {
+	return portNum;
 }
 
 HAL_StatusTypeDef VoltmeterThread::get_polarity(int8_t& polarity) {

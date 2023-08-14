@@ -13,7 +13,7 @@
 
 //#include "usart.h"
 
-ModbusThread* modbusInstance = nullptr;
+ModbusThread* ModbusInstance = nullptr;
 static char cbuf[256]; // for printf
 
 ModbusThread::~ModbusThread() {
@@ -24,7 +24,7 @@ ModbusThread::~ModbusThread() {
 }
 
 void ModbusThread::init() {
-	modbusInstance = this;
+	ModbusInstance = this;
 	MX_USART2_UART_Init();
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
@@ -51,9 +51,27 @@ void ModbusThread::loop() {
 		HAL_UART_DeInit(&huart2);
 		reinit_gpios();
 		terminate();
-		modbusInstance = nullptr;
+		ModbusInstance = nullptr;
 		parent->resetProber();
 	}
+}
+
+uint8_t ModbusThread::getPortNum() {
+	return portNum;
+}
+
+bool ModbusThread::four_in_one_connected() {
+	if (FourInOneInstance != nullptr)
+		return FourInOneInstance->is_connected();
+	else
+		return false;
+}
+
+bool ModbusThread::npk_connected() {
+	if (NPKInstance != nullptr)
+		return NPKInstance->is_connected();
+	else
+		return false;
 }
 
 void ModbusThread::init_Modbus(modbusHandler_t* ModbusH){

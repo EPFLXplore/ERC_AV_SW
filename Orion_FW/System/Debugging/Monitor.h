@@ -19,6 +19,12 @@
 #define MAG_MONITOR			4
 #define QUAT_MONITOR		5
 #define RPY_MONITOR			6
+#define POT_MONITOR			7
+#define VOLTMETER_MONITOR	8
+#define MASS_MONITOR		9
+#define SPECTRO_MONITOR		10
+#define FOURINONE_MONITOR	11
+#define NPK_MONITOR			12
 
 // Calibration monitors
 #define MAG_CAL_MONITOR 	30

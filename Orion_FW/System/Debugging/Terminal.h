@@ -45,7 +45,7 @@ public:
 	bool isVerbose();
 private:
 	uint8_t location = 0;
-	void update_monitors(uint8_t loc);
+	void update_monitors(uint8_t loc, uint8_t num_lines = 1);
 	void disable_monitors(Console* feedback);
 	bool verbose;
 };
