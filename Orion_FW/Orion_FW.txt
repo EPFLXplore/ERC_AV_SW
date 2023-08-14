@@ -1,6 +1,6 @@
 Configuration	Orion_FW
 STM32CubeMX 	6.9.0
-Date	08/06/2023
+Date	08/14/2023
 MCU	STM32H750VBTx
 
 
@@ -30,6 +30,9 @@ SPI3	Full-Duplex Master	SPI3_MISO	PB4 (NJTRST)
 SPI3	Full-Duplex Master	SPI3_MOSI	PB5
 SPI3	Full-Duplex Master	SPI3_SCK	PC10
 SYS	TIM6	SYS_VS_tim6	VP_SYS_VS_tim6
+TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+TIM3	Internal Clock	TIM3_VS_ClockSourceINT	VP_TIM3_VS_ClockSourceINT
+TIM4	Internal Clock	TIM4_VS_ClockSourceINT	VP_TIM4_VS_ClockSourceINT
 TIM5	One pulse	TIM5_VS_OPM	VP_TIM5_VS_OPM
 TIM8	Internal Clock	TIM8_VS_ClockSourceINT	VP_TIM8_VS_ClockSourceINT
 USART1	Asynchronous	USART1_RX	PB15
@@ -127,6 +130,9 @@ SPI3	Full-Duplex Master	SPI3_MISO	PB4 (NJTRST)
 SPI3	Full-Duplex Master	SPI3_MOSI	PB5
 SPI3	Full-Duplex Master	SPI3_SCK	PC10
 SYS	TIM6	SYS_VS_tim6	VP_SYS_VS_tim6
+TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+TIM3	Internal Clock	TIM3_VS_ClockSourceINT	VP_TIM3_VS_ClockSourceINT
+TIM4	Internal Clock	TIM4_VS_ClockSourceINT	VP_TIM4_VS_ClockSourceINT
 TIM5	One pulse	TIM5_VS_OPM	VP_TIM5_VS_OPM
 TIM8	Internal Clock	TIM8_VS_ClockSourceINT	VP_TIM8_VS_ClockSourceINT
 USART1	Asynchronous	USART1_RX	PB15
