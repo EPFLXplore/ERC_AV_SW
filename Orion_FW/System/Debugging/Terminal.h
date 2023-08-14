@@ -44,7 +44,7 @@ public:
 	void execute(ShellCommand* cmd, Console* feedback);
 	bool isVerbose();
 private:
-	uint8_t location = 0;
+	uint8_t location = 1;
 	void update_monitors(uint8_t loc, uint8_t num_lines = 1);
 	void disable_monitors(Console* feedback);
 	bool verbose;

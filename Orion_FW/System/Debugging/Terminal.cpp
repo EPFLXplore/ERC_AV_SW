@@ -156,7 +156,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			}
 			else if(EQUALS(1, "enable") && cmd->num_components >= 3) {
 				uint8_t refresh_rate = 10;
-				uint8_t custom_loc = 0;
+				uint8_t custom_loc = 1;
 
 				if(cmd->num_components > 3) {
 					custom_loc = atoi(cmd->components[3].component);
@@ -623,7 +623,7 @@ void Terminal::update_monitors(uint8_t loc, uint8_t num_lines) {
 }
 
 void Terminal::disable_monitors(Console* feedback) {
-	location = 0;
+	location = 1;
 	monitor.disable(IMU_MONITOR);
 	feedback->printf("\x1b[2J");
 	monitor.disable(ACCEL_MONITOR);

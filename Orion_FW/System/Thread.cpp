@@ -79,6 +79,8 @@ void Thread::println(const char* format, ...) {
 	vsprintf(buffer + strlen(buffer), format, args);
 	strcat(buffer, "\r\n");
 
+	// Clear the line to keep the console clean
+	console.print("\033[2K");
 	console.print(buffer);
 
 	va_end(args);
