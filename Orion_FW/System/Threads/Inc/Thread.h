@@ -31,6 +31,9 @@ public:
 
 protected:
 	void println(const char* format, ...);
+	void LOG_INFO(const char* format, ...);
+	void LOG_SUCCESS(const char* format, ...);
+	void LOG_ERROR(const char* format, ...);
 
 private:
 	osThreadId handle;

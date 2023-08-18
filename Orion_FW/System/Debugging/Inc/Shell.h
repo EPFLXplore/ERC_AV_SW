@@ -9,13 +9,12 @@
 #define APPLICATION_HOSTBOARD_INC_DEBUG_SHELL_H_
 
 
-#include "Thread.h"
-
 #include <usart.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #include <stm32h7xx_hal.h>
+#include <Thread.h>
 #include "Terminal.h"
 
 #define CMD_BUFFER_SIZE 256

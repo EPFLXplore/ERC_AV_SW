@@ -7,8 +7,8 @@
 
 
 
-#include "AHRS_thread.h"
 #include <stdio.h>
+#include <AHRS_thread.h>
 
 #include "Telemetry.h"
 #include <cmath>
@@ -50,6 +50,7 @@ void AHRSThread::init() {
 		++err_cnt;
 
 	if(err_cnt != 0) {
+		LOG_ERROR("Thread aborted\r\n");
 		terminate();
 		parent->resetProber();
 		delete magnetometer;
@@ -58,6 +59,8 @@ void AHRSThread::init() {
 		imu = nullptr;
 		return;
 	}
+
+	LOG_SUCCESS("Thread successfully created");
 
 #ifdef PRINT_GYRO_BIAS
 	printf("Computing gyro bias (uncalibrated)... \n");
@@ -161,8 +164,10 @@ void AHRSThread::loop() {
 		MAKE_IDENTIFIABLE(imu_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&imu_packet);
+		FDCAN2_network->send(&imu_packet);
 		portYIELD();
 	} else {
+		LOG_ERROR("Thread aborted");
 		AHRSInstance = nullptr;
 		terminate();
 		parent->resetProber();

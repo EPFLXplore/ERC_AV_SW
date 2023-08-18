@@ -8,13 +8,13 @@
 #ifndef SENSORS_PROBER_H_
 #define SENSORS_PROBER_H_
 
-#include "Thread.h"
 #include <FreeRTOS.h>
 #include <stdio.h>
 #include <string.h>
+#include <Thread.h>
 
 
-class ProberThread : Thread {
+class ProberThread : public Thread {
 public:
 	ProberThread(I2C_HandleTypeDef* hi2c) : Thread("Prober", osPriorityBelowNormal), hi2c(hi2c), instance(nullptr), i2cNum(0) {}
 	void init();

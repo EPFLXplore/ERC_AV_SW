@@ -8,10 +8,9 @@
 #ifndef SENSORS_NPK_THREAD_H_
 #define SENSORS_NPK_THREAD_H_
 
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
-//#include <Modbus.h>
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 #include "main.h"
 
 class NPKThread : public Thread {

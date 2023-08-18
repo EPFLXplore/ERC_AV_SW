@@ -13,11 +13,13 @@
 #include "usart.h"
 #include "fdcan.h"
 
-#define JETSON_NODE_ID (0x000)
-#define SC1_NODE_ID    (0x001)
-#define SC2_NODE_ID    (0x002)
-#define HD_NODE_ID     (0x004)
-#define NAV_NODE_ID    (0x008)
+#define JETSON_NODE_ID   (0x000)
+#define SC1_NODE_ID      (0x001)
+#define SC2_NODE_ID      (0x002)
+#define HD_NODE_ID       (0x004)
+#define NAV_NODE_ID      (0x008)
+#define GENERAL_NODE_ID  (0x7FF)
+#define DEFAULT_NODE_ID  (0x7FF)
 
 class Telemetry {
 public:
@@ -30,5 +32,6 @@ private:
 };
 
 extern CANBus* FDCAN1_network;
+extern CANBus* FDCAN2_network;
 
 #endif /* TELEMETRY_TELEMETRY_H_ */

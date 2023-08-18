@@ -5,7 +5,7 @@
  *      Author: Vincent Nguyen
  */
 
-#include "ADS1115_Potentiometer_thread.hpp"
+#include <ADS1115_Potentiometer_thread.hpp>
 #include "Telemetry.h"
 
 #include "Debug.h"
@@ -18,10 +18,13 @@ void PotentiometerThread::init() {
 	HAL_StatusTypeDef status = potentiometer.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(status != HAL_OK) {
+		LOG_ERROR("Thread aborted");
 		terminate();
 		parent->resetProber();
 		return;
 	}
+
+	LOG_SUCCESS("Thread successfully created");
 
 	// Sensor related configuration after successfully connected
 	potentiometer.ADSsetGain(GAIN_ONE); // FSR = 4.096 V
@@ -69,8 +72,10 @@ void PotentiometerThread::loop() {
 		MAKE_IDENTIFIABLE(pot_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&pot_packet);
+		FDCAN2_network->send(&pot_packet);
 		portYIELD();
 	} else {
+		LOG_SUCCESS("Thread aborted\r\n");
 		PotentiometerInstance = nullptr;
 		terminate();
 		parent->resetProber();
@@ -83,14 +88,13 @@ uint8_t PotentiometerThread::getPortNum() {
 
 HAL_StatusTypeDef PotentiometerThread::get_angle(uint8_t channel, float& val) {
 	if (channel > 3) {
-		printf("Requested channel is not available. \n");
+		LOG_ERROR("Requested channel is not available");
 		return HAL_ERROR;
 	}
 	HAL_StatusTypeDef status = potentiometer.get_value_conv(channel, val);
 //	HAL_StatusTypeDef status = potentiometer.read_average(channel, val, 1);
 	if (status != HAL_OK)
 		val = 0;
-//	osDelay(1);
 	return status;
 }
 

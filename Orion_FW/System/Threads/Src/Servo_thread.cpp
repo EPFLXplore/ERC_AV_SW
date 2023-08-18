@@ -5,9 +5,10 @@
  *      Author: Vincent Nguyen
  */
 
-#include "Servo_thread.h"
+#include <DataStructures.h>
+#include <Servo_thread.h>
+#include "Debug.h"
 #include "stm32h7xx_hal.h"
-#include "DataStructures.h"
 
 ServoThread* ServoInstance = nullptr;
 
@@ -36,6 +37,7 @@ void ServoThread::init() {
 		pwm_driver4 = new PWMDriver(&htim3, 4, HAT3_P4_Pin, HAT3_P4_GPIO_Port);
 		break;
 	}
+	LOG_SUCCESS("Thread successfully created \r\n");
 }
 
 // Declare your data with the proper data structure defined in DataStructures.h
@@ -50,6 +52,7 @@ void ServoThread::loop() {
 		// maybe read from current sensor
 		;
 	} else {
+		LOG_ERROR("Thread aborted%d \r\n");
 		ServoInstance = nullptr;
 		if (pwm_driver1 != nullptr) {
 		delete pwm_driver1;
@@ -73,7 +76,7 @@ void ServoThread::loop() {
 	}
 }
 
-HAL_StatusTypeDef ServoThread::set_angle(float angle, uint8_t ch) {
+HAL_StatusTypeDef ServoThread::set_angle(float& angle, uint8_t ch) {
 
 	if (ch > num_channels) {
 		return HAL_ERROR;
@@ -108,24 +111,26 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	servo_data.success = false;
 	if (ServoInstance == nullptr) {
 		servo_data.success = false;
-		printf("Servo instance does not exist yet. \n");
+		console.printf_error("ServoThread instance does not exist yet\r\n");
 		return;
 	}
 	else {
-		HAL_StatusTypeDef status = ServoInstance->set_angle(packet->angle, packet->channel);
+		float angle = packet->angle;
+		HAL_StatusTypeDef status = ServoInstance->set_angle(angle, packet->channel);
 		if (status == HAL_OK) {
-			printf("Servo angle set at %f degree on channel %d\n", packet->angle, packet->channel);
+			ServoInstance->LOG_INFO("Angle set at %f degree on channel %d", angle, packet->channel);
 			servo_data.success = true;
 		} else {
 			servo_data.success = false;
 		}
 	}
-	servo_data.angle = packet->angle;
+	servo_data.angle = packet->angle; // normally it should have been modified by set_angle
 	servo_data.channel = packet->channel;
 	servo_data.toArray((uint8_t*) &servo_response_packet);
 	MAKE_IDENTIFIABLE(servo_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&servo_response_packet);
+	FDCAN2_network->send(&servo_response_packet);
 	portYIELD();
 }
 

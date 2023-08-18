@@ -8,9 +8,9 @@
 #ifndef SENSORS_ADS1115_VOLTMETER_THREAD_HPP_
 #define SENSORS_ADS1115_VOLTMETER_THREAD_HPP_
 
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 #include "ADS1115.hpp"
 
 

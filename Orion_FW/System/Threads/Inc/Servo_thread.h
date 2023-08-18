@@ -10,9 +10,9 @@
 
 
 #include <PWMDriver.hpp>
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 #include "Telemetry.h"
 
 #define LEVEL_SHIFTER_HAT_ADDR (0x46)
@@ -42,7 +42,7 @@ private:
 
 	ServoPacket servo_request_packet;
 
-	HAL_StatusTypeDef set_angle(float angle, uint8_t ch);
+	HAL_StatusTypeDef set_angle(float& angle, uint8_t ch);
 	void reinit_gpios();
 };
 

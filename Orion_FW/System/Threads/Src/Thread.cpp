@@ -5,7 +5,6 @@
  *      Author: AV Team 2021
  */
 
-#include "Thread.h"
 #include "Lang/Operators.h"
 #include "Debug.h"
 
@@ -13,8 +12,9 @@
 
 #include <stdarg.h>
 #include <string.h>
+#include <Thread.h>
 
-#define DEFAULT_STACK_SIZE (4096) // Danger zone: changing the stack size might create very nasty bugs
+#define DEFAULT_STACK_SIZE (2048) // Danger zone: changing the stack size might create very nasty bugs
 
 static char buffer[128];
 
@@ -85,6 +85,73 @@ void Thread::println(const char* format, ...) {
 
 	va_end(args);
 }
+
+void Thread::LOG_INFO(const char* format, ...) {
+	va_list args;
+	va_start(args, format);
+	va_end(args);
+
+	sprintf(buffer, "[%s] ", name);
+	vsprintf(buffer + strlen(buffer), format, args);
+	strcat(buffer, "\r\n");
+
+	// Clear the line to keep the console clean
+	console.print("\033[2K");
+
+    const char *colorStart = "\x1B[33m"; // Green text color
+    const char *colorEnd = "\x1B[39;49m";   // Reset text color
+
+    console.print(colorStart);
+	console.print(buffer);
+    console.print(colorEnd);
+
+	va_end(args);
+}
+
+void Thread::LOG_SUCCESS(const char* format, ...) {
+	va_list args;
+	va_start(args, format);
+	va_end(args);
+
+	sprintf(buffer, "[%s] ", name);
+	vsprintf(buffer + strlen(buffer), format, args);
+	strcat(buffer, "\r\n");
+
+	// Clear the line to keep the console clean
+	console.print("\033[2K");
+
+    const char *colorStart = "\x1B[32m"; // Green text color
+    const char *colorEnd = "\x1B[39;49m";   // Reset text color
+
+    console.print(colorStart);
+	console.print(buffer);
+    console.print(colorEnd);
+
+	va_end(args);
+}
+
+void Thread::LOG_ERROR(const char* format, ...) {
+	va_list args;
+	va_start(args, format);
+	va_end(args);
+
+	sprintf(buffer, "[%s] ", name);
+	vsprintf(buffer + strlen(buffer), format, args);
+	strcat(buffer, "\r\n");
+
+	// Clear the line to keep the console clean
+	console.print("\033[2K");
+
+    const char *colorStart = "\x1B[31m"; // Green text color
+    const char *colorEnd = "\x1B[39;49m";   // Reset text color
+
+    console.print(colorStart);
+	console.print(buffer);
+    console.print(colorEnd);
+
+	va_end(args);
+}
+
 
 void Thread::setTickDelay(uint32_t ms) {
 	this->delay = ms;

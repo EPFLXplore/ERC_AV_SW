@@ -13,9 +13,9 @@
 #define POT_CH2_ENABLE
 #define POT_CH3_ENABLE
 
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <Thread.h>
+#include <Prober.h>
+#include <DataStructures.h>
 #include "ADS1115.hpp"
 
 

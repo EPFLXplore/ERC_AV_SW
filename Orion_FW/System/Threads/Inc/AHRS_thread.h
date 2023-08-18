@@ -12,9 +12,9 @@
 
 //#define PRINT_GYRO_BIAS
 
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 #include "LIS3MDL.hpp"
 #include "BMI088.hpp"
 

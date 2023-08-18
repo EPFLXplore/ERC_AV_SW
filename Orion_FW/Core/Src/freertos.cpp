@@ -147,8 +147,6 @@ void AliveBlink(void *argument)
 	    osDelay(1000);
 	  }
 //  /* USER CODE END AliveBlink */
-//	  			}
-
 }
 
 /* Private application code --------------------------------------------------*/

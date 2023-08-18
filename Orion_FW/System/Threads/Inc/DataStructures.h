@@ -108,18 +108,18 @@ struct FOURINONEData {
 
 
 struct NPKData {
-    float nitrogen;
-    float phosphorus;
-    float potassium;
+    uint16_t nitrogen;
+    uint16_t phosphorus;
+    uint16_t potassium;
     char* toString(char* buffer) {
-        sprintf(buffer, "Nitrogen: %.3f [mg/kg] \t Phosphorus: %.3f [mg/kg] Potassium: %.3f [mg/kg]", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
+        sprintf(buffer, "Nitrogen: %d [mg/kg] \t Phosphorus: %d [mg/kg] Potassium: %d [mg/kg]", nitrogen, phosphorus, potassium); // beware of the type: (%d, %f, ...)
         return buffer;
     }
 
     uint8_t* toArray(uint8_t* buffer){
-		*(float*)(buffer + 0) = nitrogen;
-		*(float*)(buffer + 1*4) = phosphorus;
-		*(float*)(buffer + 2*4) = potassium;
+		*(uint16_t*)(buffer + 0) = nitrogen;
+		*(uint16_t*)(buffer + 1*2) = phosphorus;
+		*(uint16_t*)(buffer + 2*2) = potassium;
         return buffer;
     }
 };

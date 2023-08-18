@@ -10,16 +10,16 @@
 
 
 #include <ADS1234.hpp>
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 
 #define ADS1234_HAT_ADDR (0x4E)
 
 // Enables the channels w.r.t. number of expected load cells
 // More channels will also decrease the maximum output data rate
-#define CH1_ENABLE
-//#define CH2_ENABLE
+//#define CH1_ENABLE
+#define CH2_ENABLE
 //#define CH3_ENABLE
 //#define CH4_ENABLE
 #define USE_LOW_PASS_FILTER

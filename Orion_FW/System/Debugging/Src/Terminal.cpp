@@ -9,14 +9,14 @@
 
 #include <stm32h7xx_hal.h>
 #include <stdlib.h> // Even though not recommended
+#include <ADS1115_Potentiometer_thread.hpp>
+#include <ADS1115_Voltmeter_thread.hpp>
+#include <ADS1234_Mass_thread.hpp>
+#include <AHRS_thread.h>
+#include <AS7265_thread.h>
+#include <Modbus_thread.hpp>
 #include "Debug.h"
 
-#include "AHRS_thread.h"
-#include "ADS1115_Potentiometer_thread.hpp"
-#include "ADS1115_Voltmeter_thread.hpp"
-#include "ADS1234_Mass_thread.hpp"
-#include "AS7265_thread.h"
-#include "Modbus_thread.hpp"
 
 
 #define EQUALS(index, str) (cmd->num_components > (index) && cmd->components[(index)].matches((str)))
@@ -42,6 +42,8 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			feedback->printf_info("%d\r\n", HAL_GetTick());
 		} else if(EQUALS(0, "clear")) {
 			feedback->printf("\x1b[2J\x1b[H\e7");
+			feedback->printf("\x1b[%u;0H", location);
+
 		} else if (EQUALS(0, "info")) {
 			feedback->printf_info("> System: \t Orion rev.4 (CAN)\r\n");
 			feedback->printf_info("> Node ID: \t %d (0x%03X)\r\n", System::get_node_id(), System::get_node_id());
@@ -421,56 +423,68 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 				else {
 					feedback->printf_error("> %.*s: Invalid monitor ID\r\n", cmd->components[2].length, cmd->components[2].component);
 				}
+				feedback->printf("\x1b[%u;0H", location); // Move cursor to end of monitors
 
 			} else if(EQUALS(1, "enable") && cmd->num_components == 2) {
 				uint8_t refresh_rate = 10;
 				if (AHRSInstance != nullptr) {
-					monitor.enable(ACCEL_MONITOR, location, refresh_rate);
-					feedback->printf("\x1b[2J");
-					location++;
-					monitor.enable(GYRO_MONITOR, location, refresh_rate);
-					feedback->printf("\x1b[2J");
-					location++;
-					monitor.enable(MAG_MONITOR, location, refresh_rate);
-					feedback->printf("\x1b[2J");
-					location++;
-					monitor.enable(RPY_MONITOR, location, refresh_rate);
-					feedback->printf("\x1b[2J");
-					location++;
+
+					if (!monitor.is_enabled(ACCEL_MONITOR)) {
+						monitor.enable(ACCEL_MONITOR, location, refresh_rate);
+						feedback->printf("\x1b[2J");
+						location++;
+					}
+					if (!monitor.is_enabled(GYRO_MONITOR)) {
+						monitor.enable(GYRO_MONITOR, location, refresh_rate);
+						feedback->printf("\x1b[2J");
+						location++;
+					}
+					if (!monitor.is_enabled(MAG_MONITOR)) {
+						monitor.enable(MAG_MONITOR, location, refresh_rate);
+						feedback->printf("\x1b[2J");
+						location++;
+					}
+					if (!monitor.is_enabled(RPY_MONITOR)) {
+						monitor.enable(RPY_MONITOR, location, refresh_rate);
+						feedback->printf("\x1b[2J");
+						location++;
+					}
 				}
-				if (PotentiometerInstance != nullptr) {
+				if (PotentiometerInstance != nullptr && !monitor.is_enabled(POT_MONITOR)) {
 					monitor.enable(POT_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
-				if (VoltmeterInstance != nullptr) {
+				if (VoltmeterInstance != nullptr && !monitor.is_enabled(VOLTMETER_MONITOR)) {
 					monitor.enable(VOLTMETER_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
-				if (MassSensorInstance != nullptr) {
+				if (MassSensorInstance != nullptr && !monitor.is_enabled(MASS_MONITOR)) {
 					monitor.enable(MASS_MONITOR, location, refresh_rate);
 					feedback->printf("\x1b[2J");
 					location++;
 				}
-				if (AS7265Instance != nullptr) {
+				if (AS7265Instance != nullptr && !monitor.is_enabled(SPECTRO_MONITOR)) {
 					monitor.enable(SPECTRO_MONITOR, location, 1);
 					feedback->printf("\x1b[2J");
 					location+=2;
 				}
-				if (ModbusInstance != nullptr) {
+				if (ModbusInstance != nullptr && !monitor.is_enabled(FOURINONE_MONITOR)) {
 					if (ModbusInstance->four_in_one_connected()) {
 						monitor.enable(FOURINONE_MONITOR, location, 1);
 						feedback->printf("\x1b[2J");
 						location+=2;
 					}
-					if (ModbusInstance->npk_connected()) {
+					if (ModbusInstance->npk_connected() && !monitor.is_enabled(NPK_MONITOR)) {
 						monitor.enable(NPK_MONITOR, location, 1);
 						feedback->printf("\x1b[2J");
 						location+=2;
 					}
 				}
+				osDelay(150); // Wait a bit for monitors to appear
 				feedback->printf("\x1b[2J");
+				feedback->printf("\x1b[%u;0H", location); // Move cursor to end of monitors
 
 			} else if(EQUALS(1, "disable") && cmd->num_components == 3) {
 				if(EQUALS(2, "imu")) {
@@ -603,6 +617,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 				else {
 					feedback->printf_error("> %.*s: Invalid monitor ID\r\n", cmd->components[2].length, cmd->components[2].component);
 				}
+				feedback->printf("\x1b[%u;0H", location); // Move cursor to end of monitors
 				feedback->printf("\x1b[2J");
 			}
 			else if(EQUALS(1, "disable") && cmd->num_components == 2) {

@@ -25,13 +25,13 @@ void FourInOneThread::init() {
 	query_frame.u16CoilsNo = 4; // number of registers to read: moisture, temperature, EC, PH
 	query_frame.u16reg = ModbusDATA; // pointer to data buffer
 
-//	connected = true;
 	ModbusQuery(ModbusH, query_frame);
 	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
 	if(u32NotificationValue != ERR_OK_QUERY) {
 		connected = false;
-		printf("NPK Sensor failed to query \n");
+		LOG_ERROR("Sensor failed to query");
 	} else {
+		LOG_SUCCESS("Thread successfully created");
 		connected = true;
 	}
 }
@@ -50,7 +50,7 @@ void FourInOneThread::loop() {
 	if(u32NotificationValue != ERR_OK_QUERY)
 	{
 		connected = false;
-		printf("4 in 1 Sensor failed to query \n");
+		LOG_ERROR("Sensor failed to query");
 	}
 	else
 	{
@@ -69,10 +69,9 @@ void FourInOneThread::loop() {
 		MAKE_IDENTIFIABLE(fourinone_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&fourinone_packet);
+		FDCAN2_network->send(&fourinone_packet);
 		portYIELD();
 	}
-
-	osDelay(1000);
 }
 
 bool FourInOneThread::is_connected() {

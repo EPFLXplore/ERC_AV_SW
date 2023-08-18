@@ -4,8 +4,7 @@
  *      Author: Vincent Nguyen
  */
 
-#include "AS7265_thread.h"
-
+#include <AS7265_thread.h>
 #include "Telemetry.h"
 
 #include "Debug.h"
@@ -20,11 +19,14 @@ void AS7265Thread::init() {
 	status = spectro.begin();
 	// If the sensor was not found or incorrectly initialized, reset prober
 	if(status != HAL_OK) {
+		LOG_ERROR("Thread aborted");
 		AS7265Instance = nullptr;
 		terminate();
 		parent->resetProber();
 		return;
 	}
+
+	LOG_SUCCESS("Thread successfully created");
 
 	// Sensor related configuration after successfully connected
 //	spectro.disableIndicator();
@@ -41,8 +43,6 @@ void AS7265Thread::loop() {
 		if(monitor.enter(SPECTRO_MONITOR)) {
 			println("%s", spectro_data.toString(cbuf));
 		}
-
-//		FDCAN1_network.send(&spectro_packet);
 		portYIELD();
 	} else {
 		AS7265Instance = nullptr;
@@ -123,13 +123,16 @@ void AS7265Thread::take_measurements() {
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&spectro_response_packet);
+		FDCAN2_network->send(&spectro_response_packet);
 		portYIELD();
 	} else {
+		LOG_ERROR("Thread aborted");
 		spectro_data.success = false;
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&spectro_response_packet);
+		FDCAN2_network->send(&spectro_response_packet);
 		AS7265Instance = nullptr;
 		terminate();
 		parent->resetProber();
@@ -138,9 +141,12 @@ void AS7265Thread::take_measurements() {
 
 void AS7265Thread::handle_take_measurement(uint8_t sender_id, SpectroPacket* packet) {
 	if (AS7265Instance == nullptr) {
-		printf("AS7265 instance does not exist yet. \n");
+		console.printf_error("AS7265Thread instance does not exist yet\r\n");
 		return;
 	}
-	else if (packet->measure)
+	else if (packet->measure) {
+		AS7265Instance->LOG_INFO("Received measurement request");
 		AS7265Instance->take_measurements();
+	}
 }
+

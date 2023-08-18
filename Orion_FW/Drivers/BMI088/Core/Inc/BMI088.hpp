@@ -10,8 +10,8 @@
 #define BMI088_CORE_INC_BMI088_HPP_
 
 #include <BMI088_defs.hpp>
+#include <DataStructures.h>
 #include "stm32h7xx_hal.h"
-#include "DataStructures.h"
 #include <vector>
 
 enum acc_scale_type_t { // measurement rage

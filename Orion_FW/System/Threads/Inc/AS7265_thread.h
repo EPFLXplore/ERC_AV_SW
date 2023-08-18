@@ -9,9 +9,9 @@
 
 
 #include <AS7265x.hpp>
-#include "Thread.h"
-#include "Prober.h"
-#include "DataStructures.h"
+#include <DataStructures.h>
+#include <Prober.h>
+#include <Thread.h>
 #include "Telemetry.h"
 
 

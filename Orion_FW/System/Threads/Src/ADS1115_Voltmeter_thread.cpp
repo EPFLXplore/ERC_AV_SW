@@ -5,7 +5,7 @@
  *      Author: Vincent Nguyen
  */
 
-#include "ADS1115_Voltmeter_thread.hpp"
+#include <ADS1115_Voltmeter_thread.hpp>
 #include "Telemetry.h"
 
 #include "Debug.h"
@@ -18,10 +18,13 @@ void VoltmeterThread::init() {
 	HAL_StatusTypeDef status = voltmeter.ADS1115_init();
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(status != HAL_OK) {
+		LOG_ERROR("Thread aborted");
 		terminate();
 		parent->resetProber();
 		return;
 	}
+
+	LOG_SUCCESS("Thread successfully created");
 
 	// Sensor related configuration after successfully connected
 	voltmeter.ADSsetGain(GAIN_ONE); // FSR = 4.096 V
@@ -44,8 +47,10 @@ void VoltmeterThread::loop() {
 		MAKE_IDENTIFIABLE(voltage_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&voltage_packet);
+		FDCAN2_network->send(&voltage_packet);
 		portYIELD();
 	} else {
+		LOG_ERROR("Thread aborted");
 		VoltmeterInstance = nullptr;
 		terminate();
 		parent->resetProber();

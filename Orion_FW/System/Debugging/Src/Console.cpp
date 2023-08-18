@@ -40,6 +40,9 @@ void Console::printf(const char *format, ...) {
 	va_start(args, format);
 
 	if(vsprintf(buffer, format, args) > 0) {
+
+		const char *resetColor = "\x1B[39;49m";   // Reset text color
+		print(resetColor);
 		print(buffer);
 	}
 

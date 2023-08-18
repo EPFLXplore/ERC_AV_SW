@@ -9,8 +9,8 @@
 #define LIS3MDL_CORE_INC_LIS3MDL_HPP_
 #include "stm32h7xx_hal.h"
 #include <stdbool.h>
+#include <DataStructures.h>
 #include <vector>
-#include "DataStructures.h"
 
 /*=========================================================================
 I2C ADDRESS/BITS

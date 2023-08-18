@@ -28,9 +28,10 @@ void NPKThread::init() {
 	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
 	if(u32NotificationValue != ERR_OK_QUERY) {
 		connected = false;
-		printf("NPK Sensor failed to query \n");
+		LOG_ERROR("Sensor failed to query");
 	} else {
 		connected = true;
+		LOG_SUCCESS("Thread successfully created");
 	}
 }
 
@@ -47,7 +48,7 @@ void NPKThread::loop() {
 	if(u32NotificationValue != ERR_OK_QUERY)
 	{
 		connected = false;
-		printf("NPK Sensor failed to query \n");
+		LOG_ERROR("Sensor failed to query");
 	}
 	else
 	{
@@ -60,16 +61,14 @@ void NPKThread::loop() {
 		println("%s", npk_data.toString(cbuf));
 	}
 
-
 	npk_data.toArray((uint8_t*) &npk_packet);
 
 	MAKE_IDENTIFIABLE(npk_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&npk_packet);
+	FDCAN2_network->send(&npk_packet);
 	portYIELD();
 	}
-
-	osDelay(1000);
 }
 
 bool NPKThread::is_connected() {

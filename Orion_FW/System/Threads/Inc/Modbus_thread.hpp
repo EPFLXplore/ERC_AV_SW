@@ -11,15 +11,15 @@
 #define MODBUS_HAT_ADDR (0x4D) // address of I2C temperature sensor on RS485 hat
 
 //#include <Modbus.h>
-#include "Thread.h"
-#include "Prober.h"
+#include <Thread.h>
+#include <Prober.h>
 //#include "DataStructures.h"
 
 #include "main.h" // for some reason won't build if Modbus.h is included here, we need to include main.h
 //#include <Modbus.h>
 
-#include "four_in_one_thread.h"
-#include "npk_thread.h"
+#include <four_in_one_thread.h>
+#include <npk_thread.h>
 
 class ModbusThread : public Thread {
 public:

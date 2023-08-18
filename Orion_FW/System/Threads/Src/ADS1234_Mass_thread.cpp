@@ -86,6 +86,8 @@ void ADS1234Thread::init() {
 		return;
 	}
 
+	LOG_SUCCESS("Thread successfully created");
+
 	// Sensor related configuration after successfully connected
 	mass_sensor->begin();
 	mass_sensor->set_offset(AIN1, 265542);
@@ -119,7 +121,7 @@ void ADS1234Thread::loop() {
     if(xTaskGetTickCount()-start > 90000){
     	calibrating = true;
     	start = xTaskGetTickCount();
-    	printf("Calibrating mass sensor... \n");
+    	LOG_INFO("Calibrating mass sensor...");
     }
 #ifdef USE_LOW_PASS_FILTER
 #ifdef CH1_ENABLE
@@ -171,8 +173,10 @@ void ADS1234Thread::loop() {
 		MAKE_IDENTIFIABLE(mass_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&mass_packet);
+		FDCAN2_network->send(&mass_packet);
 		portYIELD();
 	} else {
+		LOG_ERROR("Thread aborted");
 		MassSensorInstance = nullptr;
 		if (hspi == &hspi1)
 			MX_SPI1_Init();

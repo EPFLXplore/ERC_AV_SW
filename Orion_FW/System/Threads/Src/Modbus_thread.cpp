@@ -7,9 +7,10 @@
 
 
 
-#include "Modbus_thread.hpp"
-
+#include <Modbus_thread.hpp>
 #include "Telemetry.h"
+
+#include "Debug.h"
 
 //#include "usart.h"
 
@@ -28,14 +29,18 @@ void ModbusThread::init() {
 	MX_USART2_UART_Init();
 	init_Modbus(&ModbusH);
 	this->FourInOneInstance = new FourInOneThread(&ModbusH, ModbusDATA);
+	this->FourInOneInstance->setTickDelay(1000);
 	osDelay(500);
 	this->NPKInstance = new NPKThread(&ModbusH, ModbusDATA);
+	this->NPKInstance->setTickDelay(1000);
 	osDelay(10000); // wait a bit for both sensors to initialize
+	LOG_SUCCESS("Thread successfully created");
 }
 
 
 void ModbusThread::loop() {
 	if ((!(FourInOneInstance->is_connected()) && !(NPKInstance->is_connected()))) {
+		LOG_ERROR("NPK and 4 in 1 sensors failed. Aborting threads...");
 		if (FourInOneInstance) {
 			FourInOneInstance->terminate();
 			delete FourInOneInstance;
