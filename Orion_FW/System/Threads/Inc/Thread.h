@@ -29,7 +29,6 @@ public:
 	void setTickDelay(uint32_t ms);
 	uint32_t getTickDelay();
 
-protected:
 	void println(const char* format, ...);
 	void LOG_INFO(const char* format, ...);
 	void LOG_SUCCESS(const char* format, ...);

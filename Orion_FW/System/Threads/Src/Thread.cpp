@@ -27,7 +27,6 @@ void __task_run(void* arg) {
 
 	while(thread->isRunning()) {
 		thread->loop();
-//		osDelay(1 / portTICK_PERIOD_MS);
 		osDelay(thread->getTickDelay() / portTICK_PERIOD_MS);
 	}
 

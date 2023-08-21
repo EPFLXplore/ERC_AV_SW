@@ -23,7 +23,7 @@ public:
 	uint8_t getPortNum();
 
 	static void handle_take_measurement(uint8_t sender_id, SpectroPacket* packet);
-	void take_measurements();
+	void take_measurements(uint8_t sender_id);
 private:
 	ProberThread* parent;
 	uint8_t portNum;

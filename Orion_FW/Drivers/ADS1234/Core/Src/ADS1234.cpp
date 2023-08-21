@@ -234,24 +234,25 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 	// see this to replace millis
 	//https://www.freertos.org/FreeRTOS_Support_Forum_Archive/September_2018/freertos_Measure_Time_within_a_Task_with_xTaskGetTickCount_6d2307a0j.html
 
-    start=xTaskGetTickCount();
-    while(HAL_GPIO_ReadPin(PIN_DOUT.port, PIN_DOUT.pin) != 1)
-    {
-        if(xTaskGetTickCount()-start > waitingTime)
-            return TIMEOUT_HIGH; // Timeout waiting for HIGH
-    }
+//    start=xTaskGetTickCount();
+//    while(HAL_GPIO_ReadPin(PIN_DOUT.port, PIN_DOUT.pin) != 1)
+//    {
+//        if(xTaskGetTickCount()-start > waitingTime)
+//            return TIMEOUT_HIGH; // Timeout waiting for HIGH
+//    }
+//
+//    start=xTaskGetTickCount();
+//    while(HAL_GPIO_ReadPin(PIN_DOUT.port, PIN_DOUT.pin) != 0)
+//    {
+//        if(xTaskGetTickCount()-start > waitingTime)
+//            return TIMEOUT_LOW; // Timeout waiting for LOW
+//    }
 
-    start=xTaskGetTickCount();
-    while(HAL_GPIO_ReadPin(PIN_DOUT.port, PIN_DOUT.pin) != 0)
-    {
-        if(xTaskGetTickCount()-start > waitingTime)
-            return TIMEOUT_LOW; // Timeout waiting for LOW
-    }
-//	osDelay(75);
-
-    // Read 24 bits
-    uint8_t buf[3] = {0, 0, 0};
-
+// VERY BAD SOLUTION BECAUSE OF LACK OF TIME PLEASE USE INTERRUPTS
+	if (!Calibrating)
+		osDelay(100);
+	else
+		osDelay(1300);
 
     // Read 24 bits
     for(i=23 ; i >= 0; i--) {
@@ -280,8 +281,10 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 		HAL_GPIO_WritePin(PIN_SCLK.port, PIN_SCLK.pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(PIN_SCLK.port, PIN_SCLK.pin, GPIO_PIN_RESET);
 	}
+
 	osDelay(1);
 	taskYIELD();
+
     return NoERROR; // Success
 }
 

@@ -23,7 +23,7 @@
 
 class ModbusThread : public Thread {
 public:
-	ModbusThread(ProberThread* parent) : Thread("Modbus", osPriorityHigh), parent(parent), portNum(parent->getI2CNum()){}
+	ModbusThread(ProberThread* parent) : Thread("Modbus", osPriorityHigh, 4096), parent(parent), portNum(parent->getI2CNum()){}
 	~ModbusThread();
 	void init();
 	void loop();

@@ -17,6 +17,7 @@
 
 #define MAKE_IDENTIFIABLE(PACKET) (PACKET).id = System::get_node_id();
 
+
 struct Vector {
 	float x;
 	float y;

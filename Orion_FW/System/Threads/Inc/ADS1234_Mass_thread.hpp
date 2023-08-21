@@ -38,6 +38,11 @@ public:
 	void init();
 	void loop();
 	uint8_t getPortNum();
+	ADS1234* get_sensor();
+	static void handle_set_config(uint8_t sender_id, MassConfigPacket* packet);
+
+	bool configured = false;
+
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -45,8 +50,11 @@ private:
 	ADS1234* mass_sensor;
 	float alpha = 0.8;
 	uint16_t  num_averages = 10;
-	long start = 0;
-	bool calibrating = false;
+	long unsigned int start = 0;
+	bool calibrating = true;
+
+	long unsigned int config_time = 0;
+	long unsigned int config_req_interval = 5000;
 };
 
 extern ADS1234Thread* MassSensorInstance;

@@ -25,6 +25,21 @@ public:
 	void init();
 	void loop();
 	uint8_t getPortNum();
+	ADS1115* get_sensor();
+
+	void set_min_voltages(float min_voltages[4]);
+	void set_max_voltages(float max_voltages[4]);
+	void set_min_angles(float min_angles[4]);
+	void set_max_angles(float max_angles[4]);
+
+	const float* get_min_voltages() const;
+	const float* get_max_voltages() const;
+	const float* get_min_angles() const;
+	const float* get_max_angles() const;
+
+	static void handle_set_config(uint8_t sender_id, PotentiometerConfigPacket* packet);
+
+	bool configured = false;
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -35,6 +50,9 @@ private:
 	float MAX_ANGLES[4] = {180, 180, 180, 180};
 	HAL_StatusTypeDef get_angle(uint8_t channel, float& val);
 	HAL_StatusTypeDef get_angles(float* angles);
+
+	long unsigned int config_time = 0;
+	long unsigned int config_req_interval = 5000;
 
 };
 

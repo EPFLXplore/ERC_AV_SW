@@ -24,7 +24,23 @@ public:
 	~ServoThread();
 	void init();
 	void loop();
+
 	static void handle_rotate(uint8_t sender_id, ServoPacket* packet);
+	static void handle_set_config(uint8_t sender_id, ServoConfigPacket* packet);
+
+	void set_min_duty(float min_duty[4]);
+	void set_max_duty(float max_duty[4]);
+	void set_min_angles(float min_angles[4]);
+	void set_max_angles(float max_angles[4]);
+
+	const float* get_min_duty() const;
+	const float* get_max_duty() const;
+	const float* get_min_angles() const;
+	const float* get_max_angles() const;
+
+	bool sensors_exist();
+
+	bool configured = false;
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -35,8 +51,8 @@ private:
 
 	uint8_t num_channels = 0;
 
-	float MIN_ANGLE[4] = {0, 0, 0, 0};
-	float MAX_ANGLE[4] = {180, 180, 180, 180};
+	float MIN_ANGLES[4] = {0, 0, 0, 0};
+	float MAX_ANGLES[4] = {180, 180, 180, 180};
 	float MIN_DUTY[4] = {5, 5, 5, 5};
 	float MAX_DUTY[4] = {10, 10, 10, 10};
 
@@ -44,6 +60,9 @@ private:
 
 	HAL_StatusTypeDef set_angle(float& angle, uint8_t ch);
 	void reinit_gpios();
+
+	long unsigned int config_time = 0;
+	long unsigned int config_req_interval = 5000;
 };
 
 extern ServoThread* ServoInstance;

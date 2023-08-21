@@ -40,13 +40,25 @@ void ServoThread::init() {
 	LOG_SUCCESS("Thread successfully created \r\n");
 }
 
-// Declare your data with the proper data structure defined in DataStructures.h
 static ServoData servo_data;
 
-// Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
-//static ColorFilterPacket color_filter_packet;
+static ServoConfigRequestPacket servo_config_packet;
 
 void ServoThread::loop() {
+	// Request configuration
+	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
+		LOG_INFO("Requesting configuration...");
+		config_time = xTaskGetTickCount();
+		servo_config_packet.req_max_angles = true;
+		servo_config_packet.req_min_angles = true;
+		servo_config_packet.req_max_duty = true;
+		servo_config_packet.req_min_duty = true;
+		MAKE_IDENTIFIABLE(servo_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&servo_config_packet);
+		FDCAN2_network->send(&servo_config_packet);
+		portYIELD();
+	}
 
 	if(HAL_I2C_IsDeviceReady(parent->getI2C(), LEVEL_SHIFTER_HAT_ADDR << 1, 3, 100) == HAL_OK) {
 		// maybe read from current sensor
@@ -81,12 +93,12 @@ HAL_StatusTypeDef ServoThread::set_angle(float& angle, uint8_t ch) {
 	if (ch > num_channels) {
 		return HAL_ERROR;
 	} else {
-		if (angle > MAX_ANGLE[ch-1])
-			angle = MAX_ANGLE[ch-1];
-		if (angle < MIN_ANGLE[ch-1])
-			angle = MIN_ANGLE[ch-1];
+		if (angle > MAX_ANGLES[ch-1])
+			angle = MAX_ANGLES[ch-1];
+		if (angle < MIN_ANGLES[ch-1])
+			angle = MIN_ANGLES[ch-1];
 
-		float duty_cycle = MIN_DUTY[ch-1] + (angle-MIN_ANGLE[ch-1])*(MAX_DUTY[ch-1]-MIN_DUTY[ch-1])/(MAX_ANGLE[ch-1]-MIN_ANGLE[ch-1]);
+		float duty_cycle = MIN_DUTY[ch-1] + (angle-MIN_ANGLES[ch-1])*(MAX_DUTY[ch-1]-MIN_DUTY[ch-1])/(MAX_ANGLES[ch-1]-MIN_ANGLES[ch-1]);
 		switch(ch) {
 		case 1:
 			pwm_driver1->set_pwm(duty_cycle);
@@ -129,8 +141,10 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	servo_data.toArray((uint8_t*) &servo_response_packet);
 	MAKE_IDENTIFIABLE(servo_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
-	FDCAN1_network->send(&servo_response_packet);
-	FDCAN2_network->send(&servo_response_packet);
+	if (sender_id == 1)
+		FDCAN1_network->send(&servo_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&servo_response_packet);
 	portYIELD();
 }
 
@@ -188,4 +202,107 @@ ServoThread::~ServoThread() {
 	reinit_gpios();
 	terminate();
 	parent->resetProber();
+}
+
+bool ServoThread::sensors_exist() {
+	switch (num_channels) {
+	case 3:
+		return ((pwm_driver1 != nullptr) && (pwm_driver2 != nullptr) && (pwm_driver3 != nullptr));
+	case 4:
+		return ((pwm_driver1 != nullptr) && (pwm_driver2 != nullptr) && (pwm_driver3 != nullptr) && (pwm_driver4 != nullptr));
+	}
+	return false;
+}
+
+void ServoThread::set_min_duty(float min_duty[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MIN_DUTY[i] = min_duty[i];
+}
+
+void ServoThread::set_max_duty(float max_duty[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MAX_DUTY[i] = max_duty[i];
+}
+
+void ServoThread::set_min_angles(float min_angles[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MIN_ANGLES[i] = min_angles[i];
+}
+
+void ServoThread::set_max_angles(float max_angles[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MAX_ANGLES[i] = max_angles[i];
+}
+
+const float* ServoThread::get_min_duty() const {
+	return MIN_DUTY;
+}
+
+const float* ServoThread::get_max_duty() const {
+	return MAX_DUTY;
+}
+
+const float* ServoThread::get_min_angles() const {
+	return MIN_ANGLES;
+}
+
+const float* ServoThread::get_max_angles() const {
+	return MAX_ANGLES;
+}
+
+static ServoConfigResponsePacket servo_config_response_packet = {};
+
+void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet) {
+	servo_config_response_packet.remote_command = packet->remote_command;
+	servo_config_response_packet.set_min_duty = packet->set_min_duty;
+	servo_config_response_packet.set_max_duty = packet->set_max_duty;
+	servo_config_response_packet.set_min_angles = packet->set_min_angles;
+	servo_config_response_packet.set_max_angles = packet->set_max_angles;
+	if (ServoInstance != nullptr) {
+		if (packet->remote_command || !(ServoInstance->configured)) {
+			if (ServoInstance->sensors_exist()) {
+				ServoInstance->configured = true;
+				if (packet->set_min_duty) {
+					ServoInstance->set_min_duty(packet->min_duty);
+					ServoInstance->LOG_SUCCESS("Min duty configuration set");
+				}
+				if (packet->set_max_duty) {
+					ServoInstance->set_max_duty(packet->max_duty);
+					ServoInstance->LOG_SUCCESS("Max duty configuration set");
+				}
+				if (packet->set_min_angles) {
+					ServoInstance->set_min_angles(packet->min_angles);
+					ServoInstance->LOG_SUCCESS("Min angles configuration set");
+				}
+				if (packet->set_max_angles) {
+					ServoInstance->set_max_angles(packet->max_angles);
+					ServoInstance->LOG_SUCCESS("Max angles configuration set");
+				}
+				servo_config_response_packet.success = true;
+			} else {
+				servo_config_response_packet.success = false;
+				ServoInstance->LOG_ERROR("Servo sensor members non-existent");
+			}
+		} else {
+			servo_config_response_packet.success = false;
+			ServoInstance->LOG_ERROR("Configuration already requested");
+		}
+		const float* min_duty = ServoInstance->get_min_duty();
+		const float* max_duty = ServoInstance->get_max_duty();
+		const float* min_angles = ServoInstance->get_min_angles();
+		const float* max_angles = ServoInstance->get_max_angles();
+		for (uint8_t i = 0; i < 4; ++i) {
+			servo_config_response_packet.min_duty[i] = min_duty[i];
+			servo_config_response_packet.max_duty[i] = max_duty[i];
+			servo_config_response_packet.min_angles[i] = min_angles[i];
+			servo_config_response_packet.max_angles[i] = max_angles[i];
+		}
+	} else {
+		servo_config_response_packet.success = false;
+		console.printf_error("ServoThread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(servo_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&servo_config_response_packet);
+	FDCAN2_network->send(&servo_config_response_packet);
 }

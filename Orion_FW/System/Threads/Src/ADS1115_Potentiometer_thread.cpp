@@ -58,7 +58,25 @@ void PotentiometerThread::init() {
 static PotentiometerData potentiometer_data;
 static PotentiometerPacket pot_packet;
 
+static PotentiometerConfigRequestPacket pot_config_packet;
+
 void PotentiometerThread::loop() {
+
+	// Request configuration
+	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
+		LOG_INFO("Requesting configuration...");
+		config_time = xTaskGetTickCount();
+		pot_config_packet.req_min_voltages = true;
+		pot_config_packet.req_max_voltages = true;
+		pot_config_packet.req_min_angles = true;
+		pot_config_packet.req_max_angles = true;
+		MAKE_IDENTIFIABLE(pot_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&pot_config_packet);
+		FDCAN2_network->send(&pot_config_packet);
+		portYIELD();
+	}
+
 	HAL_StatusTypeDef status = get_angles(potentiometer_data.angles);
 
 	if(status == HAL_OK) {
@@ -123,4 +141,102 @@ HAL_StatusTypeDef PotentiometerThread::get_angles(float* angles) {
 
 	return HAL_OK;
 }
+
+ADS1115* PotentiometerThread::get_sensor() {
+	return &potentiometer;
+}
+
+void PotentiometerThread::set_min_voltages(float min_voltages[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MIN_VOLTAGES[i] = min_voltages[i];
+}
+
+void PotentiometerThread::set_max_voltages(float max_voltages[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MAX_VOLTAGES[i] = max_voltages[i];
+}
+
+void PotentiometerThread::set_min_angles(float min_angles[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MIN_ANGLES[i] = min_angles[i];
+}
+
+void PotentiometerThread::set_max_angles(float max_angles[4]) {
+	for (uint8_t i = 0; i < 4; ++i)
+		MAX_ANGLES[i] = max_angles[i];
+}
+
+const float* PotentiometerThread::get_min_voltages() const {
+	return MIN_VOLTAGES;
+}
+
+const float* PotentiometerThread::get_max_voltages() const {
+	return MAX_VOLTAGES;
+}
+
+const float* PotentiometerThread::get_min_angles() const {
+	return MIN_ANGLES;
+}
+
+const float* PotentiometerThread::get_max_angles() const {
+	return MAX_ANGLES;
+}
+
+static PotentiometerConfigResponsePacket pot_config_response_packet = {};
+
+void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConfigPacket* packet) {
+	pot_config_response_packet.remote_command = packet->remote_command;
+	pot_config_response_packet.set_min_voltages = packet->set_min_voltages;
+	pot_config_response_packet.set_max_voltages = packet->set_max_voltages;
+	pot_config_response_packet.set_min_angles = packet->set_min_angles;
+	pot_config_response_packet.set_max_angles = packet->set_max_angles;
+	if (PotentiometerInstance != nullptr) {
+		if (packet->remote_command || !(PotentiometerInstance->configured)) {
+			if (PotentiometerInstance->get_sensor() != nullptr) {
+				PotentiometerInstance->configured = true;
+				if (packet->set_min_voltages) {
+					PotentiometerInstance->set_min_voltages(packet->min_voltages);
+					PotentiometerInstance->LOG_SUCCESS("Min voltages configuration set");
+				}
+				if (packet->set_max_voltages) {
+					PotentiometerInstance->set_max_voltages(packet->max_voltages);
+					PotentiometerInstance->LOG_SUCCESS("Max voltages configuration set");
+				}
+				if (packet->set_min_angles) {
+					PotentiometerInstance->set_min_angles(packet->min_angles);
+					PotentiometerInstance->LOG_SUCCESS("Min angles configuration set");
+				}
+				if (packet->set_max_angles) {
+					PotentiometerInstance->set_max_angles(packet->max_angles);
+					PotentiometerInstance->LOG_SUCCESS("Max angles configuration set");
+				}
+				pot_config_response_packet.success = true;
+			} else {
+				pot_config_response_packet.success = false;
+				PotentiometerInstance->LOG_ERROR("Potentiometer sensor member non-existent");
+			}
+		} else {
+			pot_config_response_packet.success = false;
+			PotentiometerInstance->LOG_ERROR("Configuration already requested");
+		}
+		const float* min_voltages = PotentiometerInstance->get_min_voltages();
+		const float* max_voltages = PotentiometerInstance->get_max_voltages();
+		const float* min_angles = PotentiometerInstance->get_min_angles();
+		const float* max_angles = PotentiometerInstance->get_max_angles();
+		for (uint8_t i = 0; i < 4; ++i) {
+			pot_config_response_packet.min_voltages[i] = min_voltages[i];
+			pot_config_response_packet.max_voltages[i] = max_voltages[i];
+			pot_config_response_packet.min_angles[i] = min_angles[i];
+			pot_config_response_packet.max_angles[i] = max_angles[i];
+		}
+	} else {
+		pot_config_response_packet.success = false;
+		console.printf_error("PotentiometerThread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(pot_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&pot_config_response_packet);
+	FDCAN2_network->send(&pot_config_response_packet);
+}
+
 

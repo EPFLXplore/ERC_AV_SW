@@ -106,23 +106,37 @@ ADS1234Thread::~ADS1234Thread() {
     mass_sensor = nullptr;
 }
 
-// Declare your data with the proper data structure defined in DataStructures.h
 static MassData mass_data;
 
-// Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
 static MassPacket mass_packet;
 
+static MassConfigRequestPacket mass_config_packet;
+
 void ADS1234Thread::loop() {
+	// Request configuration
+	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
+		LOG_INFO("Requesting configuration...");
+		config_time = xTaskGetTickCount();
+		mass_config_packet.req_offset = true;
+		mass_config_packet.req_scale = true;
+		MAKE_IDENTIFIABLE(mass_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&mass_config_packet);
+		FDCAN2_network->send(&mass_config_packet);
+		portYIELD();
+	}
+
+
 	// Calibrate every 90 seconds
 	ERROR_t err_ch1 = NoERROR;
 	ERROR_t err_ch2 = NoERROR;
 	ERROR_t err_ch3 = NoERROR;
 	ERROR_t err_ch4 = NoERROR;
-    if(xTaskGetTickCount()-start > 90000){
-    	calibrating = true;
-    	start = xTaskGetTickCount();
-    	LOG_INFO("Calibrating mass sensor...");
-    }
+//    if(xTaskGetTickCount()-start > 90000){
+//    	calibrating = true;
+//    	start = xTaskGetTickCount();
+//    	LOG_INFO("Calibrating mass sensor...");
+//    }
 #ifdef USE_LOW_PASS_FILTER
 #ifdef CH1_ENABLE
     	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], alpha, calibrating);
@@ -164,6 +178,10 @@ void ADS1234Thread::loop() {
     global_mass_ch2 = mass_data.mass[3];
 #endif
 
+    if (calibrating) {
+    	calibrating = false;
+    }
+
 	if((err_ch1 == NoERROR) && (err_ch2 == NoERROR) && (err_ch3 == NoERROR) && (err_ch4 == NoERROR)) {
 		if(monitor.enter(MASS_MONITOR)) {
 			println("%s", mass_data.toString(cbuf));
@@ -193,4 +211,59 @@ void ADS1234Thread::loop() {
 
 uint8_t ADS1234Thread::getPortNum() {
 	return portNum;
+}
+
+ADS1234* ADS1234Thread::get_sensor() {
+	return mass_sensor;
+}
+
+static MassConfigResponsePacket mass_config_response_packet = {};
+
+void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packet) {
+	mass_config_response_packet.remote_command = packet->remote_command;
+	mass_config_response_packet.set_offset = packet->set_offset;
+	mass_config_response_packet.set_scale = packet->set_scale;
+	if (MassSensorInstance != nullptr) {
+		if (packet->remote_command || !(MassSensorInstance->configured)) {
+			if (MassSensorInstance->get_sensor() != nullptr) {
+				MassSensorInstance->configured = true;
+				if (packet->set_offset) {
+					MassSensorInstance->get_sensor()->set_offset(AIN1, packet->offset[0]);
+					MassSensorInstance->get_sensor()->set_offset(AIN2, packet->offset[1]);
+					MassSensorInstance->get_sensor()->set_offset(AIN3, packet->offset[2]);
+					MassSensorInstance->get_sensor()->set_offset(AIN4, packet->offset[3]);
+					MassSensorInstance->LOG_SUCCESS("Offset configuration set");
+				}
+				if (packet->set_scale) {
+					MassSensorInstance->get_sensor()->set_scale(AIN1, packet->scale[0]);
+					MassSensorInstance->get_sensor()->set_scale(AIN2, packet->scale[1]);
+					MassSensorInstance->get_sensor()->set_scale(AIN3, packet->scale[2]);
+					MassSensorInstance->get_sensor()->set_scale(AIN4, packet->scale[3]);
+					MassSensorInstance->LOG_SUCCESS("Scale configuration set");
+				}
+				mass_config_response_packet.success = true;
+			} else {
+				mass_config_response_packet.success = false;
+				MassSensorInstance->LOG_ERROR("Mass sensor member non-existent");
+			}
+		} else {
+			mass_config_response_packet.success = false;
+			MassSensorInstance->LOG_ERROR("Configuration already requested");
+		}
+		mass_config_response_packet.offset[0] = MassSensorInstance->get_sensor()->get_offset(AIN1);
+		mass_config_response_packet.offset[1] = MassSensorInstance->get_sensor()->get_offset(AIN2);
+		mass_config_response_packet.offset[2] = MassSensorInstance->get_sensor()->get_offset(AIN3);
+		mass_config_response_packet.offset[3] = MassSensorInstance->get_sensor()->get_offset(AIN4);
+		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN1);
+		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN2);
+		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN3);
+		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN4);
+	} else {
+		mass_config_response_packet.success = false;
+		console.printf_error("ADS1234Thread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(mass_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&mass_config_response_packet);
+	FDCAN2_network->send(&mass_config_response_packet);
 }

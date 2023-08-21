@@ -55,7 +55,7 @@ uint8_t AS7265Thread::getPortNum() {
 	return portNum;
 }
 
-void AS7265Thread::take_measurements() {
+void AS7265Thread::take_measurements(uint8_t sender_id) {
 	uint8_t err_cnt = 0;
 	HAL_StatusTypeDef status;
 	status = spectro.takeMeasurementsWithBulb();
@@ -122,8 +122,10 @@ void AS7265Thread::take_measurements() {
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&spectro_response_packet);
-		FDCAN2_network->send(&spectro_response_packet);
+		if (sender_id == 1)
+			FDCAN1_network->send(&spectro_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&spectro_response_packet);
 		portYIELD();
 	} else {
 		LOG_ERROR("Thread aborted");
@@ -131,8 +133,10 @@ void AS7265Thread::take_measurements() {
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&spectro_response_packet);
-		FDCAN2_network->send(&spectro_response_packet);
+		if (sender_id == 1)
+			FDCAN1_network->send(&spectro_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&spectro_response_packet);
 		AS7265Instance = nullptr;
 		terminate();
 		parent->resetProber();
@@ -146,7 +150,7 @@ void AS7265Thread::handle_take_measurement(uint8_t sender_id, SpectroPacket* pac
 	}
 	else if (packet->measure) {
 		AS7265Instance->LOG_INFO("Received measurement request");
-		AS7265Instance->take_measurements();
+		AS7265Instance->take_measurements(sender_id);
 	}
 }
 

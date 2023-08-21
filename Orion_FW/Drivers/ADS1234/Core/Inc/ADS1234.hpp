@@ -128,7 +128,6 @@ class ADS1234
 		// wakes up the chip after power down mode
 		void power_up();
 
-
 	private:
 		// int _pin_DOUT;
 		// int _pin_SCLK;
