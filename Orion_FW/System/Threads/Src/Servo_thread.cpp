@@ -264,19 +264,27 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 				ServoInstance->configured = true;
 				if (packet->set_min_duty) {
 					ServoInstance->set_min_duty(packet->min_duty);
-					ServoInstance->LOG_SUCCESS("Min duty configuration set");
+					ServoInstance->LOG_SUCCESS("Min duty configuration set: [%.3f, %.3f, %.3f, %.3f]",
+												packet->min_duty[0], packet->min_duty[1],
+												packet->min_duty[2], packet->min_duty[3]);
 				}
 				if (packet->set_max_duty) {
 					ServoInstance->set_max_duty(packet->max_duty);
-					ServoInstance->LOG_SUCCESS("Max duty configuration set");
+					ServoInstance->LOG_SUCCESS("Max duty configuration set: [%.3f, %.3f, %.3f, %.3f]",
+												packet->max_duty[0], packet->max_duty[1],
+												packet->max_duty[2], packet->max_duty[3]);
 				}
 				if (packet->set_min_angles) {
 					ServoInstance->set_min_angles(packet->min_angles);
-					ServoInstance->LOG_SUCCESS("Min angles configuration set");
+					ServoInstance->LOG_SUCCESS("Min angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
+												packet->min_angles[0], packet->min_angles[1],
+												packet->min_angles[2], packet->min_angles[3]);
 				}
 				if (packet->set_max_angles) {
 					ServoInstance->set_max_angles(packet->max_angles);
-					ServoInstance->LOG_SUCCESS("Max angles configuration set");
+					ServoInstance->LOG_SUCCESS("Max angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
+												packet->max_angles[0], packet->max_angles[1],
+												packet->max_angles[2], packet->max_angles[3]);
 				}
 				servo_config_response_packet.success = true;
 			} else {

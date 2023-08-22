@@ -210,23 +210,35 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 				PotentiometerInstance->configured = true;
 				if (packet->set_min_voltages) {
 					PotentiometerInstance->set_min_voltages(packet->min_voltages);
-					PotentiometerInstance->LOG_SUCCESS("Min voltages configuration set");
+					PotentiometerInstance->LOG_SUCCESS("Min voltages configuration set: [%.3f, %.3f, %.3f, %.3f]",
+														packet->min_voltages[0], packet->min_voltages[1],
+														packet->min_voltages[2], packet->min_voltages[3]);
 				}
 				if (packet->set_max_voltages) {
 					PotentiometerInstance->set_max_voltages(packet->max_voltages);
-					PotentiometerInstance->LOG_SUCCESS("Max voltages configuration set");
+					PotentiometerInstance->LOG_SUCCESS("Max voltages configuration set: [%.3f, %.3f, %.3f, %.3f]",
+														packet->max_voltages[0], packet->max_voltages[1],
+														packet->max_voltages[2], packet->max_voltages[3]);
 				}
 				if (packet->set_min_angles) {
 					PotentiometerInstance->set_min_angles(packet->min_angles);
-					PotentiometerInstance->LOG_SUCCESS("Min angles configuration set");
+					PotentiometerInstance->LOG_SUCCESS("Min angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
+														packet->min_angles[0], packet->min_angles[1],
+														packet->min_angles[2], packet->min_angles[3]);
 				}
 				if (packet->set_max_angles) {
 					PotentiometerInstance->set_max_angles(packet->max_angles);
-					PotentiometerInstance->LOG_SUCCESS("Max angles configuration set");
+					PotentiometerInstance->LOG_SUCCESS("Max angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
+														packet->max_angles[0], packet->max_angles[1],
+														packet->max_angles[2], packet->max_angles[3]);
 				}
 				if (packet->set_channels_status) {
 					PotentiometerInstance->set_channels_status(packet->enabled_channels);
-					PotentiometerInstance->LOG_SUCCESS("Channels status set");
+					PotentiometerInstance->LOG_SUCCESS("Channels status set: [%s, %s, %s, %s]",
+														packet->enabled_channels[0] ? "enabled" : "disabled",
+														packet->enabled_channels[1] ? "enabled" : "disabled",
+														packet->enabled_channels[2] ? "enabled" : "disabled",
+														packet->enabled_channels[3] ? "enabled" : "disabled");
 				}
 				pot_config_response_packet.success = true;
 			} else {

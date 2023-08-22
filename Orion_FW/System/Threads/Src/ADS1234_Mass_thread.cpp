@@ -254,22 +254,30 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 					MassSensorInstance->get_sensor()->set_offset(AIN2, packet->offset[1]);
 					MassSensorInstance->get_sensor()->set_offset(AIN3, packet->offset[2]);
 					MassSensorInstance->get_sensor()->set_offset(AIN4, packet->offset[3]);
-					MassSensorInstance->LOG_SUCCESS("Offset configuration set");
+					MassSensorInstance->LOG_SUCCESS("Offset configuration set: [%.3f, %.3f, %.3f, %.3f]",
+													packet->offset[0], packet->offset[1],
+													packet->offset[2], packet->offset[3]);
 				}
 				if (packet->set_scale) {
 					MassSensorInstance->get_sensor()->set_scale(AIN1, packet->scale[0]);
 					MassSensorInstance->get_sensor()->set_scale(AIN2, packet->scale[1]);
 					MassSensorInstance->get_sensor()->set_scale(AIN3, packet->scale[2]);
 					MassSensorInstance->get_sensor()->set_scale(AIN4, packet->scale[3]);
-					MassSensorInstance->LOG_SUCCESS("Scale configuration set");
+					MassSensorInstance->LOG_SUCCESS("Scale configuration set: [%.3f, %.3f, %.3f, %.3f]",
+													packet->scale[0], packet->scale[1],
+													packet->scale[2], packet->scale[3]);
 				}
 				if (packet->set_alpha) {
 					MassSensorInstance->set_alpha(packet->alpha);
-					MassSensorInstance->LOG_SUCCESS("Low pass filter coefficient (alpha) set");
+					MassSensorInstance->LOG_SUCCESS("Low pass filter coefficient (alpha) set: %.3f", packet->alpha);
 				}
 				if (packet->set_channels_status) {
 					MassSensorInstance->set_channels_status(packet->enabled_channels);
-					MassSensorInstance->LOG_SUCCESS("Channels status set");
+					MassSensorInstance->LOG_SUCCESS("Channels status set: [%s, %s, %s, %s]",
+													packet->enabled_channels[0] ? "enabled" : "disabled",
+													packet->enabled_channels[1] ? "enabled" : "disabled",
+													packet->enabled_channels[2] ? "enabled" : "disabled",
+													packet->enabled_channels[3] ? "enabled" : "disabled");
 				}
 				mass_config_response_packet.success = true;
 			} else {
@@ -290,9 +298,9 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 		mass_config_response_packet.offset[2] = MassSensorInstance->get_sensor()->get_offset(AIN3);
 		mass_config_response_packet.offset[3] = MassSensorInstance->get_sensor()->get_offset(AIN4);
 		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN1);
-		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN2);
-		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN3);
-		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN4);
+		mass_config_response_packet.scale[1] = MassSensorInstance->get_sensor()->get_scale(AIN2);
+		mass_config_response_packet.scale[2] = MassSensorInstance->get_sensor()->get_scale(AIN3);
+		mass_config_response_packet.scale[3] = MassSensorInstance->get_sensor()->get_scale(AIN4);
 		mass_config_response_packet.alpha = MassSensorInstance->get_alpha();
 	} else {
 		mass_config_response_packet.success = false;

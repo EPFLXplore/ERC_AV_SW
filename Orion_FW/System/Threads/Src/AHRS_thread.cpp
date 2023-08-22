@@ -372,11 +372,15 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 				AHRSInstance->accel_configured = true;
 				if (packet->set_bias) {
 					AHRSInstance->get_imu_sensor()->set_bias_accel(packet->bias);
-					AHRSInstance->LOG_SUCCESS("Accel bias configuration set");
+					AHRSInstance->LOG_SUCCESS("Accel bias configuration set: [%.3f %.3f %.3f]",
+												packet->bias[0], packet->bias[1], packet->bias[2]);
 				}
 				if (packet->set_transform) {
 					AHRSInstance->get_imu_sensor()->set_transform_accel(packet->transform);
-					AHRSInstance->LOG_SUCCESS("Accel transform configuration set");
+					AHRSInstance->LOG_SUCCESS("Accel transform configuration set:");
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->transform[0], packet->transform[1], packet->transform[2]);
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->transform[3], packet->transform[4], packet->transform[5]);
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->transform[6], packet->transform[7], packet->transform[8]);
 				}
 				accel_config_response_packet.success = true;
 			} else {
@@ -418,7 +422,8 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 				AHRSInstance->gyro_configured = true;
 				if (packet->set_bias) {
 					AHRSInstance->get_imu_sensor()->set_bias_gyro(packet->bias);
-					AHRSInstance->LOG_SUCCESS("Gyro bias configuration set");
+					AHRSInstance->LOG_SUCCESS("Gyro bias configuration set: [%.3f %.3f %.3f]",
+												packet->bias[0], packet->bias[1], packet->bias[2]);
 				}
 				gyro_config_response_packet.success = true;
 			} else {
@@ -458,11 +463,15 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 				AHRSInstance->mag_configured = true;
 				if (packet->set_hard_iron) {
 					AHRSInstance->get_mag_sensor()->set_hard_iron(packet->hard_iron);
-					AHRSInstance->LOG_SUCCESS("Mag hard iron configuration set");
+					AHRSInstance->LOG_SUCCESS("Mag hard iron configuration set: [%.3f %.3f %.3f]",
+												packet->hard_iron[0], packet->hard_iron[1], packet->hard_iron[2]);
 				}
 				if (packet->set_soft_iron) {
 					AHRSInstance->get_mag_sensor()->set_soft_iron(packet->soft_iron);
-					AHRSInstance->LOG_SUCCESS("Mag soft iron configuration set");
+					AHRSInstance->LOG_SUCCESS("Mag soft iron configuration set:");
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->soft_iron[0], packet->soft_iron[1], packet->soft_iron[2]);
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->soft_iron[3], packet->soft_iron[4], packet->soft_iron[5]);
+					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->soft_iron[6], packet->soft_iron[7], packet->soft_iron[8]);
 				}
 				mag_config_response_packet.success = true;
 			} else {
