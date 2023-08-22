@@ -56,6 +56,8 @@ private:
 
 	long unsigned int config_time = 0;
 	long unsigned int config_req_interval = 5000;
+
+	void request_config();
 };
 
 extern ADS1234Thread* MassSensorInstance;

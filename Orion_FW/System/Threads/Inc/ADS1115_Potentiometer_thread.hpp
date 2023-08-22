@@ -49,6 +49,7 @@ private:
 	float MAX_ANGLES[4] = {180, 180, 180, 180};
 	HAL_StatusTypeDef get_angle(uint8_t channel, float& val);
 	HAL_StatusTypeDef get_angles(float* angles);
+	void request_config();
 
 	long unsigned int config_time = 0;
 	long unsigned int config_req_interval = 5000;

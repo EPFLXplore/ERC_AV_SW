@@ -53,6 +53,8 @@ void PotentiometerThread::init() {
 		potentiometer.set_scale(ch, scale);
 		potentiometer.set_offset(ch, offset);
 	}
+
+	request_config();
 }
 
 static PotentiometerData potentiometer_data;
@@ -60,22 +62,26 @@ static PotentiometerPacket pot_packet;
 
 static PotentiometerConfigRequestPacket pot_config_packet;
 
+void PotentiometerThread::request_config() {
+	LOG_INFO("Requesting configuration...");
+	config_time = xTaskGetTickCount();
+	pot_config_packet.req_min_voltages = true;
+	pot_config_packet.req_max_voltages = true;
+	pot_config_packet.req_min_angles = true;
+	pot_config_packet.req_max_angles = true;
+	pot_config_packet.req_channels_status = true;
+	MAKE_IDENTIFIABLE(pot_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&pot_config_packet);
+	FDCAN2_network->send(&pot_config_packet);
+	portYIELD();
+}
+
 void PotentiometerThread::loop() {
 
 	// Request configuration
 	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
-		LOG_INFO("Requesting configuration...");
-		config_time = xTaskGetTickCount();
-		pot_config_packet.req_min_voltages = true;
-		pot_config_packet.req_max_voltages = true;
-		pot_config_packet.req_min_angles = true;
-		pot_config_packet.req_max_angles = true;
-		pot_config_packet.req_channels_status = true;
-		MAKE_IDENTIFIABLE(pot_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&pot_config_packet);
-		FDCAN2_network->send(&pot_config_packet);
-		portYIELD();
+		request_config();
 	}
 
 	HAL_StatusTypeDef status = get_angles(potentiometer_data.angles);

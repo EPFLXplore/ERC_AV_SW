@@ -69,6 +69,11 @@ void AHRSThread::init() {
 	printf("Gyro bias x: %f \t y: %f \t z: %f \n", gyro_bias.x, gyro_bias.y, gyro_bias.z);
 #endif
 
+
+	request_config_accel();
+	request_config_gyro();
+	request_config_mag();
+
 	prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 }
 
@@ -84,42 +89,54 @@ static AccelConfigRequestPacket accel_config_packet;
 static GyroConfigRequestPacket gyro_config_packet;
 static MagConfigRequestPacket mag_config_packet;
 
+void AHRSThread::request_config_accel() {
+	LOG_INFO("Requesting configuration for accelerometer...");
+	accel_config_time = xTaskGetTickCount();
+	accel_config_packet.req_bias = true;
+	accel_config_packet.req_transform = true;
+	MAKE_IDENTIFIABLE(accel_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&accel_config_packet);
+	FDCAN2_network->send(&accel_config_packet);
+	portYIELD();
+}
+
+void AHRSThread::request_config_gyro() {
+	LOG_INFO("Requesting configuration for gyroscope...");
+	gyro_config_time = xTaskGetTickCount();
+	gyro_config_packet.req_bias = true;
+	MAKE_IDENTIFIABLE(gyro_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&gyro_config_packet);
+	FDCAN2_network->send(&gyro_config_packet);
+	portYIELD();
+}
+
+void AHRSThread::request_config_mag() {
+	LOG_INFO("Requesting configuration for magnetometer...");
+	mag_config_time = xTaskGetTickCount();
+	mag_config_packet.req_hard_iron = true;
+	mag_config_packet.req_soft_iron = true;
+	MAKE_IDENTIFIABLE(mag_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&mag_config_packet);
+	FDCAN2_network->send(&mag_config_packet);
+	portYIELD();
+}
+
 void AHRSThread::loop() {
 
 	// Request configuration (accel)
 	if((xTaskGetTickCount()-accel_config_time > config_req_interval) && !accel_configured) {
-		LOG_INFO("Requesting configuration for accelerometer...");
-		accel_config_time = xTaskGetTickCount();
-		accel_config_packet.req_bias = true;
-		accel_config_packet.req_transform = true;
-		MAKE_IDENTIFIABLE(accel_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&accel_config_packet);
-		FDCAN2_network->send(&accel_config_packet);
-		portYIELD();
+		request_config_accel();
 	}
 	// Request configuration (gyro)
 	if((xTaskGetTickCount()-gyro_config_time > config_req_interval) && !gyro_configured) {
-		LOG_INFO("Requesting configuration for gyroscope...");
-		gyro_config_time = xTaskGetTickCount();
-		gyro_config_packet.req_bias = true;
-		MAKE_IDENTIFIABLE(gyro_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&gyro_config_packet);
-		FDCAN2_network->send(&gyro_config_packet);
-		portYIELD();
+		request_config_gyro();
 	}
 	// Request configuration (mag)
 	if((xTaskGetTickCount()-mag_config_time > config_req_interval) && !mag_configured) {
-		LOG_INFO("Requesting configuration for magnetometer...");
-		mag_config_time = xTaskGetTickCount();
-		mag_config_packet.req_hard_iron = true;
-		mag_config_packet.req_soft_iron = true;
-		MAKE_IDENTIFIABLE(mag_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&mag_config_packet);
-		FDCAN2_network->send(&mag_config_packet);
-		portYIELD();
+		request_config_mag();
 	}
 
 	HAL_StatusTypeDef status;

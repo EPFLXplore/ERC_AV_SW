@@ -98,6 +98,8 @@ void ADS1234Thread::init() {
 	mass_sensor->set_scale(AIN3, 452.05);
 	mass_sensor->set_offset(AIN4, 265542);
 	mass_sensor->set_scale(AIN4, 452.05);
+
+	request_config();
 }
 
 ADS1234Thread::~ADS1234Thread() {
@@ -112,20 +114,24 @@ static MassPacket mass_packet;
 
 static MassConfigRequestPacket mass_config_packet;
 
+void ADS1234Thread::request_config() {
+	LOG_INFO("Requesting configuration...");
+	config_time = xTaskGetTickCount();
+	mass_config_packet.req_offset = true;
+	mass_config_packet.req_scale = true;
+	mass_config_packet.req_alpha = true;
+	mass_config_packet.req_channels_status = true;
+	MAKE_IDENTIFIABLE(mass_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&mass_config_packet);
+	FDCAN2_network->send(&mass_config_packet);
+	portYIELD();
+}
+
 void ADS1234Thread::loop() {
 	// Request configuration
 	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
-		LOG_INFO("Requesting configuration...");
-		config_time = xTaskGetTickCount();
-		mass_config_packet.req_offset = true;
-		mass_config_packet.req_scale = true;
-		mass_config_packet.req_alpha = true;
-		mass_config_packet.req_channels_status = true;
-		MAKE_IDENTIFIABLE(mass_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&mass_config_packet);
-		FDCAN2_network->send(&mass_config_packet);
-		portYIELD();
+		request_config();
 	}
 
 

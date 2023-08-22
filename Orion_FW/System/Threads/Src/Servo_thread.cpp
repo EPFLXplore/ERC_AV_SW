@@ -38,26 +38,32 @@ void ServoThread::init() {
 		break;
 	}
 	LOG_SUCCESS("Thread successfully created \r\n");
+
+	request_config();
 }
 
 static ServoData servo_data;
 
 static ServoConfigRequestPacket servo_config_packet;
 
+void ServoThread::request_config() {
+	LOG_INFO("Requesting configuration...");
+	config_time = xTaskGetTickCount();
+	servo_config_packet.req_max_angles = true;
+	servo_config_packet.req_min_angles = true;
+	servo_config_packet.req_max_duty = true;
+	servo_config_packet.req_min_duty = true;
+	MAKE_IDENTIFIABLE(servo_config_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	FDCAN1_network->send(&servo_config_packet);
+	FDCAN2_network->send(&servo_config_packet);
+	portYIELD();
+}
+
 void ServoThread::loop() {
 	// Request configuration
 	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
-		LOG_INFO("Requesting configuration...");
-		config_time = xTaskGetTickCount();
-		servo_config_packet.req_max_angles = true;
-		servo_config_packet.req_min_angles = true;
-		servo_config_packet.req_max_duty = true;
-		servo_config_packet.req_min_duty = true;
-		MAKE_IDENTIFIABLE(servo_config_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&servo_config_packet);
-		FDCAN2_network->send(&servo_config_packet);
-		portYIELD();
+		request_config();
 	}
 
 	if(HAL_I2C_IsDeviceReady(parent->getI2C(), LEVEL_SHIFTER_HAT_ADDR << 1, 3, 100) == HAL_OK) {

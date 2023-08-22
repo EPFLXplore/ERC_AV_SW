@@ -47,6 +47,10 @@ private:
 
 	EulerAngles QuaternionToEuler(Quaternion q_);
 
+	void request_config_accel();
+	void request_config_gyro();
+	void request_config_mag();
+
 	// Sensor instances
 
 	LIS3MDL* magnetometer;

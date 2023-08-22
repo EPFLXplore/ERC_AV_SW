@@ -60,6 +60,7 @@ private:
 
 	HAL_StatusTypeDef set_angle(float& angle, uint8_t ch);
 	void reinit_gpios();
+	void request_config();
 
 	long unsigned int config_time = 0;
 	long unsigned int config_req_interval = 5000;
