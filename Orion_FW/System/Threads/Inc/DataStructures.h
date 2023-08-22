@@ -173,7 +173,6 @@ struct SpectroData {
 struct IMUData {
 	Vector accel;
 	Vector gyro;
-//	Vector mag;
 	Quaternion orientation;
 
 	char* toString(char* buffer) {
@@ -189,6 +188,24 @@ struct IMUData {
 		gyro.toArray(buffer + 3*4);
 		orientation.toArray(buffer + 6*4);
 //		mag.toArray(buffer + 6*4);
+		return buffer;
+	}
+};
+
+struct MagData {
+	Vector mag;
+	Vector mag_raw;
+
+	char* toString(char* buffer) {
+		static char buf_mag[32];
+		static char buf_mag_raw[32];
+		sprintf(buffer, "Mag: %s [uT] \t Mag raw: %s [uT]", mag.toString(buf_mag), mag_raw.toString(buf_mag_raw));
+		return buffer;
+	}
+
+	uint8_t* toArray(uint8_t* buffer) {
+		mag.toArray(buffer);
+		mag_raw.toArray(buffer + 3*4);
 		return buffer;
 	}
 };

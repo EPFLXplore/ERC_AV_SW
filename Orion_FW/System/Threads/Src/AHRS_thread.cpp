@@ -74,15 +74,63 @@ void AHRSThread::init() {
 
 // Declare your data with the proper data structure defined in DataStructures.h
 static IMUData imu_data;
+static MagData mag_data;
 
 // Declare the RoCo packet with the proper data structure defined in RoCo/Src/Protocol/Protocol23
 static IMUPacket imu_packet;
+static MagPacket mag_packet;
+
+static AccelConfigRequestPacket accel_config_packet;
+static GyroConfigRequestPacket gyro_config_packet;
+static MagConfigRequestPacket mag_config_packet;
 
 void AHRSThread::loop() {
+
+	// Request configuration (accel)
+	if((xTaskGetTickCount()-accel_config_time > config_req_interval) && !accel_configured) {
+		LOG_INFO("Requesting configuration for accelerometer...");
+		accel_config_time = xTaskGetTickCount();
+		accel_config_packet.req_bias = true;
+		accel_config_packet.req_transform = true;
+		MAKE_IDENTIFIABLE(accel_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&accel_config_packet);
+		FDCAN2_network->send(&accel_config_packet);
+		portYIELD();
+	}
+	// Request configuration (gyro)
+	if((xTaskGetTickCount()-gyro_config_time > config_req_interval) && !gyro_configured) {
+		LOG_INFO("Requesting configuration for gyroscope...");
+		gyro_config_time = xTaskGetTickCount();
+		gyro_config_packet.req_bias = true;
+		MAKE_IDENTIFIABLE(gyro_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&gyro_config_packet);
+		FDCAN2_network->send(&gyro_config_packet);
+		portYIELD();
+	}
+	// Request configuration (mag)
+	if((xTaskGetTickCount()-mag_config_time > config_req_interval) && !mag_configured) {
+		LOG_INFO("Requesting configuration for magnetometer...");
+		mag_config_time = xTaskGetTickCount();
+		mag_config_packet.req_hard_iron = true;
+		mag_config_packet.req_soft_iron = true;
+		MAKE_IDENTIFIABLE(mag_config_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&mag_config_packet);
+		FDCAN2_network->send(&mag_config_packet);
+		portYIELD();
+	}
+
 	HAL_StatusTypeDef status;
 	uint8_t err_cnt = 0;
 
 	status = magnetometer->get_mag_cal(mag);
+
+	if (status != HAL_OK)
+		++err_cnt;
+
+	status = magnetometer->get_mag(mag_raw, false);
 
 	if (status != HAL_OK)
 		++err_cnt;
@@ -108,6 +156,9 @@ void AHRSThread::loop() {
 		imu_data.gyro = gyro;
 		imu_data.orientation = q;
 
+		mag_data.mag = mag;
+		mag_data.mag_raw = mag_raw;
+
 		// Data monitors
 
 		if(monitor.enter(IMU_MONITOR)) {
@@ -126,7 +177,7 @@ void AHRSThread::loop() {
 		}
 
 		if(monitor.enter(MAG_MONITOR)) {
-			println("%s [uT]", mag.toString(cbuf));
+			println("%s", mag_data.toString(cbuf));
 			monitor.exit(MAG_MONITOR);
 		}
 
@@ -161,10 +212,14 @@ void AHRSThread::loop() {
 		}
 
 		imu_data.toArray((uint8_t*) &imu_packet);
+		mag_data.toArray((uint8_t*) &mag_packet);
 		MAKE_IDENTIFIABLE(imu_packet);
+		MAKE_IDENTIFIABLE(mag_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&imu_packet);
 		FDCAN2_network->send(&imu_packet);
+		FDCAN1_network->send(&mag_packet);
+		FDCAN2_network->send(&mag_packet);
 		portYIELD();
 	} else {
 		LOG_ERROR("Thread aborted");
@@ -180,6 +235,14 @@ void AHRSThread::loop() {
 
 uint8_t AHRSThread::getPortNum() {
 	return portNum;
+}
+
+LIS3MDL* AHRSThread::get_mag_sensor() {
+	return magnetometer;
+}
+
+BMI088* AHRSThread::get_imu_sensor() {
+	return imu;
 }
 
 void AHRSThread::QuaternionUpdate(float ax, float ay, float az,
@@ -294,6 +357,139 @@ EulerAngles AHRSThread::QuaternionToEuler(Quaternion q_) {
 	roll  *= 180.0f / M_PI;
 
 	return EulerAngles({roll, pitch, yaw});
+}
+
+static AccelConfigResponsePacket accel_config_response_packet = {};
+
+void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* packet) {
+	accel_config_response_packet.remote_command = packet->remote_command;
+	accel_config_response_packet.set_bias = packet->set_bias;
+	accel_config_response_packet.set_transform = packet->set_transform;
+
+	if (AHRSInstance != nullptr) {
+		if (packet->remote_command || !(AHRSInstance->accel_configured)) {
+			if (AHRSInstance->get_imu_sensor() != nullptr) {
+				AHRSInstance->accel_configured = true;
+				if (packet->set_bias) {
+					AHRSInstance->get_imu_sensor()->set_bias_accel(packet->bias);
+					AHRSInstance->LOG_SUCCESS("Accel bias configuration set");
+				}
+				if (packet->set_transform) {
+					AHRSInstance->get_imu_sensor()->set_transform_accel(packet->transform);
+					AHRSInstance->LOG_SUCCESS("Accel transform configuration set");
+				}
+				accel_config_response_packet.success = true;
+			} else {
+				accel_config_response_packet.success = false;
+				AHRSInstance->LOG_ERROR("Accel sensor member non-existent");
+			}
+		} else {
+			accel_config_response_packet.success = false;
+			AHRSInstance->LOG_ERROR("Accel configuration already requested");
+		}
+		const float* bias = AHRSInstance->get_imu_sensor()->get_bias_accel();
+		for (uint8_t i = 0; i < 3; ++i)
+			accel_config_response_packet.bias[i] = bias[i];
+
+		const float* transform = AHRSInstance->get_imu_sensor()->get_transform_accel();
+		for (uint8_t i = 0; i < 9; ++i)
+			accel_config_response_packet.transform[i] = transform[i];
+	} else {
+		accel_config_response_packet.success = false;
+		console.printf_error("AHRSThread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(accel_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&accel_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&accel_config_response_packet);
+}
+
+static GyroConfigResponsePacket gyro_config_response_packet = {};
+
+void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* packet) {
+	gyro_config_response_packet.remote_command = packet->remote_command;
+	gyro_config_response_packet.set_bias = packet->set_bias;
+
+	if (AHRSInstance != nullptr) {
+		if (packet->remote_command || !(AHRSInstance->gyro_configured)) {
+			if (AHRSInstance->get_imu_sensor() != nullptr) {
+				AHRSInstance->gyro_configured = true;
+				if (packet->set_bias) {
+					AHRSInstance->get_imu_sensor()->set_bias_gyro(packet->bias);
+					AHRSInstance->LOG_SUCCESS("Gyro bias configuration set");
+				}
+				gyro_config_response_packet.success = true;
+			} else {
+				gyro_config_response_packet.success = false;
+				AHRSInstance->LOG_ERROR("Gyro sensor member non-existent");
+			}
+		} else {
+			gyro_config_response_packet.success = false;
+			AHRSInstance->LOG_ERROR("Gyro configuration already requested");
+		}
+		const float* bias = AHRSInstance->get_imu_sensor()->get_bias_gyro();
+		for (uint8_t i = 0; i < 3; ++i)
+			accel_config_response_packet.bias[i] = bias[i];
+
+	} else {
+		gyro_config_response_packet.success = false;
+		console.printf_error("AHRSThread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(gyro_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&gyro_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&gyro_config_response_packet);
+}
+
+static MagConfigResponsePacket mag_config_response_packet = {};
+
+void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packet) {
+	mag_config_response_packet.remote_command = packet->remote_command;
+	mag_config_response_packet.set_hard_iron = packet->set_hard_iron;
+	mag_config_response_packet.set_soft_iron = packet->set_soft_iron;
+
+	if (AHRSInstance != nullptr) {
+		if (packet->remote_command || !(AHRSInstance->mag_configured)) {
+			if (AHRSInstance->get_mag_sensor() != nullptr) {
+				AHRSInstance->mag_configured = true;
+				if (packet->set_hard_iron) {
+					AHRSInstance->get_mag_sensor()->set_hard_iron(packet->hard_iron);
+					AHRSInstance->LOG_SUCCESS("Mag hard iron configuration set");
+				}
+				if (packet->set_soft_iron) {
+					AHRSInstance->get_mag_sensor()->set_soft_iron(packet->soft_iron);
+					AHRSInstance->LOG_SUCCESS("Mag soft iron configuration set");
+				}
+				mag_config_response_packet.success = true;
+			} else {
+				mag_config_response_packet.success = false;
+				AHRSInstance->LOG_ERROR("Mag sensor member non-existent");
+			}
+		} else {
+			mag_config_response_packet.success = false;
+			AHRSInstance->LOG_ERROR("Mag configuration already requested");
+		}
+		const float* hard_iron = AHRSInstance->get_mag_sensor()->get_hard_iron();
+		for (uint8_t i = 0; i < 3; ++i)
+			mag_config_response_packet.hard_iron[i] = hard_iron[i];
+
+		const float* soft_iron = AHRSInstance->get_mag_sensor()->get_soft_iron();
+		for (uint8_t i = 0; i < 9; ++i)
+			mag_config_response_packet.soft_iron[i] = soft_iron[i];
+	} else {
+		mag_config_response_packet.success = false;
+		console.printf_error("AHRSThread instance does not exist yet\r\n");
+	}
+	MAKE_IDENTIFIABLE(mag_config_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&mag_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&mag_config_response_packet);
 }
 
 

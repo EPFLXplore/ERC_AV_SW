@@ -1,3 +1,9 @@
+/*
+ * BMI088.cpp
+ *
+ *      Author: Vincent Nguyen
+ */
+
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include <BMI088.hpp>
@@ -534,6 +540,48 @@ HAL_StatusTypeDef BMI088::compute_gyro_bias(Vector& bias_, uint32_t times) {
 	bias_.y = sum_y/times;
 	bias_.z = sum_z/times;
 	return HAL_OK;
+}
+
+void BMI088::set_bias_gyro(float bias[3]) {
+	for (uint8_t i = 0; i < 3; ++i) {
+		GYRO_BIAS[i] = bias[i];
+	}
+}
+
+void BMI088::set_bias_accel(float bias[3]) {
+	for (uint8_t i = 0; i < 3; ++i) {
+		ACC_BIAS[i] = bias[i];
+	}
+}
+
+void BMI088::set_transform_accel(float transform[9]) {
+	ACC_TF.clear();
+    for (uint8_t i = 0; i < 3; i++) {
+        std::vector<float> row;
+        for (uint8_t j = 0; j < 3; j++) {
+            row.push_back(transform[i * 3 + j]);
+        }
+        ACC_TF.push_back(row);
+    }
+}
+
+const float* BMI088::get_bias_gyro() const {
+	return GYRO_BIAS;
+}
+
+const float* BMI088::get_bias_accel() const {
+	return ACC_BIAS;
+}
+
+const float* BMI088::get_transform_accel() const {
+	float* transform = new float[9];
+	int index = 0;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			transform[index++] = ACC_TF[i][j];
+		}
+	}
+	return transform;
 }
 
 //void BMI088::calibrate_acc(int sec){

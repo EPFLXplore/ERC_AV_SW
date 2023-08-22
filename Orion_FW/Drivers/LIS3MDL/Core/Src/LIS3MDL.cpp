@@ -532,10 +532,12 @@ HAL_StatusTypeDef LIS3MDL::readMagneticField(float &x_, float &y_, float &z_) {
     @param uncalibrated magnetic readings in uTesla
 */
 /**************************************************************************/
-HAL_StatusTypeDef LIS3MDL::get_mag(Vector& mag) {
-	HAL_StatusTypeDef res = read();
-	if (res != HAL_OK)
-		return res;
+HAL_StatusTypeDef LIS3MDL::get_mag(Vector& mag, bool new_reading) {
+	if (new_reading) {
+		HAL_StatusTypeDef res = read();
+		if (res != HAL_OK)
+			return res;
+	}
 
 	mag.x = x_uT;
 	mag.y = y_uT;
@@ -550,14 +552,53 @@ HAL_StatusTypeDef LIS3MDL::get_mag(Vector& mag) {
     @param calibrated magnetic readings in uTesla
 */
 /**************************************************************************/
-HAL_StatusTypeDef LIS3MDL::get_mag_cal(Vector& mag) {
-	HAL_StatusTypeDef res = read();
-	if (res != HAL_OK)
-		return res;
+HAL_StatusTypeDef LIS3MDL::get_mag_cal(Vector& mag, bool new_reading) {
+	if (new_reading) {
+		HAL_StatusTypeDef res = read();
+		if (res != HAL_OK)
+			return res;
+	}
 
 	mag.x = x_cal_uT;
 	mag.y = y_cal_uT;
 	mag.z = z_cal_uT;
 
 	return HAL_OK;
+}
+
+/**************************************************************************/
+/*! Getters and setters
+*/
+/**************************************************************************/
+
+void LIS3MDL::set_hard_iron(float hard_iron[3]) {
+    for (uint8_t i = 0; i < 3; i++) {
+        HARD_IRON[i] = hard_iron[i];
+    }
+}
+
+void LIS3MDL::set_soft_iron(float soft_iron[9]) {
+    SOFT_IRON.clear();
+    for (uint8_t i = 0; i < 3; i++) {
+        std::vector<float> row;
+        for (uint8_t j = 0; j < 3; j++) {
+            row.push_back(soft_iron[i * 3 + j]);
+        }
+        SOFT_IRON.push_back(row);
+    }
+}
+
+const float* LIS3MDL::get_hard_iron() const {
+	return HARD_IRON;
+}
+
+const float* LIS3MDL::get_soft_iron() const {
+    float* soft_iron = new float[9];
+    int index = 0;
+    for (uint8_t i = 0; i < 3; i++) {
+        for (uint8_t j = 0; j < 3; j++) {
+        	soft_iron[index++] = SOFT_IRON[i][j];
+        }
+    }
+    return soft_iron;
 }

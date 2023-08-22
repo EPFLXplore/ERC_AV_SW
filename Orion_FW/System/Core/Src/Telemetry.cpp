@@ -11,6 +11,7 @@
 #include <ADS1234_Mass_thread.hpp>
 #include <ADS1115_Potentiometer_thread.hpp>
 #include <Servo_thread.h>
+#include <AHRS_thread.h>
 #include "Telemetry.h"
 #include "tim.h"
 #include "System.h"
@@ -28,13 +29,15 @@ void Telemetry::setup() {
 
 	// Request handles
 	FDCAN1_network->handle<PingPacket>(&Telemetry::handle_ping);
-	FDCAN1_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
-	FDCAN1_network->handle<ServoPacket>(&ServoThread::handle_rotate);
-	FDCAN1_network->handle<LaserPacket>(&System::handle_meissa_output_cmd);
-
 	FDCAN2_network->handle<PingPacket>(&Telemetry::handle_ping);
+
+	FDCAN1_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
 	FDCAN2_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
+
+	FDCAN1_network->handle<ServoPacket>(&ServoThread::handle_rotate);
 	FDCAN2_network->handle<ServoPacket>(&ServoThread::handle_rotate);
+
+	FDCAN1_network->handle<LaserPacket>(&System::handle_meissa_output_cmd);
 	FDCAN2_network->handle<LaserPacket>(&System::handle_meissa_output_cmd);
 
 	// Configuration handles
@@ -46,6 +49,15 @@ void Telemetry::setup() {
 
 	FDCAN1_network->handle<ServoConfigPacket>(&ServoThread::handle_set_config);
 	FDCAN2_network->handle<ServoConfigPacket>(&ServoThread::handle_set_config);
+
+	FDCAN1_network->handle<MagConfigPacket>(&AHRSThread::handle_set_mag_config);
+	FDCAN2_network->handle<MagConfigPacket>(&AHRSThread::handle_set_mag_config);
+
+	FDCAN1_network->handle<AccelConfigPacket>(&AHRSThread::handle_set_accel_config);
+	FDCAN2_network->handle<AccelConfigPacket>(&AHRSThread::handle_set_accel_config);
+
+	FDCAN1_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
+	FDCAN2_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {

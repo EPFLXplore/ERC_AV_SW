@@ -114,8 +114,8 @@ public:
 
 	HAL_StatusTypeDef read();
 
-	HAL_StatusTypeDef get_mag(Vector& mag);
-	HAL_StatusTypeDef get_mag_cal(Vector& mag);
+	HAL_StatusTypeDef get_mag(Vector& mag, bool new_reading = true);
+	HAL_StatusTypeDef get_mag_cal(Vector& mag, bool new_reading = true);
 
 	HAL_StatusTypeDef readMagneticField(float &x, float &y, float &z);
 	HAL_StatusTypeDef magneticFieldSampleRate(float& rate);
@@ -138,6 +138,12 @@ public:
 
 	//! buffer for the magnetometer range
 	lis3mdl_range_t rangeBuffered = lis3mdl_range_t::LIS3MDL_RANGE_4_GAUSS;
+
+	void set_hard_iron(float hard_iron[3]);
+	void set_soft_iron(float soft_iron[9]);
+
+	const float* get_hard_iron() const;
+	const float* get_soft_iron() const;
 
 private:
 

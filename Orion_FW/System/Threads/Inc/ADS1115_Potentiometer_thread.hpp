@@ -8,11 +8,6 @@
 #ifndef SENSORS_ADS1115_POTENTIOMETER_THREAD_HPP_
 #define SENSORS_ADS1115_POTENTIOMETER_THREAD_HPP_
 
-#define POT_CH0_ENABLE
-#define POT_CH1_ENABLE
-#define POT_CH2_ENABLE
-#define POT_CH3_ENABLE
-
 #include <Thread.h>
 #include <Prober.h>
 #include <DataStructures.h>
@@ -37,6 +32,9 @@ public:
 	const float* get_min_angles() const;
 	const float* get_max_angles() const;
 
+	void set_channels_status(bool state[4]);
+	const bool* get_channels_status() const;
+
 	static void handle_set_config(uint8_t sender_id, PotentiometerConfigPacket* packet);
 
 	bool configured = false;
@@ -44,6 +42,7 @@ private:
 	ProberThread* parent;
 	uint8_t portNum;
 	ADS1115 potentiometer;
+	bool enabled_channels[4] = {true, true, true, true};
 	float MIN_VOLTAGES[4] = {0, 0, 0, 0};
 	float MAX_VOLTAGES[4] = {3, 3, 3, 3};
 	float MIN_ANGLES[4] = {0, 0, 0, 0}; // in deg

@@ -1,5 +1,5 @@
 /*
- * bmi088.h
+ * BMI088.h
  *
  *  Created on: Mar 8, 2023
  *      Author: Leo Kruglikov, Vincent Nguyen
@@ -131,6 +131,14 @@ class BMI088{
     	gyro_odr_type_t odr_gyro_conf;
     	gyro_scale_type_t range_gyro_conf;
     };
+
+	void set_bias_gyro(float bias[3]);
+	void set_bias_accel(float bias[3]);
+	void set_transform_accel(float transform[9]);
+
+	const float* get_bias_gyro() const;
+	const float* get_bias_accel() const;
+	const float* get_transform_accel() const;
 
 	private:
     	HAL_StatusTypeDef read_reg(uint8_t reg_addr, uint8_t* data, uint16_t len, uint8_t dev_addr);

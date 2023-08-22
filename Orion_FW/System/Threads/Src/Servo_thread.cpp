@@ -303,6 +303,8 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 	}
 	MAKE_IDENTIFIABLE(servo_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
-	FDCAN1_network->send(&servo_config_response_packet);
-	FDCAN2_network->send(&servo_config_response_packet);
+	if (sender_id == 1)
+		FDCAN1_network->send(&servo_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&servo_config_response_packet);
 }

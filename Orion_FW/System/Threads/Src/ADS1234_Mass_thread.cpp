@@ -119,6 +119,8 @@ void ADS1234Thread::loop() {
 		config_time = xTaskGetTickCount();
 		mass_config_packet.req_offset = true;
 		mass_config_packet.req_scale = true;
+		mass_config_packet.req_alpha = true;
+		mass_config_packet.req_channels_status = true;
 		MAKE_IDENTIFIABLE(mass_config_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&mass_config_packet);
@@ -138,31 +140,29 @@ void ADS1234Thread::loop() {
 //    	LOG_INFO("Calibrating mass sensor...");
 //    }
 #ifdef USE_LOW_PASS_FILTER
-#ifdef CH1_ENABLE
+	if (enabled_channels[0])
     	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], alpha, calibrating);
-#endif
-#ifdef CH2_ENABLE
+
+	if (enabled_channels[1])
     	err_ch2 = mass_sensor->get_units(AIN2, mass_data.mass[1], alpha, calibrating);
-#endif
-#ifdef CH3_ENABLE
+
+	if (enabled_channels[2])
     	err_ch3 = mass_sensor->get_units(AIN3, mass_data.mass[2], alpha, calibrating);
-#endif
-#ifdef CH4_ENABLE
+
+	if (enabled_channels[3])
     	err_ch4 = mass_sensor->get_units(AIN4, mass_data.mass[3], alpha, calibrating);
-#endif
 #elif
-#ifdef CH1_ENABLE
+	if (enabled_channels[0])
     	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], num_averages, calibrating);
-#endif
-#ifdef CH2_ENABLE
+
+	if (enabled_channels[1])
     	err_ch2 = mass_sensor->get_units(AIN2, mass_data.mass[1], num_averages, calibrating);
-#endif
-#ifdef CH3_ENABLE
+
+	if (enabled_channels[2])
     	err_ch3 = mass_sensor->get_units(AIN3, mass_data.mass[2], num_averages, calibrating);
-#endif
-#ifdef CH4_ENABLE
+
+	if (enabled_channels[3])
     	err_ch4 = mass_sensor->get_units(AIN4, mass_data.mass[3], num_averages, calibrating);
-#endif
 #endif
 
 #ifdef PLOT_CH1
@@ -217,12 +217,34 @@ ADS1234* ADS1234Thread::get_sensor() {
 	return mass_sensor;
 }
 
+void ADS1234Thread::set_channels_status(bool state[4]) {
+	for (uint8_t i = 0; i < 4; ++i) {
+		enabled_channels[i] = state[i];
+	}
+}
+
+const bool* ADS1234Thread::get_channels_status() const {
+	return enabled_channels;
+}
+
+void ADS1234Thread::set_alpha(float alpha_) {
+	alpha = alpha_;
+}
+
+float ADS1234Thread::get_alpha() {
+	return alpha;
+}
+
+
 static MassConfigResponsePacket mass_config_response_packet = {};
 
 void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packet) {
 	mass_config_response_packet.remote_command = packet->remote_command;
 	mass_config_response_packet.set_offset = packet->set_offset;
 	mass_config_response_packet.set_scale = packet->set_scale;
+	mass_config_response_packet.set_alpha = packet->set_alpha;
+	mass_config_response_packet.set_channels_status = packet->set_channels_status;
+
 	if (MassSensorInstance != nullptr) {
 		if (packet->remote_command || !(MassSensorInstance->configured)) {
 			if (MassSensorInstance->get_sensor() != nullptr) {
@@ -241,6 +263,14 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 					MassSensorInstance->get_sensor()->set_scale(AIN4, packet->scale[3]);
 					MassSensorInstance->LOG_SUCCESS("Scale configuration set");
 				}
+				if (packet->set_alpha) {
+					MassSensorInstance->set_alpha(packet->alpha);
+					MassSensorInstance->LOG_SUCCESS("Low pass filter coefficient (alpha) set");
+				}
+				if (packet->set_channels_status) {
+					MassSensorInstance->set_channels_status(packet->enabled_channels);
+					MassSensorInstance->LOG_SUCCESS("Channels status set");
+				}
 				mass_config_response_packet.success = true;
 			} else {
 				mass_config_response_packet.success = false;
@@ -250,6 +280,11 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 			mass_config_response_packet.success = false;
 			MassSensorInstance->LOG_ERROR("Configuration already requested");
 		}
+		const bool* enabled_channels = MassSensorInstance->get_channels_status();
+		for (uint8_t i = 0; i < 4; ++i) {
+			mass_config_response_packet.enabled_channels[i] = enabled_channels[i];
+		}
+
 		mass_config_response_packet.offset[0] = MassSensorInstance->get_sensor()->get_offset(AIN1);
 		mass_config_response_packet.offset[1] = MassSensorInstance->get_sensor()->get_offset(AIN2);
 		mass_config_response_packet.offset[2] = MassSensorInstance->get_sensor()->get_offset(AIN3);
@@ -258,12 +293,15 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN2);
 		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN3);
 		mass_config_response_packet.scale[0] = MassSensorInstance->get_sensor()->get_scale(AIN4);
+		mass_config_response_packet.alpha = MassSensorInstance->get_alpha();
 	} else {
 		mass_config_response_packet.success = false;
 		console.printf_error("ADS1234Thread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(mass_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
-	FDCAN1_network->send(&mass_config_response_packet);
-	FDCAN2_network->send(&mass_config_response_packet);
+	if (sender_id == 1)
+		FDCAN1_network->send(&mass_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&mass_config_response_packet);
 }

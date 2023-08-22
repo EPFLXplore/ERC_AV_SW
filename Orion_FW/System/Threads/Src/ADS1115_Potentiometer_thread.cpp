@@ -70,6 +70,7 @@ void PotentiometerThread::loop() {
 		pot_config_packet.req_max_voltages = true;
 		pot_config_packet.req_min_angles = true;
 		pot_config_packet.req_max_angles = true;
+		pot_config_packet.req_channels_status = true;
 		MAKE_IDENTIFIABLE(pot_config_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&pot_config_packet);
@@ -118,26 +119,27 @@ HAL_StatusTypeDef PotentiometerThread::get_angle(uint8_t channel, float& val) {
 
 HAL_StatusTypeDef PotentiometerThread::get_angles(float* angles) {
 	HAL_StatusTypeDef status;
-#ifdef POT_CH0_ENABLE
-	status = get_angle(0, angles[0]);
-	if (status != HAL_OK)
-		return status;
-#endif
-#ifdef POT_CH1_ENABLE
-	status = get_angle(1, angles[1]);
-	if (status != HAL_OK)
-		return status;
-#endif
-#ifdef POT_CH2_ENABLE
-	status = get_angle(2, angles[2]);
-	if (status != HAL_OK)
-		return status;
-#endif
-#ifdef POT_CH3_ENABLE
-	status = get_angle(3, angles[3]);
-	if (status != HAL_OK)
-		return status;
-#endif
+	if (enabled_channels[0]) {
+		status = get_angle(0, angles[0]);
+		if (status != HAL_OK)
+			return status;
+	}
+
+	if (enabled_channels[1]) {
+		status = get_angle(1, angles[1]);
+		if (status != HAL_OK)
+			return status;
+	}
+	if (enabled_channels[2]) {
+		status = get_angle(2, angles[2]);
+		if (status != HAL_OK)
+			return status;
+	}
+	if (enabled_channels[3]) {
+		status = get_angle(3, angles[3]);
+		if (status != HAL_OK)
+			return status;
+	}
 
 	return HAL_OK;
 }
@@ -182,6 +184,16 @@ const float* PotentiometerThread::get_max_angles() const {
 	return MAX_ANGLES;
 }
 
+void PotentiometerThread::set_channels_status(bool state[4]) {
+	for (uint8_t i = 0; i < 4; ++i) {
+		enabled_channels[i] = state[i];
+	}
+}
+
+const bool* PotentiometerThread::get_channels_status() const {
+	return enabled_channels;
+}
+
 static PotentiometerConfigResponsePacket pot_config_response_packet = {};
 
 void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConfigPacket* packet) {
@@ -190,6 +202,8 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 	pot_config_response_packet.set_max_voltages = packet->set_max_voltages;
 	pot_config_response_packet.set_min_angles = packet->set_min_angles;
 	pot_config_response_packet.set_max_angles = packet->set_max_angles;
+	pot_config_response_packet.set_channels_status = packet->set_channels_status;
+
 	if (PotentiometerInstance != nullptr) {
 		if (packet->remote_command || !(PotentiometerInstance->configured)) {
 			if (PotentiometerInstance->get_sensor() != nullptr) {
@@ -210,6 +224,10 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 					PotentiometerInstance->set_max_angles(packet->max_angles);
 					PotentiometerInstance->LOG_SUCCESS("Max angles configuration set");
 				}
+				if (packet->set_channels_status) {
+					PotentiometerInstance->set_channels_status(packet->enabled_channels);
+					PotentiometerInstance->LOG_SUCCESS("Channels status set");
+				}
 				pot_config_response_packet.success = true;
 			} else {
 				pot_config_response_packet.success = false;
@@ -219,11 +237,14 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 			pot_config_response_packet.success = false;
 			PotentiometerInstance->LOG_ERROR("Configuration already requested");
 		}
+
+		const bool* enabled_channels = PotentiometerInstance->get_channels_status();
 		const float* min_voltages = PotentiometerInstance->get_min_voltages();
 		const float* max_voltages = PotentiometerInstance->get_max_voltages();
 		const float* min_angles = PotentiometerInstance->get_min_angles();
 		const float* max_angles = PotentiometerInstance->get_max_angles();
 		for (uint8_t i = 0; i < 4; ++i) {
+			pot_config_response_packet.enabled_channels[i] = enabled_channels[i];
 			pot_config_response_packet.min_voltages[i] = min_voltages[i];
 			pot_config_response_packet.max_voltages[i] = max_voltages[i];
 			pot_config_response_packet.min_angles[i] = min_angles[i];
@@ -235,8 +256,10 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 	}
 	MAKE_IDENTIFIABLE(pot_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
-	FDCAN1_network->send(&pot_config_response_packet);
-	FDCAN2_network->send(&pot_config_response_packet);
+	if (sender_id == 1)
+		FDCAN1_network->send(&pot_config_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&pot_config_response_packet);
 }
 
 

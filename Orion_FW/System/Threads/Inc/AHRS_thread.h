@@ -26,6 +26,17 @@ public:
 	void init();
 	void loop();
 	uint8_t getPortNum();
+
+	LIS3MDL* get_mag_sensor();
+	BMI088* get_imu_sensor();
+	static void handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packet);
+	static void handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* packet);
+	static void handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* packet);
+
+	bool mag_configured = false;
+	bool accel_configured = false;
+	bool gyro_configured = false;
+
 private:
 	ProberThread* parent;
 	uint8_t portNum;
@@ -61,6 +72,7 @@ private:
 	// Sensor readings
 
 	Vector mag; // in uTesla
+	Vector mag_raw; // in uTesla
 	Vector acc; // in m/s^2
 	Vector gyro; // in rad/s
 
@@ -78,6 +90,11 @@ private:
 	// Madgwick filter parameters
 
 	float beta = 0.65;
+
+	long unsigned int mag_config_time = 0;
+	long unsigned int accel_config_time = 0;
+	long unsigned int gyro_config_time = 0;
+	long unsigned int config_req_interval = 5000;
 
 };
 
