@@ -58,6 +58,7 @@ void Telemetry::setup() {
 
 	FDCAN1_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
 	FDCAN2_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
+
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {

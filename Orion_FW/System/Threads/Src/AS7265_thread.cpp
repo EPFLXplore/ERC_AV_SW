@@ -9,6 +9,7 @@
 
 #include "Debug.h"
 
+
 AS7265Thread* AS7265Instance = nullptr;
 static char cbuf[256]; // for printf
 
@@ -119,6 +120,7 @@ void AS7265Thread::take_measurements(uint8_t sender_id) {
 
 	if(err_cnt == 0) {
 		spectro_data.success = true;
+		spectro_data.max_data_val = get_max_val(spectro_data.data, 18);
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
@@ -128,6 +130,7 @@ void AS7265Thread::take_measurements(uint8_t sender_id) {
 			FDCAN2_network->send(&spectro_response_packet);
 		portYIELD();
 	} else {
+		spectro_data.max_data_val = 0.f;
 		LOG_ERROR("Thread aborted");
 		spectro_data.success = false;
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);

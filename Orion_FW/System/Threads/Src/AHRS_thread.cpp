@@ -70,9 +70,9 @@ void AHRSThread::init() {
 #endif
 
 
-	request_config_accel();
-	request_config_gyro();
-	request_config_mag();
+//	request_config_accel();
+//	request_config_gyro();
+//	request_config_mag();
 
 	prev_time_us = __HAL_TIM_GET_COUNTER(&htim5);
 }
@@ -425,6 +425,7 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 		FDCAN1_network->send(&accel_config_response_packet);
 	else if (sender_id == 2)
 		FDCAN2_network->send(&accel_config_response_packet);
+	portYIELD();
 }
 
 static GyroConfigResponsePacket gyro_config_response_packet = {};
@@ -465,6 +466,7 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 		FDCAN1_network->send(&gyro_config_response_packet);
 	else if (sender_id == 2)
 		FDCAN2_network->send(&gyro_config_response_packet);
+	portYIELD();
 }
 
 static MagConfigResponsePacket mag_config_response_packet = {};
@@ -516,6 +518,7 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 		FDCAN1_network->send(&mag_config_response_packet);
 	else if (sender_id == 2)
 		FDCAN2_network->send(&mag_config_response_packet);
+	portYIELD();
 }
 
 

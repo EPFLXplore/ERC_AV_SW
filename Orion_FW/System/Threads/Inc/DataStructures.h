@@ -15,6 +15,9 @@
 #include <string.h>
 #include "System.h"
 
+
+#include "Utils.h"
+
 #define MAKE_IDENTIFIABLE(PACKET) (PACKET).id = System::get_node_id();
 
 
@@ -127,6 +130,7 @@ struct NPKData {
 
 struct SpectroData {
 	float data[18] = {0};
+	float max_data_val;
 	bool success = false;
 
 	// Wavelength labels [nm]
@@ -159,11 +163,14 @@ struct SpectroData {
 	    return buffer;
 	}
 
+	// We convert the floats to uint16_t in a scaled integer notation
+	// to reduce the size of the packet
     uint8_t* toArray(uint8_t* buffer){
-    	int i = 0;
-    	for(i = 0; i < 18; ++i)
-    		*(float*)(buffer + i * 4) = data[i];
-    	*(bool*)(buffer + 18*4) = success;
+    	for(uint8_t i = 0; i < 18; ++i)
+    		*(uint16_t*)(buffer + i * 2) = normFloatToScaledUInt16(data[i], max_data_val);
+
+    	*(float*)(buffer + 18*2) = max_data_val;
+    	*(bool*)(buffer + 18*2 + 4) = success;
         return buffer;
     }
 };
