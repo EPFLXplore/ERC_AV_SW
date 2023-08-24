@@ -47,7 +47,7 @@ public:
 	static void handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet);
 
 private:
-	static uint32_t node_id;
+	static uint16_t node_id;
 };
 
 

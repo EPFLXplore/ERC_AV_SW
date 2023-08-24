@@ -269,28 +269,36 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 			if (ServoInstance->sensors_exist()) {
 				ServoInstance->configured = true;
 				if (packet->set_min_duty) {
-					ServoInstance->set_min_duty(packet->min_duty);
+					float min_duty[4];
+					scaledUInt16ArrayToFloatArray(packet->min_duty, min_duty, 4, packet->min_duty_max_val);
+					ServoInstance->set_min_duty(min_duty);
 					ServoInstance->LOG_SUCCESS("Min duty configuration set: [%.3f, %.3f, %.3f, %.3f]",
-												packet->min_duty[0], packet->min_duty[1],
-												packet->min_duty[2], packet->min_duty[3]);
+							ServoInstance->get_min_duty()[0], ServoInstance->get_min_duty()[1],
+							ServoInstance->get_min_duty()[2], ServoInstance->get_min_duty()[3]);
 				}
 				if (packet->set_max_duty) {
-					ServoInstance->set_max_duty(packet->max_duty);
+					float max_duty[4];
+					scaledUInt16ArrayToFloatArray(packet->max_duty, max_duty, 4, packet->max_duty_max_val);
+					ServoInstance->set_max_duty(max_duty);
 					ServoInstance->LOG_SUCCESS("Max duty configuration set: [%.3f, %.3f, %.3f, %.3f]",
-												packet->max_duty[0], packet->max_duty[1],
-												packet->max_duty[2], packet->max_duty[3]);
+							ServoInstance->get_max_duty()[0], ServoInstance->get_max_duty()[1],
+							ServoInstance->get_max_duty()[2], ServoInstance->get_max_duty()[3]);
 				}
 				if (packet->set_min_angles) {
-					ServoInstance->set_min_angles(packet->min_angles);
+					float min_angles[4];
+					scaledUInt16ArrayToFloatArray(packet->min_angles, min_angles, 4, packet->min_angles_max_val);
+					ServoInstance->set_min_angles(min_angles);
 					ServoInstance->LOG_SUCCESS("Min angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
-												packet->min_angles[0], packet->min_angles[1],
-												packet->min_angles[2], packet->min_angles[3]);
+							ServoInstance->get_min_angles()[0], ServoInstance->get_min_angles()[1],
+							ServoInstance->get_min_angles()[2], ServoInstance->get_min_angles()[3]);
 				}
 				if (packet->set_max_angles) {
-					ServoInstance->set_max_angles(packet->max_angles);
+					float max_angles[4];
+					scaledUInt16ArrayToFloatArray(packet->max_angles, max_angles, 4, packet->max_angles_max_val);
+					ServoInstance->set_max_angles(max_angles);
 					ServoInstance->LOG_SUCCESS("Max angles configuration set: [%.3f, %.3f, %.3f, %.3f]",
-												packet->max_angles[0], packet->max_angles[1],
-												packet->max_angles[2], packet->max_angles[3]);
+							ServoInstance->get_max_angles()[0], ServoInstance->get_max_angles()[1],
+							ServoInstance->get_max_angles()[2], ServoInstance->get_max_angles()[3]);
 				}
 				servo_config_response_packet.success = true;
 			} else {
@@ -305,11 +313,15 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 		const float* max_duty = ServoInstance->get_max_duty();
 		const float* min_angles = ServoInstance->get_min_angles();
 		const float* max_angles = ServoInstance->get_max_angles();
+		float min_duty_max_val = get_max_val(min_duty, 4);
+		float max_duty_max_val = get_max_val(max_duty, 4);
+		float min_angles_max_val = get_max_val(min_angles, 4);
+		float max_angles_max_val = get_max_val(max_angles, 4);
 		for (uint8_t i = 0; i < 4; ++i) {
-			servo_config_response_packet.min_duty[i] = min_duty[i];
-			servo_config_response_packet.max_duty[i] = max_duty[i];
-			servo_config_response_packet.min_angles[i] = min_angles[i];
-			servo_config_response_packet.max_angles[i] = max_angles[i];
+			servo_config_response_packet.min_duty[i] = floatToScaledUInt16(min_duty[i], min_duty_max_val);
+			servo_config_response_packet.max_duty[i] = floatToScaledUInt16(max_duty[i], max_duty_max_val);
+			servo_config_response_packet.min_angles[i] = floatToScaledUInt16(min_angles[i], min_angles_max_val);
+			servo_config_response_packet.max_angles[i] = floatToScaledUInt16(max_angles[i], max_angles_max_val);
 		}
 	} else {
 		servo_config_response_packet.success = false;

@@ -15,7 +15,7 @@
 
 #include "Datastructures.h"
 
-uint32_t System::node_id = DEFAULT_NODE_ID;
+uint16_t System::node_id = DEFAULT_NODE_ID;
 
 // Warning: do NOT put any delay in system init. This is because
 // the scheduler only starts the threads AFTER osKernelStart() is called
@@ -147,10 +147,10 @@ void System::disable_silent_mode_fdcan2() {
 }
 
 void System::update_node_id() {
-	uint32_t id0 = HAL_GPIO_ReadPin(ID0_GPIO_Port, ID0_Pin);
-	uint32_t id1 = HAL_GPIO_ReadPin(ID1_GPIO_Port, ID1_Pin);
-	uint32_t id2 = HAL_GPIO_ReadPin(ID2_GPIO_Port, ID2_Pin);
-	uint32_t id3 = HAL_GPIO_ReadPin(ID3_GPIO_Port, ID3_Pin);
+	uint16_t id0 = HAL_GPIO_ReadPin(ID0_GPIO_Port, ID0_Pin);
+	uint16_t id1 = HAL_GPIO_ReadPin(ID1_GPIO_Port, ID1_Pin);
+	uint16_t id2 = HAL_GPIO_ReadPin(ID2_GPIO_Port, ID2_Pin);
+	uint16_t id3 = HAL_GPIO_ReadPin(ID3_GPIO_Port, ID3_Pin);
 
 	node_id = id0 | (id1 << 1) | (id2 << 2) | (id3 << 3);
 }

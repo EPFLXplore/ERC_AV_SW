@@ -167,7 +167,7 @@ struct SpectroData {
 	// to reduce the size of the packet
     uint8_t* toArray(uint8_t* buffer){
     	for(uint8_t i = 0; i < 18; ++i)
-    		*(uint16_t*)(buffer + i * 2) = normFloatToScaledUInt16(data[i], max_data_val);
+    		*(uint16_t*)(buffer + i * 2) = floatToScaledUInt16(data[i], max_data_val);
 
     	*(float*)(buffer + 18*2) = max_data_val;
     	*(bool*)(buffer + 18*2 + 4) = success;
