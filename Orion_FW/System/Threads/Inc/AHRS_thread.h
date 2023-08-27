@@ -8,10 +8,6 @@
 #ifndef SENSORS_AHRS_THREAD_H_
 #define SENSORS_AHRS_THREAD_H_
 
-//#define TRANSMIT_QUAT_FOR_PLOT
-
-//#define PRINT_GYRO_BIAS
-
 #include <DataStructures.h>
 #include <Prober.h>
 #include <Thread.h>
@@ -29,9 +25,15 @@ public:
 
 	LIS3MDL* get_mag_sensor();
 	BMI088* get_imu_sensor();
+
 	static void handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packet);
 	static void handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* packet);
 	static void handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* packet);
+
+	static void handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet);
+
+	void start_calib_accel(uint32_t num_samples);
+	void start_calib_gyro(uint32_t num_samples);
 
 	bool mag_configured = false;
 	bool accel_configured = false;
@@ -75,10 +77,12 @@ private:
 
 	// Sensor readings
 
-	Vector mag; // in uTesla
-	Vector mag_raw; // in uTesla
-	Vector acc; // in m/s^2
-	Vector gyro; // in rad/s
+	Vector mag; 		// in uTesla
+	Vector mag_raw; 	// in uTesla
+	Vector acc; 		// in m/s^2
+	Vector acc_raw; 	// in m/s^2
+	Vector gyro; 		// in rad/s
+	Vector gyro_raw;	// in rad/s
 
 	// Sensor fusion output
 
@@ -99,6 +103,30 @@ private:
 	long unsigned int accel_config_time = 0;
 	long unsigned int gyro_config_time = 0;
 	long unsigned int config_req_interval = 5000;
+
+	// Calibration parameters
+
+	uint8_t sender_id;
+
+	bool calibrating_accel = false;
+	bool calibrating_gyro = false;
+
+	uint32_t cnt_accel = 0;
+	uint32_t cnt_gyro = 0;
+
+	uint32_t calib_samples_accel = 1000;
+	uint32_t calib_samples_gyro = 1000;
+
+	Vector acc_avg;
+	Vector gyro_avg;
+
+	Vector acc_sum;
+	Vector gyro_sum;
+
+	void send_calib_accel();
+	void send_calib_gyro();
+
+	void set_sender_id(uint8_t sender_id);
 
 };
 

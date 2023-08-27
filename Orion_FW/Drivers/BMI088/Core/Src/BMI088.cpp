@@ -584,34 +584,3 @@ const float* BMI088::get_transform_accel() const {
 	return transform;
 }
 
-//void BMI088::calibrate_acc(int sec){
-//	float sumx = 0.0; float sumy = 0.0; float sumz = 0.0;
-//	uint8_t counter = 0;
-//    auto start = std::chrono::steady_clock::now();
-//    BMI088::xyz data;
-//	while(true){
-//		data = this->get_last_accel();
-//		sumx += data.x; sumy+=data.y; sumz+=data.z;
-//		counter ++;
-//		if(std::chrono::steady_clock::now()-start > std::chrono::seconds(sec)){
-//			break;
-//		}
-//	}
-//	this->bias_offset_acc = BMI088::xyz{sumx/((float)counter), sumy/((float)counter), sumz/((float)counter)};
-//}
-//
-//void BMI088::calibrate_gyro(int sec){
-//	float sumx = 0.0; float sumy = 0.0; float sumz = 0.0;
-//		uint8_t counter = 0;
-//	    auto start = std::chrono::steady_clock::now();
-//	    BMI088::xyz data;
-//		while(true){
-//			data = this->get_last_angle_accel();
-//			sumx += data.x; sumy+=data.y; sumz+=data.z;
-//			counter ++;
-//			if(std::chrono::steady_clock::now()-start > std::chrono::seconds(sec)){
-//				break;
-//			}
-//		}
-//		this->bias_offset_gyro = BMI088::xyz{sumx/((float)counter), sumy/((float)counter), sumz/((float)counter)};
-//}

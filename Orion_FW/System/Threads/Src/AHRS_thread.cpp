@@ -2,7 +2,7 @@
  * AHRS_thread.cpp
  *
  *  Created on: 30 Jun 2023
- *      Author: Leo
+ *      Author: Vincent Nguyen
  */
 
 
@@ -30,6 +30,13 @@ void AHRSThread::init() {
 	AHRSInstance = this;
 	HAL_StatusTypeDef status;
 	uint8_t err_cnt = 0;
+
+	acc_sum.x = 0;
+	acc_sum.y = 0;
+	acc_sum.z = 0;
+	gyro_sum.x = 0;
+	gyro_sum.y = 0;
+	gyro_sum.z = 0;
 
 	// Instantiate magnetometer
 	magnetometer = new LIS3MDL(parent->getI2C(), mag_conf);
@@ -61,14 +68,6 @@ void AHRSThread::init() {
 	}
 
 	LOG_SUCCESS("Thread successfully created");
-
-#ifdef PRINT_GYRO_BIAS
-	printf("Computing gyro bias (uncalibrated)... \n");
-	Vector gyro_bias = {0, 0, 0};
-	imu->compute_gyro_bias(gyro_bias);
-	printf("Gyro bias x: %f \t y: %f \t z: %f \n", gyro_bias.x, gyro_bias.y, gyro_bias.z);
-#endif
-
 
 //	request_config_accel();
 //	request_config_gyro();
@@ -124,6 +123,98 @@ void AHRSThread::request_config_mag() {
 	portYIELD();
 }
 
+void AHRSThread::start_calib_accel(uint32_t num_samples) {
+	cnt_accel = 0;
+	acc_avg = {0, 0, 0};
+	calib_samples_accel = num_samples;
+	calibrating_accel = true;
+	LOG_INFO("Starting accelerometer bias calibration...");
+}
+
+void AHRSThread::start_calib_gyro(uint32_t num_samples) {
+	cnt_gyro = 0;
+	gyro_avg = {0, 0, 0};
+	calib_samples_gyro = num_samples;
+	calibrating_gyro = true;
+	LOG_INFO("Starting gyroscope bias calibration...");
+}
+
+static AccelConfigResponsePacket accel_calib_response_packet = {};
+
+void AHRSThread::send_calib_accel() {
+	// Compute average value
+	acc_avg.x = acc_sum.x/cnt_accel;
+	acc_avg.y = acc_sum.y/cnt_accel;
+	acc_avg.z = acc_sum.z/cnt_accel;
+
+	accel_calib_response_packet.set_bias = true;
+
+	calibrating_accel = false;
+	cnt_accel = 0;
+	acc_sum.x = 0;
+	acc_sum.y = 0;
+	acc_sum.z = 0;
+
+	std::array<float, 3> accel_bias_vector = {acc_avg.x, acc_avg.y, acc_avg.z - G};
+	imu->set_bias_accel(accel_bias_vector.data());
+
+	for (uint8_t i = 0; i < 3; ++i)
+		accel_calib_response_packet.bias[i] = accel_bias_vector[i];
+
+	accel_calib_response_packet.success = true;
+
+	LOG_SUCCESS("Computed accelerometer bias: [%.3f %.3f %.3f]",
+			accel_bias_vector[0], accel_bias_vector[1], accel_bias_vector[2]);
+
+	MAKE_IDENTIFIABLE(accel_calib_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&accel_calib_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&accel_calib_response_packet);
+	portYIELD();
+}
+
+static GyroConfigResponsePacket gyro_calib_response_packet = {};
+
+void AHRSThread::send_calib_gyro() {
+	// Compute average value
+	gyro_avg.x = gyro_sum.x/cnt_gyro;
+	gyro_avg.y = gyro_sum.y/cnt_gyro;
+	gyro_avg.z = gyro_sum.z/cnt_gyro;
+
+	gyro_calib_response_packet.set_bias = true;
+
+	calibrating_gyro = false;
+	cnt_gyro = 0;
+	gyro_sum.x = 0;
+	gyro_sum.y = 0;
+	gyro_sum.z = 0;
+
+	std::array<float, 3> gyro_bias_vector = {gyro_avg.x, gyro_avg.y, gyro_avg.z};
+	imu->set_bias_gyro(gyro_bias_vector.data());
+
+	for (uint8_t i = 0; i < 3; ++i)
+		gyro_calib_response_packet.bias[i] = gyro_bias_vector[i];
+
+	gyro_calib_response_packet.success = true;
+
+	LOG_SUCCESS("Computed gyroscope bias: [%.3f %.3f %.3f]",
+			gyro_bias_vector[0], gyro_bias_vector[1], gyro_bias_vector[2]);
+
+	MAKE_IDENTIFIABLE(gyro_calib_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&gyro_calib_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&gyro_calib_response_packet);
+	portYIELD();
+}
+
+void AHRSThread::set_sender_id(uint8_t sender_id) {
+	sender_id = sender_id;
+}
+
 void AHRSThread::loop() {
 
 	// Request configuration (accel)
@@ -148,16 +239,22 @@ void AHRSThread::loop() {
 		++err_cnt;
 
 	status = magnetometer->get_mag(mag_raw, false);
-
 	if (status != HAL_OK)
 		++err_cnt;
 
 	status = imu->get_accel_cal(acc);
+	if (status != HAL_OK)
+		++err_cnt;
 
+	status = imu->get_accel(acc_raw);
 	if (status != HAL_OK)
 		++err_cnt;
 
 	status = imu->get_gyro_cal(gyro);
+	if (status != HAL_OK)
+		++err_cnt;
+
+	status = imu->get_gyro(gyro_raw);
 	if (status != HAL_OK)
 		++err_cnt;
 
@@ -172,6 +269,29 @@ void AHRSThread::loop() {
 		imu_data.accel = acc;
 		imu_data.gyro = gyro;
 		imu_data.orientation = q;
+
+		// Calibration
+		if(calibrating_accel) {
+			cnt_accel += 1;
+			acc_sum.x += acc_raw.x;
+			acc_sum.y += acc_raw.y;
+			acc_sum.z += acc_raw.z;
+		}
+
+		if(calibrating_gyro) {
+			cnt_gyro += 1;
+			gyro_sum.x += gyro_raw.x;
+			gyro_sum.y += gyro_raw.y;
+			gyro_sum.z += gyro_raw.z;
+		}
+
+		if(calibrating_accel && (cnt_accel > calib_samples_accel)) {
+			send_calib_accel();
+		}
+
+		if(calibrating_gyro && (cnt_gyro > calib_samples_gyro)) {
+			send_calib_gyro();
+		}
 
 		mag_data.mag = mag;
 		mag_data.mag_raw = mag_raw;
@@ -233,10 +353,11 @@ void AHRSThread::loop() {
 		MAKE_IDENTIFIABLE(imu_packet);
 		MAKE_IDENTIFIABLE(mag_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&imu_packet);
-		FDCAN2_network->send(&imu_packet);
-		FDCAN1_network->send(&mag_packet);
-		FDCAN2_network->send(&mag_packet);
+//		FDCAN1_network->send(&imu_packet);
+//		FDCAN2_network->send(&imu_packet);
+//		FDCAN1_network->send(&mag_packet);
+//		FDCAN2_network->send(&mag_packet);
+
 		portYIELD();
 	} else {
 		LOG_ERROR("Thread aborted");
@@ -383,6 +504,13 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 	accel_config_response_packet.set_bias = packet->set_bias;
 	accel_config_response_packet.set_transform = packet->set_transform;
 
+	// Set fields to zero
+	for (uint8_t i = 0; i < 3; ++i)
+		accel_config_response_packet.bias[i] = 0;
+
+	for (uint8_t i = 0; i < 9; ++i)
+		accel_config_response_packet.transform[i] = 0;
+
 	if (AHRSInstance != nullptr) {
 		if (packet->remote_command || !(AHRSInstance->accel_configured)) {
 			if (AHRSInstance->get_imu_sensor() != nullptr) {
@@ -399,6 +527,15 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->transform[3], packet->transform[4], packet->transform[5]);
 					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->transform[6], packet->transform[7], packet->transform[8]);
 				}
+
+				const float* bias = AHRSInstance->get_imu_sensor()->get_bias_accel();
+				for (uint8_t i = 0; i < 3; ++i)
+					accel_config_response_packet.bias[i] = bias[i];
+
+				const float* transform = AHRSInstance->get_imu_sensor()->get_transform_accel();
+				for (uint8_t i = 0; i < 9; ++i)
+					accel_config_response_packet.transform[i] = transform[i];
+
 				accel_config_response_packet.success = true;
 			} else {
 				accel_config_response_packet.success = false;
@@ -408,13 +545,6 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 			accel_config_response_packet.success = false;
 			AHRSInstance->LOG_ERROR("Accel configuration already requested");
 		}
-		const float* bias = AHRSInstance->get_imu_sensor()->get_bias_accel();
-		for (uint8_t i = 0; i < 3; ++i)
-			accel_config_response_packet.bias[i] = bias[i];
-
-		const float* transform = AHRSInstance->get_imu_sensor()->get_transform_accel();
-		for (uint8_t i = 0; i < 9; ++i)
-			accel_config_response_packet.transform[i] = transform[i];
 	} else {
 		accel_config_response_packet.success = false;
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
@@ -434,6 +564,10 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 	gyro_config_response_packet.remote_command = packet->remote_command;
 	gyro_config_response_packet.set_bias = packet->set_bias;
 
+	// Set fields to zero
+	for (uint8_t i = 0; i < 3; ++i)
+		gyro_config_response_packet.bias[i] = 0;
+
 	if (AHRSInstance != nullptr) {
 		if (packet->remote_command || !(AHRSInstance->gyro_configured)) {
 			if (AHRSInstance->get_imu_sensor() != nullptr) {
@@ -443,6 +577,10 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 					AHRSInstance->LOG_SUCCESS("Gyro bias configuration set: [%.3f %.3f %.3f]",
 												packet->bias[0], packet->bias[1], packet->bias[2]);
 				}
+				const float* bias = AHRSInstance->get_imu_sensor()->get_bias_gyro();
+				for (uint8_t i = 0; i < 3; ++i)
+					accel_config_response_packet.bias[i] = bias[i];
+
 				gyro_config_response_packet.success = true;
 			} else {
 				gyro_config_response_packet.success = false;
@@ -452,10 +590,6 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 			gyro_config_response_packet.success = false;
 			AHRSInstance->LOG_ERROR("Gyro configuration already requested");
 		}
-		const float* bias = AHRSInstance->get_imu_sensor()->get_bias_gyro();
-		for (uint8_t i = 0; i < 3; ++i)
-			accel_config_response_packet.bias[i] = bias[i];
-
 	} else {
 		gyro_config_response_packet.success = false;
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
@@ -476,6 +610,13 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 	mag_config_response_packet.set_hard_iron = packet->set_hard_iron;
 	mag_config_response_packet.set_soft_iron = packet->set_soft_iron;
 
+	// Set fields to zero
+	for (uint8_t i = 0; i < 3; ++i)
+		mag_config_response_packet.hard_iron[i] = 0;
+
+	for (uint8_t i = 0; i < 9; ++i)
+		mag_config_response_packet.soft_iron[i] = 0;
+
 	if (AHRSInstance != nullptr) {
 		if (packet->remote_command || !(AHRSInstance->mag_configured)) {
 			if (AHRSInstance->get_mag_sensor() != nullptr) {
@@ -492,6 +633,15 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->soft_iron[3], packet->soft_iron[4], packet->soft_iron[5]);
 					AHRSInstance->LOG_SUCCESS("[%+.3f %+.3f %+.3f]", packet->soft_iron[6], packet->soft_iron[7], packet->soft_iron[8]);
 				}
+
+				const float* hard_iron = AHRSInstance->get_mag_sensor()->get_hard_iron();
+				for (uint8_t i = 0; i < 3; ++i)
+					mag_config_response_packet.hard_iron[i] = hard_iron[i];
+
+				const float* soft_iron = AHRSInstance->get_mag_sensor()->get_soft_iron();
+				for (uint8_t i = 0; i < 9; ++i)
+					mag_config_response_packet.soft_iron[i] = soft_iron[i];
+
 				mag_config_response_packet.success = true;
 			} else {
 				mag_config_response_packet.success = false;
@@ -501,13 +651,6 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 			mag_config_response_packet.success = false;
 			AHRSInstance->LOG_ERROR("Mag configuration already requested");
 		}
-		const float* hard_iron = AHRSInstance->get_mag_sensor()->get_hard_iron();
-		for (uint8_t i = 0; i < 3; ++i)
-			mag_config_response_packet.hard_iron[i] = hard_iron[i];
-
-		const float* soft_iron = AHRSInstance->get_mag_sensor()->get_soft_iron();
-		for (uint8_t i = 0; i < 9; ++i)
-			mag_config_response_packet.soft_iron[i] = soft_iron[i];
 	} else {
 		mag_config_response_packet.success = false;
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
@@ -522,5 +665,72 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 }
 
 
+void AHRSThread::handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet) {
+	accel_calib_response_packet.remote_command = true;
+	accel_calib_response_packet.set_bias = false;
+	accel_calib_response_packet.set_transform = false;
+
+	gyro_calib_response_packet.remote_command = true;
+	gyro_calib_response_packet.set_bias = false;
+
+	// Set fields to zero
+	for (uint8_t i = 0; i < 3; ++i)
+		accel_calib_response_packet.bias[i] = 0;
+
+	for (uint8_t i = 0; i < 9; ++i)
+		accel_calib_response_packet.transform[i] = 0;
+
+	for (uint8_t i = 0; i < 3; ++i)
+		gyro_calib_response_packet.bias[i] = 0;
+
+
+	if (AHRSInstance != nullptr) {
+		AHRSInstance->set_sender_id(sender_id);
+		if (AHRSInstance->get_imu_sensor() != nullptr) {
+			AHRSInstance->LOG_INFO("Received IMU calibration command");
+			if (packet->calib_offset_accel) {
+				AHRSInstance->LOG_INFO("Calibrating accelerometer offset...");
+				AHRSInstance->start_calib_accel(1000);
+				accel_calib_response_packet.success = true;
+			}
+			if (packet->calib_offset_gyro) {
+				AHRSInstance->LOG_INFO("Calibrating gyroscope offset...");
+				AHRSInstance->start_calib_gyro(1000);
+				gyro_calib_response_packet.success = true;
+			}
+
+		} else {
+			AHRSInstance->LOG_ERROR("IMU sensor member non-existent");
+			accel_calib_response_packet.success = false;
+			gyro_calib_response_packet.success = false;
+		}
+
+
+	} else {
+		console.printf_error("AHRSThread instance does not exist yet\r\n");
+		accel_calib_response_packet.success = false;
+		gyro_calib_response_packet.success = false;
+	}
+
+	if (accel_calib_response_packet.success == false) {
+		MAKE_IDENTIFIABLE(accel_calib_response_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		if (sender_id == 1)
+			FDCAN1_network->send(&accel_calib_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&accel_calib_response_packet);
+		portYIELD();
+	}
+
+	if (gyro_calib_response_packet.success == false) {
+		MAKE_IDENTIFIABLE(accel_calib_response_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		if (sender_id == 1)
+			FDCAN1_network->send(&gyro_calib_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&gyro_calib_response_packet);
+		portYIELD();
+	}
+}
 
 
