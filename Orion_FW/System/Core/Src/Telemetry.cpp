@@ -59,6 +59,13 @@ void Telemetry::setup() {
 	FDCAN1_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
 	FDCAN2_network->handle<GyroConfigPacket>(&AHRSThread::handle_set_gyro_config);
 
+	// Calibration handles
+	FDCAN1_network->handle<MassCalibPacket>(&ADS1234Thread::handle_mass_calib);
+	FDCAN2_network->handle<MassCalibPacket>(&ADS1234Thread::handle_mass_calib);
+
+	FDCAN1_network->handle<ImuCalibPacket>(&AHRSThread::handle_imu_calib);
+	FDCAN2_network->handle<ImuCalibPacket>(&AHRSThread::handle_imu_calib);
+
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {
