@@ -212,6 +212,21 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 	pot_config_response_packet.set_max_angles = packet->set_max_angles;
 	pot_config_response_packet.set_channels_status = packet->set_channels_status;
 
+	// Set fields to zero
+	pot_config_response_packet.min_voltages_max_val = 0;
+	pot_config_response_packet.max_voltages_max_val = 0;
+	pot_config_response_packet.min_angles_max_val = 0;
+	pot_config_response_packet.max_angles_max_val = 0;
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		pot_config_response_packet.enabled_channels[i] = false;
+		pot_config_response_packet.min_voltages[i] = 0;
+		pot_config_response_packet.max_voltages[i] = 0;
+		pot_config_response_packet.min_angles[i] = 0;
+		pot_config_response_packet.max_angles[i] = 0;
+	}
+
+
 	if (PotentiometerInstance != nullptr) {
 		if (packet->remote_command || !(PotentiometerInstance->configured)) {
 			if (PotentiometerInstance->get_sensor() != nullptr) {
@@ -271,16 +286,17 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 		const float* max_voltages = PotentiometerInstance->get_max_voltages();
 		const float* min_angles = PotentiometerInstance->get_min_angles();
 		const float* max_angles = PotentiometerInstance->get_max_angles();
-		float min_voltages_max_val = get_max_val(min_voltages, 4);
-		float max_voltages_max_val = get_max_val(max_voltages, 4);
-		float min_angles_max_val = get_max_val(min_angles, 4);
-		float max_angles_max_val = get_max_val(max_angles, 4);
+		pot_config_response_packet.min_voltages_max_val = get_max_val(min_voltages, 4);
+		pot_config_response_packet.max_voltages_max_val = get_max_val(max_voltages, 4);
+		pot_config_response_packet.min_angles_max_val = get_max_val(min_angles, 4);
+		pot_config_response_packet.max_angles_max_val = get_max_val(max_angles, 4);
+
 		for (uint8_t i = 0; i < 4; ++i) {
 			pot_config_response_packet.enabled_channels[i] = enabled_channels[i];
-			pot_config_response_packet.min_voltages[i] = floatToScaledUInt16(min_voltages[i], min_voltages_max_val);
-			pot_config_response_packet.max_voltages[i] = floatToScaledUInt16(max_voltages[i], max_voltages_max_val);
-			pot_config_response_packet.min_angles[i] = floatToScaledUInt16(min_angles[i], min_angles_max_val);
-			pot_config_response_packet.max_angles[i] = floatToScaledUInt16(max_angles[i], max_angles_max_val);
+			pot_config_response_packet.min_voltages[i] = floatToScaledUInt16(min_voltages[i], pot_config_response_packet.min_voltages_max_val);
+			pot_config_response_packet.max_voltages[i] = floatToScaledUInt16(max_voltages[i], pot_config_response_packet.max_voltages_max_val);
+			pot_config_response_packet.min_angles[i] = floatToScaledUInt16(min_angles[i], pot_config_response_packet.min_angles_max_val);
+			pot_config_response_packet.max_angles[i] = floatToScaledUInt16(max_angles[i], pot_config_response_packet.max_angles_max_val);
 		}
 	} else {
 		pot_config_response_packet.success = false;

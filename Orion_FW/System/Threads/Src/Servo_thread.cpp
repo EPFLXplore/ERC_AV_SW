@@ -264,6 +264,19 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 	servo_config_response_packet.set_max_duty = packet->set_max_duty;
 	servo_config_response_packet.set_min_angles = packet->set_min_angles;
 	servo_config_response_packet.set_max_angles = packet->set_max_angles;
+
+	// Set fields to zero
+	servo_config_response_packet.min_duty_max_val = 0;
+	servo_config_response_packet.max_duty_max_val = 0;
+	servo_config_response_packet.min_angles_max_val = 0;
+	servo_config_response_packet.max_angles_max_val = 0;
+	for (uint8_t i = 0; i < 4; ++i) {
+		servo_config_response_packet.min_duty[i] = 0;
+		servo_config_response_packet.max_duty[i] = 0;
+		servo_config_response_packet.min_angles[i] = 0;
+		servo_config_response_packet.max_angles[i] = 0;
+	}
+
 	if (ServoInstance != nullptr) {
 		if (packet->remote_command || !(ServoInstance->configured)) {
 			if (ServoInstance->sensors_exist()) {
@@ -313,15 +326,15 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 		const float* max_duty = ServoInstance->get_max_duty();
 		const float* min_angles = ServoInstance->get_min_angles();
 		const float* max_angles = ServoInstance->get_max_angles();
-		float min_duty_max_val = get_max_val(min_duty, 4);
-		float max_duty_max_val = get_max_val(max_duty, 4);
-		float min_angles_max_val = get_max_val(min_angles, 4);
-		float max_angles_max_val = get_max_val(max_angles, 4);
+		servo_config_response_packet.min_duty_max_val = get_max_val(min_duty, 4);
+		servo_config_response_packet.max_duty_max_val = get_max_val(max_duty, 4);
+		servo_config_response_packet.min_angles_max_val = get_max_val(min_angles, 4);
+		servo_config_response_packet.max_angles_max_val = get_max_val(max_angles, 4);
 		for (uint8_t i = 0; i < 4; ++i) {
-			servo_config_response_packet.min_duty[i] = floatToScaledUInt16(min_duty[i], min_duty_max_val);
-			servo_config_response_packet.max_duty[i] = floatToScaledUInt16(max_duty[i], max_duty_max_val);
-			servo_config_response_packet.min_angles[i] = floatToScaledUInt16(min_angles[i], min_angles_max_val);
-			servo_config_response_packet.max_angles[i] = floatToScaledUInt16(max_angles[i], max_angles_max_val);
+			servo_config_response_packet.min_duty[i] = floatToScaledUInt16(min_duty[i], servo_config_response_packet.min_duty_max_val);
+			servo_config_response_packet.max_duty[i] = floatToScaledUInt16(max_duty[i], servo_config_response_packet.max_duty_max_val);
+			servo_config_response_packet.min_angles[i] = floatToScaledUInt16(min_angles[i], servo_config_response_packet.min_angles_max_val);
+			servo_config_response_packet.max_angles[i] = floatToScaledUInt16(max_angles[i], servo_config_response_packet.max_angles_max_val);
 		}
 	} else {
 		servo_config_response_packet.success = false;
