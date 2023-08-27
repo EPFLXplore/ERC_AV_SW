@@ -16,7 +16,7 @@
 
 class VoltmeterThread : public Thread {
 public:
-	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), voltmeter(parent->getI2C(), ADS_ADDR_GND) {}
+	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), voltmeter(parent->getI2C(), ADS_ADDR_VDD) {}
 	void init();
 	void loop();
 	uint8_t getPortNum();
@@ -29,6 +29,11 @@ private:
 	float divider_ratio = 10.0f; // = 1/(2k / (2k + 18k))
 	uint16_t polarity_threshold = 1000;
 	float correction_factor = 1.0f;
+
+	const float pos_corr_coeff = 1.0012;
+	const float neg_corr_coeff = 0.9997;
+	const float pos_corr_offset = -0.0014;
+	const float neg_corr_offset = 0.0010;
 };
 
 extern VoltmeterThread* VoltmeterInstance;

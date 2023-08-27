@@ -85,5 +85,11 @@ HAL_StatusTypeDef VoltmeterThread::get_voltage(float& val) {
 		return status;
 	}
 	val*=polarity;
+
+	if (val > 0)
+		val = val*pos_corr_coeff + pos_corr_offset;
+	else
+		val = val*neg_corr_coeff + neg_corr_offset;
+
 	return HAL_OK;
 }
