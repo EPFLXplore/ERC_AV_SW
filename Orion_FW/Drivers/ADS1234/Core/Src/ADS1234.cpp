@@ -294,8 +294,13 @@ ERROR_t ADS1234::read_filtered(Channel channel, float& value, float alpha, bool 
 	if (err != NoERROR) return err;
 
 	value = prev_value[channel-1]*alpha + val*(1-alpha);
+	last_filtered_raw[channel-1] = value;
 	prev_value[channel-1] = value;
 	return NoERROR;
+}
+
+float ADS1234::get_last_filtered_raw(Channel channel) {
+	return last_filtered_raw[channel-1];
 }
 
 ERROR_t ADS1234::read_average(Channel channel, float& value, uint16_t times, bool Calibrating) {

@@ -128,6 +128,154 @@ void ADS1234Thread::request_config() {
 	portYIELD();
 }
 
+void ADS1234Thread::start_calib_offset(uint32_t num_samples, uint8_t channel) {
+	if (channel <= 4) {
+		if (!calibrating_offset) {
+			if (!calibrating_scale) {
+				calib_channel = channel;
+				cnt_mass_offset = 0;
+				for (uint8_t i = 0; i < 4; ++i)
+					mass_avg_offset[i] = 0;
+				calib_samples_offset = num_samples;
+				calibrating_offset = true;
+				LOG_INFO("Starting offset calibration...");
+			} else {
+				LOG_ERROR("Cannot calibrate both offset and scale at the same time");
+			}
+		} else {
+			LOG_ERROR("Another offset calibration is already active. Aborting calibration...");
+		}
+	} else {
+		LOG_ERROR("Invalid channel number for offset calibration: %d", channel);
+	}
+}
+
+void ADS1234Thread::start_calib_scale(uint32_t num_samples, uint8_t channel, float calib_weight) {
+	if (channel <= 4) {
+		if (!calibrating_scale) {
+			if (!calibrating_offset) {
+				calib_channel = channel;
+				cnt_mass_scale = 0;
+				this->calib_weight = calib_weight;
+				for (uint8_t i = 0; i < 4; ++i)
+					mass_avg_scale[i] = 0;
+				calib_samples_scale = num_samples;
+				calibrating_scale = true;
+				LOG_INFO("Starting scale calibration...");
+			} else {
+				LOG_ERROR("Cannot calibrate both offset and scale at the same time");
+			}
+		} else {
+			LOG_ERROR("Another scale calibration is already active. Aborting calibration...");
+		}
+	} else {
+		LOG_ERROR("Invalid channel number for scale calibration: %d", channel);
+	}
+}
+
+static MassConfigResponsePacket mass_calib_offset_response_packet = {};
+
+void ADS1234Thread::send_calib_offset() {
+	// Compute average value
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		if (this->enabled_channels[i] && (cnt_mass_offset != 0))
+			mass_avg_offset[i] = mass_sum_offset[i]/cnt_mass_offset;
+	}
+
+	calibrating_offset = false;
+	cnt_mass_offset = 0;
+	for (uint8_t i = 0; i < 4; ++i)
+		mass_sum_offset[i] = 0;
+
+	mass_calib_offset_response_packet.set_offset = true;
+
+	if (this->enabled_channels[0] && ((calib_channel == 1) || (calib_channel == 0)))
+		mass_sensor->set_offset(AIN1, mass_avg_offset[0]);
+
+	if (this->enabled_channels[1] || ((calib_channel == 2) || (calib_channel == 0)))
+			mass_sensor->set_offset(AIN2, mass_avg_offset[1]);
+
+	if (this->enabled_channels[2] || ((calib_channel == 3) || (calib_channel == 0)))
+			mass_sensor->set_offset(AIN3, mass_avg_offset[2]);
+
+	if (this->enabled_channels[3] || ((calib_channel == 4) || (calib_channel == 0)))
+			mass_sensor->set_offset(AIN4, mass_avg_offset[3]);
+
+
+	mass_calib_offset_response_packet.offset[0] = mass_sensor->get_offset(AIN1);
+	mass_calib_offset_response_packet.offset[1] = mass_sensor->get_offset(AIN2);
+	mass_calib_offset_response_packet.offset[2] = mass_sensor->get_offset(AIN3);
+	mass_calib_offset_response_packet.offset[3] = mass_sensor->get_offset(AIN4);
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		mass_calib_offset_response_packet.enabled_channels[i] = enabled_channels[i];
+	}
+
+	MAKE_IDENTIFIABLE(mass_calib_offset_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&mass_calib_offset_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&mass_calib_offset_response_packet);
+	portYIELD();
+
+}
+
+static MassConfigResponsePacket mass_calib_scale_response_packet = {};
+
+void ADS1234Thread::send_calib_scale() {
+	// Compute average value
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		if (this->enabled_channels[i] && (cnt_mass_scale != 0) && (calib_weight != 0)) {
+			mass_avg_scale[i] = mass_sum_scale[i]/(cnt_mass_scale*calib_weight);
+		}
+	}
+
+	calibrating_scale = false;
+	cnt_mass_scale = 0;
+	for (uint8_t i = 0; i < 4; ++i)
+		mass_sum_scale[i] = 0;
+
+	mass_calib_scale_response_packet.set_scale = true;
+
+	if (this->enabled_channels[0] && ((calib_channel == 1) || (calib_channel == 0)))
+		mass_sensor->set_scale(AIN1, mass_avg_scale[0]);
+
+	if (this->enabled_channels[1] || ((calib_channel == 2) || (calib_channel)))
+			mass_sensor->set_scale(AIN2, mass_avg_scale[1]);
+
+	if (this->enabled_channels[2] || ((calib_channel == 3) || (calib_channel == 0)))
+			mass_sensor->set_scale(AIN3, mass_avg_scale[2]);
+
+	if (this->enabled_channels[3] || ((calib_channel == 4) || (calib_channel == 0)))
+			mass_sensor->set_scale(AIN4, mass_avg_scale[3]);
+
+
+	mass_calib_scale_response_packet.scale[0] = mass_sensor->get_scale(AIN1);
+	mass_calib_scale_response_packet.scale[1] = mass_sensor->get_scale(AIN2);
+	mass_calib_scale_response_packet.scale[2] = mass_sensor->get_scale(AIN3);
+	mass_calib_scale_response_packet.scale[3] = mass_sensor->get_scale(AIN4);
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		mass_calib_offset_response_packet.enabled_channels[i] = enabled_channels[i];
+	}
+
+	MAKE_IDENTIFIABLE(mass_calib_scale_response_packet);
+	Telemetry::set_id(JETSON_NODE_ID);
+	if (sender_id == 1)
+		FDCAN1_network->send(&mass_calib_scale_response_packet);
+	else if (sender_id == 2)
+		FDCAN2_network->send(&mass_calib_scale_response_packet);
+	portYIELD();
+
+}
+
+void ADS1234Thread::set_sender_id(uint8_t sender_id) {
+	sender_id = sender_id;
+}
+
 void ADS1234Thread::loop() {
 	// Request configuration
 	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
@@ -193,6 +341,31 @@ void ADS1234Thread::loop() {
 			println("%s", mass_data.toString(cbuf));
 		}
 
+		// Calibration
+		if(calibrating_offset) {
+			cnt_mass_offset += 1;
+			mass_sum_offset[0] += mass_sensor->get_last_filtered_raw(AIN1);
+			mass_sum_offset[1] += mass_sensor->get_last_filtered_raw(AIN2);
+			mass_sum_offset[2] += mass_sensor->get_last_filtered_raw(AIN3);
+			mass_sum_offset[3] += mass_sensor->get_last_filtered_raw(AIN4);
+		}
+
+		if(calibrating_scale) {
+			cnt_mass_scale += 1;
+			mass_sum_scale[0] += mass_sensor->get_last_filtered_raw(AIN1);
+			mass_sum_scale[1] += mass_sensor->get_last_filtered_raw(AIN2);
+			mass_sum_scale[2] += mass_sensor->get_last_filtered_raw(AIN3);
+			mass_sum_scale[3] += mass_sensor->get_last_filtered_raw(AIN4);
+		}
+
+		if(calibrating_offset && (cnt_mass_offset > calib_samples_offset)) {
+			send_calib_offset();
+		}
+
+		if(calibrating_scale && (cnt_mass_scale > calib_samples_scale)) {
+			send_calib_scale();
+		}
+
 		mass_data.toArray((uint8_t*) &mass_packet);
 		MAKE_IDENTIFIABLE(mass_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
@@ -250,6 +423,18 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 	mass_config_response_packet.set_scale = packet->set_scale;
 	mass_config_response_packet.set_alpha = packet->set_alpha;
 	mass_config_response_packet.set_channels_status = packet->set_channels_status;
+
+	// Set fields to zero
+	for (uint8_t i = 0; i < 4; ++i) {
+		mass_config_response_packet.enabled_channels[i] = 0;
+	}
+
+	for (uint8_t i = 0; i < 4; ++i) {
+		mass_config_response_packet.offset[i] = 0;
+		mass_config_response_packet.scale[i] = 0;
+	}
+	mass_config_response_packet.alpha = 0;
+
 
 	if (MassSensorInstance != nullptr) {
 		if (packet->remote_command || !(MassSensorInstance->configured)) {
@@ -318,4 +503,136 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 		FDCAN1_network->send(&mass_config_response_packet);
 	else if (sender_id == 2)
 		FDCAN2_network->send(&mass_config_response_packet);
+}
+
+void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet) {
+	mass_calib_offset_response_packet.remote_command = true;
+	mass_calib_offset_response_packet.set_offset = false;
+	mass_calib_offset_response_packet.set_scale = false;
+	mass_calib_offset_response_packet.set_alpha = false;
+	mass_calib_offset_response_packet.set_channels_status = false;
+
+	mass_calib_scale_response_packet.remote_command = true;
+	mass_calib_scale_response_packet.set_offset = false;
+	mass_calib_scale_response_packet.set_scale = false;
+	mass_calib_scale_response_packet.set_alpha = false;
+	mass_calib_scale_response_packet.set_channels_status = false;
+
+	// Set fields to zero (1 for scale to avoid division by zero)
+	for (uint8_t i = 0; i < 4; ++i) {
+		mass_calib_offset_response_packet.offset[i] = 0;
+		mass_calib_offset_response_packet.scale[i] = 1;
+		mass_calib_offset_response_packet.enabled_channels[i] = false;
+
+		mass_calib_scale_response_packet.offset[i] = 0;
+		mass_calib_scale_response_packet.scale[i] = 1;
+		mass_calib_scale_response_packet.enabled_channels[i] = false;
+	}
+
+	mass_calib_offset_response_packet.alpha = 0;
+	mass_calib_scale_response_packet.alpha = 0;
+
+
+	if (MassSensorInstance != nullptr) {
+		MassSensorInstance->set_sender_id(sender_id);
+		if (MassSensorInstance->get_sensor() != nullptr) {
+			MassSensorInstance->LOG_INFO("Received ADS1234 calibration command");
+			if (packet->calib_offset) {
+				if (packet->channel <= 4) {
+					if (packet->channel != 0) {
+						if (MassSensorInstance->get_channels_status()[packet->channel-1]) {
+							MassSensorInstance->start_calib_offset(50, packet->channel);
+							mass_calib_offset_response_packet.success = true;
+						} else {
+							MassSensorInstance->LOG_ERROR("Channel number for offset calibration is not enabled: %d", packet->channel);
+							mass_calib_offset_response_packet.success = false;
+						}
+					} else {
+						// if channel = 0, return success = true if at least one of the channels is enabled
+						uint8_t num_enabled_channels = 0;
+						for (uint8_t i = 0; i < 4; ++i) {
+							if (MassSensorInstance->get_channels_status()[i])
+								num_enabled_channels++;
+						}
+						if (num_enabled_channels == 0) {
+							mass_calib_offset_response_packet.success = false;
+							MassSensorInstance->LOG_ERROR("Unable to calibrate offset since all channels are disabled");
+						} else {
+							MassSensorInstance->start_calib_offset(50, packet->channel);
+							mass_calib_offset_response_packet.success = true;
+						}
+					}
+				} else {
+					MassSensorInstance->LOG_ERROR("Invalid channel number for offset calibration: %d", packet->channel);
+					mass_calib_offset_response_packet.success = false;
+				}
+			}
+			if (packet->calib_scale) {
+				if (packet->expected_weight > 0) {
+					if (packet->channel <= 4) {
+						if (packet->channel != 0) {
+							if (MassSensorInstance->get_channels_status()[packet->channel-1]) {
+								MassSensorInstance->start_calib_scale(50, packet->channel, packet->expected_weight);
+								mass_calib_scale_response_packet.success = true;
+							} else {
+								MassSensorInstance->LOG_ERROR("Channel number for scale calibration is not enabled: %d", packet->channel);
+								mass_calib_scale_response_packet.success = false;
+							}
+						} else {
+							// if channel = 0, return success = true if at least one of the channels is enabled
+							uint8_t num_enabled_channels = 0;
+							for (uint8_t i = 0; i < 4; ++i) {
+								if (MassSensorInstance->get_channels_status()[i])
+									num_enabled_channels++;
+							}
+							if (num_enabled_channels == 0) {
+								MassSensorInstance->LOG_ERROR("Unable to calibrate scale since all channels are disabled");
+								mass_calib_scale_response_packet.success = false;
+							} else {
+								MassSensorInstance->start_calib_scale(50, packet->channel, packet->expected_weight);
+								mass_calib_scale_response_packet.success = true;
+							}
+						}
+					} else {
+						MassSensorInstance->LOG_ERROR("Invalid channel number for scale calibration: %d", packet->channel);
+						mass_calib_scale_response_packet.success = false;
+					}
+				} else {
+					MassSensorInstance->LOG_ERROR("Invalid calibration weight: %+.3f", packet->expected_weight);
+					mass_calib_scale_response_packet.success = false;
+				}
+			}
+
+		} else {
+			MassSensorInstance->LOG_ERROR("Mass sensor member non-existent");
+			mass_calib_offset_response_packet.success = false;
+			mass_calib_scale_response_packet.success = false;
+		}
+
+
+	} else {
+		console.printf_error("ADS1234Thread instance does not exist yet\r\n");
+		mass_calib_offset_response_packet.success = false;
+		mass_calib_scale_response_packet.success = false;
+	}
+
+	if (mass_calib_offset_response_packet.success == false) {
+		MAKE_IDENTIFIABLE(mass_calib_offset_response_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		if (sender_id == 1)
+			FDCAN1_network->send(&mass_calib_offset_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&mass_calib_offset_response_packet);
+		portYIELD();
+	}
+
+	if (mass_calib_scale_response_packet.success == false) {
+		MAKE_IDENTIFIABLE(mass_calib_scale_response_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		if (sender_id == 1)
+			FDCAN1_network->send(&mass_calib_scale_response_packet);
+		else if (sender_id == 2)
+			FDCAN2_network->send(&mass_calib_scale_response_packet);
+		portYIELD();
+	}
 }

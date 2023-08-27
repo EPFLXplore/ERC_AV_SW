@@ -93,6 +93,9 @@ class ADS1234
 		// returns a filtered reading (low pass filter)
 		ERROR_t read_filtered(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
 
+		// returns last filtered reading (without offset nor scaling)
+		float get_last_filtered_raw(Channel channel);
+
 		// returns (read_average() - OFFSET), that is the current value without the tare weight; times = how many readings to do
 		ERROR_t get_value(Channel channel, float& value, uint16_t times = 10, bool Calibrating = false);
 
@@ -145,6 +148,8 @@ class ADS1234
 
 		float OFFSET[4] = {0, 0, 0, 0};	// used for tare weight
 		float SCALE[4] = {1,1,1,1};	// used to return weight in grams, kg, ounces, whatever
+
+		float last_filtered_raw[4] = {0, 0, 0, 0};
 
 		Speed _speed ;
 		Channel lastChannel = AIN1;
