@@ -24,6 +24,7 @@ public:
 	uint8_t getPortNum();
 
 	static void handle_led_request(uint8_t sender_id, LEDPacket* packet);
+
 private:
 	ProberThread* parent;
 	uint8_t portNum;

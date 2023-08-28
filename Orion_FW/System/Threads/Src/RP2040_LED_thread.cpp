@@ -55,29 +55,33 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 		return;
 	} else {
 		LEDInstance->LOG_INFO("Received LED state change request");
-		HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(LEDInstance->parent->getI2C(), RP2040_ADDR << 1, &(packet->state), 1, 1000);
-		if (status != HAL_OK) {
-			led_response_packet.success = false;
-			LEDInstance->LOG_ERROR("Thread aborted");
-			MAKE_IDENTIFIABLE(led_response_packet);
-			Telemetry::set_id(JETSON_NODE_ID);
-			if (sender_id == 1)
-				FDCAN1_network->send(&led_response_packet);
-			else if (sender_id == 2)
-				FDCAN2_network->send(&led_response_packet);
-			LEDInstance = nullptr;
-			LEDInstance->terminate();
-			LEDInstance->parent->resetProber();
+		if (packet->state < 4) {
+			HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(LEDInstance->parent->getI2C(), RP2040_ADDR << 1, &(packet->state), 1, 1000);
+			if (status != HAL_OK) {
+				led_response_packet.success = false;
+				LEDInstance->LOG_ERROR("Thread aborted");
+				MAKE_IDENTIFIABLE(led_response_packet);
+				Telemetry::set_id(JETSON_NODE_ID);
+				if (sender_id == 1)
+					FDCAN1_network->send(&led_response_packet);
+				else if (sender_id == 2)
+					FDCAN2_network->send(&led_response_packet);
+				LEDInstance = nullptr;
+				LEDInstance->terminate();
+				LEDInstance->parent->resetProber();
+			} else {
+				led_response_packet.success = true;
+				led_response_packet.state = packet->state;
+				MAKE_IDENTIFIABLE(led_response_packet);
+				Telemetry::set_id(JETSON_NODE_ID);
+				if (sender_id == 1)
+					FDCAN1_network->send(&led_response_packet);
+				else if (sender_id == 2)
+					FDCAN2_network->send(&led_response_packet);
+				portYIELD();
+			}
 		} else {
-			led_response_packet.success = true;
-			led_response_packet.state = packet->state;
-			MAKE_IDENTIFIABLE(led_response_packet);
-			Telemetry::set_id(JETSON_NODE_ID);
-			if (sender_id == 1)
-				FDCAN1_network->send(&led_response_packet);
-			else if (sender_id == 2)
-				FDCAN2_network->send(&led_response_packet);
-			portYIELD();
+			LEDInstance->LOG_ERROR("Invalid LED state received: %d", packet->state);
 		}
 	}
 }
