@@ -96,6 +96,9 @@ class ADS1234
 		// returns last filtered reading (without offset nor scaling)
 		float get_last_filtered_raw(Channel channel);
 
+		// returns last filtered reading (with offset)
+		float get_last_filtered_tared(Channel channel);
+
 		// returns (read_average() - OFFSET), that is the current value without the tare weight; times = how many readings to do
 		ERROR_t get_value(Channel channel, float& value, uint16_t times = 10, bool Calibrating = false);
 

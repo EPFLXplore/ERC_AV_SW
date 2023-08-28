@@ -16,7 +16,7 @@
 
 class VoltmeterThread : public Thread {
 public:
-	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), voltmeter(parent->getI2C(), ADS_ADDR_VDD) {}
+	VoltmeterThread(ProberThread* parent) : Thread("Voltmeter"), parent(parent), portNum(parent->getI2CNum()), voltmeter(parent->getI2C(), ADS_ADDR_GND) {}
 	void init();
 	void loop();
 	uint8_t getPortNum();

@@ -173,12 +173,12 @@ void System::handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet) {
 	else
 		laser_response_packet.success = true;
 
-	MAKE_IDENTIFIABLE(*packet);
+	MAKE_IDENTIFIABLE(laser_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
-		FDCAN1_network->send(packet);
+		FDCAN1_network->send(&laser_response_packet);
 	else if (sender_id == 2)
-		FDCAN2_network->send(packet);
+		FDCAN2_network->send(&laser_response_packet);
 }
 
 extern "C" {

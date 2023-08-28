@@ -56,13 +56,13 @@ bool ProberThread::probeI2C(uint8_t address) {
 }
 
 void ProberThread::loop() {
-	if (probeI2C(ADS_ADDR_VDD)) {
+	if (probeI2C(ADS_ADDR_GND)) {
 		this->instance = new VoltmeterThread(this);
 		this->instance->setTickDelay(100);
 		System::blink_yellow_led(i2cNum);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
-	if (probeI2C(ADS_ADDR_GND)) {
+	if (probeI2C(ADS_ADDR_SCL)) {
 		this->instance = new PotentiometerThread(this);
 		this->instance->setTickDelay(100);
 		System::blink_yellow_led(i2cNum);

@@ -16,7 +16,7 @@
 
 class PotentiometerThread : public Thread {
 public:
-	PotentiometerThread(ProberThread* parent) : Thread("Potentiometer"), parent(parent), portNum(parent->getI2CNum()), potentiometer(parent->getI2C(), ADS_ADDR_GND) {}
+	PotentiometerThread(ProberThread* parent) : Thread("Potentiometer"), parent(parent), portNum(parent->getI2CNum()), potentiometer(parent->getI2C(), ADS_ADDR_SCL) {}
 	void init();
 	void loop();
 	uint8_t getPortNum();

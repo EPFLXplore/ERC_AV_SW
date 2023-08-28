@@ -303,6 +303,10 @@ float ADS1234::get_last_filtered_raw(Channel channel) {
 	return last_filtered_raw[channel-1];
 }
 
+float ADS1234::get_last_filtered_tared(Channel channel) {
+	return last_filtered_raw[channel-1] - OFFSET[channel-1];
+}
+
 ERROR_t ADS1234::read_average(Channel channel, float& value, uint16_t times, bool Calibrating) {
 
 	long sum = 0;

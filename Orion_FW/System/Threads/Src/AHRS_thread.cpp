@@ -212,7 +212,7 @@ void AHRSThread::send_calib_gyro() {
 }
 
 void AHRSThread::set_sender_id(uint8_t sender_id) {
-	sender_id = sender_id;
+	this->sender_id = sender_id;
 }
 
 void AHRSThread::loop() {
@@ -353,10 +353,10 @@ void AHRSThread::loop() {
 		MAKE_IDENTIFIABLE(imu_packet);
 		MAKE_IDENTIFIABLE(mag_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
-//		FDCAN1_network->send(&imu_packet);
-//		FDCAN2_network->send(&imu_packet);
-//		FDCAN1_network->send(&mag_packet);
-//		FDCAN2_network->send(&mag_packet);
+		FDCAN1_network->send(&imu_packet);
+		FDCAN2_network->send(&imu_packet);
+		FDCAN1_network->send(&mag_packet);
+		FDCAN2_network->send(&mag_packet);
 
 		portYIELD();
 	} else {

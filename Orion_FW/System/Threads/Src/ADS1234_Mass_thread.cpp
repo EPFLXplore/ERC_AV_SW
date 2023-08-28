@@ -208,6 +208,11 @@ void ADS1234Thread::send_calib_offset() {
 	mass_calib_offset_response_packet.offset[2] = mass_sensor->get_offset(AIN3);
 	mass_calib_offset_response_packet.offset[3] = mass_sensor->get_offset(AIN4);
 
+	LOG_SUCCESS("Computed mass sensor offset: [%.3f %.3f %.3f %.3f]",
+			mass_sensor->get_offset(AIN1), mass_sensor->get_offset(AIN2),
+			mass_sensor->get_offset(AIN3), mass_sensor->get_offset(AIN4));
+
+
 	for (uint8_t i = 0; i < 4; ++i) {
 		mass_calib_offset_response_packet.enabled_channels[i] = enabled_channels[i];
 	}
@@ -258,6 +263,10 @@ void ADS1234Thread::send_calib_scale() {
 	mass_calib_scale_response_packet.scale[2] = mass_sensor->get_scale(AIN3);
 	mass_calib_scale_response_packet.scale[3] = mass_sensor->get_scale(AIN4);
 
+	LOG_SUCCESS("Computed mass sensor scale: [%.3f %.3f %.3f %.3f]",
+			mass_sensor->get_scale(AIN1), mass_sensor->get_scale(AIN2),
+			mass_sensor->get_scale(AIN3), mass_sensor->get_scale(AIN4));
+
 	for (uint8_t i = 0; i < 4; ++i) {
 		mass_calib_offset_response_packet.enabled_channels[i] = enabled_channels[i];
 	}
@@ -273,7 +282,7 @@ void ADS1234Thread::send_calib_scale() {
 }
 
 void ADS1234Thread::set_sender_id(uint8_t sender_id) {
-	sender_id = sender_id;
+	this->sender_id = sender_id;
 }
 
 void ADS1234Thread::loop() {
@@ -352,10 +361,10 @@ void ADS1234Thread::loop() {
 
 		if(calibrating_scale) {
 			cnt_mass_scale += 1;
-			mass_sum_scale[0] += mass_sensor->get_last_filtered_raw(AIN1);
-			mass_sum_scale[1] += mass_sensor->get_last_filtered_raw(AIN2);
-			mass_sum_scale[2] += mass_sensor->get_last_filtered_raw(AIN3);
-			mass_sum_scale[3] += mass_sensor->get_last_filtered_raw(AIN4);
+			mass_sum_scale[0] += mass_sensor->get_last_filtered_tared(AIN1);
+			mass_sum_scale[1] += mass_sensor->get_last_filtered_tared(AIN2);
+			mass_sum_scale[2] += mass_sensor->get_last_filtered_tared(AIN3);
+			mass_sum_scale[3] += mass_sensor->get_last_filtered_tared(AIN4);
 		}
 
 		if(calibrating_offset && (cnt_mass_offset > calib_samples_offset)) {
@@ -616,7 +625,8 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 		mass_calib_scale_response_packet.success = false;
 	}
 
-	if (mass_calib_offset_response_packet.success == false) {
+
+	if ((packet->calib_offset) && (mass_calib_offset_response_packet.success == false)) {
 		MAKE_IDENTIFIABLE(mass_calib_offset_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
@@ -626,7 +636,7 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 		portYIELD();
 	}
 
-	if (mass_calib_scale_response_packet.success == false) {
+	if ((packet->calib_scale) && (mass_calib_scale_response_packet.success == false)) {
 		MAKE_IDENTIFIABLE(mass_calib_scale_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)

@@ -27,10 +27,11 @@ void Telemetry::setup() {
 	FDCAN1_network = new CANBus(FDCAN1_driver);
 	FDCAN2_network = new CANBus(FDCAN2_driver);
 
-	// Request handles
+	// Ping handles
 	FDCAN1_network->handle<PingPacket>(&Telemetry::handle_ping);
 	FDCAN2_network->handle<PingPacket>(&Telemetry::handle_ping);
 
+	// Request handles
 	FDCAN1_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
 	FDCAN2_network->handle<SpectroPacket>(&AS7265Thread::handle_take_measurement);
 

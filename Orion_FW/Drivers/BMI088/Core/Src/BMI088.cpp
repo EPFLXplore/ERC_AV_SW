@@ -326,11 +326,14 @@ HAL_StatusTypeDef BMI088::read_accel() {
 	acc_mss.y = acc.y / 32767.0f * acc_range * G;
 	acc_mss.z = acc.z / 32767.0f * acc_range * G;
 
-	// Apply transform and remove bias
+	// Remove bias and apply transform
+	float x_nb = acc_mss.x - ACC_BIAS[0];
+	float y_nb = acc_mss.y - ACC_BIAS[1];
+	float z_nb = acc_mss.z - ACC_BIAS[2];
 
-	acc_cal_mss.x = ACC_TF[0][0]*acc_mss.x + ACC_TF[0][1]*acc_mss.y + ACC_TF[0][2]*acc_mss.z;
-	acc_cal_mss.y = ACC_TF[1][0]*acc_mss.x + ACC_TF[1][1]*acc_mss.y + ACC_TF[1][2]*acc_mss.z;
-	acc_cal_mss.z = ACC_TF[2][0]*acc_mss.x + ACC_TF[2][1]*acc_mss.y + ACC_TF[2][2]*acc_mss.z;
+	acc_cal_mss.x = ACC_TF[0][0]*x_nb + ACC_TF[0][1]*y_nb + ACC_TF[0][2]*z_nb;
+	acc_cal_mss.y = ACC_TF[1][0]*x_nb + ACC_TF[1][1]*y_nb + ACC_TF[1][2]*z_nb;
+	acc_cal_mss.z = ACC_TF[2][0]*x_nb + ACC_TF[2][1]*y_nb + ACC_TF[2][2]*z_nb;
 
 	return status;
 }

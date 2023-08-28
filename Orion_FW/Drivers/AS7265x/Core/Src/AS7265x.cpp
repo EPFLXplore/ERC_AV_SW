@@ -173,8 +173,10 @@ HAL_StatusTypeDef AS7265x::takeMeasurements() {
 		if (status != HAL_OK)
 			return status;
 
-		if(xTaskGetTickCount() - startTime > (maxWaitTime))
+		if(xTaskGetTickCount() - startTime > (maxWaitTime)) {
+			volatile uint32_t interval  = xTaskGetTickCount() - startTime;
 			return HAL_ERROR; //Sensor failed to respond
+		}
 
 		osDelay(AS7265X_POLLING_DELAY);
 	}
@@ -489,7 +491,7 @@ HAL_StatusTypeDef AS7265x::setGain(uint8_t gain) {
 //Give this function a byte from 0 to 255.
 //Time will be 2.8ms * [integration cycles + 1]
 HAL_StatusTypeDef AS7265x::setIntegrationCycles(uint8_t cycleValue) {
-	maxWaitTime = (int)(cycleValue * 2.8 * 1.5); //Wait for integration time + 50%
+	maxWaitTime = (int)(cycleValue * 2.8 * 3); //Wait for integration time + 70%
 	return virtualWriteRegister(AS7265X_INTERGRATION_TIME, cycleValue); //Write
 }
 
@@ -498,6 +500,8 @@ HAL_StatusTypeDef AS7265x::enableInterrupt() {
 	uint8_t value;
 	//Read, mask/set, write
   	status = virtualReadRegister(AS7265X_CONFIG, value); //Read
+  	if (status != HAL_OK)
+  		return status;
 	value |= (1 << 6);                                   //Set INT bit
 	return virtualWriteRegister(AS7265X_CONFIG, value);         //Write
 }
@@ -509,6 +513,8 @@ HAL_StatusTypeDef AS7265x::disableInterrupt()
 	uint8_t value;
 	//Read, mask/set, write
   	status = virtualReadRegister(AS7265X_CONFIG, value); //Read
+  	if (status != HAL_OK)
+  		return status;
 	value &= ~(1 << 6);                                  //Clear INT bit
 	return virtualWriteRegister(AS7265X_CONFIG, value);         //Write
 }
