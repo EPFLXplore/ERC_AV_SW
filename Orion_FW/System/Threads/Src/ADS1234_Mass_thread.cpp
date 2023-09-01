@@ -90,14 +90,14 @@ void ADS1234Thread::init() {
 
 	// Sensor related configuration after successfully connected
 	mass_sensor->begin();
-	mass_sensor->set_offset(AIN1, 265542);
-	mass_sensor->set_scale(AIN1, 452.05);
-	mass_sensor->set_offset(AIN2, 265542);
-	mass_sensor->set_scale(AIN2, 452.05);
-	mass_sensor->set_offset(AIN3, 265542);
-	mass_sensor->set_scale(AIN3, 452.05);
-	mass_sensor->set_offset(AIN4, 265542);
-	mass_sensor->set_scale(AIN4, 452.05);
+	mass_sensor->set_offset(AIN1, 263616.4375);
+	mass_sensor->set_scale(AIN1, 451.8433);
+	mass_sensor->set_offset(AIN2, 263616.4375);
+	mass_sensor->set_scale(AIN2, 451.8433);
+	mass_sensor->set_offset(AIN3, 263616.4375);
+	mass_sensor->set_scale(AIN3, 451.8433);
+	mass_sensor->set_offset(AIN4, 263616.4375);
+	mass_sensor->set_scale(AIN4, 451.8433);
 
 	request_config();
 }

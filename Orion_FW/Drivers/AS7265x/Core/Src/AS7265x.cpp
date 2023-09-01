@@ -64,7 +64,7 @@ HAL_StatusTypeDef AS7265x::begin() {
 	if (status != HAL_OK)
 		return status;
 
-	status = setIntegrationCycles(50); //50 * 2.8ms = 140ms. 0 to 255 is valid.
+	status = setIntegrationCycles(49); //50 * 2.8ms = 140ms. 0 to 255 is valid.
 	if (status != HAL_OK)
 		return status;
 	//If you use Mode 2 or 3 (all the colors) then integration time is double. 140*2 = 280ms between readings.
@@ -153,10 +153,10 @@ HAL_StatusTypeDef AS7265x::isConnected() {
 		status = HAL_I2C_IsDeviceReady(hi2c, i2c_address, 10, 100);
 #endif
 
-		if (status != HAL_OK)
-			return status; // Sensor did not ACK
+		if (status == HAL_OK)
+			return status; // Sensor ACK'd
 	}
-	return HAL_OK; // Sensor ACK'd
+	return HAL_TIMEOUT; // Sensor did not ACK
 }
 
 //Tells IC to take all channel measurements and polls for data ready flag
@@ -168,7 +168,7 @@ HAL_StatusTypeDef AS7265x::takeMeasurements() {
   //Wait for data to be ready
 	int startTime = xTaskGetTickCount();
 	bool available = false;
-	while (available == false) {
+	while (available == false) { // will block the thread
 		status = dataAvailable(available);
 		if (status != HAL_OK)
 			return status;
@@ -178,6 +178,7 @@ HAL_StatusTypeDef AS7265x::takeMeasurements() {
 			return HAL_ERROR; //Sensor failed to respond
 		}
 
+		taskYIELD();
 		osDelay(AS7265X_POLLING_DELAY);
 	}
 	return HAL_OK;
@@ -736,6 +737,7 @@ HAL_StatusTypeDef AS7265x::virtualReadRegister(uint8_t virtualAddr, uint8_t& val
 		if ((status_reg & AS7265X_TX_VALID) == 0)
 			break; // If TX bit is clear, it is ok to write
 
+		taskYIELD();
 		osDelay(AS7265X_POLLING_DELAY);
 	}
 
@@ -764,6 +766,7 @@ HAL_StatusTypeDef AS7265x::virtualReadRegister(uint8_t virtualAddr, uint8_t& val
 		if ((status_reg & AS7265X_RX_VALID) != 0)
 			break; // Read data is ready.
 
+		taskYIELD();
 		osDelay(AS7265X_POLLING_DELAY);
 	}
 	uint8_t incoming;
@@ -796,6 +799,7 @@ HAL_StatusTypeDef AS7265x::virtualWriteRegister(uint8_t virtualAddr, uint8_t dat
 		if ((status_reg & AS7265X_TX_VALID) == 0)
 			break; // No inbound TX pending at slave. Okay to write now.
 
+		taskYIELD();
 		osDelay(AS7265X_POLLING_DELAY);
 	}
 
@@ -817,6 +821,7 @@ HAL_StatusTypeDef AS7265x::virtualWriteRegister(uint8_t virtualAddr, uint8_t dat
 		if ((status & AS7265X_TX_VALID) == 0)
 			break; // No inbound TX pending at slave. Okay to write now.
 
+		taskYIELD();
 		osDelay(AS7265X_POLLING_DELAY);
   }
 

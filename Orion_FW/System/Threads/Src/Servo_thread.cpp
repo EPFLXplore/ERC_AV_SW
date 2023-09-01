@@ -127,22 +127,29 @@ static ServoResponsePacket servo_response_packet;
 
 void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	servo_data.success = false;
+	float angle = packet->angle;
 	if (ServoInstance == nullptr) {
 		servo_data.success = false;
 		console.printf_error("ServoThread instance does not exist yet\r\n");
 		return;
-	}
-	else {
-		float angle = packet->angle;
-		HAL_StatusTypeDef status = ServoInstance->set_angle(angle, packet->channel);
-		if (status == HAL_OK) {
-			ServoInstance->LOG_INFO("Angle set at %f degree on channel %d", angle, packet->channel);
-			servo_data.success = true;
-		} else {
+	} else {
+		if (packet->channel > 4) {
+			ServoInstance->LOG_ERROR("Channel number too large: %d", packet->channel);
 			servo_data.success = false;
+		} else if ((packet->channel ==  4) && (ServoInstance->num_channels == 3)) {
+			ServoInstance->LOG_ERROR("Channel not supported for this Hat: %d", packet->channel);
+			servo_data.success = false;
+		} else {
+			HAL_StatusTypeDef status = ServoInstance->set_angle(angle, packet->channel);
+			if (status == HAL_OK) {
+				ServoInstance->LOG_INFO("Trying to set angle at %f degree on channel %d", angle, packet->channel);
+				servo_data.success = true;
+			} else {
+				servo_data.success = false;
+			}
 		}
 	}
-	servo_data.angle = packet->angle; // normally it should have been modified by set_angle
+	servo_data.angle = angle; // normally it should have been modified by set_angle
 	servo_data.channel = packet->channel;
 	servo_data.toArray((uint8_t*) &servo_response_packet);
 	MAKE_IDENTIFIABLE(servo_response_packet);
