@@ -507,7 +507,7 @@ EulerAngles AHRSThread::QuaternionToEuler(Quaternion q_) {
 static AccelConfigResponsePacket accel_config_response_packet = {};
 
 void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable accelerometer config packet");
 		return;
 	}
@@ -572,7 +572,7 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 static GyroConfigResponsePacket gyro_config_response_packet = {};
 
 void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable gyroscope config packet");
 		return;
 	}
@@ -621,7 +621,7 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 static MagConfigResponsePacket mag_config_response_packet = {};
 
 void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable magnetometer config packet");
 		return;
 	}
@@ -685,7 +685,7 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 
 
 void AHRSThread::handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable IMU calibration packet");
 		return;
 	}

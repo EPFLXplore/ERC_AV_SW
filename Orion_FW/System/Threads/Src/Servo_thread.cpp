@@ -127,7 +127,7 @@ HAL_StatusTypeDef ServoThread::set_angle(float& angle, uint8_t ch) {
 static ServoResponsePacket servo_response_packet;
 
 void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable servo packet");
 		return;
 	}
@@ -272,7 +272,7 @@ const float* ServoThread::get_max_angles() const {
 static ServoConfigResponsePacket servo_config_response_packet = {};
 
 void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable servo config packet");
 		return;
 	}

@@ -431,7 +431,7 @@ float ADS1234Thread::get_alpha() {
 static MassConfigResponsePacket mass_config_response_packet = {};
 
 void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable mass config packet");
 		return;
 	}
@@ -523,7 +523,7 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 }
 
 void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable mass calibration packet");
 		return;
 	}

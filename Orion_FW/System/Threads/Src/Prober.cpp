@@ -13,7 +13,7 @@
 
 #include "i2c.h"
 
-#include "Lang/Operators.h"
+#include "Operators.h"
 
 #include <ADS1115_Potentiometer_thread.hpp>
 #include <ADS1115_Voltmeter_thread.hpp>

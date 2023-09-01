@@ -20,7 +20,7 @@
 #include <spi.h>
 //============================================================
 
-typedef enum ERROR_t {
+enum ERROR_t {
 	NoERROR,
 	TIMEOUT_HIGH,     // Timeout waiting for HIGH
 	TIMEOUT_LOW,      // Timeout waiting for LOW
@@ -29,19 +29,19 @@ typedef enum ERROR_t {
 	DIVIDED_by_ZERO
 };
 
-typedef enum Gain{
+enum Gain{
 	GAIN1 = 1,
 	GAIN2,
 	GAIN64,
 	GAIN128
 };
 
-typedef enum Speed{
+enum Speed{
 	SLOW = 0,
 	FAST
 };
 
-typedef enum Channel{
+enum Channel{
 	AIN1 = 1,
 	AIN2 = 2,
 	AIN3 = 3,

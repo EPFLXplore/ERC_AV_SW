@@ -207,7 +207,7 @@ const bool* PotentiometerThread::get_channels_status() const {
 static PotentiometerConfigResponsePacket pot_config_response_packet = {};
 
 void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConfigPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable potentiometer config packet");
 		return;
 	}

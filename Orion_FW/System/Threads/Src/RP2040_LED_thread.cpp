@@ -12,7 +12,6 @@
 
 
 LEDThread* LEDInstance = nullptr;
-static char cbuf[256]; // for printf
 
 void LEDThread::init() {
 	LEDInstance = this;
@@ -48,7 +47,7 @@ uint8_t LEDThread::getPortNum() {
 static LEDResponsePacket led_response_packet;
 
 void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable LED packet");
 		return;
 	}

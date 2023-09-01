@@ -162,7 +162,7 @@ uint32_t System::get_node_id() {
 static LaserResponsePacket laser_response_packet;
 
 void System::handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable laser packet");
 		return;
 	}

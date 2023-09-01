@@ -182,7 +182,7 @@ measurements = np.zeros((N, 3), dtype='float')
 
 for currMeas in range(N):
     raw_data = Arduino.Read().split(',')  # Split into separate values
-    data = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
+    data = [value.strip('39;49m\x1b7\x1b[39;49m\x1b[0;0H\x1b[2K[AHRS]') for value in raw_data]
     if len(data) == 3:
         try:
             mx, my, mz = float(data[0]), float(data[1]), float(data[2])  # Convert to floats, [uT]

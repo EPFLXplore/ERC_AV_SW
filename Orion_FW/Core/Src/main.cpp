@@ -82,7 +82,7 @@ extern "C" { // C++ cannot override printf, must compile in C
   * @retval int
   */
 int main(void)
-{
+ {
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */

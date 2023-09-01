@@ -35,10 +35,10 @@ import matplotlib.pyplot as plt
 
 
 # Define calibration parameters
-b = np.array([-16.299722, -22.681104, 15.229583])
-A = np.array([[0.938294, -0.000981, 0.017228],  # 'A^-1' matrix from Magneto
-              [-0.000981, 0.947876, 0.022693],
-              [0.017228, 0.022693, 0.910578]])
+b = np.array([-14.661491, 5.658302, 9.051598])
+A = np.array([[0.894783, 0.014404, -0.010030],  # 'A^-1' matrix from Magneto
+              [0.014404, 0.861242, -0.010990],
+              [-0.010030, -0.010990, 0.862348]])
 
 
 # Read raw data and apply calibration
@@ -51,7 +51,7 @@ N = len(rawData)
 calibData = np.zeros((N // skip_points, 3), dtype='float')
 for i in range(0, N, skip_points):
     currMeas = np.array([rawData[i, 0], rawData[i, 1], rawData[i, 2]])
-    calibData[i // skip_points, :] = A @ (currMeas - b)
+    calibData[i // skip_points-1, :] = A @ (currMeas - b)
 
 # Plot XY data
 plt.figure()
@@ -95,9 +95,9 @@ for i in range(0, N, skip_points):
     yraw = rawData[i, 1]
     zraw = rawData[i, 2]
 
-    xcalib = calibData[i // skip_points, 0]
-    ycalib = calibData[i // skip_points, 1]
-    zcalib = calibData[i // skip_points, 2]
+    xcalib = calibData[i // skip_points-1, 0]
+    ycalib = calibData[i // skip_points-1, 1]
+    zcalib = calibData[i // skip_points-1, 2]
     ax.scatter(xraw, yraw, zraw, color='r')
     ax.scatter(xcalib, ycalib, zcalib, color='b')
 

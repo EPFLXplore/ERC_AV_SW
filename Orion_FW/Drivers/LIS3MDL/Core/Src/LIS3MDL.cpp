@@ -515,7 +515,7 @@ HAL_StatusTypeDef LIS3MDL::readMagneticField(float &x_, float &y_, float &z_) {
 	int16_t data[3];
 	HAL_StatusTypeDef res = read_reg(LIS3MDL_REG_OUT_X_L, (uint8_t*)data, 6);
 	if (res != HAL_OK) {
-		x = y = z = NAN;
+		x = y = z = 0.0;
 		return res;
 	}
 

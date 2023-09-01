@@ -181,4 +181,4 @@ class BMI088{
 };
 
 
-#endif BMI088_CORE_INC_BMI088_HPP_
+#endif // BMI088_CORE_INC_BMI088_HPP_

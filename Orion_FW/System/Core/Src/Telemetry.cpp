@@ -76,7 +76,7 @@ void Telemetry::setup() {
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable ping packet");
 		return;
 	}

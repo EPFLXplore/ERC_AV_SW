@@ -15,7 +15,6 @@
 //#include "usart.h"
 
 ModbusThread* ModbusInstance = nullptr;
-static char cbuf[256]; // for printf
 
 ModbusThread::~ModbusThread() {
 	delete FourInOneInstance;

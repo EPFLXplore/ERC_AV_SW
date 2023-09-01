@@ -79,8 +79,7 @@ void BMP280::readMBRegister(uint8_t address, uint8_t *values, uint8_t length)
 uint8_t BMP280::spiReadWrite(uint8_t tx_message)
 {
 	uint8_t rx_message = 255;
-	HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(this->spiHandle, &tx_message, &rx_message, 1,
-			HAL_MAX_DELAY);
+	HAL_StatusTypeDef status = HAL_SPI_TransmitReceive(this->spiHandle, &tx_message, &rx_message, 1, HAL_MAX_DELAY);
 	return rx_message;
 }
 

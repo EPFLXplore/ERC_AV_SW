@@ -174,7 +174,6 @@ HAL_StatusTypeDef AS7265x::takeMeasurements() {
 			return status;
 
 		if(xTaskGetTickCount() - startTime > (maxWaitTime)) {
-			volatile uint32_t interval  = xTaskGetTickCount() - startTime;
 			return HAL_ERROR; //Sensor failed to respond
 		}
 

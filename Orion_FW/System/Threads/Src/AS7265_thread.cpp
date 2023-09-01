@@ -153,7 +153,7 @@ void AS7265Thread::take_measurements(uint8_t sender_id) {
 }
 
 void AS7265Thread::handle_take_measurement(uint8_t sender_id, SpectroPacket* packet) {
-	if(!(IS_RELIABLE(*packet))) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
 		console.printf_error("Unreliable spectro packet");
 		return;
 	}
