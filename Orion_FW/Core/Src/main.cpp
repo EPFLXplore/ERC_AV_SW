@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "crc.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "i2c.h"
@@ -126,6 +127,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_IWDG1_Init();
+  MX_CRC_Init();
   /* USER CODE BEGIN 2 */
 //  __DBGMCU_CLK_ENABLE();
   __HAL_DBGMCU_FREEZE_IWDG1();

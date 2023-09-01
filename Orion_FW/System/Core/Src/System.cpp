@@ -178,7 +178,7 @@ void System::handle_meissa_output_cmd(uint8_t sender_id, LaserPacket* packet) {
 		laser_response_packet.success = true;
 
 	MAKE_IDENTIFIABLE(laser_response_packet);
-	MAKE_RELIABLE(laser_response_packet);
+	MAKE_RELIABLE_MCU(laser_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&laser_response_packet);

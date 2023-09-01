@@ -64,7 +64,7 @@ void NPKThread::loop() {
 	npk_data.toArray((uint8_t*) &npk_packet);
 
 	MAKE_IDENTIFIABLE(npk_packet);
-	MAKE_RELIABLE(npk_packet);
+	MAKE_RELIABLE_MCU(npk_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&npk_packet);
 	FDCAN2_network->send(&npk_packet);

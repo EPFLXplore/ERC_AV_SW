@@ -123,7 +123,7 @@ void AS7265Thread::take_measurements(uint8_t sender_id) {
 		spectro_data.max_data_val = get_max_val(spectro_data.data, 18);
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
-		MAKE_RELIABLE(spectro_response_packet);
+		MAKE_RELIABLE_MCU(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1) {
 			LOG_INFO("Sending spectro response over CAN1");
@@ -140,7 +140,7 @@ void AS7265Thread::take_measurements(uint8_t sender_id) {
 		spectro_data.success = false;
 		spectro_data.toArray((uint8_t*) &spectro_response_packet);
 		MAKE_IDENTIFIABLE(spectro_response_packet);
-		MAKE_RELIABLE(spectro_response_packet);
+		MAKE_RELIABLE_MCU(spectro_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
 			FDCAN1_network->send(&spectro_response_packet);

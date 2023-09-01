@@ -54,7 +54,7 @@ void ServoThread::request_config() {
 	servo_config_packet.req_max_duty = true;
 	servo_config_packet.req_min_duty = true;
 	MAKE_IDENTIFIABLE(servo_config_packet);
-	MAKE_RELIABLE(servo_config_packet);
+	MAKE_RELIABLE_MCU(servo_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&servo_config_packet);
 	FDCAN2_network->send(&servo_config_packet);
@@ -158,7 +158,7 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 	servo_data.channel = packet->channel;
 	servo_data.toArray((uint8_t*) &servo_response_packet);
 	MAKE_IDENTIFIABLE(servo_response_packet);
-	MAKE_RELIABLE(servo_response_packet);
+	MAKE_RELIABLE_MCU(servo_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&servo_response_packet);
@@ -357,7 +357,7 @@ void ServoThread::handle_set_config(uint8_t sender_id, ServoConfigPacket* packet
 		console.printf_error("ServoThread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(servo_config_response_packet);
-	MAKE_RELIABLE(servo_config_response_packet);
+	MAKE_RELIABLE_MCU(servo_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&servo_config_response_packet);

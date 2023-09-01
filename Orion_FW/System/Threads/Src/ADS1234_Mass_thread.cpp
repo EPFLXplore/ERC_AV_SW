@@ -122,7 +122,7 @@ void ADS1234Thread::request_config() {
 	mass_config_packet.req_alpha = true;
 	mass_config_packet.req_channels_status = true;
 	MAKE_IDENTIFIABLE(mass_config_packet);
-	MAKE_RELIABLE(mass_config_packet);
+	MAKE_RELIABLE_MCU(mass_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&mass_config_packet);
 	FDCAN2_network->send(&mass_config_packet);
@@ -219,7 +219,7 @@ void ADS1234Thread::send_calib_offset() {
 	}
 
 	MAKE_IDENTIFIABLE(mass_calib_offset_response_packet);
-	MAKE_RELIABLE(mass_calib_offset_response_packet);
+	MAKE_RELIABLE_MCU(mass_calib_offset_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&mass_calib_offset_response_packet);
@@ -274,7 +274,7 @@ void ADS1234Thread::send_calib_scale() {
 	}
 
 	MAKE_IDENTIFIABLE(mass_calib_scale_response_packet);
-	MAKE_RELIABLE(mass_calib_scale_response_packet);
+	MAKE_RELIABLE_MCU(mass_calib_scale_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&mass_calib_scale_response_packet);
@@ -380,7 +380,7 @@ void ADS1234Thread::loop() {
 
 		mass_data.toArray((uint8_t*) &mass_packet);
 		MAKE_IDENTIFIABLE(mass_packet);
-		MAKE_RELIABLE(mass_packet);
+		MAKE_RELIABLE_MCU(mass_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&mass_packet);
 		FDCAN2_network->send(&mass_packet);
@@ -514,7 +514,7 @@ void ADS1234Thread::handle_set_config(uint8_t sender_id, MassConfigPacket* packe
 		console.printf_error("ADS1234Thread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(mass_config_response_packet);
-	MAKE_RELIABLE(mass_config_response_packet);
+	MAKE_RELIABLE_MCU(mass_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&mass_config_response_packet);
@@ -638,7 +638,7 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 
 	if ((packet->calib_offset) && (mass_calib_offset_response_packet.success == false)) {
 		MAKE_IDENTIFIABLE(mass_calib_offset_response_packet);
-		MAKE_RELIABLE(mass_calib_offset_response_packet);
+		MAKE_RELIABLE_MCU(mass_calib_offset_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
 			FDCAN1_network->send(&mass_calib_offset_response_packet);
@@ -649,7 +649,7 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 
 	if ((packet->calib_scale) && (mass_calib_scale_response_packet.success == false)) {
 		MAKE_IDENTIFIABLE(mass_calib_scale_response_packet);
-		MAKE_RELIABLE(mass_calib_scale_response_packet);
+		MAKE_RELIABLE_MCU(mass_calib_scale_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
 			FDCAN1_network->send(&mass_calib_scale_response_packet);

@@ -81,7 +81,7 @@ void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {
 		return;
 	}
 	MAKE_IDENTIFIABLE(*packet);
-	MAKE_RELIABLE(*packet);
+	MAKE_RELIABLE_MCU(*packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(packet);

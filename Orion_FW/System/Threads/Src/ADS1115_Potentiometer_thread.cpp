@@ -73,7 +73,7 @@ void PotentiometerThread::request_config() {
 	pot_config_packet.req_max_angles = true;
 	pot_config_packet.req_channels_status = true;
 	MAKE_IDENTIFIABLE(pot_config_packet);
-	MAKE_RELIABLE(pot_config_packet);
+	MAKE_RELIABLE_MCU(pot_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&pot_config_packet);
 	FDCAN2_network->send(&pot_config_packet);
@@ -98,7 +98,7 @@ void PotentiometerThread::loop() {
 		}
 
 		MAKE_IDENTIFIABLE(pot_packet);
-		MAKE_RELIABLE(pot_packet);
+		MAKE_RELIABLE_MCU(pot_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&pot_packet);
 		FDCAN2_network->send(&pot_packet);
@@ -308,7 +308,7 @@ void PotentiometerThread::handle_set_config(uint8_t sender_id, PotentiometerConf
 		console.printf_error("PotentiometerThread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(pot_config_response_packet);
-	MAKE_RELIABLE(pot_config_response_packet);
+	MAKE_RELIABLE_MCU(pot_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&pot_config_response_packet);

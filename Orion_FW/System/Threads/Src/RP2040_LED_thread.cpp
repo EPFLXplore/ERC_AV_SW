@@ -65,7 +65,7 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 				led_response_packet.success = false;
 				LEDInstance->LOG_ERROR("Thread aborted");
 				MAKE_IDENTIFIABLE(led_response_packet);
-				MAKE_RELIABLE(led_response_packet);
+				MAKE_RELIABLE_MCU(led_response_packet);
 				Telemetry::set_id(JETSON_NODE_ID);
 				if (sender_id == 1)
 					FDCAN1_network->send(&led_response_packet);
@@ -78,7 +78,7 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 				led_response_packet.success = true;
 				led_response_packet.state = packet->state;
 				MAKE_IDENTIFIABLE(led_response_packet);
-				MAKE_RELIABLE(led_response_packet);
+				MAKE_RELIABLE_MCU(led_response_packet);
 				Telemetry::set_id(JETSON_NODE_ID);
 				if (sender_id == 1)
 					FDCAN1_network->send(&led_response_packet);
