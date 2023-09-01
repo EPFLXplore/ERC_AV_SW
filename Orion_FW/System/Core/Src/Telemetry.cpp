@@ -17,6 +17,8 @@
 #include "tim.h"
 #include "System.h"
 
+#include "Debug.h"
+
 ROCANDriver* FDCAN1_driver = nullptr;
 ROCANDriver* FDCAN2_driver = nullptr;
 CANBus* FDCAN1_network = nullptr;
@@ -74,7 +76,12 @@ void Telemetry::setup() {
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {
+	if(!(IS_RELIABLE(*packet))) {
+		console.printf_error("Unreliable ping packet");
+		return;
+	}
 	MAKE_IDENTIFIABLE(*packet);
+	MAKE_RELIABLE(*packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(packet);

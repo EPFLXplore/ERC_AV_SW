@@ -45,6 +45,7 @@ void VoltmeterThread::loop() {
 
 		voltmeter_data.toArray((uint8_t*) &voltage_packet);
 		MAKE_IDENTIFIABLE(voltage_packet);
+		MAKE_RELIABLE(voltage_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&voltage_packet);
 		FDCAN2_network->send(&voltage_packet);

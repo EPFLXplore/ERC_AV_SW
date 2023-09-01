@@ -94,6 +94,7 @@ void AHRSThread::request_config_accel() {
 	accel_config_packet.req_bias = true;
 	accel_config_packet.req_transform = true;
 	MAKE_IDENTIFIABLE(accel_config_packet);
+	MAKE_RELIABLE(accel_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&accel_config_packet);
 	FDCAN2_network->send(&accel_config_packet);
@@ -105,6 +106,7 @@ void AHRSThread::request_config_gyro() {
 	gyro_config_time = xTaskGetTickCount();
 	gyro_config_packet.req_bias = true;
 	MAKE_IDENTIFIABLE(gyro_config_packet);
+	MAKE_RELIABLE(gyro_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&gyro_config_packet);
 	FDCAN2_network->send(&gyro_config_packet);
@@ -117,6 +119,7 @@ void AHRSThread::request_config_mag() {
 	mag_config_packet.req_hard_iron = true;
 	mag_config_packet.req_soft_iron = true;
 	MAKE_IDENTIFIABLE(mag_config_packet);
+	MAKE_RELIABLE(mag_config_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	FDCAN1_network->send(&mag_config_packet);
 	FDCAN2_network->send(&mag_config_packet);
@@ -167,6 +170,7 @@ void AHRSThread::send_calib_accel() {
 			accel_bias_vector[0], accel_bias_vector[1], accel_bias_vector[2]);
 
 	MAKE_IDENTIFIABLE(accel_calib_response_packet);
+	MAKE_RELIABLE(accel_calib_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&accel_calib_response_packet);
@@ -203,6 +207,7 @@ void AHRSThread::send_calib_gyro() {
 			gyro_bias_vector[0], gyro_bias_vector[1], gyro_bias_vector[2]);
 
 	MAKE_IDENTIFIABLE(gyro_calib_response_packet);
+	MAKE_RELIABLE(gyro_calib_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&gyro_calib_response_packet);
@@ -351,7 +356,9 @@ void AHRSThread::loop() {
 		imu_data.toArray((uint8_t*) &imu_packet);
 		mag_data.toArray((uint8_t*) &mag_packet);
 		MAKE_IDENTIFIABLE(imu_packet);
+		MAKE_RELIABLE(imu_packet);
 		MAKE_IDENTIFIABLE(mag_packet);
+		MAKE_RELIABLE(mag_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&imu_packet);
 		FDCAN2_network->send(&imu_packet);
@@ -500,7 +507,10 @@ EulerAngles AHRSThread::QuaternionToEuler(Quaternion q_) {
 static AccelConfigResponsePacket accel_config_response_packet = {};
 
 void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* packet) {
-	accel_config_response_packet.remote_command = packet->remote_command;
+	if(!(IS_RELIABLE(*packet))) {
+		console.printf_error("Unreliable accelerometer config packet");
+		return;
+	}
 	accel_config_response_packet.set_bias = packet->set_bias;
 	accel_config_response_packet.set_transform = packet->set_transform;
 
@@ -550,6 +560,7 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(accel_config_response_packet);
+	MAKE_RELIABLE(accel_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&accel_config_response_packet);
@@ -561,7 +572,10 @@ void AHRSThread::handle_set_accel_config(uint8_t sender_id, AccelConfigPacket* p
 static GyroConfigResponsePacket gyro_config_response_packet = {};
 
 void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* packet) {
-	gyro_config_response_packet.remote_command = packet->remote_command;
+	if(!(IS_RELIABLE(*packet))) {
+		console.printf_error("Unreliable gyroscope config packet");
+		return;
+	}
 	gyro_config_response_packet.set_bias = packet->set_bias;
 
 	// Set fields to zero
@@ -595,6 +609,7 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(gyro_config_response_packet);
+	MAKE_RELIABLE(gyro_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&gyro_config_response_packet);
@@ -606,7 +621,10 @@ void AHRSThread::handle_set_gyro_config(uint8_t sender_id, GyroConfigPacket* pac
 static MagConfigResponsePacket mag_config_response_packet = {};
 
 void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packet) {
-	mag_config_response_packet.remote_command = packet->remote_command;
+	if(!(IS_RELIABLE(*packet))) {
+		console.printf_error("Unreliable magnetometer config packet");
+		return;
+	}
 	mag_config_response_packet.set_hard_iron = packet->set_hard_iron;
 	mag_config_response_packet.set_soft_iron = packet->set_soft_iron;
 
@@ -656,6 +674,7 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 		console.printf_error("AHRSThread instance does not exist yet\r\n");
 	}
 	MAKE_IDENTIFIABLE(mag_config_response_packet);
+	MAKE_RELIABLE(mag_config_response_packet);
 	Telemetry::set_id(JETSON_NODE_ID);
 	if (sender_id == 1)
 		FDCAN1_network->send(&mag_config_response_packet);
@@ -666,11 +685,13 @@ void AHRSThread::handle_set_mag_config(uint8_t sender_id, MagConfigPacket* packe
 
 
 void AHRSThread::handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet) {
-	accel_calib_response_packet.remote_command = true;
+	if(!(IS_RELIABLE(*packet))) {
+		console.printf_error("Unreliable IMU calibration packet");
+		return;
+	}
 	accel_calib_response_packet.set_bias = false;
 	accel_calib_response_packet.set_transform = false;
 
-	gyro_calib_response_packet.remote_command = true;
 	gyro_calib_response_packet.set_bias = false;
 
 	// Set fields to zero
@@ -714,6 +735,7 @@ void AHRSThread::handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet) {
 
 	if (accel_calib_response_packet.success == false) {
 		MAKE_IDENTIFIABLE(accel_calib_response_packet);
+		MAKE_RELIABLE(accel_calib_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
 			FDCAN1_network->send(&accel_calib_response_packet);
@@ -724,6 +746,7 @@ void AHRSThread::handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet) {
 
 	if (gyro_calib_response_packet.success == false) {
 		MAKE_IDENTIFIABLE(accel_calib_response_packet);
+		MAKE_RELIABLE(accel_calib_response_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		if (sender_id == 1)
 			FDCAN1_network->send(&gyro_calib_response_packet);

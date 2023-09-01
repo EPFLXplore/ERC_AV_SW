@@ -67,6 +67,7 @@ void FourInOneThread::loop() {
 		}
 
 		MAKE_IDENTIFIABLE(fourinone_packet);
+		MAKE_RELIABLE(fourinone_packet);
 		Telemetry::set_id(JETSON_NODE_ID);
 		FDCAN1_network->send(&fourinone_packet);
 		FDCAN2_network->send(&fourinone_packet);
