@@ -78,11 +78,11 @@ void ADS1234Thread::init() {
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
 		MassSensorInstance = nullptr;
+		delete mass_sensor;
+		mass_sensor = nullptr;
 		MX_SPI1_Init();
 		terminate();
 		parent->resetProber();
-		delete mass_sensor;
-		mass_sensor = nullptr;
 		return;
 	}
 
@@ -388,14 +388,14 @@ void ADS1234Thread::loop() {
 	} else {
 		LOG_ERROR("Thread aborted");
 		MassSensorInstance = nullptr;
+		delete mass_sensor;
+		mass_sensor = nullptr;
 		if (hspi == &hspi1)
 			MX_SPI1_Init();
 		else if (hspi == &hspi2)
 			MX_SPI2_Init();
 		else if (hspi == &hspi3)
 			MX_SPI3_Init();
-		delete mass_sensor;
-		mass_sensor = nullptr;
 		terminate();
 		parent->resetProber();
 	}

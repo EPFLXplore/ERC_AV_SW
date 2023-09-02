@@ -57,7 +57,7 @@ struct IOPin
 class ADS1234
 {
 	public:
-		virtual ~ADS1234();
+		~ADS1234();
 
 		ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t SPI_DOUT_Pin,
 						 GPIO_TypeDef *SPI_SCLK_Port, uint16_t SPI_SCLK_Pin,
