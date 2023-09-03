@@ -51,6 +51,10 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 		console.printf_error("Unreliable LED packet");
 		return;
 	}
+	if(System::using_USB_5V()) {
+		console.printf_error("Currently using USB 5V, which is limited to 500 mA. Not accepting LED command.");
+		return;
+	}
 	led_response_packet.state = 0;
 	led_response_packet.success = false;
 	if (LEDInstance == nullptr) {

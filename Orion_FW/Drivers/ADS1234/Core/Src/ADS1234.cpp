@@ -13,7 +13,7 @@
 #include <cmsis_os.h>
 #include "semphr.h"
 
-static IOPin PIN_DOUT_static = {0, 0};
+//static IOPin PIN_DOUT_static = {0, 0};
 
 ADS1234::ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t SPI_DOUT_Pin,
 						 GPIO_TypeDef *SPI_SCLK_Port, uint16_t SPI_SCLK_Pin,
@@ -33,45 +33,45 @@ ADS1234::ADS1234(SPI_HandleTypeDef* hspi_, GPIO_TypeDef *SPI_DOUT_Port, uint16_t
 						 PIN_A0{A0_Port, A0_Pin},
 						 PIN_A1{A1_Port, A1_Pin}
 						 {
-							 PIN_DOUT_static = IOPin{SPI_DOUT_Port, SPI_DOUT_Pin};
+//							 PIN_DOUT_static = IOPin{SPI_DOUT_Port, SPI_DOUT_Pin};
 						 }
 
 ADS1234::~ADS1234() {
-  IRQn_Type IRQn;
-
-  switch(PIN_DOUT.pin) {
-  case GPIO_PIN_0:
-	  IRQn = EXTI0_IRQn;
-	  break;
-  case GPIO_PIN_1:
-	  IRQn = EXTI1_IRQn;
-	  break;
-  case GPIO_PIN_2:
-	  IRQn = EXTI2_IRQn;
-	  break;
-  case GPIO_PIN_3:
-	  IRQn = EXTI3_IRQn;
-	  break;
-  case GPIO_PIN_4:
-	  IRQn = EXTI4_IRQn;
-	  break;
-  case GPIO_PIN_5:
-  case GPIO_PIN_6:
-  case GPIO_PIN_7:
-  case GPIO_PIN_8:
-  case GPIO_PIN_9:
-	  IRQn = EXTI9_5_IRQn;
-	  break;
-  case GPIO_PIN_10:
-  case GPIO_PIN_11:
-  case GPIO_PIN_12:
-  case GPIO_PIN_13:
-  case GPIO_PIN_14:
-  case GPIO_PIN_15:
-	  IRQn = EXTI15_10_IRQn;
-	  break;
-  }
-  HAL_NVIC_DisableIRQ(IRQn);
+//  IRQn_Type IRQn;
+//
+//  switch(PIN_DOUT.pin) {
+//  case GPIO_PIN_0:
+//	  IRQn = EXTI0_IRQn;
+//	  break;
+//  case GPIO_PIN_1:
+//	  IRQn = EXTI1_IRQn;
+//	  break;
+//  case GPIO_PIN_2:
+//	  IRQn = EXTI2_IRQn;
+//	  break;
+//  case GPIO_PIN_3:
+//	  IRQn = EXTI3_IRQn;
+//	  break;
+//  case GPIO_PIN_4:
+//	  IRQn = EXTI4_IRQn;
+//	  break;
+//  case GPIO_PIN_5:
+//  case GPIO_PIN_6:
+//  case GPIO_PIN_7:
+//  case GPIO_PIN_8:
+//  case GPIO_PIN_9:
+//	  IRQn = EXTI9_5_IRQn;
+//	  break;
+//  case GPIO_PIN_10:
+//  case GPIO_PIN_11:
+//  case GPIO_PIN_12:
+//  case GPIO_PIN_13:
+//  case GPIO_PIN_14:
+//  case GPIO_PIN_15:
+//	  IRQn = EXTI15_10_IRQn;
+//	  break;
+//  }
+//  HAL_NVIC_DisableIRQ(IRQn);
 }
 
 void ADS1234::begin(Gain gain, Speed speed){
@@ -120,52 +120,52 @@ void ADS1234::begin(Gain gain, Speed speed){
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(PIN_A1.port, &GPIO_InitStruct);
 
-//  GPIO_InitStruct.Pin = PIN_DOUT.pin;
-//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  GPIO_InitStruct.Pull = GPIO_PULLUP;
-//  HAL_GPIO_Init(PIN_DOUT.port, &GPIO_InitStruct);
   GPIO_InitStruct.Pin = PIN_DOUT.pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(PIN_DOUT.port, &GPIO_InitStruct);
+//  GPIO_InitStruct.Pin = PIN_DOUT.pin;
+//  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+//  GPIO_InitStruct.Pull = GPIO_PULLUP;
+//  HAL_GPIO_Init(PIN_DOUT.port, &GPIO_InitStruct);
 
-  IRQn_Type IRQn;
-
-  switch(PIN_DOUT.pin) {
-  case GPIO_PIN_0:
-	  IRQn = EXTI0_IRQn;
-	  break;
-  case GPIO_PIN_1:
-	  IRQn = EXTI1_IRQn;
-	  break;
-  case GPIO_PIN_2:
-	  IRQn = EXTI2_IRQn;
-	  break;
-  case GPIO_PIN_3:
-	  IRQn = EXTI3_IRQn;
-	  break;
-  case GPIO_PIN_4:
-	  IRQn = EXTI4_IRQn;
-	  break;
-  case GPIO_PIN_5:
-  case GPIO_PIN_6:
-  case GPIO_PIN_7:
-  case GPIO_PIN_8:
-  case GPIO_PIN_9:
-	  IRQn = EXTI9_5_IRQn;
-	  break;
-  case GPIO_PIN_10:
-  case GPIO_PIN_11:
-  case GPIO_PIN_12:
-  case GPIO_PIN_13:
-  case GPIO_PIN_14:
-  case GPIO_PIN_15:
-	  IRQn = EXTI15_10_IRQn;
-	  break;
-  }
-
-  HAL_NVIC_SetPriority(IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(IRQn);
+//  IRQn_Type IRQn;
+//
+//  switch(PIN_DOUT.pin) {
+//  case GPIO_PIN_0:
+//	  IRQn = EXTI0_IRQn;
+//	  break;
+//  case GPIO_PIN_1:
+//	  IRQn = EXTI1_IRQn;
+//	  break;
+//  case GPIO_PIN_2:
+//	  IRQn = EXTI2_IRQn;
+//	  break;
+//  case GPIO_PIN_3:
+//	  IRQn = EXTI3_IRQn;
+//	  break;
+//  case GPIO_PIN_4:
+//	  IRQn = EXTI4_IRQn;
+//	  break;
+//  case GPIO_PIN_5:
+//  case GPIO_PIN_6:
+//  case GPIO_PIN_7:
+//  case GPIO_PIN_8:
+//  case GPIO_PIN_9:
+//	  IRQn = EXTI9_5_IRQn;
+//	  break;
+//  case GPIO_PIN_10:
+//  case GPIO_PIN_11:
+//  case GPIO_PIN_12:
+//  case GPIO_PIN_13:
+//  case GPIO_PIN_14:
+//  case GPIO_PIN_15:
+//	  IRQn = EXTI15_10_IRQn;
+//	  break;
+//  }
+//
+//  HAL_NVIC_SetPriority(IRQn, 5, 0);
+//  HAL_NVIC_EnableIRQ(IRQn);
 
   setGain(gain);
   setSpeed(speed);
@@ -276,22 +276,43 @@ void ADS1234::setChannel(Channel channel)
   }
 }
 
-static xSemaphoreHandle highSemaphore;
-static xSemaphoreHandle lowSemaphore;
+//static xSemaphoreHandle highSemaphore;
+//static xSemaphoreHandle lowSemaphore;
+//
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+//    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+//
+//    if ((GPIO_Pin == PIN_DOUT_static.pin) && (PIN_DOUT_static.pin != 0)) {
+//        if (HAL_GPIO_ReadPin(PIN_DOUT_static.port, PIN_DOUT_static.pin) == GPIO_PIN_SET) {
+//            xSemaphoreGiveFromISR(highSemaphore, &xHigherPriorityTaskWoken);
+//        } else {
+//            xSemaphoreGiveFromISR(lowSemaphore, &xHigherPriorityTaskWoken);
+//        }
+//
+//        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+//    }
+//}
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-    if ((GPIO_Pin == PIN_DOUT_static.pin) && (PIN_DOUT_static.pin != 0)) {
-        if (HAL_GPIO_ReadPin(PIN_DOUT_static.port, PIN_DOUT_static.pin) == GPIO_PIN_SET) {
-            xSemaphoreGiveFromISR(highSemaphore, &xHigherPriorityTaskWoken);
-        } else {
-            xSemaphoreGiveFromISR(lowSemaphore, &xHigherPriorityTaskWoken);
-        }
-
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    }
-}
+//void EXTI15_10_IRQHandler(void) {
+//}
+//
+//void EXTI9_5_IRQHandler(void) {
+//}
+//
+//void EXTI4_IRQHandler(void) {
+//}
+//
+//void EXTI3_IRQHandler(void) {
+//}
+//
+//void EXTI2_IRQHandler(void) {
+//}
+//
+//void EXTI1_IRQHandler(void) {
+//}
+//
+//void EXTI0_IRQHandler(void) {
+//}
 
 
 /*
@@ -346,20 +367,20 @@ ERROR_t ADS1234::read(Channel channel, long& value, bool Calibrating)
 //        if(xTaskGetTickCount()-start > waitingTime)
 //            return TIMEOUT_LOW; // Timeout waiting for LOW
 //    }
-
-	if (xSemaphoreTake(highSemaphore, pdMS_TO_TICKS(waitingTime)) != pdTRUE) {
-		return TIMEOUT_HIGH; // Timeout waiting for HIGH
-	}
-
-	if (xSemaphoreTake(lowSemaphore, pdMS_TO_TICKS(waitingTime)) != pdTRUE) {
-		return TIMEOUT_LOW; // Timeout waiting for LOW
-	}
+//
+//	if (xSemaphoreTake(highSemaphore, pdMS_TO_TICKS(waitingTime)) != pdTRUE) {
+//		return TIMEOUT_HIGH; // Timeout waiting for HIGH
+//	}
+//
+//	if (xSemaphoreTake(lowSemaphore, pdMS_TO_TICKS(waitingTime)) != pdTRUE) {
+//		return TIMEOUT_LOW; // Timeout waiting for LOW
+//	}
 
 //// VERY BAD SOLUTION BECAUSE OF LACK OF TIME PLEASE USE INTERRUPTS
-//	if (!Calibrating)
-//		osDelay(100);
-//	else
-//		osDelay(1300);
+	if (!Calibrating)
+		osDelay(100);
+	else
+		osDelay(1300);
 
     // Read 24 bits
     for(i=23 ; i >= 0; i--) {

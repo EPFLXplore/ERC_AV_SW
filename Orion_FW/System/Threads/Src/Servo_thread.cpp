@@ -131,6 +131,10 @@ void ServoThread::handle_rotate(uint8_t sender_id, ServoPacket* packet) {
 		console.printf_error("Unreliable servo packet");
 		return;
 	}
+	if(System::using_USB_5V()) {
+		console.printf_error("Currently using USB 5V, which is limited to 500 mA. Not accepting servo command.");
+		return;
+	}
 	servo_data.success = false;
 	float angle = packet->angle;
 	if (ServoInstance == nullptr) {
