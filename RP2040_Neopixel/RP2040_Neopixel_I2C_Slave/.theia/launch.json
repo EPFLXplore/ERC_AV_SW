@@ -1,0 +1,17 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  "version": "0.2.0",
+  "configurations": [
+  {
+    "cwd": "${workspaceFolder}",
+    "executable": "/46+512/+",
+    "name": "Debug with ST-Util",
+    "request": "launch",
+    "type": "cortex-debug",
+    "runToEntryPoint": "main",
+    "showDevDebugOutput": "none",
+    "servertype": "stutil"
+  }
+  ]
+}
