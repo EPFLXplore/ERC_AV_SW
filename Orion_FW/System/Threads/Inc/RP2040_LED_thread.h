@@ -15,6 +15,8 @@
 
 #define RP2040_ADDR (0x50)
 
+//#define USE_GPIO // define if we want to send commands to RP2040 with GPIOs instead of I2C
+
 
 class LEDThread : public Thread {
 public:
@@ -22,6 +24,8 @@ public:
 	void init();
 	void loop();
 	uint8_t getPortNum();
+
+	void gpio_command(uint8_t cmd);
 
 	static void handle_led_request(uint8_t sender_id, LEDPacket* packet);
 
