@@ -26,13 +26,8 @@ void NPKThread::init() {
 //	connected = true;
 	ModbusQuery(ModbusH, query_frame);
 	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
-	if(u32NotificationValue != ERR_OK_QUERY) {
-		connected = false;
-		LOG_ERROR("Sensor failed to query");
-	} else {
-		connected = true;
-		LOG_SUCCESS("Thread successfully created");
-	}
+	connected = (u32NotificationValue == ERR_OK_QUERY);
+	connected ? LOG_SUCCESS("Thread successfully created") : LOG_ERROR("Sensor failed to query");
 }
 
 
@@ -45,30 +40,27 @@ void NPKThread::loop() {
 	// Make a query for NPK sensor
 	ModbusQuery(ModbusH, query_frame);
 	u32NotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY); // block until query finishes
-	if(u32NotificationValue != ERR_OK_QUERY)
-	{
-		connected = false;
+	connected = (u32NotificationValue == ERR_OK_QUERY);
+	if(!connected) {
 		LOG_ERROR("Sensor failed to query");
 	}
-	else
-	{
-	connected = true;
-	npk_data.nitrogen = ModbusDATA[0 + reg_offset]; // N [mg/kg]
-	npk_data.phosphorus = ModbusDATA[1 + reg_offset]; // P [mg/kg]
-	npk_data.potassium = ModbusDATA[1 + reg_offset]; // K [mg/kg]
+	else {
+		npk_data.nitrogen = ModbusDATA[0 + reg_offset]; // N [mg/kg]
+		npk_data.phosphorus = ModbusDATA[1 + reg_offset]; // P [mg/kg]
+		npk_data.potassium = ModbusDATA[2 + reg_offset]; // K [mg/kg]
 
-	if(monitor.enter(NPK_MONITOR)) {
-		println("%s", npk_data.toString(cbuf));
-	}
+		if(monitor.enter(NPK_MONITOR)) {
+			println("%s", npk_data.toString(cbuf));
+		}
 
-	npk_data.toArray((uint8_t*) &npk_packet);
+		npk_data.toArray((uint8_t*) &npk_packet);
 
-	MAKE_IDENTIFIABLE(npk_packet);
-	MAKE_RELIABLE_MCU(npk_packet);
-	Telemetry::set_id(JETSON_NODE_ID);
-	FDCAN1_network->send(&npk_packet);
-	FDCAN2_network->send(&npk_packet);
-	portYIELD();
+		MAKE_IDENTIFIABLE(npk_packet);
+		MAKE_RELIABLE_MCU(npk_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&npk_packet);
+		FDCAN2_network->send(&npk_packet);
+		portYIELD();
 	}
 }
 
