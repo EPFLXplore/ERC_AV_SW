@@ -12,7 +12,7 @@
 #include <ADS1115_Potentiometer_thread.hpp>
 #include <Servo_thread.h>
 #include <AHRS_thread.h>
-#include <RP2040_LED_thread.h>
+#include <ESP32_Neopixel_thread.h>
 #include "Telemetry.h"
 #include "tim.h"
 #include "System.h"

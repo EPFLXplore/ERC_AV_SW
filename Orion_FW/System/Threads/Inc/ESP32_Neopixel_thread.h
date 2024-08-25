@@ -1,19 +1,19 @@
 /*
- * RP2040_LED_thread.h
+ * ESP32_Neopixel_thread.h
  *
- *  Created on: Aug 27, 2023
- *      Author: Vincent
+ *  Created on: Aug 25, 2024
+ *      Author: eliot
  */
 
-#ifndef THREADS_INC_RP2040_LED_THREAD_H_
-#define THREADS_INC_RP2040_LED_THREAD_H_
+#ifndef THREADS_INC_ESP32_NEOPIXEL_THREAD_H_
+#define THREADS_INC_ESP32_NEOPIXEL_THREAD_H_
 
 #include <DataStructures.h>
 #include <Prober.h>
 #include <Thread.h>
 #include "Telemetry.h"
 
-#define RP2040_ADDR (0x50)
+#define ESP32_ADDR (0x50)
 
 //#define USE_GPIO // define if we want to send commands to RP2040 with GPIOs instead of I2C
 
@@ -25,8 +25,6 @@ public:
 	void loop();
 	uint8_t getPortNum();
 
-	void gpio_command(uint8_t cmd);
-
 	static void handle_led_request(uint8_t sender_id, LEDPacket* packet);
 
 private:
@@ -36,5 +34,4 @@ private:
 
 extern LEDThread* LEDInstance;
 
-
-#endif /* THREADS_INC_RP2040_LED_THREAD_H_ */
+#endif /* THREADS_INC_ESP32_NEOPIXEL_THREAD_H_ */

@@ -23,7 +23,7 @@
 #include <Modbus_thread.hpp>
 #include <Servo_thread.h>
 #include <AHRS_thread.h>
-#include <RP2040_LED_thread.h>
+#include <ESP32_Neopixel_thread.h>
 
 
 void ProberThread::init() {
@@ -126,7 +126,7 @@ void ProberThread::loop() {
 		System::blink_yellow_led(i2cNum);
 		xSemaphoreTake(semaphore, portMAX_DELAY);
 	}
-	if (probeI2C(RP2040_ADDR)) {
+	if (probeI2C(ESP32_ADDR)) {
 		this->instance = new LEDThread(this);
 		this->instance->setTickDelay(100);
 		System::blink_yellow_led(i2cNum);
