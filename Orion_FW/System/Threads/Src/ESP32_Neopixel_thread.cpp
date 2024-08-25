@@ -66,7 +66,7 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 		LEDInstance->LOG_INFO("Received LED state change request");
 		if (packet->low<packet->high && (packet->low+packet->high)<100) {
 			uint8_t data[4] = {packet->low,packet->high,packet->system,packet->mode};
-			HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(LEDInstance->parent->getI2C(), ESP32_ADDR << 1, data, 16, 1000);
+			HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(LEDInstance->parent->getI2C(), ESP32_ADDR << 1, data, 4, 1000);
 			if (status != HAL_OK) {
 				led_response_packet.success = false;
 				LEDInstance->LOG_ERROR("Thread aborted");
