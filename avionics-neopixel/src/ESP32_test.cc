@@ -58,54 +58,6 @@ void default_segments(LEDStrip* strip) {
   delay(500);
 }
 
-/*
-void set_command(Command* (&cmds)[3]) {
-  cmds[0] = new Command{};
-  cmds[0]->r = 127;
-  cmds[0]->g = 0;
-  cmds[0]->b = 255;
-  cmds[0]->section = NAV;
-  cmds[0]->blink = 10;
-
-  cmds[1] = new Command{};
-  cmds[1]->r = 153;
-  cmds[1]->g = 0;
-  cmds[1]->b = 0;
-  cmds[1]->section = HD;
-  cmds[1]->blink = 20;
-  
-  cmds[2] = new Command{};
-  cmds[2]->r = 102;
-  cmds[2]->g = 51;
-  cmds[2]->b = 0;
-  cmds[2]->section = DRILL;
-  cmds[2]->blink = 30;
-}
-*/
-
-/*
-// for testing purposes, simulate receiving a command
-void receive_command(Command* currentCommand){
-  default_segments(strip)
-
-  currentCommand->section = NAV;
-  currentCommand->blink = 10;
-  currentCommand->r = 127;
-  currentCommand->g = 0;
-  currentCommand->b = 255;
-
-  // static int counter = 0;
-  // counter++;
-
-  // if (counter % 3 == 0) {
-
-  // } else if (counter % 3 == 1) {
-  
-  // } else {
-  // }
-}
-*/
-
 void initialize_strip(Command* commands[3]){
         // Nav init
         commands[0] = new Command();
@@ -228,14 +180,13 @@ void onReceiveHandler(int numBytes){
   }
 }
 
-void onRequestHandler(){
-
-}
+void onRequestHandler(){}
 
 void setup() {
   // Setup serial communication
   Serial.begin(BAUD_RATE);
   initialize_strip(commands);
+
   // Setup I2C device as slave
   Wire.begin(I2C_SLAVE_ADDRESS);
   Wire.onReceive(onReceiveHandler);
@@ -246,91 +197,6 @@ void setup() {
 
 void loop(){
   // default_segments(strip);
-  // digitalWrite(LED_PIN, HIGH);
   execute_strip(commands,strip);
-  // int segmentSize = NUM_LEDS / 3;
-  // Serial.println("Board is working!");
-  // strip->mode4(0,20,0xff, 0x77, 0x00,50);
-  // strip->mode1(20,40,127,0,255,4,10,50);
-  // strip->mode3(40,60,0xff, 0x77, 0x00);
-  // strip->mode1(40,60,0x00,0x00,0x00,20);
-  // strip->mode1(40,60,0x00,0xff,0x00,20);
-
-  // if(commands[0] == nullptr || commands[1] == nullptr || commands[2] == nullptr) {
-  //   set_command(commands);
-  //   default_segments(strip, segmentSize);
-  // }
-
-  // // Update each section independently
-  // for (int section = 0; section < 3; section++) {
-  //   int start = section * segmentSize;
-  //   int end = start + segmentSize;
-  //   // updateSection(strip, commands, section, start, end);
-  // }
   delay(100);
 }
-
-
-
-
-// // num of blinks = 1s / interval (set in command, received from Orion)
-// void blink_LED(LEDStrip* strip, Command* currentCommand, int start, int end) {
-//   int blinkPeriod = currentCommand->blink;
-  
-//   // Turn on LEDs
-//   for (int i = start; i < end; i++) {
-//     strip->setPixelColor(i, strip->Color(currentCommand->r, currentCommand->g, currentCommand->b));
-//   }
-//   strip->show();
-//   delay(10000/blinkPeriod);
-
-//   // Turn off LEDs
-//   for (int i = start; i < end; i++) {
-//     strip->setPixelColor(i, strip->Color(0, 0, 0));
-//   }
-//   strip->show();
-//   delay(1000);
-// }
-
-
-
-
-
-
-// static StripPattern pattern_1(strip->get_strip(), 1, NUM_LEDS, 200, 350, 0.2f, 0, NUM_LEDS/1.2, 30);
-// static StripPattern pattern_2(strip->get_strip(), 2, NUM_LEDS, 300, 360, 0.2F, 5000, NUM_LEDS/1.5);
-// static StripPattern pattern_3(strip->get_strip(), 3, NUM_LEDS, 220, 360, 1, 750, NUM_LEDS/2);
-
-    // pattern_1.update();
-
-    // static uint32_t time = 0;
-    // static bool state = false;
-    // if (millis() - time > 1000) {
-    //     time = millis();
-    // }
-
-
-
-
-/*
-  int segmentSize = NUM_LEDS / 3;
-
-  // First segment: Red
-  for (int i = 0; i < segmentSize; i++) {
-    strip->setPixelColor(i, strip->Color(255, 0, 0)); // Red
-  }
-
-  // Second segment: Green
-  for (int i = segmentSize; i < 2 * segmentSize; i++) {
-    strip->setPixelColor(i, strip->Color(0, 255, 0)); // Green
-  }
-
-  // Third segment: Blue
-  for (int i = 2 * segmentSize; i < NUM_LEDS; i++) {
-    strip->setPixelColor(i, strip->Color(0, 0, 255)); // Blue
-  }
-
-  strip->show(); // Update the strip with new colors
-
-  delay(1000); // Wait for a second before updating again
-*/
