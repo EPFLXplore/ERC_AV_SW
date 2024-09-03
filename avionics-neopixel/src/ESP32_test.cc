@@ -142,10 +142,11 @@ void execute_strip(Command* commands[3], LEDStrip* strip){
         break;
     }
 
-    Serial.printf("Current: %d, %d, %d, %d, %d, %d \n",start,end,mode,r,g,b);
+    // Serial.printf("Current: %d, %d, %d, %d, %d, %d \n",start,end,mode,r,g,b);
   }
 }
 
+/*
 void onReceiveHandler(int numBytes){
   Serial.printf("command received");
   while(Wire.available()){
@@ -179,6 +180,31 @@ void onReceiveHandler(int numBytes){
 
   }
 }
+*/
+
+void SerialHandler() {
+  Serial.printf("Available bytes: %d\n", Serial.available());
+  
+  while (Serial.available() >= 4) { // Ensure at least 4 bytes are available
+    int low = Serial.parseInt();    // Read the low value
+    int high = Serial.parseInt();   // Read the high value
+    int system = Serial.parseInt(); // Read the system value
+    int mode = Serial.parseInt();   // Read the mode value
+    
+    Serial.printf("Command received: %d, %d, %d, %d\n", low, high, system, mode);
+
+    // Process the command based on the system value
+
+    commands[system]->mode = mode;
+    commands[system]->segment.low = low;
+    commands[system]->segment.high = high;
+  }
+
+  // Clear the input buffer after processing
+  while (Serial.available() > 0) {
+    Serial.read(); // Read and discard the remaining bytes
+  }
+}
 
 void onRequestHandler(){}
 
@@ -188,8 +214,8 @@ void setup() {
   initialize_strip(commands);
 
   // Setup I2C device as slave
-  Wire.begin(I2C_SLAVE_ADDRESS);
-  Wire.onReceive(onReceiveHandler);
+  // Wire.begin(I2C_SLAVE_ADDRESS);
+  // Wire.onReceive(onReceiveHandler);
   pinMode(LED_BUILTIN, OUTPUT);
 
   strip->begin();
@@ -197,6 +223,7 @@ void setup() {
 
 void loop(){
   // default_segments(strip);
+  SerialHandler();
   execute_strip(commands,strip);
   delay(100);
 }

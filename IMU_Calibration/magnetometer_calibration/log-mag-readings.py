@@ -29,10 +29,10 @@ import matplotlib.pyplot as plt
 
 
 # GLOBAL VARIABLES
-SER_PORT = 'COM6'  # Serial port
+SER_PORT = '/dev/ttyUSB0'  # Serial port
 SER_BAUD = 921600  # Serial baud rate
 SAMPLE_FREQ = 100  # Frequency to record magnetometer readings at [Hz]
-T_SAMPLE = 60  # Total time to read mangetometer readings [sec]
+T_SAMPLE = 360  # Total time to read mangetometer readings [sec]
 OUTPUT_FILENAME = 'magnetometer_calibration/mag-readings.txt'  # Output data file name
 
 
@@ -63,6 +63,8 @@ class SerialPort:
         self.ser = serial.Serial(self.port, self.baud, timeout=1)
         self.ser.flushInput()
         self.ser.flushOutput()
+
+        self.ser.write(b'calibrate mag\r')
     
 
     def Read(self, clean_end=True):
@@ -215,4 +217,6 @@ for i in range(N):
         if (measurements[i, 0] != 0 and measurements[i, 1] != 0 and measurements[i, 2] != 0):
             writer.writerow([measurements[i, 0], measurements[i, 1], measurements[i, 2]])
 
+print('Writing done')
+            
 plt.show()

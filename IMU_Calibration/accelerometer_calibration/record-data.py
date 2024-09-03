@@ -21,7 +21,7 @@ import serial
 # global variables
 MAX_MEAS = 200  # max number of readings in the session, so that we don't create an infinite loop
 AVG_MEAS = 25  # for each reading, take this many measurements and average them
-SER_PORT = 'COM6'  # serial port the device is connected to
+SER_PORT = '/dev/ttyUSB0'  # serial port the device is connected to
 SER_BAUD = 921600  # serial port baud rate
 FILENAME = os.path.join(os.getcwd(), 'accelerometer_calibration/acceldata.txt')  # output file
 
@@ -88,7 +88,8 @@ def RecordDataPt(ser: SerialPort) -> tuple:
         # read data
         try:
             raw_data = ser.Read().split(',')
-            data = [value.strip('\x1b7\x1b[0;0H[AHRS]') for value in raw_data]
+            print(raw_data)
+            data = [value.strip('39;49m\x1b7\x1b[39;49m\x1b[0;0H\x1b[2K[AHRS]') for value in raw_data]
             if len(data) == 3:
                 ax_now = float(data[0])
                 ay_now = float(data[1])
