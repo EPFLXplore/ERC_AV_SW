@@ -53,14 +53,26 @@ class LEDStrip {
      */
     void mode4(int start, int end, byte red, byte green, byte blue, int SpeedDelay);
 
-    // Off
+    // Inaction (Blue)
     void mode5(int start, int end);
+
+    // Whatever action
+    /** Recommended settings:
+     * StrobeCount = 10
+     * FlashDelay = 50
+     * EndPause = 1000
+     * 10,50,1000
+     */
+    void mode6(int start, int end, byte red, byte green, byte blue, int StrobeCount, int FlashDelay, int EndPause);
+
+    void setFirst(bool val){firstCommand=val;}
+    bool getFirst(){return firstCommand;}
 
   private:
     uint8_t led_pin;
     uint16_t num_leds;
-
     Adafruit_NeoPixel strip;
+    bool firstCommand;
     // std::vector<StripPattern*> pattern_list;
     // StripPattern* get_pattern(uint8_t index);
 };

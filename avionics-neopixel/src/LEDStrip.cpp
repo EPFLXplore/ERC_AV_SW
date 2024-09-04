@@ -155,6 +155,18 @@ void LEDStrip::mode4(int start, int end, byte red, byte green, byte blue, int Sp
 }
 
 void LEDStrip::mode5(int start, int end){
-  setAll(start, end, 0x00,0x00,0x00);
+  setAll(start, end, 0x00,0x00,255);
 }
 
+void LEDStrip::mode6(int start, int end, byte red, byte green, byte blue, int StrobeCount, int FlashDelay, int EndPause){
+  for(int j = 0; j < StrobeCount; j++) {
+    setAll(start,end,red,green,blue);
+    strip.show();
+    delay(FlashDelay);
+    setAll(start,end,0,0,0);
+    strip.show();
+    delay(FlashDelay);
+  }
+ 
+ delay(EndPause);
+}
