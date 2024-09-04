@@ -19,7 +19,7 @@
 // define if we want to use GPIO instead of I2C for receiving commands
 
 #define LED_PIN (27)
-#define NUM_LEDS (36)
+#define NUM_LEDS (96)
 
 #define I2C_SLAVE_ADDRESS (0x50)
 #define BAUD_RATE (9600)
@@ -62,7 +62,7 @@ void initialize_strip(Command* commands[3]){
         // Nav init
         commands[0] = new Command();
         commands[0]->system = 0;
-        commands[0]->mode = 1;
+        commands[0]->mode = 5;
 
         commands[0]->segment.low = 0;
         commands[0]->segment.high = 33;
@@ -73,7 +73,7 @@ void initialize_strip(Command* commands[3]){
         // HD init
         commands[1] = new Command();
         commands[1]->system = 1;
-        commands[1]->mode = 2;
+        commands[1]->mode = 5;
 
         commands[1]->segment.low = 34;
         commands[1]->segment.high = 66;
@@ -84,7 +84,7 @@ void initialize_strip(Command* commands[3]){
         // Drill init
         commands[2] = new Command();
         commands[2]->system = 2;
-        commands[2]->mode = 3;
+        commands[2]->mode = 5;
 
         commands[2]->segment.low = 67;
         commands[2]->segment.high = 100;
@@ -138,6 +138,9 @@ void execute_strip(Command* commands[3], LEDStrip* strip){
         strip->mode5(start,end);
         break;
 
+      case 6:
+        strip->mode6(start,end,r,g,b,10,50,1000);
+
       default:
         break;
     }
@@ -146,84 +149,68 @@ void execute_strip(Command* commands[3], LEDStrip* strip){
   }
 }
 
-/*
-void onReceiveHandler(int numBytes){
-  Serial.printf("command received");
-  while(Wire.available()){
-    uint8_t low = Wire.read();
-    uint8_t high = Wire.read();
-    uint8_t system = Wire.read();
-    uint8_t mode = Wire.read();
-
-    switch (system) {
-      case 0: // Nav
-        commands[system]->mode = mode;
-        commands[system]->segment.low = low;
-        commands[system]->segment.high = high;
-        break;
-    
-      case 1: // HD
-        commands[system]->mode = mode;
-        commands[system]->segment.low = low;
-        commands[system]->segment.high = high;
-        break;
-    
-      case 2: // Drill
-        commands[system]->mode = mode;
-        commands[system]->segment.low = low;
-        commands[system]->segment.high = high;
-        break;
-    
-      default:
-        break;
-    }
-
-  }
-}
-*/
-
-void SerialHandler() {
-  Serial.printf("Available bytes: %d\n", Serial.available());
+// void SerialHandler() {
+//   Serial.printf("Available bytes: %d\n", Serial.available());
   
-  while (Serial.available() >= 4) { // Ensure at least 4 bytes are available
-    int low = Serial.parseInt();    // Read the low value
-    int high = Serial.parseInt();   // Read the high value
-    int system = Serial.parseInt(); // Read the system value
-    int mode = Serial.parseInt();   // Read the mode value
+//   while (Serial.available() >= 4) { // Ensure at least 4 bytes are available
+//     int low = Serial.parseInt();    // Read the low value
+//     int high = Serial.parseInt();   // Read the high value
+//     int system = Serial.parseInt(); // Read the system value
+//     int mode = Serial.parseInt();   // Read the mode value
     
-    Serial.printf("Command received: %d, %d, %d, %d\n", low, high, system, mode);
+//     Serial.printf("Command received: %d, %d, %d, %d\n", low, high, system, mode);
 
-    // Process the command based on the system value
+//     // Process the command based on the system value
 
-    commands[system]->mode = mode;
-    commands[system]->segment.low = low;
-    commands[system]->segment.high = high;
-  }
+//     commands[system]->mode = mode;
+//     commands[system]->segment.low = low;
+//     commands[system]->segment.high = high;
+//   }
 
-  // Clear the input buffer after processing
-  while (Serial.available() > 0) {
-    Serial.read(); // Read and discard the remaining bytes
+//   // Clear the input buffer after processing
+//   while (Serial.available() > 0) {
+//     Serial.read(); // Read and discard the remaining bytes
+//   }
+// }
+
+void SerialHandler(Command* commands[3], LEDStrip* strip) {
+  // Check if data is available
+  if (Serial.available() > 0) {
+    // Read the incoming data into a buffer
+    char buffer[64];
+    int len = Serial.readBytesUntil('\n', buffer, sizeof(buffer) - 1);
+    buffer[len] = '\0'; // Null-terminate the string
+
+    // Parse the command from the buffer
+    int low, high, system, mode;
+    int parsed = sscanf(buffer, "%d %d %d %d", &low, &high, &system, &mode);
+
+    // Check if the parsing was successful
+    if (parsed >= 4) {
+      // Update the global command variables
+      commands[system]->segment.low = low;
+      commands[system]->segment.high = high;
+      commands[system]->mode = mode;
+
+      // Debug print to verify the parsed values
+      // Serial.printf("Parsed values - Start: %d, End: %d, Mode: %d, R: %d, G: %d, B: %d\n", low, high, system, mode);
+    } else {
+      Serial.println("Failed to parse command");
+    }
   }
 }
-
-void onRequestHandler(){}
 
 void setup() {
-  // Setup serial communication
   Serial.begin(BAUD_RATE);
   initialize_strip(commands);
 
-  // Setup I2C device as slave
-  // Wire.begin(I2C_SLAVE_ADDRESS);
-  // Wire.onReceive(onReceiveHandler);
   pinMode(LED_BUILTIN, OUTPUT);
-
   strip->begin();
 }
 
 void loop(){
   // default_segments(strip);
-  SerialHandler();
+  SerialHandler(commands,strip);
   execute_strip(commands,strip);
   delay(100);
 }
