@@ -61,7 +61,6 @@ class LEDStrip {
      * StrobeCount = 10
      * FlashDelay = 50
      * EndPause = 1000
-     * 10,50,1000
      */
     void mode6(int start, int end, byte red, byte green, byte blue, int StrobeCount, int FlashDelay, int EndPause);
 

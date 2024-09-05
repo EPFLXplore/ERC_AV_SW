@@ -6,7 +6,7 @@
 // #include "StripPattern.h"
 
 /**
- * Message received from Orion: low, high, system, mode
+ * Message received from Rasberry: low, high, system, mode
  * Functioning: Each system has a color (blue, red, orange) and when
  *              there is a change in the mode a subsequent pattern will
  *              be displayed. Different pattern <-> different mode.
@@ -144,34 +144,9 @@ void execute_strip(Command* commands[3], LEDStrip* strip){
       default:
         break;
     }
-
     // Serial.printf("Current: %d, %d, %d, %d, %d, %d \n",start,end,mode,r,g,b);
   }
 }
-
-// void SerialHandler() {
-//   Serial.printf("Available bytes: %d\n", Serial.available());
-  
-//   while (Serial.available() >= 4) { // Ensure at least 4 bytes are available
-//     int low = Serial.parseInt();    // Read the low value
-//     int high = Serial.parseInt();   // Read the high value
-//     int system = Serial.parseInt(); // Read the system value
-//     int mode = Serial.parseInt();   // Read the mode value
-    
-//     Serial.printf("Command received: %d, %d, %d, %d\n", low, high, system, mode);
-
-//     // Process the command based on the system value
-
-//     commands[system]->mode = mode;
-//     commands[system]->segment.low = low;
-//     commands[system]->segment.high = high;
-//   }
-
-//   // Clear the input buffer after processing
-//   while (Serial.available() > 0) {
-//     Serial.read(); // Read and discard the remaining bytes
-//   }
-// }
 
 void SerialHandler(Command* commands[3], LEDStrip* strip) {
   // Check if data is available
