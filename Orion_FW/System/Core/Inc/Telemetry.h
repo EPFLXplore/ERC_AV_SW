@@ -15,6 +15,8 @@
 #include "fdcan.h"
 
 #define JETSON_NODE_ID   (0x000)
+#define RASPBERRY_NODE_ID   (0x000)
+
 #define SC1_NODE_ID      (0x001)
 #define SC2_NODE_ID      (0x002)
 #define HD_NODE_ID       (0x004)

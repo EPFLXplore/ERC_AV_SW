@@ -181,6 +181,8 @@ void setup() {
 
   pinMode(LED_BUILTIN, OUTPUT);
   strip->begin();
+
+  
 }
 
 void loop(){
