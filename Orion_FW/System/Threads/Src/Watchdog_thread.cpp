@@ -15,7 +15,7 @@
 #include "DataStructures.h"
 
 void WatchdogThread::init() {
-	LOG_INFO("Thread successfully created");
+	LOG_INFO("Watchdog thread successfully created");
 }
 
 void WatchdogThread::loop() {

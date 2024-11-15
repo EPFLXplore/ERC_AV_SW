@@ -16,13 +16,15 @@
 
 #define ADS1234_HAT_ADDR (0x4E)
 
-#define USE_LOW_PASS_FILTER
+//#define USE_LOW_PASS_FILTER
+//#define BROCO_MASS_CALIB
 
 // For plotting with SWV Data Trace Timeline Graph
 //#define PLOT_CH1
 //#define PLOT_CH2
 //#define PLOT_CH3
 //#define PLOT_CH4
+
 
 
 class ADS1234Thread : public Thread {
@@ -37,6 +39,9 @@ public:
 	static void handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet);
 	static void handle_imu_calib(uint8_t sender_id, ImuCalibPacket* packet);
 
+	void test_mass_calib(); //you might need static here
+	Channel MassChannel;
+
 	void set_channels_status(bool state[4]);
 	const bool* get_channels_status() const;
 
@@ -47,6 +52,8 @@ public:
 	void start_calib_scale(uint32_t num_samples, uint8_t channel, float calib_weight);
 
 	bool configured = false;
+
+	void request_config_mass();
 
 private:
 	ProberThread* parent;
@@ -62,7 +69,7 @@ private:
 	long unsigned int config_time = 0;
 	long unsigned int config_req_interval = 5000;
 
-	void request_config();
+	
 
 	// Calibration parameters
 

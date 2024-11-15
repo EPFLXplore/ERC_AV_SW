@@ -14,3 +14,4 @@ Console console(&huart1);
 Monitor monitor;
 Profiler profiler;
 Terminal terminal;
+

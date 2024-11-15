@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define MAX_MONITORS 32
+#define MAX_MONITORS 33
 
 #define IMU_MONITOR	 		1
 #define ACCEL_MONITOR		2
@@ -29,6 +29,7 @@
 // Calibration monitors
 #define MAG_CAL_MONITOR 	30
 #define ACC_CAL_MONITOR 	31
+#define MASS_CAL_MONITOR	33
 
 // Plot monitors
 #define IMU_PLOT_MONITOR	32

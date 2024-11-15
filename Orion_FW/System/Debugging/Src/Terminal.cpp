@@ -88,19 +88,56 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					feedback->printf("> IMU Hat is not plugged in\r\n");
 				}
 			}
+			else if(EQUALS(1, "mass")) {
+				if (MassSensorInstance != nullptr) {
+					disable_monitors(feedback);
+					bool selected_channel[4] = {0,0,0,0};
+					//monitor.enable(MASS_CAL_MONITOR, 0, 100);
+					//MassSensorInstance->request_config_mass();
+					if (EQUALS(2, "CH1")){
+						MassSensorInstance->MassChannel = AIN1;
+						selected_channel[0] = true;
+					}
+					else if (EQUALS(2, "CH2")){
+						MassSensorInstance->MassChannel = AIN2;
+						selected_channel[1] = true;
+					}
+					else if (EQUALS(2, "CH3")){
+						MassSensorInstance->MassChannel = AIN3;
+						selected_channel[2] = true;
+						
+					}
+					else if (EQUALS(2, "CH4")){
+						MassSensorInstance->MassChannel = AIN4;
+						selected_channel[3] = true;
+					}
+					else {
+						feedback->printf_error("> Usage: calibrate mass { CH1 | CH2 | CH3 | CH4 }\r\n");
+					}
+					if (MassSensorInstance->MassChannel != 0) {
+						MassSensorInstance->set_channels_status(selected_channel);
+						MassSensorInstance->test_mass_calib();
+					}
+				} else {
+					feedback->printf_error("> Mass sensor is not plugged in\r\n");
+				}
+			}
 			else if(EQUALS(1, "disable")) {
-				if (AHRSInstance != nullptr) {
+				if (AHRSInstance != nullptr || MassSensorInstance != nullptr) {
 					disable_monitors(feedback);
 					monitor.disable(MAG_CAL_MONITOR);
 					feedback->printf("\x1b[2J");
 					monitor.disable(ACC_CAL_MONITOR);
 					feedback->printf("\x1b[2J");
+					monitor.disable( MASS_CAL_MONITOR);
+					feedback->printf("\x1b[2J");
 				} else {
-					feedback->printf_error("> IMU Hat is not plugged in\r\n");
+					feedback->printf_error("> IMU/Mass Hat is not plugged in\r\n");
 				}
 			}
+			
 			else {
-				feedback->printf_info("> Usage: calibrate { mag | accel | disable }\r\n");
+				feedback->printf_info("> Usage: calibrate { mag | accel | disable | mass }\r\n");
 			}
 		} else if(EQUALS(0, "plot")) {
 			if(EQUALS(1, "imu")) {
@@ -146,7 +183,9 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 				if (MassSensorInstance != nullptr) {
 					feedback->printf_info("> Mass sensor on Hat %d \r\n", MassSensorInstance->getPortNum());
 					feedback->printf_success("> mass \r\n");
+					feedback->printf_success("> mass_offset \r\n");
 				}
+				
 				if (AS7265Instance != nullptr) {
 					feedback->printf_info("> Spectrophotometer on Hat %d \r\n", AS7265Instance->getPortNum());
 					feedback->printf_success("> spectro \r\n");
@@ -353,6 +392,26 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 						feedback->printf_error("> Mass Hat is not plugged in\r\n");
 					}
 				}
+				//doesnt do anything rn
+				else if(EQUALS(2, "mass_offset")) {
+					if (MassSensorInstance != nullptr) {
+						if (!monitor.is_enabled(MASS_MONITOR)) {
+							uint8_t chosen_loc;
+							if(cmd->num_components == 3) {
+								chosen_loc = location;
+							} else {
+								chosen_loc = custom_loc;
+							}
+							location++;
+							monitor.enable(MASS_CAL_MONITOR, chosen_loc, refresh_rate);
+							feedback->printf("\x1b[2J");
+						} else {
+							feedback->printf_error("> Mass config monitor already enabled\r\n");
+						}
+					} else {
+						feedback->printf_error("> Mass Hat is not plugged in\r\n");
+					}
+				}
 
 				else if(EQUALS(2, "spectro")) {
 					if (AS7265Instance != nullptr) {
@@ -465,6 +524,12 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					feedback->printf("\x1b[2J");
 					location++;
 				}
+				if (MassSensorInstance != nullptr && !monitor.is_enabled(MASS_CAL_MONITOR)) {
+					monitor.enable(MASS_CAL_MONITOR, location, refresh_rate);
+					feedback->printf("\x1b[2J");
+					location++;
+				}
+				//---------------------------------------------------------this could create a pbm
 				if (AS7265Instance != nullptr && !monitor.is_enabled(SPECTRO_MONITOR)) {
 					monitor.enable(SPECTRO_MONITOR, location, 1);
 					feedback->printf("\x1b[2J");
@@ -581,6 +646,16 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					}
 				}
 
+				else if(EQUALS(2, "mass_offset")) {
+					if (monitor.is_enabled(MASS_CAL_MONITOR)) {
+						monitor.disable(MASS_CAL_MONITOR);
+						update_monitors(monitor.get_location(MASS_CAL_MONITOR));
+						location--;
+					} else {
+						feedback->printf_error("> Mass monitor not created yet\r\n");
+					}
+				}
+
 				else if(EQUALS(2, "spectro")) {
 					if (monitor.is_enabled(SPECTRO_MONITOR)) {
 						monitor.disable(SPECTRO_MONITOR);
@@ -662,6 +737,8 @@ void Terminal::disable_monitors(Console* feedback) {
 	monitor.disable(VOLTMETER_MONITOR);
 	feedback->printf("\x1b[2J");
 	monitor.disable(MASS_MONITOR);
+	feedback->printf("\x1b[2J");
+	monitor.disable(MASS_CAL_MONITOR);
 	feedback->printf("\x1b[2J");
 	monitor.disable(SPECTRO_MONITOR);
 	feedback->printf("\x1b[2J");
