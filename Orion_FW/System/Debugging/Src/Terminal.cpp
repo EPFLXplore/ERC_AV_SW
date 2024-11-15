@@ -116,7 +116,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					}
 					if (MassSensorInstance->MassChannel != 0) {
 						MassSensorInstance->set_channels_status(selected_channel);
-						MassSensorInstance->test_mass_calib();
+						//MassSensorInstance->test_mass_calib();
 					}
 				} else {
 					feedback->printf_error("> Mass sensor is not plugged in\r\n");

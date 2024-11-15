@@ -99,7 +99,6 @@ void ADS1234Thread::init() {
 	mass_sensor->set_offset(AIN4, 263616.4375);
 	mass_sensor->set_scale(AIN4, 451.8433);
 
-	request_config();
 }
 
 ADS1234Thread::~ADS1234Thread() {
@@ -112,9 +111,11 @@ static MassData mass_data;
 
 static MassPacket mass_packet;
 
+#ifdef ONYX_CONFIG
+
 static MassConfigRequestPacket mass_config_packet;
 
-void ADS1234Thread::request_config() {
+void ADS1234Thread::request_config_mass() {
 	LOG_INFO("Requesting configuration...");
 	config_time = xTaskGetTickCount();
 	mass_config_packet.req_offset = true;
@@ -291,7 +292,7 @@ void ADS1234Thread::set_sender_id(uint8_t sender_id) {
 void ADS1234Thread::loop() {
 	// Request configuration
 	if((xTaskGetTickCount()-config_time > config_req_interval) && !configured) {
-		request_config();
+		request_config_mass();
 	}
 
 
@@ -317,7 +318,7 @@ void ADS1234Thread::loop() {
 
 	if (enabled_channels[3])
     	err_ch4 = mass_sensor->get_units(AIN4, mass_data.mass[3], alpha, calibrating);
-#elif
+//#elif
 	if (enabled_channels[0])
     	err_ch1 = mass_sensor->get_units(AIN1, mass_data.mass[0], num_averages, calibrating);
 
@@ -658,3 +659,182 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 		portYIELD();
 	}
 }
+#endif
+
+#ifdef NEW_CODE
+void ADS1234Thread::test_mass_calib() {
+	// Test calibration
+	
+	if (MassSensorInstance != nullptr) {
+		if (MassSensorInstance->get_sensor() != nullptr) {
+			MassSensorInstance->LOG_INFO("Received ADS1234 calibration command from shell");
+				if (MassSensorInstance->MassChannel <= 4) {
+					if (MassSensorInstance->MassChannel != 0) {
+						if (MassSensorInstance->get_channels_status()[MassSensorInstance->MassChannel-1]) {
+							MassSensorInstance->start_calib_offset(50, MassSensorInstance->MassChannel);
+						} else {
+							MassSensorInstance->LOG_ERROR("Channel number for offset calibration is not enabled: %d", MassSensorInstance->MassChannel);
+						}
+					} else {
+						// if channel = 0, return success = true if at least one of the channels is enabled
+						uint8_t num_enabled_channels = 0;
+						for (uint8_t i = 0; i < 4; ++i) {
+							if (MassSensorInstance->get_channels_status()[i])
+								num_enabled_channels++;
+						}
+						if (num_enabled_channels == 0) {
+							MassSensorInstance->LOG_ERROR("Unable to calibrate offset since all channels are disabled");
+						} else {
+							MassSensorInstance->start_calib_offset(50, MassSensorInstance->MassChannel);
+						}
+					}
+				} else {
+					MassSensorInstance->LOG_ERROR("Invalid channel number for offset calibration: %d", MassSensorInstance->MassChannel);
+				}
+
+
+		} else {
+			MassSensorInstance->LOG_ERROR("Mass sensor member non-existent");
+		}
+
+
+	} else {
+		console.printf_error("ADS1234Thread instance does not exist yet\r\n");
+	}
+
+}
+
+void ADS1234Thread::loop() {
+	
+
+	// Calibrate every 90 seconds
+	ERROR_t err_ch1 = NoERROR;
+	ERROR_t err_ch2 = NoERROR;
+	ERROR_t err_ch3 = NoERROR;
+	ERROR_t err_ch4 = NoERROR;
+
+    if (calibrating) {
+    	calibrating = false;
+    }
+
+	if((err_ch1 == NoERROR) && (err_ch2 == NoERROR) && (err_ch3 == NoERROR) && (err_ch4 == NoERROR)) {
+		if(monitor.enter(MASS_MONITOR)) {
+			println("%s", mass_data.toString(cbuf));
+		}
+
+		// Calibration
+		if(calibrating_offset) {
+			cnt_mass_offset += 1;
+			mass_sum_offset[0] += mass_sensor->get_last_filtered_raw(AIN1);
+			mass_sum_offset[1] += mass_sensor->get_last_filtered_raw(AIN2);
+			mass_sum_offset[2] += mass_sensor->get_last_filtered_raw(AIN3);
+			mass_sum_offset[3] += mass_sensor->get_last_filtered_raw(AIN4);
+		}
+
+		mass_data.toArray((uint8_t*) &mass_packet);
+		MAKE_IDENTIFIABLE(mass_packet);
+		MAKE_RELIABLE_MCU(mass_packet);
+		Telemetry::set_id(JETSON_NODE_ID);
+		FDCAN1_network->send(&mass_packet);
+		FDCAN2_network->send(&mass_packet);
+		portYIELD();
+	} else {
+		LOG_ERROR("Thread aborted");
+		MassSensorInstance = nullptr;
+		delete mass_sensor;
+		mass_sensor = nullptr;
+		if (hspi == &hspi1)
+			MX_SPI1_Init();
+		else if (hspi == &hspi2)
+			MX_SPI2_Init();
+		else if (hspi == &hspi3)
+			MX_SPI3_Init();
+		terminate();
+		parent->resetProber();
+	}
+}
+
+uint8_t ADS1234Thread::getPortNum() {
+	return portNum;
+}
+
+ADS1234* ADS1234Thread::get_sensor() {
+	return mass_sensor;
+}
+
+void ADS1234Thread::set_channels_status(bool state[4]) {
+	for (uint8_t i = 0; i < 4; ++i) {
+		enabled_channels[i] = state[i];
+	}
+}
+
+const bool* ADS1234Thread::get_channels_status() const {
+	return enabled_channels;
+}
+
+void ADS1234Thread::set_alpha(float alpha_) {
+	alpha = alpha_;
+}
+
+float ADS1234Thread::get_alpha() {
+	return alpha;
+}
+
+void ADS1234Thread::set_sender_id(uint8_t sender_id) {
+	this->sender_id = sender_id;
+}
+
+void ADS1234Thread::start_calib_offset(uint32_t num_samples, uint8_t channel) {
+	if (channel <= 4) {
+		if (!calibrating_offset) {
+				calib_channel = channel;
+				cnt_mass_offset = 0;
+				for (uint8_t i = 0; i < 4; ++i)
+					mass_avg_offset[i] = 0;
+				calib_samples_offset = num_samples;
+				calibrating_offset = true;
+
+				LOG_INFO("Starting offset calibration...");
+
+				for (uint8_t i = 0; i < 4; ++i) {
+					if (this->enabled_channels[i] && (cnt_mass_offset != 0))
+						mass_avg_offset[i] = mass_sum_offset[i]/cnt_mass_offset;
+				}
+				
+				calibrating_offset = false;
+				cnt_mass_offset = 0;
+				for (uint8_t i = 0; i < 4; ++i)
+					mass_sum_offset[i] = 0;
+
+				if (MassSensorInstance->enabled_channels[0])
+					mass_sensor->set_offset(AIN1, mass_avg_offset[0]);
+					LOG_INFO("Set offset CH1");
+
+				if (MassSensorInstance->enabled_channels[1])
+					mass_sensor->set_offset(AIN2, mass_avg_offset[1]);
+					LOG_INFO("Set offset CH2");
+
+				if (MassSensorInstance->enabled_channels[2])
+					mass_sensor->set_offset(AIN3, mass_avg_offset[2]);
+					LOG_INFO("Set offset CH3");
+
+				if (MassSensorInstance->enabled_channels[3])
+					mass_sensor->set_offset(AIN4, mass_avg_offset[3]);
+					LOG_INFO("Set offset CH4");
+
+				LOG_SUCCESS("Computed mass sensor offset: [%.3f %.3f %.3f %.3f]",
+						mass_sensor->get_offset(AIN1), mass_sensor->get_offset(AIN2),
+						mass_sensor->get_offset(AIN3), mass_sensor->get_offset(AIN4));
+				
+				//LOG_SUCCESS("Mass sensor offset calibrated succesfully");
+
+		} else {
+			LOG_ERROR("Another offset calibration is already active. Aborting calibration...");
+		}
+	} else {
+		LOG_ERROR("Invalid channel number for offset calibration: %d", channel);
+	}
+}
+
+#endif
+

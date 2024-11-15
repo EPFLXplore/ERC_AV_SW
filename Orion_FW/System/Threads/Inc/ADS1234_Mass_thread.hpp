@@ -17,7 +17,8 @@
 #define ADS1234_HAT_ADDR (0x4E)
 
 //#define USE_LOW_PASS_FILTER
-//#define BROCO_MASS_CALIB
+#define ONYX_CONFIG
+//#define NEW_CODE
 
 // For plotting with SWV Data Trace Timeline Graph
 //#define PLOT_CH1

@@ -16,6 +16,7 @@
 #include "tim.h"
 
 #include "Debug.h"
+#include <array>
 
 
 AHRSThread* AHRSInstance = nullptr;

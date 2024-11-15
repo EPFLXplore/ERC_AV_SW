@@ -5,7 +5,7 @@
  *      Author: eliot
  */
 
-
+/*
 #include <ESP32_Neopixel_thread.h>
 #include "Telemetry.h"
 
@@ -98,6 +98,7 @@ void LEDThread::handle_led_request(uint8_t sender_id, LEDPacket* packet) {
 		}
 	}
 }
+*/
 
 
 
