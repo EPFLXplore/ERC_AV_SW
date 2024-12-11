@@ -47,7 +47,7 @@ static ServoData servo_data;
 static ServoConfigRequestPacket servo_config_packet;
 
 void ServoThread::request_config() {
-	LOG_INFO("Requesting configuration...");
+	LOG_INFO("urRequesting configation...");
 	config_time = xTaskGetTickCount();
 	servo_config_packet.req_max_angles = true;
 	servo_config_packet.req_min_angles = true;

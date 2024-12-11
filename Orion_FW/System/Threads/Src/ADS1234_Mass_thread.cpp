@@ -13,22 +13,6 @@
 ADS1234Thread* MassSensorInstance = nullptr;
 static char cbuf[256]; // for printf
 
-#ifdef PLOT_CH1
-float global_mass_ch1 = 0;
-#endif
-
-#ifdef PLOT_CH2
-float global_mass_ch2 = 0;
-#endif
-
-#ifdef PLOT_CH3
-float global_mass_ch3 = 0;
-#endif
-
-#ifdef PLOT_CH4
-float global_mass_ch4 = 0;
-#endif
-
 ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) :
 		Thread("MassSensor"),
 		parent(parent),
@@ -67,13 +51,14 @@ ADS1234Thread::ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_) :
 						HAT3_P1_GPIO_Port, HAT3_P1_Pin,
 						HAT3_P2_GPIO_Port, HAT3_P2_Pin);
 	}
+	LOG_INFO("Mass sensor created");
 
 }
 
 void ADS1234Thread::init() {
 	MassSensorInstance = this;
 	// Initialize the sensor
-//	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
+	//	ADS1113 dummy_sensor(parent->getI2C(), ADS_ADDR_GND);
 	bool success = 1;
 	// If the sensor was not found or uncorrectly initialized, reset prober
 	if(!success) {
@@ -90,7 +75,7 @@ void ADS1234Thread::init() {
 
 	// Sensor related configuration after successfully connected
 	mass_sensor->begin();
-	mass_sensor->set_offset(AIN1, 263616.4375);
+	/*mass_sensor->set_offset(AIN1, 263616.4375);
 	mass_sensor->set_scale(AIN1, 451.8433);
 	mass_sensor->set_offset(AIN2, 263616.4375);
 	mass_sensor->set_scale(AIN2, 451.8433);
@@ -98,7 +83,7 @@ void ADS1234Thread::init() {
 	mass_sensor->set_scale(AIN3, 451.8433);
 	mass_sensor->set_offset(AIN4, 263616.4375);
 	mass_sensor->set_scale(AIN4, 451.8433);
-
+	*/
 }
 
 ADS1234Thread::~ADS1234Thread() {
@@ -110,6 +95,61 @@ ADS1234Thread::~ADS1234Thread() {
 static MassData mass_data;
 
 static MassPacket mass_packet;
+
+bool calibrating = true;
+
+#ifdef TESTING
+	void ADS1234Thread::test_mass_calib(){
+		mass_sensor->tare(AIN1);
+		LOG_INFO("Calibration done");
+
+	}
+	void ADS1234Thread::loop(){
+
+		//Initializing
+		mass_data.mass[0] = 0;
+		mass_data.mass[1] = 0;
+		mass_data.mass[2] = 0;
+		mass_data.mass[3] = 0;
+
+		//Select channel 1 and update values
+		mass_sensor->setChannel(AIN1);
+		mass_sensor->get_units(AIN1, mass_data.mass[0]);
+		
+		
+
+		//print on terminal shell
+		if(monitor.enter(MASS_MONITOR)) {
+			println("%s", mass_data.toString(cbuf));
+		}
+		
+		mass_data.toArray((uint8_t*) &mass_packet);
+		MAKE_IDENTIFIABLE(mass_packet);
+		MAKE_RELIABLE_MCU(mass_packet); //changed this on the define level
+		Telemetry::set_id(JETSON_NODE_ID);
+		LOG_INFO("Sender ID: %d", mass_packet.id);
+		FDCAN1_network->send(&mass_packet);
+		FDCAN2_network->send(&mass_packet);
+		portYIELD();
+	}
+	
+
+	uint8_t ADS1234Thread::getPortNum() {
+		return portNum;
+	}
+
+	ADS1234* ADS1234Thread::get_sensor() {
+		return mass_sensor;
+	}
+
+
+
+
+
+#endif
+
+
+//------------------------------------------------------------------------------------
 
 #ifdef ONYX_CONFIG
 
@@ -661,7 +701,7 @@ void ADS1234Thread::handle_mass_calib(uint8_t sender_id, MassCalibPacket* packet
 }
 #endif
 
-#ifdef NEW_CODE
+#ifdef NEW_CODE 
 void ADS1234Thread::test_mass_calib() {
 	// Test calibration
 	
@@ -722,21 +762,19 @@ void ADS1234Thread::loop() {
 			println("%s", mass_data.toString(cbuf));
 		}
 
-		// Calibration
-		if(calibrating_offset) {
-			cnt_mass_offset += 1;
-			mass_sum_offset[0] += mass_sensor->get_last_filtered_raw(AIN1);
-			mass_sum_offset[1] += mass_sensor->get_last_filtered_raw(AIN2);
-			mass_sum_offset[2] += mass_sensor->get_last_filtered_raw(AIN3);
-			mass_sum_offset[3] += mass_sensor->get_last_filtered_raw(AIN4);
-		}
+		//Reading 
+		mass_data.mass[0] = mass_sensor->get_last_filtered_raw(AIN1);
+		mass_data.mass[1] = mass_sensor->get_last_filtered_raw(AIN2);
+		mass_data.mass[2] = mass_sensor->get_last_filtered_raw(AIN3);
+		mass_data.mass[3] = mass_sensor->get_last_filtered_raw(AIN4);
 
-		mass_data.toArray((uint8_t*) &mass_packet);
-		MAKE_IDENTIFIABLE(mass_packet);
-		MAKE_RELIABLE_MCU(mass_packet);
-		Telemetry::set_id(JETSON_NODE_ID);
-		FDCAN1_network->send(&mass_packet);
-		FDCAN2_network->send(&mass_packet);
+		mass_packet.mass[0] = mass_data.mass[0];
+		mass_packet.mass[1] = mass_data.mass[1];
+		mass_packet.mass[2] = mass_data.mass[2];
+		mass_packet.mass[3] = mass_data.mass[3];
+
+		mass_data.toArray((uint8_t*) &mass_packet);		
+		
 		portYIELD();
 	} else {
 		LOG_ERROR("Thread aborted");
@@ -803,25 +841,25 @@ void ADS1234Thread::start_calib_offset(uint32_t num_samples, uint8_t channel) {
 				
 				calibrating_offset = false;
 				cnt_mass_offset = 0;
-				for (uint8_t i = 0; i < 4; ++i)
+				for (uint8_t i = 0; i < 4; ++i){
 					mass_sum_offset[i] = 0;
-
-				if (MassSensorInstance->enabled_channels[0])
+				}
+				if (MassSensorInstance->enabled_channels[0]){
 					mass_sensor->set_offset(AIN1, mass_avg_offset[0]);
 					LOG_INFO("Set offset CH1");
-
-				if (MassSensorInstance->enabled_channels[1])
+				}
+				if (MassSensorInstance->enabled_channels[1]){
 					mass_sensor->set_offset(AIN2, mass_avg_offset[1]);
 					LOG_INFO("Set offset CH2");
-
-				if (MassSensorInstance->enabled_channels[2])
+				}
+				if (MassSensorInstance->enabled_channels[2]){
 					mass_sensor->set_offset(AIN3, mass_avg_offset[2]);
 					LOG_INFO("Set offset CH3");
-
-				if (MassSensorInstance->enabled_channels[3])
+				}
+				if (MassSensorInstance->enabled_channels[3]){
 					mass_sensor->set_offset(AIN4, mass_avg_offset[3]);
 					LOG_INFO("Set offset CH4");
-
+				}
 				LOG_SUCCESS("Computed mass sensor offset: [%.3f %.3f %.3f %.3f]",
 						mass_sensor->get_offset(AIN1), mass_sensor->get_offset(AIN2),
 						mass_sensor->get_offset(AIN3), mass_sensor->get_offset(AIN4));
@@ -837,4 +875,5 @@ void ADS1234Thread::start_calib_offset(uint32_t num_samples, uint8_t channel) {
 }
 
 #endif
+
 

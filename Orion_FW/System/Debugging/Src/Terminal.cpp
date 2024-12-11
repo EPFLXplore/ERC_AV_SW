@@ -15,6 +15,7 @@
 #include <AHRS_thread.h>
 #include <AS7265_thread.h>
 #include <Modbus_thread.hpp>
+#include <FDCAN_State_Indicator_thread.h>
 #include "Debug.h"
 
 
@@ -33,6 +34,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			feedback->printf_info("> version: displays the current terminal version\r\n");
 			feedback->printf_info("> calibrate: puts the relevant sensor into calibration mode\r\n");
 			feedback->printf_info("> plot: puts the relevant sensor in plotting mode\r\n");
+			feedback->printf_info("> dummy: dummy send to send a dummy packet on both FDCAN buses\r\n");
 			feedback->printf_info("> info: prints system info\r\n");
 		} else if(EQUALS(0, "version")) {
 			feedback->printf_info("> Xplore Orion Avionics Terminal v1.0 \r\n");
@@ -60,6 +62,14 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 				feedback->printf_info("> Profiler now disabled\r\n");
 			} else {
 				feedback->printf_info("> Usage: profiler { enable | disable }\r\n");
+			}
+		} else if(EQUALS(0, "dummy")) {
+			if(EQUALS(1, "send")) {
+				FDCAN_Indicator_Instance->send_dummy();
+				feedback->printf("\x1b[2J");
+				feedback->printf_info("> Dummy packet tried to be sent\r\n");
+			} else {
+				feedback->printf_info("> dummy { send }\r\n");
 			}
 		} else if(EQUALS(0, "verbose")) {
 			if(EQUALS(1, "on")) {
@@ -91,9 +101,9 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			else if(EQUALS(1, "mass")) {
 				if (MassSensorInstance != nullptr) {
 					disable_monitors(feedback);
+					/*
 					bool selected_channel[4] = {0,0,0,0};
-					//monitor.enable(MASS_CAL_MONITOR, 0, 100);
-					//MassSensorInstance->request_config_mass();
+			
 					if (EQUALS(2, "CH1")){
 						MassSensorInstance->MassChannel = AIN1;
 						selected_channel[0] = true;
@@ -116,8 +126,10 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 					}
 					if (MassSensorInstance->MassChannel != 0) {
 						MassSensorInstance->set_channels_status(selected_channel);
-						//MassSensorInstance->test_mass_calib();
+						MassSensorInstance->test_mass_calib();
 					}
+					*/
+					MassSensorInstance->test_mass_calib();
 				} else {
 					feedback->printf_error("> Mass sensor is not plugged in\r\n");
 				}
@@ -387,26 +399,6 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 							feedback->printf("\x1b[2J");
 						} else {
 							feedback->printf_error("> Mass monitor already enabled\r\n");
-						}
-					} else {
-						feedback->printf_error("> Mass Hat is not plugged in\r\n");
-					}
-				}
-				//doesnt do anything rn
-				else if(EQUALS(2, "mass_offset")) {
-					if (MassSensorInstance != nullptr) {
-						if (!monitor.is_enabled(MASS_MONITOR)) {
-							uint8_t chosen_loc;
-							if(cmd->num_components == 3) {
-								chosen_loc = location;
-							} else {
-								chosen_loc = custom_loc;
-							}
-							location++;
-							monitor.enable(MASS_CAL_MONITOR, chosen_loc, refresh_rate);
-							feedback->printf("\x1b[2J");
-						} else {
-							feedback->printf_error("> Mass config monitor already enabled\r\n");
 						}
 					} else {
 						feedback->printf_error("> Mass Hat is not plugged in\r\n");

@@ -44,8 +44,8 @@ void Telemetry::setup() {
 	FDCAN1_network->handle<LaserPacket>(&System::handle_meissa_output_cmd);
 	FDCAN2_network->handle<LaserPacket>(&System::handle_meissa_output_cmd);
 
-	FDCAN1_network->handle<LEDPacket>(&LEDThread::handle_led_request);
-	FDCAN2_network->handle<LEDPacket>(&LEDThread::handle_led_request);
+	//FDCAN1_network->handle<LEDPacket>(&LEDThread::handle_led_request);
+	//FDCAN2_network->handle<LEDPacket>(&LEDThread::handle_led_request);
 
 	// Configuration handles
 	//FDCAN1_network->handle<MassConfigPacket>(&ADS1234Thread::handle_set_config);

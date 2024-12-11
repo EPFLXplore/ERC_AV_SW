@@ -460,16 +460,17 @@ ERROR_t ADS1234::get_value(Channel channel, float& value, uint16_t times, bool C
 	return NoERROR;
 }
 
-ERROR_t ADS1234::get_value(Channel channel, float& value, float alpha, bool Calibrating) {
+ERROR_t ADS1234::get_value_alpha(Channel channel, float& value, float alpha, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
-	err = read_filtered(channel, val, 0.8, Calibrating);
+	err = read_filtered(channel, val, alpha, Calibrating);
 	if(err!=NoERROR) return err;
 	value = (val - OFFSET[channel-1]);
 	return NoERROR;
 }
 
-ERROR_t ADS1234::get_units(Channel channel, float& value, uint16_t times, bool Calibrating) {
+
+ERROR_t ADS1234::get_units_average(Channel channel, float& value, uint16_t times, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
 	err = get_value(channel, val, times, Calibrating);
@@ -479,7 +480,7 @@ ERROR_t ADS1234::get_units(Channel channel, float& value, uint16_t times, bool C
 	return NoERROR;
 }
 
-ERROR_t ADS1234::get_units(Channel channel, float& value, float alpha, bool Calibrating) {
+ERROR_t ADS1234::get_units_alpha(Channel channel, float& value, float alpha, bool Calibrating) {
 	float val = 0;
 	ERROR_t err;
 	err = get_value(channel, val, alpha, Calibrating);
@@ -489,7 +490,16 @@ ERROR_t ADS1234::get_units(Channel channel, float& value, float alpha, bool Cali
 	return NoERROR;
 }
 
-ERROR_t ADS1234::tare(Channel channel, float alpha, bool Calibrating) {
+ERROR_t ADS1234::tare_average(Channel channel, uint16_t times, bool Calibrating) {
+	ERROR_t err;
+	float sum = 0.0;
+	err = read_average(channel, sum, times, Calibrating);
+	if(err!=NoERROR) return err;
+	set_offset(channel, sum);
+	return NoERROR;
+}
+
+ERROR_t ADS1234::tare_filtered(Channel channel, float alpha, bool Calibrating) {
 	ERROR_t err;
 	float sum = 0;
 	err = read_filtered(channel, sum, alpha, Calibrating);
@@ -514,3 +524,47 @@ void ADS1234::set_offset(Channel channel, float offset) {
 float ADS1234::get_offset(Channel channel) {
 	return OFFSET[channel-1];
 }
+
+//----------------------------------
+ERROR_t ADS1234::read_average(Channel channel, long& value, uint16_t times, bool Calibrating) {
+
+	long sum = 0;
+	ERROR_t err;
+	for (uint16_t i = 0; i < times; i++) {
+		long val;
+		err = read(channel, val, Calibrating);
+		if(err!=NoERROR) return err;
+
+		sum += val;
+	}
+	if(times==0) return DIVIDED_by_ZERO;
+	value = sum / times;
+	return NoERROR;
+}
+
+ERROR_t ADS1234::get_units(Channel channel, long& value, uint16_t times, bool Calibrating) {
+	long val = 0;
+	ERROR_t err;
+	err = read(channel, val, Calibrating);
+	if(err!=NoERROR) return err;
+	if(SCALE[channel-1]==0) return DIVIDED_by_ZERO;
+	//value = val / SCALE[channel-1];
+	value = (val - OFFSET[channel-1]) / SCALE[channel-1];
+	return NoERROR;
+}
+
+ERROR_t ADS1234::tare(Channel channel, uint16_t times, bool Calibrating) {
+	ERROR_t err;
+	long sum = 0.0;
+	err = read_average(channel, sum, times, Calibrating);
+	if(err!=NoERROR) return err;
+	set_offset(channel, sum);
+	return NoERROR;
+}
+
+void ADS1234::set_offset(Channel channel, long offset) {
+	OFFSET[channel-1] = offset;
+	prev_value[channel-1] = offset;
+}
+
+

@@ -103,18 +103,20 @@ class ADS1234
 		ERROR_t get_value(Channel channel, float& value, uint16_t times = 10, bool Calibrating = false);
 
 		// returns (read_filtered() - OFFSET), that is the current value without the tare weight; alpha = low pass filter coefficient
-		ERROR_t get_value(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
+		ERROR_t get_value_alpha(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
 
 		// returns get_value() divided by SCALE, that is the raw value divided by a value obtained via calibration
 		// times = how many readings to do
-		ERROR_t get_units(Channel channel, float& value, uint16_t times = 10, bool Calibrating = false);
+		ERROR_t get_units_average(Channel channel, float& value, uint16_t times = 10, bool Calibrating = false);
 
 		// returns get_value() divided by SCALE, that is the raw value divided by a value obtained via calibration
 		// alpha = low pass filter coefficient
-		ERROR_t get_units(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
+		ERROR_t get_units_alpha(Channel channel, float& value, float alpha = 0.5, bool Calibrating = false);
 
 		// set the OFFSET value for tare weight; times = how many times to read the tare value
-		ERROR_t tare(Channel channel, float alpha = 0.5, bool Calibrating = false);
+		ERROR_t tare_filtered(Channel channel, float alpha = 0.5, bool Calibrating = false);
+
+		ERROR_t tare_average(Channel channel, uint16_t times = 1, bool Calibrating = false);
 
 		// set the SCALE value; this value is used to convert the raw data to "human readable" data (measure units)
 		void set_scale(Channel channel, float scale = 1.f);
@@ -134,6 +136,13 @@ class ADS1234
 		// wakes up the chip after power down mode
 		void power_up();
 
+		//----------------------------------
+		ERROR_t get_units(Channel channel, long& value, uint16_t times = 10, bool Calibrating = false);
+		ERROR_t tare(Channel channel, uint16_t times = 10, bool Calibrating = false);
+		ERROR_t read_average(Channel channel, long& value, uint16_t times = 10, bool Calibrating = false);
+		void set_offset(Channel channel, long offset);
+		//----------------------------------
+
 	private:
 		// int _pin_DOUT;
 		// int _pin_SCLK;
@@ -149,15 +158,25 @@ class ADS1234
 		IOPin PIN_A1;
 
 
-		float OFFSET[4] = {0, 0, 0, 0};	// used for tare weight
-		float SCALE[4] = {1,1,1,1};	// used to return weight in grams, kg, ounces, whatever
+		//float OFFSET[4] = {0, 0, 0, 0};	// used for tare weight
+		//float SCALE[4] = {1,1,1,1};	// used to return weight in grams, kg, ounces, whatever
 
 		float last_filtered_raw[4] = {0, 0, 0, 0};
 
 		Speed _speed ;
 		Channel lastChannel = AIN1;
 		float prev_value[4] = {0, 0, 0, 0};
+
+//----------------------------------
+
+		long OFFSET[4] = {110000, 110000, 0, 0};	// used for tare weight
+		long SCALE[4] = {510,510,1,1};
+		//long OFFSET[4] = {0, 0, 0, 0};	// used for tare weight
+		//long SCALE[4] = {1,1,1,1};
 };
+
+
+
 
 
 #endif /* ADS1234_CORE_INC_ADS1234_HPP_ */

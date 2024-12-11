@@ -76,14 +76,14 @@ struct EulerAngles {
 };
 
 struct DummyData {
-    int data;
+    uint16_t data;
     char* toString(char* buffer) {
         sprintf(buffer, "Data: %d", data); // beware of the type: (%d, %f, ...)
         return buffer;
     }
 
     uint8_t* toArray(uint8_t* buffer){
-        *(int*)(buffer) = data;
+        *(uint16_t*)(buffer) = data;
         return buffer;
     }
 };
@@ -216,11 +216,15 @@ struct MagData {
 
 
 struct MassData {
-    float mass[4];
-	char* toString(char* buffer) {
+    long mass[4]; //changed to long
+	/*char* toString(char* buffer) {
 		sprintf(buffer, "CH1: %+.3f [g] \t CH2: %+.3f [g] \t CH3: %+.3f [g] \t CH4: %+.3f [g]", mass[0], mass[1], mass[2], mass[3]);
 		return buffer;
-	}
+	}*/
+	char* toString(char* buffer) {
+			sprintf(buffer, "CH1: %ld [g] \t CH2: %ld [g] \t CH3: %ld [g] \t CH4: %ld [g]", mass[0], mass[1], mass[2], mass[3]);
+			return buffer;
+		}
 
     uint8_t* toArray(uint8_t* buffer){
     	for(int i = 0; i < 4; ++i)

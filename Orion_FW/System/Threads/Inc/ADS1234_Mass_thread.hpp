@@ -18,7 +18,8 @@
 
 //#define USE_LOW_PASS_FILTER
 //#define ONYX_CONFIG
-#define NEW_CODE
+//#define NEW_CODE
+#define TESTING
 
 // For plotting with SWV Data Trace Timeline Graph
 //#define PLOT_CH1
@@ -27,7 +28,7 @@
 //#define PLOT_CH4
 
 
-
+#ifndef TESTING
 class ADS1234Thread : public Thread {
 public:
 	ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_);
@@ -101,8 +102,40 @@ private:
 };
 
 extern ADS1234Thread* MassSensorInstance;
+#endif
 
+#ifdef TESTING
 
+class ADS1234Thread : public Thread {
+public:
+	ADS1234Thread(ProberThread* parent, SPI_HandleTypeDef* hspi_);
+	~ADS1234Thread();
+	void init();
+	void loop();
+	uint8_t getPortNum();
+	ADS1234* get_sensor();
+	
 
+	void test_mass_calib(); //you might need static here
+	Channel MassChannel;
+
+	
+private:
+	ProberThread* parent;
+	uint8_t portNum;
+	SPI_HandleTypeDef* hspi;
+	ADS1234* mass_sensor;
+
+	long unsigned int start = 0;	
+
+	// Calibration parameters
+
+	uint8_t sender_id;
+	uint8_t calib_channel = 1;
+
+	void set_sender_id(uint8_t sender_id);
+};
+extern ADS1234Thread* MassSensorInstance;
+#endif
 
 #endif /* SENSORS_ADS1234_MASS_THREAD_HPP_ */

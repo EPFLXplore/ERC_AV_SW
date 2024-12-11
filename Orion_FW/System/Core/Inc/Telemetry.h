@@ -25,8 +25,11 @@
 #define DEFAULT_NODE_ID  (0x7FF)
 
 #define MAKE_IDENTIFIABLE(PACKET) (PACKET).id = System::get_node_id();
-#define MAKE_RELIABLE_MCU(PACKET) (PACKET).crc = (uint16_t)HAL_CRC_Calculate(&hcrc, (uint32_t*) &(PACKET), sizeof((PACKET)) - 2)
-#define IS_RELIABLE_MCU(PACKET) (PACKET).crc == (uint16_t)HAL_CRC_Calculate(&hcrc, (uint32_t*) &(PACKET), sizeof((PACKET)) - 2)
+//#define MAKE_RELIABLE_MCU(PACKET) (PACKET).crc = (uint16_t)HAL_CRC_Calculate(&hcrc, (uint32_t*) &(PACKET), sizeof((PACKET)) - 2)
+//#define IS_RELIABLE_MCU(PACKET) (PACKET).crc == (uint16_t)HAL_CRC_Calculate(&hcrc, (uint32_t*) &(PACKET), sizeof((PACKET)) - 2)
+#define MAKE_RELIABLE_MCU(PACKET) (PACKET).crc = __gen_crc16((uint8_t*) &(PACKET), sizeof((PACKET)) - 2)
+#define IS_RELIABLE_MCU(PACKET) (PACKET).crc == __gen_crc16((uint8_t*) &(PACKET), sizeof((PACKET)) - 2)
+
 
 class Telemetry {
 public:
