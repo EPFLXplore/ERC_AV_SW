@@ -5,8 +5,8 @@
  *      Author: Vincent
  */
 
-#ifndef THREADS_INC_RP2040_LED_THREAD_H_
-#define THREADS_INC_RP2040_LED_THREAD_H_
+#ifndef THREADS_INC_RP2040_LED_THREAD_TXT_
+#define THREADS_INC_RP2040_LED_THREAD_TXT_
 
 #include <DataStructures.h>
 #include <Prober.h>
@@ -37,4 +37,4 @@ private:
 extern LEDThread* LEDInstance;
 
 
-#endif /* THREADS_INC_RP2040_LED_THREAD_H_ */
+#endif /* THREADS_INC_RP2040_LED_THREAD_TXT_ */

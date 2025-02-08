@@ -53,7 +53,7 @@ private:
 	uint8_t portNum;
 	SPI_HandleTypeDef* hspi;
 	ADS1234* mass_sensor;
-	bool enabled_channels[4] = {false, true, false, false};
+	bool enabled_channels[4] = {true, false, false, false};
 	float alpha = 0.8;
 	uint16_t  num_averages = 10;
 	long unsigned int start = 0;
