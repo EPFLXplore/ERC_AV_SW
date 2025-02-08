@@ -33,17 +33,4 @@ void FDCANIndicatorThread::loop() {
 	}
 }
 
-static DummyPacket dummy_packet;
-struct DummyData dummy_data;
 
-void FDCANIndicatorThread::send_dummy() {
-	dummy_data.data = 0xdead; 
-	dummy_data.toArray((uint8_t*) &dummy_packet);
-	MAKE_IDENTIFIABLE(dummy_packet);
-	MAKE_RELIABLE_MCU(dummy_packet); //MCU?=
-	Telemetry::set_id(JETSON_NODE_ID); //ID?
-	FDCAN1_network->send(&dummy_packet);
-	FDCAN2_network->send(&dummy_packet);
-	LOG_INFO("Dummy packet sent");
-	portYIELD();
-}

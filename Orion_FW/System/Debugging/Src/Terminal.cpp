@@ -65,7 +65,7 @@ void Terminal::execute(ShellCommand* cmd, Console* feedback) {
 			}
 		} else if(EQUALS(0, "dummy")) {
 			if(EQUALS(1, "send")) {
-				FDCAN_Indicator_Instance->send_dummy();
+				MassSensorInstance->send_dummy();
 				feedback->printf("\x1b[2J");
 				feedback->printf_info("> Dummy packet tried to be sent\r\n");
 			} else {

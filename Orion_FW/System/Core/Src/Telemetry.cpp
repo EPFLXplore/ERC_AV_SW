@@ -73,6 +73,8 @@ void Telemetry::setup() {
 	FDCAN1_network->handle<ImuCalibPacket>(&AHRSThread::handle_imu_calib);
 	FDCAN2_network->handle<ImuCalibPacket>(&AHRSThread::handle_imu_calib);
 
+	FDCAN1_network->handle<DummyPacket>(&ADS1234Thread::handle_dummy);
+	FDCAN2_network->handle<DummyPacket>(&ADS1234Thread::handle_dummy);
 }
 
 void Telemetry::handle_ping(uint8_t sender_id, PingPacket* packet) {

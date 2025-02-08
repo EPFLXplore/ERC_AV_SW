@@ -119,6 +119,8 @@ public:
 	void test_mass_calib(); //you might need static here
 	Channel MassChannel;
 
+	void send_dummy();
+	static void handle_dummy(uint8_t sender_id, DummyPacket* packet);
 	
 private:
 	ProberThread* parent;

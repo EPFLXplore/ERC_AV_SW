@@ -127,7 +127,7 @@ bool calibrating = true;
 		MAKE_IDENTIFIABLE(mass_packet);
 		MAKE_RELIABLE_MCU(mass_packet); //changed this on the define level
 		Telemetry::set_id(JETSON_NODE_ID);
-		LOG_INFO("Sender ID: %d", mass_packet.id);
+		//LOG_INFO("Sender ID: %d", mass_packet.id);
 		FDCAN1_network->send(&mass_packet);
 		FDCAN2_network->send(&mass_packet);
 		portYIELD();
@@ -142,7 +142,33 @@ bool calibrating = true;
 		return mass_sensor;
 	}
 
+static DummyPacket dummy_packet;
+struct DummyData dummy_sender;
+struct DummyData dummy_receiver;
 
+void ADS1234Thread::send_dummy() {
+	dummy_sender.data = 0xdead;
+	dummy_packet.data = dummy_sender.data;
+	dummy_sender.toArray((uint8_t*) &dummy_packet);
+	MAKE_IDENTIFIABLE(dummy_packet);
+	MAKE_RELIABLE_MCU(dummy_packet); //MCU?=
+	Telemetry::set_id(JETSON_NODE_ID); //ID?
+	FDCAN1_network->send(&dummy_packet);
+	FDCAN2_network->send(&dummy_packet);
+	LOG_INFO("Dummy packet sent");
+	portYIELD();
+}
+
+void ADS1234Thread::handle_dummy(uint8_t sender_id, DummyPacket* packet) {
+	if(!(IS_RELIABLE_MCU(*packet))) {
+		console.printf_error("Unreliable dummy packet");
+		return;
+	}else{
+		dummy_receiver.data = packet->data;
+		console.printf_error("Dummy packet received: %d", dummy_receiver.data);
+	}
+
+}	
 
 
 
