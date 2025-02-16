@@ -122,12 +122,6 @@ void ADS1234Thread::loop() {
 			println("%s", mass_data.toString(cbuf));
 		}
 
-		//Reading 
-		mass_data.mass[0] = mass_sensor->get_last_filtered_raw(AIN1);
-		mass_data.mass[1] = mass_sensor->get_last_filtered_raw(AIN2);
-		mass_data.mass[2] = mass_sensor->get_last_filtered_raw(AIN3);
-		mass_data.mass[3] = mass_sensor->get_last_filtered_raw(AIN4);
-
 		mass_packet.mass[0] = mass_data.mass[0];
 		mass_packet.mass[1] = mass_data.mass[1];
 		mass_packet.mass[2] = mass_data.mass[2];
@@ -163,6 +157,8 @@ uint8_t ADS1234Thread::getPortNum() {
 ADS1234* ADS1234Thread::get_sensor() {
 	return mass_sensor;
 }
+
+
 
 static MassConfigResponsePacket mass_config_response_packet = {};
 
