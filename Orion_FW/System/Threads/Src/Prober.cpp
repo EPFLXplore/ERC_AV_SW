@@ -65,24 +65,27 @@ void ProberThread::loop() {
 	}
 
 	// Checking if the address of the ADS1115 is one of : SCL, GND, VDD
-	if (probeI2C(ADS_ADDR_SCL)) {
-		this->instance = new PotentiometerThread(this);
-		this->instance->setTickDelay(100);
-		System::blink_yellow_led(i2cNum);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	else if (probeI2C(ADS_ADDR_GND)) {
-		this->instance = new PotentiometerThread(this);
-		this->instance->setTickDelay(100);
-		System::blink_yellow_led(i2cNum);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
-	else if (probeI2C(ADS_ADDR_VDD)) {
-		this->instance = new PotentiometerThread(this);
-		this->instance->setTickDelay(100);
-		System::blink_yellow_led(i2cNum);
-		xSemaphoreTake(semaphore, portMAX_DELAY);
-	}
+	//No longer used 
+	// if (probeI2C(ADS_ADDR_SCL)) {
+	// 	this->instance = new PotentiometerThread(this);
+	// 	this->instance->setTickDelay(100);
+	// 	System::blink_yellow_led(i2cNum);
+	// 	xSemaphoreTake(semaphore, portMAX_DELAY);
+	// }
+	
+	// if (probeI2C(ADS_ADDR_GND)) {
+	// 	this->instance = new PotentiometerThread(this);
+	// 	this->instance->setTickDelay(100);
+	// 	System::blink_yellow_led(i2cNum);
+	// 	xSemaphoreTake(semaphore, portMAX_DELAY);
+	// }
+	
+	// if (probeI2C(ADS_ADDR_VDD)) {
+	// 	this->instance = new PotentiometerThread(this);
+	// 	this->instance->setTickDelay(100);
+	// 	System::blink_yellow_led(i2cNum);
+	// 	xSemaphoreTake(semaphore, portMAX_DELAY);
+	// }
 
 
 
