@@ -1,0 +1,126 @@
+/*
+ * bmi088_sens_defs.h
+ *
+ *  Created on: Mar 20, 2023
+ *      Author: leo
+ */
+
+#ifndef BMI088_CORE_INC_BMI088_SENS_DEFS_HPP_
+#define BMI088_CORE_INC_BMI088_SENS_DEFS_HPP_
+
+
+#define ACC_CHIP_ID 0x1E
+#define ACC_SOFT_RESET_MASK 0xFF
+#define ACC_SOFT_RESET_CMD 0xB6
+#define ACC_SOFT_RESET_POS 0
+#define ACC_SOFT_RESET_ADDR 0x7E
+#define ACC_ENABLE_CMD 0x04
+#define ACC_DISABLE_CMD 0x00
+
+#define ACC_RESET_CMD 0xB6
+
+#define ACC_POWER_CNTRL_ADDR 0x7D
+#define ACC_POWER_CNTRL_MASK 0xFF
+#define ACC_POWER_CNTRL_POS 0
+
+#define ACC_ACTIVE_MODE_CMD 0x00
+#define ACC_SUSPEND_MODE_CMD 0x03
+#define ACC_POWER_CONF_ADDR 0x7C
+#define ACC_POWER_CONF_POS 0
+#define ACC_POWER_CONF_MASK 0xFF
+
+#define ACC_RANGE_3G 0x0
+#define ACC_RANGE_6G 0x01
+#define ACC_RANGE_12G 0x02
+#define ACC_RANGE_24G 0x03
+
+#define ACC_RANGE_ADDR 0x41
+#define ACC_RANGE_MASK 0x03
+#define ACC_RANGE_POS 0
+
+#define ACC_ODR_ADDR 0x40
+#define ACC_ODR_MASK 0xFF
+#define ACC_ODR_POS 0
+
+#define ACC_SELF_TEST_ADDR 0x6D
+#define ACC_SELF_TEST_MASK 0xFF
+#define ACC_SELF_TEST_POS 0
+
+#define ACC_POS_SELF_TEST 0x0D
+#define ACC_NEG_SELF_TEST 0x09
+
+#define ACC_ACCEL_DATA_ADDR 0x12
+
+#define ACC_TEMP_DATA_ADDR 0x22
+
+#define ACC_DIS_SELF_TEST 0x00
+
+#define ACC_ERR_CODE_ADDR 0x02
+#define ACC_ERR_CODE_MASK 0x1C
+#define ACC_ERR_CODE_POS 2
+
+#define ACC_FATAL_ERR_ADDR 0x02
+#define ACC_FATAL_ERR_MASK 0x01
+#define ACC_FATAL_ERR_POS 0
+
+#define GYRO_CHIP_ID_ADDR 0x00
+#define GYRO_CHIP_ID_MASK 0xFF
+#define GYRO_CHIP_ID_POS 0
+
+#define GYRO_CHIP_ID 0x0F
+
+#define GYRO_SOFT_RESET_ADDR 0x14
+#define GYRO_SOFT_RESET_MASK 0xFF
+#define GYRO_SOFT_RESET_POS 0
+#define GYRO_RESET_CMD 0xB6
+
+#define GYRO_RANGE_ADDR 0x0F
+#define GYRO_RANGE_MASK 0xFF
+#define GYRO_RANGE_POS 0
+
+#define GYRO_RANGE_2000_DPS 0x00
+#define GYRO_RANGE_1000_DPS 0x01
+#define GYRO_RANGE_500_DPS 0x02
+#define GYRO_RANGE_250_DPS 0x03
+#define GYRO_RANGE_125_DPS 0x04
+
+#define GYRO_DIS_DRDY_INT 0x00
+
+#define GYRO_INT_CNTRL_ADDR 0x15
+#define GYRO_INT_CNTRL_MASK 0xFF
+#define GYRO_INT_CNTRL_POS 0
+
+#define GYRO_ODR_ADDR 0x10
+#define GYRO_ODR_MASK 0xFF
+#define GYRO_ODR_POS 0
+
+#define GYRO_ODR_2000HZ_BW_532 0x80
+#define GYRO_ODR_2000HZ_BW_230 0x81
+#define GYRO_ODR_1000HZ_BW_116 0x82
+#define GYRO_ODR_400HZ_BW_47 0x83
+#define GYRO_ODR_200HZ_BW_23 0x84
+#define GYRO_ODR_100HZ_BW_12 0x85
+#define GYRO_ODR_200HZ_BW_64 0x86
+#define GYRO_ODR_100HZ_BW_32 0x87
+
+#define GYRO_DATA_ADDR 0x02
+
+/**\name    Accel I2C slave address */
+#define BMI08_ACCEL_I2C_ADDR_PRIMARY            UINT8_C(0x18)
+#define BMI08_ACCEL_I2C_ADDR_SECONDARY          UINT8_C(0x19)
+
+/**\name    Gyro I2C slave address */
+#define BMI08_GYRO_I2C_ADDR_PRIMARY             UINT8_C(0x68)
+#define BMI08_GYRO_I2C_ADDR_SECONDARY           UINT8_C(0x69)
+
+/**\name    Accel Chip Id register */
+#define BMI08_REG_ACCEL_CHIP_ID                 UINT8_C(0x00)
+
+#define G 9.807f
+
+
+
+#define I2C_TIMEOUT 1000
+
+
+#endif /* BMI088_CORE_INC_BMI088_SENS_DEFS_HPP_ */

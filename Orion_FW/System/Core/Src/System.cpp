@@ -13,7 +13,7 @@
 #include "i2c.h"
 #include "iwdg.h"
 
-#include "Datastructures.h"
+#include "DataStructures.h"
 
 uint16_t System::node_id = DEFAULT_NODE_ID;
 

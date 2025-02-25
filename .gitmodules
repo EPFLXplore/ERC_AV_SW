@@ -2,3 +2,6 @@
 	path = Orion_FW/System/BRoCo
 	url = git@github.com:EPFLXplore/BRoCo.git
 	branch = EL-BRoCo
+[submodule "COTS_Solution/src/custom_msg"]
+	path = COTS_Solution/src/custom_msg
+	url = git@github.com:EPFLXplore/ERC_SE_CustomMessages.git
