@@ -7,7 +7,7 @@
 #include "LEDStrip.hpp"
 
 // ====== USER CONFIG ======
-constexpr int LED_PIN   = 27;
+constexpr int LED_PIN   = 26;
 constexpr int NUM_LEDS  = 96;
 constexpr uint32_t BAUD = 115200;
 constexpr size_t  QUEUE_DEPTH = 16;
@@ -23,13 +23,24 @@ void serialHandler() {
     int len = Serial.readBytesUntil('\n', buf, sizeof(buf) - 1);
     buf[len] = '\0';
 
+    Serial.println(F("serial handler:"));
+    
+
     int low, high, system, mode;
     if (sscanf(buf, "%d %d %d %d", &low, &high, &system, &mode) == 4) {
+        Serial.println(F("[CMD] received:"));
         Command cmd;
         cmd.system        = constrain(system, 0, 2);
         cmd.mode          = constrain(mode,   0, 6);
         cmd.segment.low   = constrain(low,  0, 100);
         cmd.segment.high  = constrain(high, 0, 100);
+
+        //cmd.system        = 1;
+        //cmd.mode          = 3;
+        //cmd.segment.low   = 0;
+        //cmd.segment.high  = 100;
+        // 0 100 2 4
+        // 0 100 1 4
 
         switch (cmd.system) {
             case 0: cmd.segment.r = 127; cmd.segment.g = 0;   cmd.segment.b = 255; break; // NAV violet
@@ -44,13 +55,16 @@ void serialHandler() {
     }
 }
 
+
 // ---------- Command processor task ----------
 void commandTask(void* pv) {
     strip.begin();
     Command cmd;
     TickType_t delayTicks = 1 / portTICK_PERIOD_MS;
     for (;;) {
+        
         while (xQueueReceive(cmdQueue, &cmd, 0) == pdTRUE) {
+            Serial.println(F("Processing command:"));
             strip.applyCommand(cmd);
         }
         strip.tick();                // advance animations
@@ -62,13 +76,13 @@ void setup() {
     Serial.begin(BAUD);
     cmdQueue = xQueueCreate(QUEUE_DEPTH, sizeof(Command));
     xTaskCreatePinnedToCore(commandTask, "LED", 4096, nullptr, 1, nullptr, 1);
-
+    
     // Small delay to ensure task starts
-    delay(10);
+    delay(1000);
     Serial.println(F("READY"));
 }
 
 void loop() {
     serialHandler();
-    vTaskDelay(1);   // allow FreeRTOS scheduling
+    vTaskDelay(1000);   // allow FreeRTOS scheduling
 }

@@ -36,6 +36,8 @@ private:
     int  _numLeds;
     Adafruit_NeoPixel _strip;
 
+    bool _processcmd = false;  // true if command received
+
     Command   _cmds[MAX_SYSTEMS];
     ModeState _states[MAX_SYSTEMS];
 
