@@ -13,6 +13,14 @@ constexpr uint32_t BAUD = 115200;
 constexpr size_t  QUEUE_DEPTH = 16;
 // =========================
 
+// ====== CMD EXAMPLES ======
+// 0 100 2 4 - Brown drill, full strip, chasing leds
+// 0 100 1 4 - HD red, full strip, chasing leds
+// 0 100 2 0 - Brown drill, full strip, solid colour
+// 0 100 2 3 - Brown drill, full strip, breathing fade
+// 0 100 2 5 - Brown drill, full strip, off
+// 0 100 0 3 - NAV violet, full strip, breathing fade
+
 LEDStrip strip(LED_PIN, NUM_LEDS);
 QueueHandle_t cmdQueue;
 
@@ -22,25 +30,15 @@ void serialHandler() {
     char buf[64];
     int len = Serial.readBytesUntil('\n', buf, sizeof(buf) - 1);
     buf[len] = '\0';
-
-    Serial.println(F("serial handler:"));
     
 
     int low, high, system, mode;
     if (sscanf(buf, "%d %d %d %d", &low, &high, &system, &mode) == 4) {
-        Serial.println(F("[CMD] received:"));
         Command cmd;
         cmd.system        = constrain(system, 0, 2);
         cmd.mode          = constrain(mode,   0, 6);
         cmd.segment.low   = constrain(low,  0, 100);
-        cmd.segment.high  = constrain(high, 0, 100);
-
-        //cmd.system        = 1;
-        //cmd.mode          = 3;
-        //cmd.segment.low   = 0;
-        //cmd.segment.high  = 100;
-        // 0 100 2 4
-        // 0 100 1 4
+        cmd.segment.high  = constrain(high, 0, 100);       
 
         switch (cmd.system) {
             case 0: cmd.segment.r = 127; cmd.segment.g = 0;   cmd.segment.b = 255; break; // NAV violet
@@ -49,7 +47,7 @@ void serialHandler() {
         }
         xQueueSend(cmdQueue, &cmd, 0);
     } else {
-        Serial.println(F("[ERR] bad format (low high system mode)"));
+        //Serial.println(F("[ERR] bad format (low high system mode)"));
         // flush bad input
         while (Serial.available() && Serial.read() != '\n');
     }
@@ -64,7 +62,6 @@ void commandTask(void* pv) {
     for (;;) {
         
         while (xQueueReceive(cmdQueue, &cmd, 0) == pdTRUE) {
-            Serial.println(F("Processing command:"));
             strip.applyCommand(cmd);
         }
         strip.tick();                // advance animations
@@ -78,11 +75,11 @@ void setup() {
     xTaskCreatePinnedToCore(commandTask, "LED", 4096, nullptr, 1, nullptr, 1);
     
     // Small delay to ensure task starts
-    delay(1000);
+    delay(10);
     Serial.println(F("READY"));
 }
 
 void loop() {
     serialHandler();
-    vTaskDelay(1000);   // allow FreeRTOS scheduling
+    vTaskDelay(1);   // allow FreeRTOS scheduling
 }

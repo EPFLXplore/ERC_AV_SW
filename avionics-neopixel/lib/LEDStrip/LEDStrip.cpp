@@ -23,28 +23,9 @@ void LEDStrip::applyCommand(const Command& cmd) {
     if (cmd.system >= MAX_SYSTEMS) return;                 // ignore invalid
     _cmds[cmd.system]   = cmd;                             // overwrite
     _states[cmd.system] = {};                              // reset state
-
-    _processcmd = true;
-
-    Serial.print(F("Command applied: system="));
-    Serial.print(cmd.system);
-    Serial.print(F(", mode="));
-    Serial.print(cmd.mode);
-    Serial.print(F(", segment="));
-    Serial.print(cmd.segment.low);
-    Serial.print(F("-"));
-    Serial.print(cmd.segment.high);
-    Serial.print(F(", color=("));
-    Serial.print(cmd.segment.r);
-    Serial.print(F(", "));
-    Serial.print(cmd.segment.g);
-    Serial.print(F(", "));
-    Serial.print(cmd.segment.b);
-    Serial.println(F(")"));
 }
 
 void LEDStrip::tick() {
-    if (!_processcmd) return;  // nothing to do
     for (uint8_t i = 0; i < MAX_SYSTEMS; ++i) handleMode(i);
 }
 
@@ -56,12 +37,7 @@ void LEDStrip::setAll(int start, int end, uint8_t r, uint8_t g, uint8_t b) {
 void LEDStrip::handleMode(uint8_t idx) {
     const Command& cmd = _cmds[idx];
     int start = pctToIdx(cmd.segment.low);
-    int end   = pctToIdx(cmd.segment.high);
-    Serial.println(F("Handling mode:"));
-    Serial.println(cmd.mode);
-    Serial.println(F("System:"));
-    Serial.println(idx);
-    
+    int end   = pctToIdx(cmd.segment.high);    
     switch (cmd.mode) {
         case 0: mode0(idx, start, end, cmd.segment.r, cmd.segment.g, cmd.segment.b); break;
         case 1: mode1(idx, start, end, cmd.segment.r, cmd.segment.g, cmd.segment.b); break;
@@ -73,7 +49,6 @@ void LEDStrip::handleMode(uint8_t idx) {
         default: break;
     }
 
-    _processcmd = false;
 }
 
 /******************  MODE IMPLEMENTATIONS  ******************/
