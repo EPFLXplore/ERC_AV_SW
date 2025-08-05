@@ -11,6 +11,8 @@ struct Segment {
 
 struct Command {
     Segment segment;
+    uint8_t emergency_global; // 0 or 1
+    uint8_t emergency_motors; // 0 or 1
     uint8_t system;  // 0‑2
     uint8_t mode;    // 0‑6
 };
@@ -47,13 +49,20 @@ private:
     void handleMode(uint8_t idx);
 
     // pattern engines – all non‑blocking
-    void mode0(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b);
-    void mode1(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b,
-               uint8_t eye = 4, uint16_t speed = 30, uint16_t pause = 500);
-    void mode2(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, uint16_t speed = 20);
-    void mode3(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b);
-    void mode4(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, uint16_t speed = 50);
-    void mode5(uint8_t idx, int s, int e);
-    void mode6(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b,
-               uint8_t strobe = 10, uint16_t flash = 50, uint16_t endPause = 1000);
+    void mode0(uint8_t idx, int s, int e); // OFF - Blue 
+    void mode1(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b); // ON
+    void mode2(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, // BLINK
+               uint8_t eye = 4, uint16_t speed = 50, uint16_t pause = 100);
+    void mode3(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, uint16_t speed = 50); // FAULT
+    void mode4(uint8_t idx, uint8_t r, uint8_t g, uint8_t b); // EMERGENCY_MOTORS
+    void mode5(uint8_t idx, uint8_t r, uint8_t g, uint8_t b); // EMERGENCY_SHUTDOWN
+    void mode6(uint8_t idx); // ALL_OFF
+
+               
+    // void mode2(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, uint16_t speed = 20);
+    // void mode3(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b);
+    // void mode4(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b, uint16_t speed = 50);
+    // void mode5(uint8_t idx, int s, int e);
+    // void mode6(uint8_t idx, int s, int e, uint8_t r, uint8_t g, uint8_t b,
+    //            uint8_t strobe = 10, uint16_t flash = 50, uint16_t endPause = 1000);
 };

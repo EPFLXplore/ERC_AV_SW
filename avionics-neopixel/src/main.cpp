@@ -6,65 +6,90 @@
 
 #include "LEDStrip.hpp"
 
-// ====== USER CONFIG ======
-constexpr int LED_PIN   = 26;
-constexpr int NUM_LEDS  = 96;
+/**
+ * Left:
+ * System 0 = NAV
+ * System 1 = HD
+ * 
+ * Right:
+ * System 2 = DRILL
+ * System 3 = Avionics
+ * 
+ * LOOK AT CUSTOM MSG FOR MORE INFO (Wrote everything there for sanity checks with CS)
+ * 
+ */
+
+constexpr int LED_PIN_LEFT   = 26;
+constexpr int LED_PIN_RIGHT   = 13;
+constexpr int NUM_LEDS  = 34;
 constexpr uint32_t BAUD = 115200;
 constexpr size_t  QUEUE_DEPTH = 16;
-// =========================
 
-// ====== CMD EXAMPLES ======
-// 0 100 2 4 - Brown drill, full strip, chasing leds
-// 0 100 1 4 - HD red, full strip, chasing leds
-// 0 100 2 0 - Brown drill, full strip, solid colour
-// 0 100 2 3 - Brown drill, full strip, breathing fade
-// 0 100 2 5 - Brown drill, full strip, off
-// 0 100 0 3 - NAV violet, full strip, breathing fade
-
-LEDStrip strip(LED_PIN, NUM_LEDS);
+LEDStrip strip_left(LED_PIN_LEFT, NUM_LEDS);
+LEDStrip strip_right(LED_PIN_RIGHT, NUM_LEDS);
 QueueHandle_t cmdQueue;
 
-// ---------- Serial parser ----------
 void serialHandler() {
     if (!Serial.available()) return;
     char buf[64];
     int len = Serial.readBytesUntil('\n', buf, sizeof(buf) - 1);
     buf[len] = '\0';
     
-
     int low, high, system, mode;
+
     if (sscanf(buf, "%d %d %d %d", &low, &high, &system, &mode) == 4) {
         Command cmd;
-        cmd.system        = constrain(system, 0, 2);
+        cmd.system        = constrain(system, 0, 3);
         cmd.mode          = constrain(mode,   0, 6);
-        cmd.segment.low   = constrain(low,  0, 100);
-        cmd.segment.high  = constrain(high, 0, 100);       
 
         switch (cmd.system) {
-            case 0: cmd.segment.r = 127; cmd.segment.g = 0;   cmd.segment.b = 255; break; // NAV violet
-            case 1: cmd.segment.r = 153; cmd.segment.g = 0;   cmd.segment.b = 0;   break; // HD red
-            case 2: cmd.segment.r = 102; cmd.segment.g = 51;  cmd.segment.b = 0;   break; // Drill brown
+            case 0: cmd.segment.r = 147; cmd.segment.g = 0;   cmd.segment.b = 211; cmd.segment.low = 0, cmd.segment.high= 50; break; // NAV - Pink
+            case 1: cmd.segment.r = 255; cmd.segment.g = 140; cmd.segment.b = 0;   cmd.segment.low = 51, cmd.segment.high=100; break; // HD - Yellow
+            case 2: cmd.segment.r = 0;   cmd.segment.g = 255; cmd.segment.b = 0;   cmd.segment.low = 0, cmd.segment.high=50; break; // DRILL - Green
+            case 3: cmd.segment.r = 20; cmd.segment.g = 56; cmd.segment.b = 50; cmd.segment.low = 51, cmd.segment.high=100; break; // Avionics - Turquoise
         }
+
         xQueueSend(cmdQueue, &cmd, 0);
     } else {
-        //Serial.println(F("[ERR] bad format (low high system mode)"));
-        // flush bad input
         while (Serial.available() && Serial.read() != '\n');
     }
 }
 
-
-// ---------- Command processor task ----------
 void commandTask(void* pv) {
-    strip.begin();
+    strip_left.begin();
+    strip_right.begin();
     Command cmd;
     TickType_t delayTicks = 1 / portTICK_PERIOD_MS;
     for (;;) {
         
         while (xQueueReceive(cmdQueue, &cmd, 0) == pdTRUE) {
-            strip.applyCommand(cmd);
+            //emergency motors
+            if(cmd.mode == 4){
+                cmd.segment.r = 255; cmd.segment.g = 165; cmd.segment.b = 0; cmd.segment.low = 0, cmd.segment.high= 100;
+                strip_left.applyCommand(cmd);
+                strip_right.applyCommand(cmd);
+            } 
+
+            //emergency shutdown
+            if(cmd.mode == 5){
+                cmd.segment.r = 255; cmd.segment.g = 0;   cmd.segment.b = 0; cmd.segment.low = 0, cmd.segment.high= 100;
+                strip_left.applyCommand(cmd);
+                strip_right.applyCommand(cmd);
+            }
+
+            //all off
+            if(cmd.mode == 6){
+                strip_left.applyCommand(cmd);
+                strip_right.applyCommand(cmd);
+            }
+
+            if(cmd.system == 0 || cmd.system == 1)
+                strip_left.applyCommand(cmd);
+            else
+                strip_right.applyCommand(cmd);
         }
-        strip.tick();                // advance animations
+        strip_left.tick();           // advance animations
+        strip_right.tick();          // advance animations
         vTaskDelay(delayTicks);      // yield
     }
 }
